@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import numpy as np
 from cvrpGraph import cvrpGraph
 from GraphAdjList import Graph
 
@@ -17,6 +18,7 @@ def createGraph(files):
         i = 0
         for d in data[0]:
             line = d.split(':')
+            line[0] = line[0].strip()
             if line[0] == "NAME":
                 print((line[1]))
                 g.setName(line[1].strip())
@@ -32,6 +34,7 @@ def createGraph(files):
                         "Your input data are not suitable for this algo, please input a TSP format")
             if line[0] == "DIMENSION":
                 dimension = int(line[1])
+                g.setDimension(int(line[1].strip()))
                 print(dimension)
             if line[0] == "EDGE_WEIGHT_TYPE":
                 w_type = (line[1]).strip()
@@ -52,7 +55,7 @@ def createGraph(files):
             if line[0] == "EDGE_WEIGHT_SECTION":
                 if w_type == "EXPLICIT":
                     print("cacca")
-                    #parse_w_matrix(g, w_format, data)
+                    # parse_w_matrix(g, w_format, data)
             if line[0] == "EOF:":
                 break
             i += 1
@@ -61,30 +64,31 @@ def createGraph(files):
 def parse_euc2d(graph, data, index):
 
     dimension = graph.getDimension()
-    temp_vertex = [dimension] * dimension
+    appoVertex = dict()
 
-    while len(data[0][index+1].split()) < 2:
+    while len(data[0][index+1].split()) > 1:
 
         toSplit = data[0][index].split()
+        appoVertex[(toSplit[0])] = [(toSplit[1]), (toSplit[2])]
         index += 1
 
-    #     words = deque(line.split())
-    #     vertex_name = words.popleft()
-    #     if vertex_name == str(i):
-    #         x = float(words.popleft())
-    #         y = float(words.popleft())
-    #         temp_vertex[int(vertex_name)-1] = [x, y]
-    #         i += 1
-    #     else:
-    #         break
-    # # creating vertex
+    couples = [(appoVertex[a], appoVertex[b])
+               for a in appoVertex for b in appoVertex if appoVertex[a] != appoVertex[b]]
+
+    i=1
+    for couple in couples:
+        weight = np.sqrt(((float(couple[0][0]) - float(couple[1][0]))**2)) + (float(couple[0][1]) - float(couple[1][1])**2)
+        graph.addEdge(i,i+1, weight)
+        i = i + 2 
+       
+
+    # creating vertex
     # for i in range(dimension):
-    #     p = temp_vertex[i]
+    #     p = appoVertex[i]
     #     for j in range(dimension):
     #         if i != j:
-    #             q = temp_vertex[j]
-    #             dist = sqrt(((p[0] - q[0])**2) + (p[1] - q[1])**2)
-    #             graph.add_edge(i, j, dist)
+    #             q = appoVertex[j]
+    # graph.add_edge(i, j, lambda p, q: sqr((p[0] - q[0])**2) + (p[1] - q[1])**2))
 
 
 def parse_w_matrix(graph, format, data):
@@ -96,8 +100,7 @@ def parse_w_matrix(graph, format, data):
     for d in data[0]:
         line = d.split()
         keyword = line[1]
-        if keyword == "DEMAND_SECTION" or \
-           keyword == "DISPLAY_DATA_SECTION":
+        if keyword == "DEMAND_SECTION" or keyword == "DISPLAY_DATA_SECTION":
             break
         row = [float(el) for el in line.split()]
         matrix_temp += row
