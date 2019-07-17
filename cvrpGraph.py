@@ -8,8 +8,8 @@ class cvrpGraph:
     def __init__(self):
         self.name = None
         self.dimension = 0
-        self.adjMatrix = None # The graph is modeled with a matrix
-        self.capacity = None  # The loading capacity setted by the cvrp files
+        self.adjMatrix = None  # The graph is modeled with a matrix
+        self.capacity = None  #  The loading capacity setted by the cvrp files
         self.comment = None
 
     def setCapacity(self, capacity):
@@ -18,10 +18,10 @@ class cvrpGraph:
     def getCapacity(self):
         return self.capacity
 
-    def setComment(self,comment):
+    def setComment(self, comment):
         self.comment = comment
-        
-    def getComment(self,comment):
+
+    def getComment(self, comment):
         self.comment = comment
 
     def setName(self, name):
@@ -43,8 +43,3 @@ class cvrpGraph:
     def addEdge(self, vertex_from, vertex_to, weight):
         self.adjMatrix[vertex_from][vertex_to] = weight
         self.adjMatrix[vertex_to][vertex_from] = weight
-
-
-
-
-

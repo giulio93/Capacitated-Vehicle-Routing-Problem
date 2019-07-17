@@ -69,17 +69,21 @@ def parse_euc2d(graph, data, index):
     while len(data[0][index+1].split()) > 1:
 
         toSplit = data[0][index].split()
-        appoVertex[(toSplit[0])] = [(toSplit[1]), (toSplit[2])]
+        appoVertex[int((toSplit[0]))] = [(toSplit[1]), (toSplit[2])]
         index += 1
 
-    couples = [(appoVertex[a], appoVertex[b])
-               for a in appoVertex for b in appoVertex if appoVertex[a] != appoVertex[b]]
+    # couples = [(appoVertex[a], appoVertex[b])
+    #            for a in appoVertex for b in appoVertex if appoVertex[a] != appoVertex[b]]
 
-    i=1
-    for couple in couples:
-        weight = np.sqrt(((float(couple[0][0]) - float(couple[1][0]))**2)) + (float(couple[0][1]) - float(couple[1][1])**2)
-        graph.addEdge(i,i+1, weight)
-        i = i + 2 
+    for i in range(dimension-1):
+        for j in range(dimension-1):
+            if i != j:
+                a = appoVertex[i+1]
+                b = appoVertex[j+1]
+                weight = np.sqrt(((float(a[0]) - float(b[0]))**2) + ((float(a[1]) - float(b[1]))**2))
+                graph.addEdge(i,j, weight)
+
+    print("Done")
        
 
     # creating vertex
