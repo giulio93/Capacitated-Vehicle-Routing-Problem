@@ -20,13 +20,13 @@ def createGraph(files):
             line = d.split(':')
             line[0] = line[0].strip()
             if line[0] == "NAME":
-                print((line[1]))
+                print("Instance Name: "+ (line[1]))
                 g.setName(line[1].strip())
             if line[0] == "CAPACITY":
-                print(int(line[1]))
-                g.setCapacity(line[1].strip())
+                print("Vehicle Capacity: " + (line[1]))
+                g.setCapacity(int(line[1].strip()))
             if line[0] == "COMMENT":
-                print((line[1]))
+                print("Comment: " + (line[1]))
                 g.setComment(line[1])
             if line[0] == "TYPE":
                 if "CVRP" != line[1]:
@@ -35,7 +35,7 @@ def createGraph(files):
             if line[0] == "DIMENSION":
                 dimension = int(line[1])
                 g.setDimension(int(line[1].strip()))
-                print(dimension)
+                print("Dimension: " + str(dimension))
             if line[0] == "EDGE_WEIGHT_TYPE":
                 w_type = (line[1]).strip()
 
@@ -47,21 +47,22 @@ def createGraph(files):
 
             if line[0] == "NODE_COORD_SECTION":
                 if w_type == "EUC_2D":
-                    print(w_type)
-                    parse_euc2d(g, data, i+1)
+                    print("Edge are expressed: " + w_type)
+                    parseEUC2(g, data, i+1)
                 if w_type == "GEO":
-                    print(w_type)
+                    print("Edge are expressed: " + w_type)
                     # arse_geo(g, tspfile)
             if line[0] == "EDGE_WEIGHT_SECTION":
                 if w_type == "EXPLICIT":
-                    print("cacca")
+                    print("Edge are expressed:" + w_type)
                     # parse_w_matrix(g, w_format, data)
-            if line[0] == "EOF:":
+            if line[0] == "EOF":
+                print("============================================================================")
                 break
             i += 1
 
 
-def parse_euc2d(graph, data, index):
+def parseEUC2 (graph, data, index):
 
     dimension = graph.getDimension()
     appoVertex = dict()
@@ -72,9 +73,6 @@ def parse_euc2d(graph, data, index):
         appoVertex[int((toSplit[0]))] = [(toSplit[1]), (toSplit[2])]
         index += 1
 
-    # couples = [(appoVertex[a], appoVertex[b])
-    #            for a in appoVertex for b in appoVertex if appoVertex[a] != appoVertex[b]]
-
     for i in range(dimension-1):
         for j in range(dimension-1):
             if i != j:
@@ -83,16 +81,9 @@ def parse_euc2d(graph, data, index):
                 weight = np.sqrt(((float(a[0]) - float(b[0]))**2) + ((float(a[1]) - float(b[1]))**2))
                 graph.addEdge(i,j, weight)
 
-    print("Done")
+    print("EUC2  Done")
        
 
-    # creating vertex
-    # for i in range(dimension):
-    #     p = appoVertex[i]
-    #     for j in range(dimension):
-    #         if i != j:
-    #             q = appoVertex[j]
-    # graph.add_edge(i, j, lambda p, q: sqr((p[0] - q[0])**2) + (p[1] - q[1])**2))
 
 
 def parse_w_matrix(graph, format, data):
