@@ -33,7 +33,7 @@ def createGraph(files):
                     print(
                         "Your input data are not suitable for this algo, please input a TSP format")
             if line[0] == "DIMENSION":
-                dimension = int(line[1])
+                dimension = int(line[1]) -1
                 g.setDimension(int(line[1].strip()))
                 print("Dimension: " + str(dimension))
             if line[0] == "EDGE_WEIGHT_TYPE":
@@ -51,11 +51,11 @@ def createGraph(files):
                     parseEUC2(g, data, i+1)
                 if w_type == "GEO":
                     print("Edge are expressed: " + w_type)
-                    # arse_geo(g, tspfile)
+                    parseGEO(g, data ,i+1)
             if line[0] == "EDGE_WEIGHT_SECTION":
                 if w_type == "EXPLICIT":
                     print("Edge are expressed:" + w_type)
-                    # parse_w_matrix(g, w_format, data)
+                    parseMatrix(g, w_format, data,i+1)
             if line[0] == "EOF":
                 print("============================================================================")
                 break
@@ -74,9 +74,9 @@ def parseEUC2 (graph, data, index):
         index += 1
 
     for i in range(dimension-1):
+        a = appoVertex[i+1]
         for j in range(dimension-1):
-            if i != j:
-                a = appoVertex[i+1]
+            if i != j:             
                 b = appoVertex[j+1]
                 weight = np.sqrt(((float(a[0]) - float(b[0]))**2) + ((float(a[1]) - float(b[1]))**2))
                 graph.addEdge(i,j, weight)
@@ -85,10 +85,45 @@ def parseEUC2 (graph, data, index):
        
 
 
+def parseGEO(graph,data, index):
 
-def parse_w_matrix(graph, format, data):
+    dimension = graph.getDimension()
+    appoVertex = dict()
 
-    print("debug")
+    while len(data[0][index+1].split()) > 1:
+
+        toSplit = data[0][index].split()
+        appoVertex[int((toSplit[0]))] = [(toSplit[1]), (toSplit[2])]
+        index += 1
+
+    for i in range(dimension-1):
+        a = appoVertex[i+1]
+        degrees = int(float(a[0]))
+        minutes = float(a[0]) - degrees
+        latitudeA = np.pi * (degrees + 0.5 * minutes / 0.3) / 180.0
+        degrees = int(float(a[1]))
+        minutes = float(a[1]) - degrees
+        longitudeA = np.pi * (degrees + 0.5 * minutes / 0.3) / 180.0
+        for j in range(dimension-1):
+            if i != j:
+                b = appoVertex[j+1]
+                degrees = int(float(b[0]))
+                minutes = float(b[0]) - degrees
+                latitudeB = np.pi * (degrees + 0.5 * minutes / 0.3) / 180.0
+                degrees = int(float(a[1]))
+                minutes = float(b[1]) - degrees
+                longitudeB = np.pi * (degrees + 0.5 * minutes / 0.3) / 180.0                     
+                RRR = 6378.388
+                q1 = np.cos(longitudeA - longitudeB)
+                q2 = np.cos(latitudeA - latitudeB)
+                q3 = np.cos(latitudeA + latitudeB)
+                dij = int(RRR * np.arccos(0.5 * ((0.1 + q1) * q2 - (1.0 - q1) * q3)) +1.0)
+                graph.addEdge(i, j, dij)
+
+
+
+def parseMatrix(graph, format, data,index):
+
     dimension = graph.getDimension()
     matrix_temp = []
 
@@ -116,44 +151,3 @@ def parse_w_matrix(graph, format, data):
     #     for j in range(dimension):
     #         graph.add_edge(i, j, float(matrix[i][j]))
 
-
-def parse_geo(graph, tspfile):
-
-    dimension = graph.get_dimension()
-    # temp_vertex = [None] * dimension
-    # i = 1
-    # for line in tspfile:
-    #     words = deque(line.split())
-    #     vertex_name = words.popleft()
-    #     if vertex_name == str(i):
-    #         x = float(words.popleft())
-    #         y = float(words.popleft())
-    #         temp_vertex[int(vertex_name)-1] = [x, y]
-    #         i += 1
-    #     else:
-    #         break
-    # # creating vertex
-    # for i in range(dimension):
-    #     p = temp_vertex[i]
-    #     deg = int(p[0])
-    #     min = p[0] - deg
-    #     latitude_p = pi * (deg + 0.5 * min / 0.3) / 180.0
-    #     deg = int(p[1])
-    #     min = p[1] - deg
-    #     longitude_p = pi * (deg + 0.5 * min / 0.3) / 180.0
-    #     for j in range(dimension):
-    #         q = temp_vertex[j]
-    #         deg = int(q[0])
-    #         min = q[0] - deg
-    #         latitude_q = pi * (deg + 0.5 * min / 0.3) / 180.0
-    #         deg = int(q[1])
-    #         min = q[1] - deg
-    #         longitude_q = pi * (deg + 0.5 * min / 0.3) / 180.0
-
-    #         RRR = 6378.388
-    #         q1 = cos(longitude_p - longitude_q)
-    #         q2 = cos(latitude_p - latitude_q)
-    #         q3 = cos(latitude_p + latitude_q)
-    #         dij = int(RRR * acos(0.5 * ((0.1 + q1) * q2 - (1.0 - q1) * q3)) +
-    #                   1.0)
-    #         graph.add_edge(i, j, dij)
