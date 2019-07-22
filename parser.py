@@ -29,12 +29,12 @@ def createGraph(files):
                 print("Comment: " + (line[1]))
                 g.setComment(line[1])
             if line[0] == "TYPE":
-                if "CVRP" != line[1]:
+                if "CVRP" != line[1].strip():
                     print(
                         "Your input data are not suitable for this algo, please input a TSP format")
             if line[0] == "DIMENSION":
-                dimension = int(line[1]) -1
-                g.setDimension(int(line[1].strip()))
+                dimension = int(line[1].strip())
+                g.setDimension(dimension)
                 print("Dimension: " + str(dimension))
             if line[0] == "EDGE_WEIGHT_TYPE":
                 w_type = (line[1]).strip()
@@ -67,7 +67,7 @@ def parseEUC2 (graph, data, index):
     dimension = graph.getDimension()
     appoVertex = dict()
 
-    while len(data[0][index+1].split()) > 1:
+    while len(data[0][index].split()) > 1:
 
         toSplit = data[0][index].split()
         appoVertex[int((toSplit[0]))] = [(toSplit[1]), (toSplit[2])]
@@ -90,7 +90,7 @@ def parseGEO(graph,data, index):
     dimension = graph.getDimension()
     appoVertex = dict()
 
-    while len(data[0][index+1].split()) > 1:
+    while len(data[0][index].split()) > 1:
 
         toSplit = data[0][index].split()
         appoVertex[int((toSplit[0]))] = [(toSplit[1]), (toSplit[2])]
@@ -125,29 +125,30 @@ def parseGEO(graph,data, index):
 def parseMatrix(graph, format, data,index):
 
     dimension = graph.getDimension()
-    matrix_temp = []
+    appoMatrix = []
 
-    for d in data[0]:
-        line = d.split()
-        keyword = line[1]
-        if keyword == "DEMAND_SECTION" or keyword == "DISPLAY_DATA_SECTION":
-            break
-        row = [float(el) for el in line.split()]
-        matrix_temp += row
-    # matrix_temp = np.array(matrix_temp)
-    # matrix = np.zeros((dimension, dimension))
-    # if format == "FULL_MATRIX":
-    #     matrix = matrix_temp.reshape((dimension, dimension))
+    while (data[0][index].split()[0].strip() != ("DEMAND_SECTION") 
+            and data[0][index].split()[0].strip() != ("DISPLAY_DATA_SECTION")):
+        
+        row = data[0][index]
+        appoMatrix += ([float(weight) for weight in row.split()])
+        index += 1
 
-    # elif format == "LOWER_DIAG_ROW":
-    #     indices = np.tril_indices(dimension)
-    #     matrix[indices] = matrix_temp
+    appoMatrix = np.array(appoMatrix)
+    graphMatrix = np.zeros((dimension, dimension))
+    if format == "FULL_MATRIX":
+        graphMatrix = appoMatrix.reshape((dimension, dimension))
 
-    # elif format == "UPPER_ROW":
-    #     indices = np.triu_indices(dimension, 1)
-    #     matrix[indices] = matrix_temp
+    elif format == "LOWER_DIAG_ROW":
+        indices = np.tril_indices(dimension)
+        
+        graphMatrix[indices] = appoMatrix
 
-    # for i in range(dimension):
-    #     for j in range(dimension):
-    #         graph.add_edge(i, j, float(matrix[i][j]))
+    elif format == "UPPER_ROW":
+        indices = np.triu_indices(dimension, 1)
+        graphMatrix[indices] = appoMatrix
+
+    for i in range(dimension):
+        for j in range(dimension):
+            graph.addEdge(i, j, float(graphMatrix[i][j]))
 
