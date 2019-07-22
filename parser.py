@@ -33,7 +33,7 @@ def createGraph(files):
                     print(
                         "Your input data are not suitable for this algo, please input a TSP format")
             if line[0] == "DIMENSION":
-                dimension = int(line[1].strip())
+                dimension = int(line[1].strip()) 
                 g.setDimension(dimension)
                 print("Dimension: " + str(dimension))
             if line[0] == "EDGE_WEIGHT_TYPE":
@@ -73,9 +73,9 @@ def parseEUC2 (graph, data, index):
         appoVertex[int((toSplit[0]))] = [(toSplit[1]), (toSplit[2])]
         index += 1
 
-    for i in range(dimension-1):
+    for i in range(dimension):
         a = appoVertex[i+1]
-        for j in range(dimension-1):
+        for j in range(dimension):
             if i != j:             
                 b = appoVertex[j+1]
                 weight = np.sqrt(((float(a[0]) - float(b[0]))**2) + ((float(a[1]) - float(b[1]))**2))
@@ -96,7 +96,7 @@ def parseGEO(graph,data, index):
         appoVertex[int((toSplit[0]))] = [(toSplit[1]), (toSplit[2])]
         index += 1
 
-    for i in range(dimension-1):
+    for i in range(dimension):
         a = appoVertex[i+1]
         degrees = int(float(a[0]))
         minutes = float(a[0]) - degrees
@@ -104,7 +104,7 @@ def parseGEO(graph,data, index):
         degrees = int(float(a[1]))
         minutes = float(a[1]) - degrees
         longitudeA = np.pi * (degrees + 0.5 * minutes / 0.3) / 180.0
-        for j in range(dimension-1):
+        for j in range(dimension):
             if i != j:
                 b = appoVertex[j+1]
                 degrees = int(float(b[0]))
