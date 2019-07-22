@@ -19,23 +19,29 @@ def createGraph(files):
         for d in data[0]:
             line = d.split(':')
             line[0] = line[0].strip()
+
             if line[0] == "NAME":
                 print("Instance Name: "+ (line[1]))
                 g.setName(line[1].strip())
+
             if line[0] == "CAPACITY":
                 print("Vehicle Capacity: " + (line[1]))
                 g.setCapacity(int(line[1].strip()))
+
             if line[0] == "COMMENT":
                 print("Comment: " + (line[1]))
                 g.setComment(line[1])
+
             if line[0] == "TYPE":
                 if "CVRP" != line[1].strip():
                     print(
                         "Your input data are not suitable for this algo, please input a TSP format")
+
             if line[0] == "DIMENSION":
                 dimension = int(line[1].strip()) 
                 g.setDimension(dimension)
                 print("Dimension: " + str(dimension))
+
             if line[0] == "EDGE_WEIGHT_TYPE":
                 w_type = (line[1]).strip()
 
@@ -44,23 +50,57 @@ def createGraph(files):
 
             if line[0] == "NODE_COORD_TYPE":
                 n_c_type = (line[1]).strip()
+            
+            if line[0] == "DEMAND_SECTION":
+                initDemand(g,data,i+1)
+            
+            if line[0] == "DEPOT_SECTION":
+                initDepot(g,data,i+1)
 
             if line[0] == "NODE_COORD_SECTION":
                 if w_type == "EUC_2D":
                     print("Edge are expressed: " + w_type)
                     parseEUC2(g, data, i+1)
+
                 if w_type == "GEO":
                     print("Edge are expressed: " + w_type)
                     parseGEO(g, data ,i+1)
+
             if line[0] == "EDGE_WEIGHT_SECTION":
+
                 if w_type == "EXPLICIT":
                     print("Edge are expressed:" + w_type)
                     parseMatrix(g, w_format, data,i+1)
+
             if line[0] == "EOF":
                 print("============================================================================")
                 break
             i += 1
 
+
+def initDemand(graph,data,index):
+    
+    dimension = graph.getDimension()
+    appoDemand = np.zeros(dimension)
+    while data[0][index] != "DEPOT_SECTION":
+
+        toSplit = data[0][index].split()
+        appoDemand[int((toSplit[0]))-1] += int((toSplit[1]))
+        index += 1
+
+    graph.setDemand(appoDemand)
+
+def initDepot(graph,data,index):
+    
+    dimension = graph.getDimension()
+    appoDepot = np.repeat(-1,dimension)
+    while data[0][index].strip() != '-1':
+
+        depot = int(data[0][index])
+        appoDepot[depot-1] += depot
+        index += 1
+
+    graph.setDepot(appoDepot)
 
 def parseEUC2 (graph, data, index):
 

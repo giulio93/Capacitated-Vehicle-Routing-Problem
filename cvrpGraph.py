@@ -11,6 +11,8 @@ class cvrpGraph:
         self.adjMatrix = None  # The graph is modeled with a matrix
         self.capacity = None  #  The loading capacity setted by the cvrp files
         self.comment = None
+        self.demand = []
+        self.depot = []
 
     def setCapacity(self, capacity):
         self.capacity = capacity
@@ -43,3 +45,17 @@ class cvrpGraph:
     def addEdge(self, vertex_from, vertex_to, weight):
         self.adjMatrix[vertex_from][vertex_to] = weight
         self.adjMatrix[vertex_to][vertex_from] = weight
+
+    def setDemand(self,demand):
+        self.demand = demand
+        
+    def getDemand(self):
+        return self.demand
+
+    def setDepot(self,depot):
+        self.depot = depot
+        
+    def getDepot(self):
+        return self.depot
+
+
