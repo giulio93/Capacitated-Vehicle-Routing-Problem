@@ -10,13 +10,13 @@ def readInstanceList(path):
     return files
 
 
-def createGraph(files):
+def createGraph(fileCVRP):
 
     g = cvrpGraph()
-    for f in files:
-        data = pd.read_csv('cvrp/'+f, sep="\n", header=None)
-        i = 0
-        for d in data[0]:
+    
+    data = pd.read_csv('cvrp/'+fileCVRP, sep="\n", header=None)
+    i = 0
+    for d in data[0]:
             line = d.split(':')
             line[0] = line[0].strip()
 
@@ -76,6 +76,7 @@ def createGraph(files):
                 print("============================================================================")
                 break
             i += 1
+    return g
 
 
 def initDemand(graph,data,index):

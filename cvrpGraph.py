@@ -32,7 +32,7 @@ class cvrpGraph:
     def getName(self):
         return self.name
 
-    def getValue(self, i, j):  # TODO cambia nome
+    def getValue(self, i, j):  
         return self.adjMatrix[i][j]
 
     def setDimension(self, dimension):
