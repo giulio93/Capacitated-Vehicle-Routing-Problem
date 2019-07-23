@@ -2,20 +2,20 @@
 class Route:
 
     def __init__(self,capacity):
-        self.capacity = capacity,
+        self.capacity = int(capacity),
         self.customers = []
-        self.payload = 0,
+        self.payload = 0
         self.cost = 0,
         self.savings =0
 
     def addCustomer(self,index, demand , onTop):
-
+        
         if(demand >  self.capacity):
             print("Customer demand too large")
             return -1
         else:    
-                tempPayload = self.payload + demand
-                if(tempPayload >  self.capacity):
+                tempPayload = int(self.payload + demand)
+                if(tempPayload >  self.capacity[0]):
                     print("Route Overloaded")
                     return -1
                 else:

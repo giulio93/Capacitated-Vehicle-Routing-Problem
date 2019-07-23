@@ -21,13 +21,13 @@ def ClarkeWright(graph):
     savings.sort(key=lambda x: x[0], reverse=True)
 
     routes = []
-    routeA = -1
-    routeB = -1
     for save in savings:
         i = save[1]
         j = save[2]
         customerI = -1
         customerJ = -1
+        routeA = -1
+        routeB = -1
 
         # no routes have been created yet
         if len(routes) == 0:
@@ -40,20 +40,19 @@ def ClarkeWright(graph):
             for route in routes:
                 if(-2< customerI < 0):
                     customerI = route.checkCustomer(i)
+                    routeA = route
                 if(-2< customerJ < 0):
                     customerJ = route.checkCustomer(j)
-                #check if i and j have been served by a single route
-                if(customerI >= 0 and customerJ == -1):
-                    routeA = route
-                elif(customerJ >=0 and customerI ==  -1):
                     routeB = route
+                #check if i and j have been served by a single route
+                  
             # case: i and j have not been served yet
             if(-2 < customerI < 0  and -2 < customerJ < 0):
                 r =  Route(graph.getCapacity())
-                control =  r.addCustomer(i,demand[i],False)
-                control =  r.addCustomer(j,demand[i],False)
+                control1 =  r.addCustomer(i,demand[i],False)
+                control2 =  r.addCustomer(j,demand[i],False)
                 # No constraint violated on the route
-                if(control != -1):
+                if(control1 != -1 and control2 != -1):
                     routes.append(r)
             #customer i is served but j not.
             if (customerI >= 0 and customerJ == -1):
@@ -77,18 +76,25 @@ def ClarkeWright(graph):
                         if(customerI == 0 and customerJ == 0):                     
                             for customer in routeA.getCustomers():
                                 routeB.addCustomer(customer,demand[customer],True)
+                            routes.remove(routeA)
+                        
                         #The edge that connect routeA to routeB resides in head of routeA and tail of routeB
                         if(customerI == 0 and customerJ > 0):                     
                             for customer in routeA.getCustomers():
                                 routeB.addCustomer(customer,demand[customer],False)
+                            routes.remove(routeA)
+       
                         #The edge that connect routeA to routeB resides in head of routeB and tail of routeA
                         if(customerI > 0 and customerJ == 0):                     
                             for customer in routeB.getCustomers():
                                 routeA.addCustomer(customer,demand[customer],False)
+                            routes.remove(routeB)
+
                         #The edge that connect routeA to routeB resides in their tails
                         if(customerI > 0 and customerJ > 0):                     
                             for customer in reversed(routeB.getCustomers()):
                                 routeA.addCustomer(customer,demand[customer],False)
+                            routes.remove(routeB)
                             
         #filize routing adding connection to the Depot
     for r in routes:
