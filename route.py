@@ -38,7 +38,7 @@ class Route:
             i = self.customer.index(index)
             if (0<i<len(self.customer)-1):
                 print("Customer: " + str(index) +" interior in the tour")
-                return -1
+                return -2
 
             else: 
                 return i #Yeah, it's the starting point or the end point
