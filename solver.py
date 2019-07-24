@@ -50,7 +50,7 @@ def ClarkeWright(graph):
             if(-2 < customerI < 0  and -2 < customerJ < 0):
                 r =  Route(graph.getCapacity())
                 control1 =  r.addCustomer(i,demand[i],False)
-                control2 =  r.addCustomer(j,demand[i],False)
+                control2 =  r.addCustomer(j,demand[j],False)
                 # No constraint violated on the route
                 if(control1 != -1 and control2 != -1):
                     routes.append(r)
