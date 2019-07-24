@@ -10,7 +10,7 @@ class Route:
 
     def addCustomer(self,index, demand , onTop):
         
-        if(demand >  self.capacity):
+        if(demand >  self.capacity[0]):
             print("Customer demand too large")
             return -1
         else:    
@@ -51,8 +51,12 @@ class Route:
         return self.payload
      
 
-    def printRoute(self):
-        print("Depot ")
+    def printRoute(self,name):
+        textRoute = "Route_"+str(name)+": "
+        print("Route:", end =" ")
         for c in  self.customers:
-            print(" - " + c )
-        print("Depot")
+            print(str(c), end="-" )
+            textRoute += str(c) + "-"
+        print("END")
+        textRoute += "END"
+        return textRoute

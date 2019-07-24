@@ -33,7 +33,7 @@ def ClarkeWright(graph):
         if len(routes) == 0:
             r =  Route(graph.getCapacity())
             r.addCustomer(i,demand[i],True)
-            r.addCustomer(j,demand[i],False)
+            r.addCustomer(j,demand[j],False)
             routes.append(r)
         else:
             #check if customer i and j have been already served
@@ -95,12 +95,16 @@ def ClarkeWright(graph):
                             for customer in reversed(routeB.getCustomers()):
                                 routeA.addCustomer(customer,demand[customer],False)
                             routes.remove(routeB)
-                            
-        #filize routing adding connection to the Depot
+
+            print("Savings number :" + str(savings.index(save)))    
+            savings.remove(save)                        
+    #filize routing adding connection to the Depot
+    f= open("Sol_"+graph.name+".txt","w+")
     for r in routes:
         r.addCustomer(0,0,True)
-        r.addCustomer(0,0,False)
-        r.printRoute()
+        r.addCustomer(0,0,False)        
+        appo = r.printRoute(routes.index(r))
+        f.write(appo+"\n")
 
 
 
