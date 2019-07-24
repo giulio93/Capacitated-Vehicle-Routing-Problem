@@ -31,10 +31,10 @@ def ClarkeWright(graph):
 
         # no routes have been created yet
         if len(routes) == 0:
-            r =  Route(graph.getCapacity())
-            r.addCustomer(i,demand[i],True)
-            r.addCustomer(j,demand[j],False)
-            routes.append(r)
+            firstRoute =  Route(graph.getCapacity())
+            firstRoute.addCustomer(i,demand[i],True)
+            firstRoute.addCustomer(j,demand[j],False)
+            routes.append(firstRoute)
         else:
             #check if customer i and j have been already served
             for route in routes:
@@ -48,12 +48,12 @@ def ClarkeWright(graph):
                   
             # case: i and j have not been served yet
             if(-2 < customerI < 0  and -2 < customerJ < 0):
-                r =  Route(graph.getCapacity())
-                control1 =  r.addCustomer(i,demand[i],False)
-                control2 =  r.addCustomer(j,demand[j],False)
+                newRoute =  Route(graph.getCapacity())
+                control1 =  newRoute.addCustomer(i,demand[i],False)
+                control2 =  newRoute.addCustomer(j,demand[j],False)
                 # No constraint violated on the route
                 if(control1 != -1 and control2 != -1):
-                    routes.append(r)
+                    routes.append(newRoute)
             #customer i is served but j not.
             if (customerI >= 0 and customerJ == -1):
                 if(customerI == 0):
@@ -97,14 +97,27 @@ def ClarkeWright(graph):
                             routes.remove(routeB)
 
             print("Savings number :" + str(savings.index(save)))    
-            savings.remove(save)                        
-    #filize routing adding connection to the Depot
+            savings.remove(save) 
+   
+    #Finile routing adding connection to the Depot, print Route path and cost in a file
+    routeCost = 0  
+    routedNodesControl = 0
     f= open("Sol_"+graph.name+".txt","w+")
-    for r in routes:
-        r.addCustomer(0,0,True)
-        r.addCustomer(0,0,False)        
-        appo = r.printRoute(routes.index(r))
+    f.write(str(graph.name)+"\n")
+    f.write(str(graph.dimension)+"\n")
+    
+    for fianlRoute in routes:
+        fianlRoute.addCustomer(0,0,True)
+        fianlRoute.addCustomer(0,0,False)        
+        appo = fianlRoute.printRoute(routes.index(r))
         f.write(appo+"\n")
+        for i in range(len(fianlRoute.getCustomers())-1):
+            routedNodesControl = routedNodesControl +1
+            routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
+    f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
+    f.write("Routing Total Cost: "+ str(routeCost)+"\n")
+
+        
 
 
 

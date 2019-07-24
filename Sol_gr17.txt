@@ -1,3 +1,7 @@
-Route_0: -0--2--10--4--1--9--14--0-END
-Route_1: -0--7--5--15--11--8--13--0-END
-Route_2: -0--3--12--16--6--0-END
+gr17
+17
+Route_0: 0-2-10-4-1-9-14-0-END
+Route_1: 0-7-5-15-11-8-13-0-END
+Route_2: 0-3-12-16-6-0-END
+Total Routed Nodes 11
+Routing Total Cost: 504.0
