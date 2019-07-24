@@ -1,0 +1,7 @@
+gr21
+21
+Route_0: 0-15-4-5-7-6-11-0-END
+Route_1: 0-17-12-13-14-1-2-8-0-END
+Route_2: 0-3-10-19-20-9-16-18-0-END
+Total Routed Nodes 21
+Routing Total Cost: 4018.0

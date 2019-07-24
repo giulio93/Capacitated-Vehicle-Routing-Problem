@@ -1,0 +1,7 @@
+fri26
+26
+Route_0: 0-3-5-4-6-7-8-9-10-12-11-0-END
+Route_1: 0-1-2-13-14-24-0-END
+Route_2: 0-15-18-19-17-16-20-21-25-22-23-0-END
+Total Routed Nodes 26
+Routing Total Cost: 1481.0

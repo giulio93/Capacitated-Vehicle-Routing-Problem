@@ -21,6 +21,11 @@ def ClarkeWright(graph):
     savings.sort(key=lambda x: x[0], reverse=True)
 
     routes = []
+    for x in range(1, dimension):
+        appoRoute =  Route(graph.getCapacity()) 
+        appoRoute.addCustomer(x,demand[x],False)
+        routes.append(appoRoute)
+
     for save in savings:
         i = save[1]
         j = save[2]
@@ -97,23 +102,40 @@ def ClarkeWright(graph):
                             routes.remove(routeB)
 
             print("Savings number :" + str(savings.index(save)))    
-            savings.remove(save) 
+            #savings.remove(save) 
+    
+    #If a node is has not been served yet, let's add a route just for it
+    for node in range(1,graph.getDimension() -1):
+        checked = False
+        for r in routes:
+            if node in r.getCustomers():
+                checked = True
+        if (checked == False):
+            adhocRoute =  Route(graph.getCapacity())
+            control1 =  adhocRoute.addCustomer(node,demand[node],False)
+            routes.append(adhocRoute)
+
+
+
    
     #Finile routing adding connection to the Depot, print Route path and cost in a file
     routeCost = 0  
-    routedNodesControl = 0
-    f= open("Sol_"+graph.name+".txt","w+")
+    routedNodesControl = 1
+    f= open("mysol/Sol_"+graph.name+".txt","w+")
     f.write(str(graph.name)+"\n")
     f.write(str(graph.dimension)+"\n")
     
     for fianlRoute in routes:
         fianlRoute.addCustomer(0,0,True)
         fianlRoute.addCustomer(0,0,False)        
-        appo = fianlRoute.printRoute(routes.index(r))
+        appo = fianlRoute.printRoute(routes.index(fianlRoute))
         f.write(appo+"\n")
         for i in range(len(fianlRoute.getCustomers())-1):
             routedNodesControl = routedNodesControl +1
             routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
+        routedNodesControl = routedNodesControl -1 
+
+          
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
     f.write("Routing Total Cost: "+ str(routeCost)+"\n")
 

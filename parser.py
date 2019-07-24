@@ -29,8 +29,8 @@ def createGraph(fileCVRP):
                 g.setCapacity(int(line[1].strip()))
 
             if line[0] == "COMMENT":
-                print("Comment: " + (line[1]))
-                g.setComment(line[1])
+                print("Comment: " + (line[1])+line[3].split(',')[0]+')')
+                g.setComment(line[1]+line[3].split(',')[0]+')')
 
             if line[0] == "TYPE":
                 if "CVRP" != line[1].strip():
