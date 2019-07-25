@@ -121,7 +121,7 @@ def ClarkeWright(graph):
     #Finile routing adding connection to the Depot, print Route path and cost in a file
     routeCost = 0  
     routedNodesControl = 1
-    f= open("mysol/Sol_"+graph.name+".txt","w+")
+    f= open("mysol/Sol_"+graph.getFileName()+".txt","w+")
     f.write(str(graph.name)+"\n")
     f.write(str(graph.dimension)+"\n")
     

@@ -13,7 +13,7 @@ def readInstanceList(path):
 def createGraph(fileCVRP):
 
     g = cvrpGraph()
-    
+    g.setFileName(fileCVRP)
     data = pd.read_csv('cvrp/'+fileCVRP, sep="\n", header=None)
     i = 0
     for d in data[0]:
@@ -181,15 +181,22 @@ def parseMatrix(graph, format, data,index):
         graphMatrix = appoMatrix.reshape((dimension, dimension))
 
     elif format == "LOWER_DIAG_ROW":
-        indices = np.tril_indices(dimension)
-        
+        indices = np.tril_indices(dimension)       
         graphMatrix[indices] = appoMatrix
 
     elif format == "UPPER_ROW":
         indices = np.triu_indices(dimension, 1)
         graphMatrix[indices] = appoMatrix
 
-    for i in range(dimension):
-        for j in range(dimension):
-            graph.addEdge(i, j, float(graphMatrix[i][j]))
+    if format != "FULL_MATRIX":
+        for i in (indices[0]):
+            for j in (indices[1]):
+                graph.addEdge(i, j, float(graphMatrix[i][j]))
+    else:
+        for i in range(dimension):
+            for j in range(dimension):
+                graph.addEdge(i, j, float(graphMatrix[i][j]))
+
+    
+    print("Done")
 

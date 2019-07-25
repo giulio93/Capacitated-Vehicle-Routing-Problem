@@ -7,12 +7,14 @@ class cvrpGraph:
 
     def __init__(self):
         self.name = None
+        self.filename = None
         self.dimension = 0
         self.adjMatrix = None  # The graph is modeled with a matrix
         self.capacity = None  #  The loading capacity setted by the cvrp files
         self.comment = None
         self.demand = []
         self.depot = []
+        
 
     def setCapacity(self, capacity):
         self.capacity = capacity
@@ -31,6 +33,12 @@ class cvrpGraph:
 
     def getName(self):
         return self.name
+    
+    def setFileName(self, filename):
+        self.filename = filename
+
+    def getFileName(self):
+        return self.filename
 
     def getValue(self, i, j):  
         return self.adjMatrix[i][j]
