@@ -139,6 +139,104 @@ def ClarkeWright(graph):
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
     f.write("Routing Total Cost: "+ str(routeCost)+"\n")
 
+
+def FisherJaikumar(graph,n_vehicles):
+
+    dimension = graph.getDimension()
+    capacity = graph.getCapacity()
+    demand = graph.getDemand()
+    depot = graph.getDepot()
+    maxCoverDistance = graph.getArgMaxDistance()
+    seeds = []
+    treshold = capacity/2
+    depotDistance = []
+    scaledown = 2
+    for c in range(dimension):
+        depotDistance.append(graph.getValue(0,c))
+
+    scannerRadius = depotDistance.copy()
+    appo =  depotDistance.copy()
+
+    #select K seeds
+    while len(seeds) < n_vehicles -1 or np.max(scannerRadius)==0:
+        candidates = []
+        if( sum(demand) != dimension-1):
+            for i in range(dimension):
+                if (demand[i] > capacity/scaledown):
+                    candidates.append(i)
+        else:
+            candidates = np.arange(dimension)
+
+        for c in sorted(candidates):           
+            if(depotDistance[c] >= np.max(scannerRadius)):
+                if len(seeds) == 0:
+                    seeds.append(c)
+                    scannerRadius[c] = 0
+                    #depotDistance[c] = 0
+                    maxCoverDistance = graph.getArgMaxNodeDistance(c)
+                    break
+                
+                add = True
+                for v in seeds:
+                    if(graph.getValue(c,v) < maxCoverDistance/100):                   
+                        add = False
+                    if(c in seeds):
+                        add = False
+                        continue
+
+                if(add == True): 
+                    if(len(seeds)< n_vehicles):      
+                        seeds.append(c)
+                        scannerRadius[c] = 0
+                        #depotDistance[c] = 0
+                        maxCoverDistance = graph.getArgMaxNodeDistance(c)
+                        break
+                else:
+                    if ( sum(demand) == dimension-1):
+                        if(c in seeds):
+                            continue
+                        else:
+                            scannerRadius[c] = 0
+                            #depotDistance[c] = 0
+                            continue
+
+        if ( sum(demand) != dimension-1):
+            print("Decrease Radious")
+            scannerRadius[np.argmax(scannerRadius)] = 0
+
+                    
+        scaledown = scaledown + 2
+        print(np.max(scannerRadius))
+
+    count = []
+    fromCenter = []
+    for s in seeds:
+        fromCenter.append(appo[s])
+        for v in seeds:
+            if s!=v:
+                count.append(graph.getValue(s,v))
+            
+
+
+    
+    print("Seeds demand: ")
+    [print(str(demand[s]), end=" - ") for s in seeds]
+    print('\n')
+    print("Graph Demand Distribution ==> Max : " + str(np.max(demand)) +" Min : " + str(np.min(demand[1:])))
+    print("Seeds Inter Distance      ==> Max : " + str(np.max(count)) +" Min : " + str(np.min(count)))
+    print("Graph Distribution        ==> Max : " + str(graph.getMaxInterNodesDistance()) +" Min : " + str(graph.getMinInterNodesDistance()))
+
+    print("Seeds Depot Distance      ==> Max : " + str(np.max(fromCenter)) +" Min : " + str(np.min(fromCenter)))
+    print("Node-Depot  Distance      ==> Max : " + str(np.max(appo)) +" Min : " + str(np.min(appo[1:])))
+
+
+    print("Done")
+
+
+
+
+
+
         
 
 

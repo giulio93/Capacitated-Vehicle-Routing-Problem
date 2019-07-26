@@ -66,4 +66,17 @@ class cvrpGraph:
     def getDepot(self):
         return self.depot
 
+    def getArgMaxDistance(self):
+        return np.argmax(self.adjMatrix)
+
+    def getArgMaxNodeDistance(self,node):
+        return np.max(self.adjMatrix[node])
+
+    def getMaxInterNodesDistance(self):
+        return np.max(self.adjMatrix[1:,1:])
+
+    def getMinInterNodesDistance(self):
+        indices = np.tril_indices(self.dimension-1,-1)
+        noDepotMat = self.adjMatrix[1:,1:]
+        return np.min(noDepotMat[indices])
 
