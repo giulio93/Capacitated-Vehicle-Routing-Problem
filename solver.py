@@ -237,7 +237,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
 
     return seeds
 
-def FisherJaikumar_AllocKcost(graph,k_clusters):
+def FisherJaikumar_GAPSolver(graph,k_clusters):
 
     dimension = graph.getDimension()
     n_cluster = len(k_clusters)
@@ -245,6 +245,7 @@ def FisherJaikumar_AllocKcost(graph,k_clusters):
     # demand = graph.getDemand()
     # depot = graph.getDepot()
     allocCosts =   np.zeros(shape=(dimension, n_cluster))
+    clusterAssignment = []
  
     for i in range(1,dimension):
         for k in k_clusters:
@@ -254,7 +255,33 @@ def FisherJaikumar_AllocKcost(graph,k_clusters):
            allocCosts[i][k_clusters.index(k)] = a_ik
     
     for alloc in allocCosts:
-        print(np.min(alloc))
+        clusterAssignment.append(np.argmin(alloc))
+        #Devo tenere conto che la capacità di un cluster non deve eccedere
+        #Ok, ma se i cluster non bastano? Se le route sono 6 ma i cluster sono 5?
+
+    return clusterAssignment
+
+def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters):
+
+    routes = []
+    capacity = graph.getCapacity()
+    demand = graph.getDemand()
+    depot = graph.getDepot()
+    for k in k_clusters:
+        cluster = []
+        for ca in  clusterAssignment:
+            if(ca == k ):
+                cluster.append(clusterAssignment.index(ca))
+
+    for x in (cluster):
+        appoRoute =  Route(graph.getCapacity()) 
+        appoRoute.addCustomer(x,demand[x],False)
+        routes.append(appoRoute)
+        
+
+
+
+    
 
 
 

@@ -16,7 +16,8 @@ if __name__ == "__main__":
     for f in files:
         graphToSolve =  par.createGraph(f)
         K_cluster = sol.FisherJaikumar_Kselector(graphToSolve,5)
-        sol.FisherJaikumar_AllocKcost(graphToSolve,K_cluster)
+        clustering = sol.FisherJaikumar_GAPsolver(graphToSolve,K_cluster)
+        sol.FisherJaikumar_Routing(graphToSolve,clustering)
     #graphToSolve =  par.createGraph('bayg-n29-k4.vrp')
     #sol.FisherJaikumar(graphToSolve,5)
 
