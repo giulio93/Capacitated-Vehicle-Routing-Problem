@@ -237,15 +237,16 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
 
     return seeds
 
-def FisherJaikumar_GAPSolver(graph,k_clusters):
+def FisherJaikumar_GAPsolver(graph,k_clusters):
 
     dimension = graph.getDimension()
     n_cluster = len(k_clusters)
-    # capacity = graph.getCapacity()
-    # demand = graph.getDemand()
+    capacity = graph.getCapacity()
+    demand = graph.getDemand()
     # depot = graph.getDepot()
     allocCosts =   np.zeros(shape=(dimension, n_cluster))
     clusterAssignment = []
+    cluster_demand = np.zeros(n_cluster)
  
     for i in range(1,dimension):
         for k in k_clusters:
@@ -253,9 +254,18 @@ def FisherJaikumar_GAPSolver(graph,k_clusters):
            b =  graph.getValue(0,k)+ graph.getValue(k,i)+graph.getValue(i,0)
            a_ik = min(a,b) - (graph.getValue(0,k) + graph.getValue(k,0))
            allocCosts[i][k_clusters.index(k)] = a_ik
-    
-    for alloc in allocCosts:
-        clusterAssignment.append(np.argmin(alloc))
+    0
+    i = 1
+    for alloc in allocCosts[1:]:
+        for k  in k_clusters:
+            if(cluster_demand[np.argmin(alloc)] + demand[i] < capacity):
+                cluster_demand[np.argmin(alloc)] += demand[i]
+                clusterAssignment.append(np.argmin(alloc))
+                i=i+1
+                break
+            else:
+                alloc[np.argmin(alloc)] = sum(alloc)
+                print("Cluster Overloaded")
         #Devo tenere conto che la capacità di un cluster non deve eccedere
         #Ok, ma se i cluster non bastano? Se le route sono 6 ma i cluster sono 5?
 

@@ -17,7 +17,7 @@ if __name__ == "__main__":
         graphToSolve =  par.createGraph(f)
         K_cluster = sol.FisherJaikumar_Kselector(graphToSolve,5)
         clustering = sol.FisherJaikumar_GAPsolver(graphToSolve,K_cluster)
-        sol.FisherJaikumar_Routing(graphToSolve,clustering)
+        sol.FisherJaikumar_Routing(graphToSolve,clustering,K_cluster)
     #graphToSolve =  par.createGraph('bayg-n29-k4.vrp')
     #sol.FisherJaikumar(graphToSolve,5)
 
