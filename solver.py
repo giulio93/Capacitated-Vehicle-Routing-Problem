@@ -140,7 +140,7 @@ def ClarkeWright(graph):
     f.write("Routing Total Cost: "+ str(routeCost)+"\n")
 
 
-def FisherJaikumar(graph,n_vehicles):
+def FisherJaikumar_Kselector(graph,n_vehicles):
 
     dimension = graph.getDimension()
     capacity = graph.getCapacity()
@@ -158,7 +158,7 @@ def FisherJaikumar(graph,n_vehicles):
     appo =  depotDistance.copy()
 
     #select K seeds
-    while len(seeds) < n_vehicles -1 or np.max(scannerRadius)==0:
+    while len(seeds) < n_vehicles  or np.max(scannerRadius)==0:
         candidates = []
         if( sum(demand) != dimension-1):
             for i in range(dimension):
@@ -178,7 +178,7 @@ def FisherJaikumar(graph,n_vehicles):
                 
                 add = True
                 for v in seeds:
-                    if(graph.getValue(c,v) < maxCoverDistance/100):                   
+                    if(graph.getValue(c,v) < maxCoverDistance/3):                   
                         add = False
                     if(c in seeds):
                         add = False
@@ -205,7 +205,7 @@ def FisherJaikumar(graph,n_vehicles):
             scannerRadius[np.argmax(scannerRadius)] = 0
 
                     
-        scaledown = scaledown + 2
+        scaledown = scaledown + 0.5
         print(np.max(scannerRadius))
 
     count = []
@@ -218,11 +218,13 @@ def FisherJaikumar(graph,n_vehicles):
             
 
 
-    
-    print("Seeds demand: ")
-    [print(str(demand[s]), end=" - ") for s in seeds]
-    print('\n')
-    print("Graph Demand Distribution ==> Max : " + str(np.max(demand)) +" Min : " + str(np.min(demand[1:])))
+    if ( sum(demand) != dimension-1):
+            print("\n")
+            print("Seeds demand: ")
+            [print(str(demand[s]), end=" - ") for s in seeds]
+            print('\n')
+            print("Graph Demand Distribution ==> Max : " + str(np.max(demand)) +" Min : " + str(np.min(demand[1:])))
+            print('\n')
     print("Seeds Inter Distance      ==> Max : " + str(np.max(count)) +" Min : " + str(np.min(count)))
     print("Graph Distribution        ==> Max : " + str(graph.getMaxInterNodesDistance()) +" Min : " + str(graph.getMinInterNodesDistance()))
 
@@ -231,7 +233,28 @@ def FisherJaikumar(graph,n_vehicles):
 
 
     print("Done")
+    print("==========================================================================================")
 
+    return seeds
+
+def FisherJaikumar_AllocKcost(graph,k_clusters):
+
+    dimension = graph.getDimension()
+    n_cluster = len(k_clusters)
+    # capacity = graph.getCapacity()
+    # demand = graph.getDemand()
+    # depot = graph.getDepot()
+    allocCosts =   np.zeros(shape=(dimension, n_cluster))
+ 
+    for i in range(1,dimension):
+        for k in k_clusters:
+           a =  graph.getValue(0,i)+ graph.getValue(i,k)+graph.getValue(k,0)
+           b =  graph.getValue(0,k)+ graph.getValue(k,i)+graph.getValue(i,0)
+           a_ik = min(a,b) - (graph.getValue(0,k) + graph.getValue(k,0))
+           allocCosts[i][k_clusters.index(k)] = a_ik
+    
+    for alloc in allocCosts:
+        print(np.min(alloc))
 
 
 

@@ -1,8 +1,12 @@
 # coding: utf-8
 
+
 import os
+import sys
+sys.path.append(os.getcwd()+'/Giulio/Capacitated-Vehicle-Routing-Problem')
 import parser as par
 import solver as sol
+
 
 if __name__ == "__main__":
 
@@ -11,7 +15,11 @@ if __name__ == "__main__":
     files = par.readInstanceList(path)
     for f in files:
         graphToSolve =  par.createGraph(f)
-        sol.FisherJaikumar(graphToSolve,5)
+        K_cluster = sol.FisherJaikumar_Kselector(graphToSolve,5)
+        sol.FisherJaikumar_AllocKcost(graphToSolve,K_cluster)
+    #graphToSolve =  par.createGraph('bayg-n29-k4.vrp')
+    #sol.FisherJaikumar(graphToSolve,5)
+
 
     #     sol.ClarkeWright(graphToSolve)
 
@@ -43,3 +51,6 @@ if __name__ == "__main__":
     
 
         
+
+
+

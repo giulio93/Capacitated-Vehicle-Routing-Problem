@@ -186,11 +186,13 @@ def parseMatrix(graph, format, data,index):
 
     elif format == "UPPER_ROW":
         indices = np.triu_indices(dimension, 1)
+        indices2 = np.tril_indices(dimension,-1)    
         graphMatrix[indices] = appoMatrix
+        graphMatrix[indices2] = appoMatrix
 
     if format != "FULL_MATRIX":
-        for i in (indices[0]):
-            for j in (indices[1]):
+        for i in range(dimension):
+            for j in range(dimension):
                 graph.addEdge(i, j, float(graphMatrix[i][j]))
     else:
         for i in range(dimension):
@@ -199,4 +201,6 @@ def parseMatrix(graph, format, data,index):
 
     
     print("Done")
+
+
 
