@@ -178,7 +178,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
                 
                 add = True
                 for v in seeds:
-                    if(graph.getValue(c,v) < maxCoverDistance/3):                   
+                    if(graph.getValue(c,v) < maxCoverDistance/5):                   
                         add = False
                     if(c in seeds):
                         add = False
@@ -250,22 +250,23 @@ def FisherJaikumar_GAPsolver(graph,k_clusters):
  
     for i in range(1,dimension):
         for k in k_clusters:
-           a =  graph.getValue(0,i)+ graph.getValue(i,k)+graph.getValue(k,0)
-           b =  graph.getValue(0,k)+ graph.getValue(k,i)+graph.getValue(i,0)
-           a_ik = min(a,b) - (graph.getValue(0,k) + graph.getValue(k,0))
-           allocCosts[i][k_clusters.index(k)] = a_ik
-    0
+            a =  graph.getValue(0,i)+ graph.getValue(i,k)+graph.getValue(k,0)
+            b =  graph.getValue(0,k)+ graph.getValue(k,i)+graph.getValue(i,0)
+            a_ik = min(a,b) - (graph.getValue(0,k) + graph.getValue(k,0))
+            allocCosts[i][k_clusters.index(k)] = a_ik
+    
     i = 1
     for alloc in allocCosts[1:]:
         for k  in k_clusters:
-            if(cluster_demand[np.argmin(alloc)] + demand[i] < capacity):
-                cluster_demand[np.argmin(alloc)] += demand[i]
-                clusterAssignment.append(np.argmin(alloc))
-                i=i+1
-                break
-            else:
-                alloc[np.argmin(alloc)] = sum(alloc)
-                print("Cluster Overloaded")
+                if(cluster_demand[np.argmin(alloc)] + demand[i] < capacity):
+                    cluster_demand[np.argmin(alloc)] += demand[i]
+                    clusterAssignment.append(np.argmin(alloc))
+                    i=i+1
+                    break
+                else:
+                    alloc[np.argmin(alloc)] = sum(alloc)
+                    print("Cluster Overloaded")
+
         #Devo tenere conto che la capacità di un cluster non deve eccedere
         #Ok, ma se i cluster non bastano? Se le route sono 6 ma i cluster sono 5?
 
@@ -277,16 +278,52 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters):
     capacity = graph.getCapacity()
     demand = graph.getDemand()
     depot = graph.getDepot()
-    for k in k_clusters:
+    for k in range(len(k_clusters)):
         cluster = []
-        for ca in  clusterAssignment:
-            if(ca == k ):
-                cluster.append(clusterAssignment.index(ca))
-
-    for x in (cluster):
+        for i in range(len(clusterAssignment)):
+            if(clusterAssignment[i] == k ):
+                cluster.append(i+1)
+        
+       
         appoRoute =  Route(graph.getCapacity()) 
-        appoRoute.addCustomer(x,demand[x],False)
+        appoRoute.addCustomer(0,0,False)
+
+        while(len(cluster)>0):
+            prevnode = appoRoute.getCustomers()[len(appoRoute.getCustomers())-1]
+            distPrevNode = graph.getValue(prevnode,[c for c in cluster if c not in appoRoute.getCustomers() ])
+            nearestN = cluster[np.argmin(distPrevNode)] 
+            if nearestN not in appoRoute.getCustomers():
+                appoRoute.addCustomer(nearestN,demand[nearestN],False)
+                cluster.remove(nearestN)
+    
+        appoRoute.addCustomer(0,0,False)
+        appoRoute.printRoute("Route cluster:" +str(k))
         routes.append(appoRoute)
+
+    
+    routeCost = 0  
+    routedNodesControl = 1
+    f= open("mysol_FJ/Sol_"+graph.getFileName()+".txt","w+")
+    f.write(str(graph.name)+"\n")
+    f.write(str(graph.dimension)+"\n")
+    
+    for fianlRoute in routes:
+            
+        appo = fianlRoute.printRoute(routes.index(fianlRoute))
+        f.write(appo+"\n")
+        for i in range(len(fianlRoute.getCustomers())-1):
+            routedNodesControl = routedNodesControl +1
+            routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
+        routedNodesControl = routedNodesControl -1
+    
+    f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
+    f.write("Routing Total Cost: "+ str(routeCost)+"\n") 
+
+
+    
+    
+
+
         
 
 

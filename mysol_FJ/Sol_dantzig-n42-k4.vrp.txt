@@ -1,0 +1,11 @@
+dantzig42
+42
+Route_0: 0-8-9-10-22-12-15-14-13-0-END
+Route_1: 0-1-2-3-4-6-7-16-17-18-19-0-END
+Route_2: 0-39-0-END
+Route_3: 0-40-41-38-37-25-26-27-20-21-0-END
+Route_4: 0-24-23-0-END
+Route_5: 0-36-34-33-30-29-31-32-28-5-35-0-END
+Route_6: 0-11-0-END
+Total Routed Nodes 42
+Routing Total Cost: 1942.0

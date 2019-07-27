@@ -72,6 +72,9 @@ class cvrpGraph:
     def getArgMaxNodeDistance(self,node):
         return np.max(self.adjMatrix[node])
 
+    def getArgMinNodeDistance(self,node):
+        return np.argmin(self.adjMatrix[node])
+
     def getMaxInterNodesDistance(self):
         return np.max(self.adjMatrix[1:,1:])
 
