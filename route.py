@@ -1,3 +1,4 @@
+import numpy as np
 
 class Route:
 
@@ -5,7 +6,7 @@ class Route:
         self.capacity = int(capacity),
         self.customers = []
         self.payload = 0
-        self.cost = 0,
+        self.cost = np.inf
         self.savings =0
 
     def addCustomer(self,index, demand , onTop):
@@ -49,6 +50,12 @@ class Route:
 
     def getPayload(self):
         return self.payload
+
+    def getCost(self):
+        return self.cost
+    
+    def setCost(self,cost):
+        self.cost = cost
      
 
     def printRoute(self,name):

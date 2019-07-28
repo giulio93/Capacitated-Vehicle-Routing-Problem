@@ -319,6 +319,66 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters):
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
     f.write("Routing Total Cost: "+ str(routeCost)+"\n") 
 
+def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters):
+
+    routes = []
+    capacity = graph.getCapacity()
+    demand = graph.getDemand()
+    depot = graph.getDepot()
+    dimension = graph.getDimension()
+    dist = np.zeros(dimension)
+    priorityQ =[]
+    
+    for k in range(len(k_clusters)):
+        cluster = []
+        for i in range(len(clusterAssignment)):
+            if(clusterAssignment[i] == k ):
+                cluster.append(i+1)
+
+        
+
+        for node in cluster:          
+            nodeRoute = Route(graph.getCapacity())
+            nodeRoute.addCustomer(0,demand[0],False)
+            nodeRoute.addCustomer(node,demand[node],False)
+            nodeRoute.setCost(graph.getValue(0,node))
+            priorityQ.append(nodeRoute)
+        
+        priorityQ.sort(key=lambda x: x.getCost(),reverse=True)
+        
+        while len(priorityQ) > 0 :
+            shortRoute = priorityQ.pop()
+
+
+            if(shortRoute.getCost == np.inf):
+                break
+
+            minRoot = np.inf
+            toAdd = 0
+            for v in range(dimension):
+                #index = v % (dimension) 
+                if(shortRoute.checkCustomer(v) == -1):
+                    #alt = dist[u] + graph.getValue(u,index)
+                    alt = shortRoute.getCost()
+                    if(alt < dist[v]):
+                        dist[v] = alt
+                        priorityQ.append(shortRoute)
+                    if(alt<minRoot):
+                        minRoot = alt
+                        toAdd = v
+
+            shortRoute.addCustomer(toAdd,demand[toAdd],False)
+
+
+            priorityQ.sort(key=lambda x: x.getCost(),reverse=True)
+
+
+      
+     
+  
+    print("Areo")
+
+
 
     
     
