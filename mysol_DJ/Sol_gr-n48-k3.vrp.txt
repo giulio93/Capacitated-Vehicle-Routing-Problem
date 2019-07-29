@@ -1,0 +1,12 @@
+gr48
+48
+Route_0: 0-17-36-39-34-41-38-0-END
+Route_1: 0-9-11-30-0-END
+Route_2: 0-42-44-1-19-37-29-22-33-45-46-0-END
+Route_3: 0-8-20-31-26-16-13-35-10-15-12-47-0-END
+Route_4: 0-24-2-18-3-40-43-0-END
+Route_5: 0-21-7-32-4-5-0-END
+Route_6: 0-25-14-23-27-6-28-0-END
+Total Routed Nodes 48
+Routing Total Cost: 10338.0
+Error of solution in Sol_gr-n48-k3.vrp.txt: 0.7273182957393484

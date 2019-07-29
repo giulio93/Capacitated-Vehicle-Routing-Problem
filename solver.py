@@ -321,7 +321,7 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters):
 
 def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters):
 
-    routes = []
+    finalRoutes = []
     capacity = graph.getCapacity()
     demand = graph.getDemand()
     depot = graph.getDepot()
@@ -331,6 +331,7 @@ def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters):
     
     for k in range(len(k_clusters)):
         cluster = []
+        routes =[]
         for i in range(len(clusterAssignment)):
             if(clusterAssignment[i] == k ):
                 cluster.append(i+1)
@@ -348,35 +349,56 @@ def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters):
         
         while len(priorityQ) > 0 :
             shortRoute = priorityQ.pop()
-
-
-            if(shortRoute.getCost == np.inf):
-                break
-
-            minRoot = np.inf
-            toAdd = 0
-            for v in range(dimension):
-                #index = v % (dimension) 
-                if(shortRoute.checkCustomer(v) == -1):
-                    #alt = dist[u] + graph.getValue(u,index)
-                    alt = shortRoute.getCost()
-                    if(alt < dist[v]):
-                        dist[v] = alt
-                        priorityQ.append(shortRoute)
-                    if(alt<minRoot):
-                        minRoot = alt
-                        toAdd = v
-
-            shortRoute.addCustomer(toAdd,demand[toAdd],False)
-
-
-            priorityQ.sort(key=lambda x: x.getCost(),reverse=True)
+          
+            prevNode = shortRoute.getCustomers()[len(shortRoute.getCustomers())-1]
+            appoCluster = []
+            for v in cluster:
+                if v!= prevNode:
+                    if(shortRoute.checkCustomer(v) == -1):
+                        appoCluster.append(v)
+            if len(appoCluster) > 0:
+                index,value = graph.getNearestNeighbours(prevNode,appoCluster)
+                costToAdd = shortRoute.getCost() + value
+                shortRoute.setCost(costToAdd)
+                shortRoute.addCustomer(appoCluster[index],demand[appoCluster[index]],False)
+                priorityQ.append(shortRoute)
+                priorityQ.sort(key=lambda x: x.getCost(),reverse=True)
+            else:
+                value = graph.getValue(prevNode,0)
+                costToAdd = shortRoute.getCost() + value
+                shortRoute.setCost(costToAdd)
+                shortRoute.addCustomer(0,0,False)               
+                routes.append(shortRoute)
 
 
       
      
   
-    print("Areo")
+        print("Areo")
+        routes.sort(key=lambda x: x.getCost(),reverse=True)
+        #a = np.argmin([r.getCost() for r in routes])
+        route = routes.pop()
+        route.printRoute("Route")
+
+        finalRoutes.append(route)
+    
+    routeCost = 0  
+    routedNodesControl = 1
+    f= open("mysol_DJ/Sol_"+graph.getFileName()+".txt","w+")
+    f.write(str(graph.name)+"\n")
+    f.write(str(graph.dimension)+"\n")
+    
+    for fianlRoute in finalRoutes:
+            
+        appo = fianlRoute.printRoute(finalRoutes.index(fianlRoute))
+        f.write(appo+"\n")
+        for i in range(len(fianlRoute.getCustomers())-1):
+            routedNodesControl = routedNodesControl +1
+            routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
+        routedNodesControl = routedNodesControl -1
+    
+    f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
+    f.write("Routing Total Cost: "+ str(routeCost)+"\n")
 
 
 

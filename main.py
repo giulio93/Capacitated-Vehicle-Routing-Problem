@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     #     sol.ClarkeWright(graphToSolve)
 
-    path='./mysol_FJ'
+    path='./mysol_DJ'
     mysol = par.readInstanceList(path)
     path2='./cvrp-sol'
     cvrp_sol = par.readInstanceList(path2)

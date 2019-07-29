@@ -82,4 +82,8 @@ class cvrpGraph:
         indices = np.tril_indices(self.dimension-1,-1)
         noDepotMat = self.adjMatrix[1:,1:]
         return np.min(noDepotMat[indices])
+    
+    def getNearestNeighbours(self,node, neighbours):
+        a = [(self.adjMatrix[node][n]) for n in neighbours]
+        return np.argmin(a),np.max(a) 
 
