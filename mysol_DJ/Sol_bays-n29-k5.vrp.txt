@@ -1,0 +1,12 @@
+bays29
+29
+Route_0: 0-9-3-12-5-11-0-END
+Route_1: 0-6-24-15-26-7-0-END
+Route_2: 0-21-10-18-23-0-END
+Route_3: 0-2-1-20-4-8-0-END
+Route_4: 0-25-28-0-END
+Route_5: 0-14-17-13-16-19-0-END
+Route_6: 0-22-27-0-END
+Total Routed Nodes 29
+Routing Total Cost: 4239.0
+Error of solution in Sol_bays-n29-k5.vrp.txt: 0.4306446169422882

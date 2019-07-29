@@ -85,5 +85,5 @@ class cvrpGraph:
     
     def getNearestNeighbours(self,node, neighbours):
         a = [(self.adjMatrix[node][n]) for n in neighbours]
-        return np.argmin(a),np.max(a) 
+        return np.argmin(a),np.min(a) 
 
