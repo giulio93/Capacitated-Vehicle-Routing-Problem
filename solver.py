@@ -337,7 +337,7 @@ def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters):
                 cluster.append(i+1)
 
         if len(cluster) < 1 :
-            break
+            continue
 
         for node in cluster:          
             nodeRoute = Route(graph.getCapacity())

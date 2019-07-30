@@ -9,3 +9,4 @@ Route_5: 0-36-34-33-30-29-31-32-28-5-35-0-END
 Route_6: 0-11-0-END
 Total Routed Nodes 42
 Routing Total Cost: 1942.0
+Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.7005253940455342Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.7005253940455342Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.7005253940455342

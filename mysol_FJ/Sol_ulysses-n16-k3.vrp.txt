@@ -9,4 +9,4 @@ Route_5: 0-6-0-END
 Route_6: 0-3-14-0-END
 Total Routed Nodes 16
 Routing Total Cost: 142868.0
-Error of solution in Sol_ulysses-n16-k3.vrp.txt: 3.6854256854256855
+Error of solution in Sol_ulysses-n16-k3.vrp.txt: 3.6854256854256855Error of solution in Sol_ulysses-n16-k3.vrp.txt: 3.6854256854256855Error of solution in Sol_ulysses-n16-k3.vrp.txt: 3.6854256854256855Error of solution in Sol_ulysses-n16-k3.vrp.txt: 3.6854256854256855
