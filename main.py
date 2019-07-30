@@ -17,16 +17,15 @@ if __name__ == "__main__":
         graphToSolve =  par.createGraph(f)
         K_cluster = sol.FisherJaikumar_Kselector(graphToSolve,7)
         GAPassignement = sol.FisherJaikumar_GAPsolver(graphToSolve,K_cluster)
-        #sol.FisherJaikumar_Routing(graphToSolve,GAPassignement,K_cluster)
+        sol.FisherJaikumar_Routing(graphToSolve,GAPassignement,K_cluster)
         sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignement,K_cluster)
 
-    #graphToSolve =  par.createGraph('bayg-n29-k4.vrp')
-    #sol.FisherJaikumar(graphToSolve,5)
-
-
-    #     sol.ClarkeWright(graphToSolve)
-
-    path='./mysol_DJ'
+    for f in files:
+        graphToSolve =  par.createGraph(f)
+        sol.ClarkeWright(graphToSolve)
+   
+       
+    path='./mysol'
     mysol = par.readInstanceList(path)
     path2='./cvrp-sol'
     cvrp_sol = par.readInstanceList(path2)

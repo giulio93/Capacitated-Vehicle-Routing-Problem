@@ -9,4 +9,3 @@ Route_5: 0-8-0-END
 Route_6: 0-24-10-0-END
 Total Routed Nodes 45
 Routing Total Cost: 894.6812813447924
-Error of solution in Sol_F-n45-k4.vrp.txt: 0.23574762616684034Error of solution in Sol_F-n45-k4.vrp.txt: 0.23574762616684034Error of solution in Sol_F-n45-k4.vrp.txt: 0.23574762616684034Error of solution in Sol_F-n45-k4.vrp.txt: 0.23574762616684034

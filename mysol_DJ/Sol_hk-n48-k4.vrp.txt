@@ -8,4 +8,3 @@ Route_4: 0-41-3-45-44-38-43-26-36-0-END
 Route_5: 0-30-19-10-15-0-END
 Total Routed Nodes 48
 Routing Total Cost: 20485.0
-Error of solution in Sol_hk-n48-k4.vrp.txt: 0.38890772255746153

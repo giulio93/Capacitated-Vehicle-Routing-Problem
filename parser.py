@@ -3,6 +3,7 @@ import os
 import numpy as np
 from cvrpGraph import cvrpGraph
 from GraphAdjList import Graph
+from math import acos, cos, sqrt, pi
 
 
 def readInstanceList(path):
@@ -130,36 +131,37 @@ def parseGEO(graph,data, index):
 
     dimension = graph.getDimension()
     appoVertex = dict()
+    PI = 3.141592
 
     while len(data[0][index].split()) > 1:
 
         toSplit = data[0][index].split()
-        appoVertex[int((toSplit[0]))] = [(toSplit[1]), (toSplit[2])]
+        appoVertex[int((toSplit[0]))] = [float((toSplit[1])),float((toSplit[2]))]
         index += 1
 
     for i in range(dimension):
         a = appoVertex[i+1]
-        degrees = int(float(a[0]))
-        minutes = float(a[0]) - degrees
-        latitudeA = np.pi * (degrees + 0.5 * minutes / 0.3) / 180.0
-        degrees = int(float(a[1]))
-        minutes = float(a[1]) - degrees
-        longitudeA = np.pi * (degrees + 0.5 * minutes / 0.3) / 180.0
+        degrees = int(round(a[0]))
+        minutes = a[0] - degrees
+        latitudeA = PI * (degrees + 0.5 * minutes / 0.3) / 180.0
+        degrees = int(a[1])
+        minutes = a[1] - degrees
+        longitudeA = PI * (degrees + 0.5 * minutes / 0.3) / 180.0
         for j in range(dimension):
-            if i != j:
-                b = appoVertex[j+1]
-                degrees = int(float(b[0]))
-                minutes = float(b[0]) - degrees
-                latitudeB = np.pi * (degrees + 0.5 * minutes / 0.3) / 180.0
-                degrees = int(float(a[1]))
-                minutes = float(b[1]) - degrees
-                longitudeB = np.pi * (degrees + 0.5 * minutes / 0.3) / 180.0                     
-                RRR = 6378.388
-                q1 = np.cos(longitudeA - longitudeB)
-                q2 = np.cos(latitudeA - latitudeB)
-                q3 = np.cos(latitudeA + latitudeB)
-                dij = int(RRR * np.arccos(0.5 * ((0.1 + q1) * q2 - (1.0 - q1) * q3)) +1.0)
-                graph.addEdge(i, j, dij)
+        
+            b = appoVertex[j+1]
+            degrees = int(round(b[0]))
+            minutes = b[0] - degrees
+            latitudeB = PI * (degrees + 0.5 * minutes / 0.3) / 180.0
+            degrees = int(a[1])
+            minutes = b[1] - degrees
+            longitudeB = PI * (degrees + 0.5 * minutes / 0.3) / 180.0                     
+            RRR = 6378.388
+            q1 = np.cos(longitudeA - longitudeB)
+            q2 = np.cos(latitudeA - latitudeB)
+            q3 = np.cos(latitudeA + latitudeB)
+            dij = int(RRR * acos(0.5 * ((0.1 + q1) * q2 - (1.0 - q1) * q3)) +1.0)
+            graph.addEdge(i, j, dij)
 
 
 
