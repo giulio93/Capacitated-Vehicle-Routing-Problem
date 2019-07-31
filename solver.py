@@ -427,6 +427,103 @@ def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters,saveFold
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
     f.write("Routing Total Cost: "+ str(routeCost)+"\n")
 
+def ClusterFirst_RouteSecond(graph):
+
+    finalRoutes = []
+    capacity = graph.getCapacity()
+    demand = graph.getDemand()
+    depot = graph.getDepot()
+    dimension = graph.getDimension()
+    dist = [np.inf for i in dimension]
+    priorityQ = []
+    
+    for i in dimension:
+        appoRoute = Route(capacity)
+        appoRoute.addCustomer(0,demand[0],False)
+        appoRoute.addCustomer(i+1,demand[i+1],False)
+        appoRoute.addCustomer(0,demand[0],False)
+        cost = graph.getValue(0,i+1) + graph.getValue(i+1,0)
+        appoRoute.setCost(cost)
+        priorityQ.append(appoRoute)
+        
+    priorityQ.sort(key=lambda x: x.getCost(),reverse=True)
+
+
+    dist[0] = 0
+
+
+    while len(priorityQ)>0:
+
+        node = np.argmin(dist) +1
+        priorityQ.pop()
+
+        for j in dimension:
+
+            if(j+1 > node):
+                appoRoute = Route(capacity)
+                appoRoute.addCustomer(0,demand[0],False)
+                appoRoute.addCustomer(node,demand[node],False)
+                appoRoute.setCost(graph.GetValue(0,node))
+                for i in range(node,j+1):
+                    if(appoRoute.addCustomer>=0):
+                        appoRoute.setCost(appoRoute.getCost() + graph.GetValue(appoRoute.getCustomers[len(appoRoute.getCustomers())-1],i))
+                        appoRoute.addCustomer(i,demand[i],False)
+                    else: break
+            appoRoute.setCost(appoRoute.getCost() + graph.GetValue(appoRoute.getCustomers[len(appoRoute.getCustomers())-1],0))
+            appoRoute.addCustomer(0,demand[0],False)
+
+            priorityQ.append(appoRoute)
+        priorityQ.sort(key=lambda x: x.getCost(),reverse=True)
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  1  function Dijkstra(Grafo, sorgente):
+#  2      For each vertice v in Grafo:                               // Inizializzazione
+#  3          dist[v] := infinito ;                                  // Distanza iniziale sconosciuta 
+#  4                                                                 // dalla sorgente a v
+#  5          precedente[v] := non definita ;                             // Nodo precedente in un percorso ottimale
+#  6      end for                                                    // dalla sorgente
+#  7
+#  8      dist[sorgente] := 0 ;                                        // Distanza dalla sorgente alla sorgente
+#  9      Q := L'insieme di tutti i nodi nel Grafo ;                       // Tutti i nodi nel grafo sono
+# 10                                                                 // Non ottimizzati e quindi stanno in Q
+# 11      while Q non è vuota:                                      // Loop principale
+# 12          u := vertice in Q con la più breve distanza in dist[] ;    // Nodo iniziale per il primo caso
+# 13          rimuovi u da Q ;
+# 14          if dist[u] = infinito:
+# 15              break ;                                            // tutti i vertici rimanenti sono
+# 16          end if                                                 // inaccessibili dal nodo sorgente
+# 17
+# 18          For each neighbour v di u:                              // dove v non è ancora stato 
+# 19                                                                 // rimosso da Q.
+# 20              alt := dist[u] + dist_tra(u, v) ;
+# 21              if alt < dist[v]:                                  // Rilascia (u,v,a)
+# 22                  dist[v] := alt ;
+# 23                  precedente[v] := u ;
+# 24                  decrease-key v in Q;                           // Riordina v nella coda
+# 25              end if
+# 26          end for
+# 27      end while
+# 28  return dist;
+
+
+
 
 
     

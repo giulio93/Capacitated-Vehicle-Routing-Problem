@@ -1,3 +1,4 @@
+=================================== TEST 1 ================================================
 FJ SELECT
 
 Error of solution in Sol_gr-n21-k3.vrp.txt: 1.083963282937365
@@ -75,3 +76,91 @@ Error of solution in Sol_bays-n29-k5.vrp.txt: 0.5700303746203172
 Error of solution in Sol_gr-n24-k4.vrp.txt: 0.5840233804188991
 Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.1808015217106127
 Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.47781774580335734
+
+
+===================================== TEST 2 =============================================
+==============================CLARKE AND WRIGHT==================================
+Error of solution in Sol_gr-n21-k3.vrp.txt: 0.0847732181425486
+Error of solution in Sol_gr-n48-k3.vrp.txt: 0.1266499582289056
+Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.33170731707317075
+Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.0542907180385289
+Error of solution in Sol_fri-n26-k3.vrp.txt: 0.09460458240946046
+Error of solution in Sol_F-n135-k7.vrp.txt: 0.049329577259094835
+Error of solution in Sol_hk-n48-k4.vrp.txt: 0.11146518408027663
+Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.9628421288571216
+Error of solution in Sol_att-n48-k4.vrp.txt: 0.08688009670750506
+Error of solution in Sol_F-n72-k4.vrp.txt: 0.08095446728314595
+Error of solution in Sol_gr-n17-k3.vrp.txt: 0.0
+Error of solution in Sol_F-n45-k4.vrp.txt: 0.020744035369266393
+Error of solution in Sol_bays-n29-k5.vrp.txt: 0.0550118123523456
+Error of solution in Sol_gr-n24-k4.vrp.txt: 0.06088650754992694
+Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.7699724517906334
+Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.03836930455635491
+==============================FISHER AND JAIKUMAR ==================================
+Error of solution in Sol_gr-n21-k3.vrp.txt: 0.23920086393088552
+Error of solution in Sol_gr-n48-k3.vrp.txt: 0.30242272347535504
+Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.468780487804878
+Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.29509632224168125
+Error of solution in Sol_fri-n26-k3.vrp.txt: 0.22394678492239467
+Error of solution in Sol_F-n135-k7.vrp.txt: 0.62176227956282
+Error of solution in Sol_hk-n48-k4.vrp.txt: 0.6409248084615906
+Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.837123004507758
+Error of solution in Sol_att-n48-k4.vrp.txt: 0.38796216201371486
+Error of solution in Sol_F-n72-k4.vrp.txt: 0.5178378325383204
+Error of solution in Sol_gr-n17-k3.vrp.txt: 0.3791433891992551
+Error of solution in Sol_F-n45-k4.vrp.txt: 0.21483636352640967
+Error of solution in Sol_bays-n29-k5.vrp.txt: 0.4198447519406007
+Error of solution in Sol_gr-n24-k4.vrp.txt: 0.35655138821237214
+Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.194182080545717
+Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.49760191846522783
+==============================MODIFIED DIJKASTRA ==================================
+Error of solution in Sol_gr-n21-k3.vrp.txt: 0.23920086393088552
+Error of solution in Sol_gr-n48-k3.vrp.txt: 0.2960735171261487
+Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.3351219512195122
+Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.2819614711033275
+Error of solution in Sol_fri-n26-k3.vrp.txt: 0.11012564671101256
+Error of solution in Sol_F-n135-k7.vrp.txt: 0.5796062244202681
+Error of solution in Sol_hk-n48-k4.vrp.txt: 0.5083056478405316
+Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.8361019101935097
+Error of solution in Sol_att-n48-k4.vrp.txt: 0.3569590522926285
+Error of solution in Sol_F-n72-k4.vrp.txt: 0.4877539112339171
+Error of solution in Sol_gr-n17-k3.vrp.txt: 0.37318435754189944
+Error of solution in Sol_F-n45-k4.vrp.txt: 0.21390647881056743
+Error of solution in Sol_bays-n29-k5.vrp.txt: 0.36753290583867704
+Error of solution in Sol_gr-n24-k4.vrp.txt: 0.31660983925962005
+Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.1914928505837596
+Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.43105515587529974
+======================FISHER AND JAIKUMAR ON RANDOM K==================================
+Error of solution in Sol_gr-n21-k3.vrp.txt: 0.14605831533477323
+Error of solution in Sol_gr-n48-k3.vrp.txt: 0.5971595655806182
+Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.3351219512195122
+Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.27057793345008757
+Error of solution in Sol_fri-n26-k3.vrp.txt: 0.0672579453067258
+Error of solution in Sol_F-n135-k7.vrp.txt: 0.7551734887586685
+Error of solution in Sol_hk-n48-k4.vrp.txt: 0.394603023933826
+Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.832988817772022
+Error of solution in Sol_att-n48-k4.vrp.txt: 0.42097147293973997
+Error of solution in Sol_F-n72-k4.vrp.txt: 0.6155301181204025
+Error of solution in Sol_gr-n17-k3.vrp.txt: 0.3270018621973929
+Error of solution in Sol_F-n45-k4.vrp.txt: 0.5956282000603349
+Error of solution in Sol_bays-n29-k5.vrp.txt: 0.595680053999325
+Error of solution in Sol_gr-n24-k4.vrp.txt: 0.29079396005845104
+Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.18837727928637
+Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.5665467625899281
+======================DIJKASTRA RANDOM K==================================
+Error of solution in Sol_gr-n21-k3.vrp.txt: 0.14605831533477323
+Error of solution in Sol_gr-n48-k3.vrp.txt: 0.5555555555555556
+Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.3351219512195122
+Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.19001751313485113
+Error of solution in Sol_fri-n26-k3.vrp.txt: 0.050997782705099776
+Error of solution in Sol_F-n135-k7.vrp.txt: 0.6665138377417628
+Error of solution in Sol_hk-n48-k4.vrp.txt: 0.36334666757068274
+Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.832490722984584
+Error of solution in Sol_att-n48-k4.vrp.txt: 0.324837107961117
+Error of solution in Sol_F-n72-k4.vrp.txt: 0.5884875475429246
+Error of solution in Sol_gr-n17-k3.vrp.txt: 0.325512104283054
+Error of solution in Sol_F-n45-k4.vrp.txt: 0.5388943875686663
+Error of solution in Sol_bays-n29-k5.vrp.txt: 0.5086061424232197
+Error of solution in Sol_gr-n24-k4.vrp.txt: 0.23916220165611302
+Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.18627836809655
+Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.4712230215827338
