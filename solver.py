@@ -427,53 +427,110 @@ def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters,saveFold
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
     f.write("Routing Total Cost: "+ str(routeCost)+"\n")
 
-def ClusterFirst_RouteSecond(graph):
+def ClusterFirst_RouteSecond(graph,saveFolder):
 
     finalRoutes = []
     capacity = graph.getCapacity()
     demand = graph.getDemand()
     depot = graph.getDepot()
     dimension = graph.getDimension()
-    dist = [np.inf for i in dimension]
-    priorityQ = []
+    dist = [np.inf for i in range(dimension)]
+    nodeQueue= []
+    auxGraph = [Route(capacity) for i in range(dimension)]
     
-    for i in dimension:
-        appoRoute = Route(capacity)
-        appoRoute.addCustomer(0,demand[0],False)
-        appoRoute.addCustomer(i+1,demand[i+1],False)
-        appoRoute.addCustomer(0,demand[0],False)
-        cost = graph.getValue(0,i+1) + graph.getValue(i+1,0)
-        appoRoute.setCost(cost)
-        priorityQ.append(appoRoute)
+    #Build the auxiliary Graph, starting from single path Depot-Customer-Depot
+    # for i in range(1,dimension):
+    #     appoRoute = Route(capacity)
+    #     appoRoute.addCustomer(0,demand[0],False)
+    #     appoRoute.addCustomer(i,demand[i],False)
+    #     appoRoute.addCustomer(0,demand[0],False)
+    #     appoRoute.setCost(0)
+    #     cost = graph.getValue(0,i) + graph.getValue(i,0)
+    #     appoRoute.setCost(cost)
+    #     auxGraph.append(appoRoute)
         
-    priorityQ.sort(key=lambda x: x.getCost(),reverse=True)
+    #priorityQ.sort(key=lambda x: x.getCost(),reverse=True)
 
-
+    #Source Node has 0 cost, in this case route Depot - 1- Depot
     dist[0] = 0
 
+    nodeQueue = [(c+1,dist[c]) for c in range(len(dist))]
+    node = 0
+    nodeQueue.sort(key=lambda x: x[1],reverse=True)
 
-    while len(priorityQ)>0:
-
-        node = np.argmin(dist) +1
-        priorityQ.pop()
-
-        for j in dimension:
-
-            if(j+1 > node):
-                appoRoute = Route(capacity)
-                appoRoute.addCustomer(0,demand[0],False)
-                appoRoute.addCustomer(node,demand[node],False)
-                appoRoute.setCost(graph.GetValue(0,node))
+    while len(nodeQueue)>0:
+        #Give the node in the auxiliary graph that has low cost
+        node = nodeQueue.pop()[0] 
+        #Give the corresponding route, that contain node
+        #auxGraph.pop()
+        #Create each child of the node in the auxiliary graph
+        for j in range(1,dimension):
+            #j+1 child
+            if(j >= node):
+                newRoute = Route(capacity)
+                newRoute.setCost(0)
+                newRoute.addCustomer(0,demand[0],False)
+                control = -3
+                #for each child that not exceed the truck capacity
                 for i in range(node,j+1):
-                    if(appoRoute.addCustomer>=0):
-                        appoRoute.setCost(appoRoute.getCost() + graph.GetValue(appoRoute.getCustomers[len(appoRoute.getCustomers())-1],i))
-                        appoRoute.addCustomer(i,demand[i],False)
-                    else: break
-            appoRoute.setCost(appoRoute.getCost() + graph.GetValue(appoRoute.getCustomers[len(appoRoute.getCustomers())-1],0))
-            appoRoute.addCustomer(0,demand[0],False)
+                    #The not is not in the route and it not exceed the truck capacity
+                    #Add Node
+                    if (newRoute.checkCustomer(i) == -1):
+                        control = newRoute.addCustomer(i,demand[i],False)
+                        #Update Cost
+                        if(control > 0):
+                            newRoute.setCost(newRoute.getCost() + graph.getValue(newRoute.getCustomers()[node-i],i))
+                        else:                            
+                            break
+                #Close the route 
+                if(control > 0):
+                    newRoute.setCost(newRoute.getCost() + graph.getValue(j,0))
+                    newRoute.addCustomer(0,demand[0],False)
+                    if(dist[j] > newRoute.getCost()):
+                        dist[j] = newRoute.getCost()
+                        nodeQueue.append((j,dist[j]))
+                        auxGraph[node] = newRoute
+                        nodeQueue.sort(key=lambda x: x[1],reverse=True)
+                else: break
+    
+    finalRoutes = auxGraph.sort(key=lambda x: x.getCost(),reverse=True)
 
-            priorityQ.append(appoRoute)
-        priorityQ.sort(key=lambda x: x.getCost(),reverse=True)
+    routeCost = 0  
+    routedNodesControl = 1
+    f= open(saveFolder+'/Sol_'+graph.getFileName()+".txt","w+")
+    f.write(str(graph.name)+"\n")
+    f.write(str(graph.dimension)+"\n")
+    
+    nodesPresent = []
+    for fianlRoute in auxGraph:
+            
+        appo = fianlRoute.printRoute(auxGraph.index(fianlRoute))
+        for node in fianlRoute.getCustomers():
+            if node in nodesPresent:
+                print("Node repetition")
+                break
+        
+        for node in fianlRoute.getCustomers():
+            if node not in nodesPresent:
+                nodesPresent.append(node)
+        
+
+        f.write(appo+"\n")
+        for i in range(len(fianlRoute.getCustomers())-1):
+            routedNodesControl = routedNodesControl +1
+            routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
+        routedNodesControl = routedNodesControl -1
+    
+    f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
+    f.write("Routing Total Cost: "+ str(routeCost)+"\n")
+
+
+
+
+
+
+                
+
 
 
 
