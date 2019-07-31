@@ -1,0 +1,8 @@
+gr17
+17
+Route_0: 0-6-7-5-2-10-0-END
+Route_1: 0-3-8-4-9-1-0-END
+Route_2: 0-12-13-14-11-15-0-END
+Total Routed Nodes 16
+Routing Total Cost: 3563.0
+Error of solution in Sol_gr-n17-k3.vrp.txt: 0.3270018621973929

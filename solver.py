@@ -2,7 +2,33 @@ import numpy as np
 from cvrpGraph import cvrpGraph
 import operator
 from route import Route
+import parser as par
 
+
+def printResult(folderSol,folderRes):
+
+    #path='./mysol_DJ_kRand'
+    path = folderRes
+    mysol = par.readInstanceList(path)
+    #path2='./cvrp-sol'
+    path2 = folderSol
+    cvrp_sol = par.readInstanceList(path2)
+    for sol in mysol:
+        with open(path+'/'+sol, "r+") as f:
+            for line in f:
+                keywords = line
+                if(keywords.split(':')[0].strip()=="Routing Total Cost"):
+                    stimated = float(keywords.split(':')[1].strip())
+                    for optimal in cvrp_sol:
+                        with open(path2+'/'+optimal, "r") as c:
+                            if(sol.split('.')[0] == "Sol_"+optimal.split('.')[0]):
+                                for linec in c:
+                                    keys = linec                                   
+                                    if(len(keys.split()) > 0 and keys.split()[0].strip()=="Cost"):
+                                        actual = float(keys.split()[1].strip())
+                                        error = (stimated - actual)/actual
+                                        print("Error of solution in "+sol + ": "+ str(float(error)))
+                                        f.write("Error of solution in "+sol + ": "+ str(float(error)))
 
 def ClarkeWright(graph):
     print("Clarke & Wright have been evoked!")
@@ -237,7 +263,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
 
     return seeds
 
-def FisherJaikumar_GAPsolver(graph,k_clusters):
+def GAPsolver(graph,k_clusters):
 
     dimension = graph.getDimension()
     n_cluster = len(k_clusters)
@@ -272,7 +298,7 @@ def FisherJaikumar_GAPsolver(graph,k_clusters):
 
     return clusterAssignment
 
-def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters):
+def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters,saveFolder):
 
     routes = []
     capacity = graph.getCapacity()
@@ -303,7 +329,7 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters):
     
     routeCost = 0  
     routedNodesControl = 1
-    f= open("mysol_FJ/Sol_"+graph.getFileName()+".txt","w+")
+    f= open(saveFolder +"/Sol_"+graph.getFileName()+".txt","w+")
     f.write(str(graph.name)+"\n")
     f.write(str(graph.dimension)+"\n")
     
@@ -319,7 +345,7 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters):
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
     f.write("Routing Total Cost: "+ str(routeCost)+"\n") 
 
-def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters):
+def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters,saveFolder):
 
     finalRoutes = []
     capacity = graph.getCapacity()
@@ -385,7 +411,7 @@ def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters):
     
     routeCost = 0  
     routedNodesControl = 1
-    f= open("mysol_DJ/Sol_"+graph.getFileName()+".txt","w+")
+    f= open(saveFolder+'/Sol_'+graph.getFileName()+".txt","w+")
     f.write(str(graph.name)+"\n")
     f.write(str(graph.dimension)+"\n")
     

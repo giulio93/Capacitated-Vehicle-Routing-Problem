@@ -1,0 +1,9 @@
+gr24
+24
+Route_0: 0-16-19-7-6-5-15-0-END
+Route_1: 0-4-9-13-1-14-18-0-END
+Route_2: 0-21-17-2-10-20-23-0-END
+Route_3: 0-8-12-22-3-11-0-END
+Total Routed Nodes 24
+Routing Total Cost: 2544.0
+Error of solution in Sol_gr-n24-k4.vrp.txt: 0.23916220165611302

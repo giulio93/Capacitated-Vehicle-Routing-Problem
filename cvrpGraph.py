@@ -87,3 +87,6 @@ class cvrpGraph:
         a = [(self.adjMatrix[node][n]) for n in neighbours]
         return np.argmin(a),np.min(a) 
 
+    def getTotalDemand(self):
+        return sum(self.demand)
+

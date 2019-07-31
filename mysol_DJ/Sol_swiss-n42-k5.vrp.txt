@@ -1,10 +1,10 @@
 swiss42
 42
-Route_0: 0-39-21-24-22-30-29-28-0-END
-Route_1: 0-8-10-25-23-2-3-26-37-0-END
-Route_2: 0-19-14-16-15-7-17-31-20-0-END
-Route_3: 0-36-35-33-34-32-38-0-END
-Route_4: 0-41-9-40-27-0-END
-Route_5: 0-1-6-4-5-13-18-12-11-0-END
-Total Routed Nodes 42
-Routing Total Cost: 2661.0
+Route_0: 0-18-12-11-23-9-21-24-22-0-END
+Route_1: 0-27-28-29-30-39-40-25-26-0-END
+Route_2: 0-4-3-2-1-6-5-10-8-0-END
+Route_3: 0-13-19-14-16-15-7-17-20-0-END
+Route_4: 0-31-37-36-35-33-34-32-38-0-END
+Total Routed Nodes 41
+Routing Total Cost: 2387.0
+Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.43105515587529974

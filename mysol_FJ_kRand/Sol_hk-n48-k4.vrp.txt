@@ -1,0 +1,9 @@
+hk48
+48
+Route_0: 0-36-26-43-38-44-45-3-10-15-41-0-END
+Route_1: 0-1-16-11-21-12-13-17-6-7-5-9-2-4-19-0-END
+Route_2: 0-14-47-34-40-37-35-46-39-42-0-END
+Route_3: 0-18-20-32-25-28-31-27-24-8-22-29-33-30-23-0-END
+Total Routed Nodes 48
+Routing Total Cost: 20569.0
+Error of solution in Sol_hk-n48-k4.vrp.txt: 0.394603023933826

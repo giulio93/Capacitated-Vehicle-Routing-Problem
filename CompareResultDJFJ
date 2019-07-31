@@ -1,3 +1,5 @@
+FJ SELECT
+
 Error of solution in Sol_gr-n21-k3.vrp.txt: 1.083963282937365
 Error of solution in Sol_gr-n48-k3.vrp.txt: 0.7134502923976608
 Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.7102439024390244
@@ -15,6 +17,9 @@ Error of solution in Sol_gr-n24-k4.vrp.txt: 0.7827569410618607
 Error of solution in Sol_ulysses-n16-k3.vrp.txt: 3.6854256854256855
 Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.6534772182254197
 
+
+DJ SELECT
+
 Error of solution in Sol_gr-n21-k3.vrp.txt: 1.056965442764579
 Error of solution in Sol_gr-n48-k3.vrp.txt: 0.6960735171261487
 Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.6380487804878049
@@ -31,3 +36,42 @@ Error of solution in Sol_bays-n29-k5.vrp.txt: 0.4306446169422882
 Error of solution in Sol_gr-n24-k4.vrp.txt: 0.7661958110082806
 Error of solution in Sol_ulysses-n16-k3.vrp.txt: 3.6843106388560933
 Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.5953237410071942
+
+FJ RAND
+
+Error of solution in Sol_gr-n21-k3.vrp.txt: 0.23110151187904968
+Error of solution in Sol_gr-n48-k3.vrp.txt: 0.46649958228905597
+Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.6317073170731707
+Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.2075306479859895
+Error of solution in Sol_fri-n26-k3.vrp.txt: 0.10864745011086474
+Error of solution in Sol_F-n135-k7.vrp.txt: 0.4543041196043324
+Error of solution in Sol_hk-n48-k4.vrp.txt: 0.5470879381652993
+Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.8366747191990638
+Error of solution in Sol_att-n48-k4.vrp.txt: 0.35245035664855034
+Error of solution in Sol_F-n72-k4.vrp.txt: 0.6049744869551219
+Error of solution in Sol_gr-n17-k3.vrp.txt: 0.07597765363128492
+Error of solution in Sol_F-n45-k4.vrp.txt: 0.4859063447772587
+Error of solution in Sol_bays-n29-k5.vrp.txt: 0.5781302733715828
+Error of solution in Sol_gr-n24-k4.vrp.txt: 0.628348757915246
+Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.181162272071363
+Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.5881294964028777
+
+
+DJ RAND
+
+Error of solution in Sol_gr-n21-k3.vrp.txt: 0.17035637149028077
+Error of solution in Sol_gr-n48-k3.vrp.txt: 0.370593149540518
+Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.45170731707317074
+Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.13747810858143608
+Error of solution in Sol_fri-n26-k3.vrp.txt: 0.08130081300813008
+Error of solution in Sol_F-n135-k7.vrp.txt: 0.41259597819453764
+Error of solution in Sol_hk-n48-k4.vrp.txt: 0.5128483287002509
+Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.8359524817572783
+Error of solution in Sol_att-n48-k4.vrp.txt: 0.29816191313429957
+Error of solution in Sol_F-n72-k4.vrp.txt: 0.5549242263515167
+Error of solution in Sol_gr-n17-k3.vrp.txt: 0.061452513966480445
+Error of solution in Sol_F-n45-k4.vrp.txt: 0.4757292473355509
+Error of solution in Sol_bays-n29-k5.vrp.txt: 0.5700303746203172
+Error of solution in Sol_gr-n24-k4.vrp.txt: 0.5840233804188991
+Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.1808015217106127
+Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.47781774580335734

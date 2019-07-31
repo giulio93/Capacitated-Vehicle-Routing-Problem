@@ -1,11 +1,8 @@
 gr21
 21
-Route_0: 0-11-10-19-14-13-0-END
-Route_1: 0-6-5-2-0-END
-Route_2: 0-12-0-END
-Route_3: 0-1-0-END
-Route_4: 0-7-15-4-8-0-END
-Route_5: 0-3-18-16-9-17-0-END
-Route_6: 0-20-0-END
-Total Routed Nodes 21
-Routing Total Cost: 7719.0
+Route_0: 0-11-3-10-9-13-1-0-END
+Route_1: 0-6-7-5-4-8-2-0-END
+Route_2: 0-18-16-17-12-14-15-0-END
+Total Routed Nodes 19
+Routing Total Cost: 4590.0
+Error of solution in Sol_gr-n21-k3.vrp.txt: 0.23920086393088552
