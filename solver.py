@@ -436,7 +436,7 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
     dimension = graph.getDimension()
     dist = [np.inf for i in range(dimension)]
     nodeQueue= []
-    auxGraph = [Route(capacity) for i in range(dimension)]
+    auxGraph = [(i,Route(capacity)) for i in range(dimension)]
     
     #Build the auxiliary Graph, starting from single path Depot-Customer-Depot
     # for i in range(1,dimension):
@@ -454,18 +454,28 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
     #Source Node has 0 cost, in this case route Depot - 1- Depot
     dist[0] = 0
 
-    nodeQueue = [(c+1,dist[c]) for c in range(len(dist))]
+    #nodeQueue = [(c+1,dist[c]) for c in range(len(dist))]
+    route = Route(capacity)
+    route.addCustomer(0,demand[0],False)
+    route.addCustomer(1,demand[1],False)
+    route.addCustomer(0,demand[0],False)
+    route.setCost(0)
+
+    nodeQueue = [(1,0,route)]
     node = 0
     nodeQueue.sort(key=lambda x: x[1],reverse=True)
 
     while len(nodeQueue)>0:
         #Give the node in the auxiliary graph that has low cost
-        node = nodeQueue.pop()[0] 
+        nodeToexpand = nodeQueue.pop()
+        node = nodeToexpand[0]
+        cost = nodeToexpand[1]
+        prevRoute =nodeToexpand[2] 
         #Give the corresponding route, that contain node
         #auxGraph.pop()
         #Create each child of the node in the auxiliary graph
         for j in range(1,dimension):
-            #j+1 child
+            #j child
             if(j >= node):
                 newRoute = Route(capacity)
                 newRoute.setCost(0)
@@ -486,15 +496,23 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
                 if(control > 0):
                     newRoute.setCost(newRoute.getCost() + graph.getValue(j,0))
                     newRoute.addCustomer(0,demand[0],False)
-                    if(dist[j] > newRoute.getCost()):
-                        dist[j] = newRoute.getCost()
-                        nodeQueue.append((j,dist[j]))
-                        auxGraph[node] = newRoute
+                    if(dist[j] > newRoute.getCost()+ cost):
+                        dist[j] = newRoute.getCost() +cost
+                        nodeQueue.append((j+1,dist[j],newRoute))
+                        auxGraph[j] = (node,newRoute)
                         nodeQueue.sort(key=lambda x: x[1],reverse=True)
                 else: break
     
-    finalRoutes = auxGraph.sort(key=lambda x: x.getCost(),reverse=True)
+    toTake = 0
+    cluster = np.unique([c[0] for c in auxGraph])
+    for i in range(1,len(cluster)-1):
+        index = cluster[i]
+        index2 = cluster[i+1]
+        toTake = toTake + (index2 - index) 
+       
+        finalRoutes.append(auxGraph[toTake][1])
 
+ 
     routeCost = 0  
     routedNodesControl = 1
     f= open(saveFolder+'/Sol_'+graph.getFileName()+".txt","w+")
@@ -502,19 +520,9 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
     f.write(str(graph.dimension)+"\n")
     
     nodesPresent = []
-    for fianlRoute in auxGraph:
+    for fianlRoute in finalRoutes:
             
-        appo = fianlRoute.printRoute(auxGraph.index(fianlRoute))
-        for node in fianlRoute.getCustomers():
-            if node in nodesPresent:
-                print("Node repetition")
-                break
-        
-        for node in fianlRoute.getCustomers():
-            if node not in nodesPresent:
-                nodesPresent.append(node)
-        
-
+        appo = fianlRoute.printRoute(finalRoutes.index(fianlRoute))
         f.write(appo+"\n")
         for i in range(len(fianlRoute.getCustomers())-1):
             routedNodesControl = routedNodesControl +1
@@ -523,6 +531,37 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
     
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
     f.write("Routing Total Cost: "+ str(routeCost)+"\n")
+
+
+def LocalSearch(route:Route,graph:cvrpGraph):
+    for n in range(1,len(route.getCustomers()-1)):
+        node1 = n
+        node2 = n+2 % len(route.getCustomers())
+        if(node2 != 0):
+            firstCandidate = route.getCustomers[node1] 
+            prevfc =  route.getCustomers[node1-1] 
+            nextfc =  route.getCustomers[node1+1]
+
+            secondCandidate = route.getCustomers[node2]
+            prevsc =  route.getCustomers[node2-1] 
+            nextsc =  route.getCustomers[node2+1]
+
+            cost1 = graph.getValue(prevfc,firstCandidate) + graph.getValue(firstCandidate,nextfc)
+            cost2 = graph.getValue(secondCandidate-1,secondCandidate) + graph.getValue(secondCandidate,secondCandidate+1)
+
+            route.setCost (route.getCost() - (cost1 +cost2))
+            route.getCustomers()[firstCandidate] = secondCandidate
+            route.getCustomers()[secondCandidate] = firstCandidate
+
+            cost3 = graph.getValue(firstCandidate-1,secondCandidate) + graph.getValue(secondCandidate,firstCandidate+1)
+            cost4 = graph.getValue(secondCandidate-1,firstCandidate) + graph.getValue(firstCandidate,secondCandidate+1)
+
+
+
+
+        
+
+    print("casdd")
 
 
 
