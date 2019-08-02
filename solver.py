@@ -528,13 +528,13 @@ def LocalSearch_FlippingPath(route:Route,graph:cvrpGraph,candidate1, candidate2)
     node1 = candidate1 % len(route.getCustomers())
     node2 = candidate2 % len(route.getCustomers())
     if(node2 != 0):
-        firstCandidate = route.getCustomers[node1] 
-        prevfc =  route.getCustomers[node1-1] 
-        nextfc =  route.getCustomers[node1+1]
+        firstCandidate = route.getCustomers()[node1] 
+        prevfc =  route.getCustomers()[node1-1] 
+        nextfc =  route.getCustomers()[node1+1]
 
-        secondCandidate = route.getCustomers[node2]
-        prevsc =  route.getCustomers[node2-1] 
-        nextsc =  route.getCustomers[node2+1]
+        secondCandidate = route.getCustomers()[node2]
+        prevsc =  route.getCustomers()[node2-1] 
+        nextsc =  route.getCustomers()[node2+1]
 
         cost1 = graph.getValue(prevfc,firstCandidate) + graph.getValue(firstCandidate,nextfc)
         cost2 = graph.getValue(prevsc,secondCandidate) + graph.getValue(secondCandidate,nextsc)
@@ -550,62 +550,108 @@ def LocalSearch_FlippingPath(route:Route,graph:cvrpGraph,candidate1, candidate2)
            
     return route
 
+def Mutation(children,graph:cvrpGraph,percentage:int):
 
-def Mutation(route:Route,graph:cvrpGraph,percentage:int):
+    mutant = []
+    demand = graph.getDemand()
+    for child in children:
+        n_nodes = math.ceil((len(child.getCustomers()) * percentage) / 100)
 
-        n_nodes = math.ceil((len(route.getCustomers()) * percentage) / 100)
+        candidates = [np.random.randint(1,graph.getDimension()) for i in range(n_nodes)]
 
-        candidates = [np.random.randint(1,graph.getDimension) for i in range(n_nodes)]
+        toSubstitute = [np.random.randint(1,len(child.getCustomers())-1) for i in range(n_nodes)]
 
-        toSubstitute = [np.random.randint(1,len(route.getCustomers())-1) for i in range(n_nodes)]
+        for i in range(len(candidates)):
+            nodeTosub = child.getCustomers()[toSubstitute[i]]
+            if(child.getPayload() + candidates[i] - demand[nodeTosub] <= child.getCapacity()):
+                c = child.getCustomers().index(nodeTosub)
+                prevc =  child.getCustomers()[c-1] 
+                nextc =  child.getCustomers()[c+1]
 
-        for i in range(candidates):
-            c = route.getCustomers().index(toSubstitute[i])
-            prevc =  route.getCustomers()[c-1] 
-            nextc =  route.getCustomers()[c+1]
+                costDel = graph.getValue(prevc,c) + graph.getValue(c,nextc)
+                child.setCost (child.getCost() - (costDel))
+        
+                d = candidates[i]
+                child.getCustomers().insert(c+1,d)
+                costToAdd = graph.getValue(prevc,d) + graph.getValue(d,nextc)
+                child.setCost (child.getCost() + costToAdd)
+                mutant.append(child)
+            else: 
+                mutant.append(child)
+                continue
 
-            costDel = graph.getValue(prevc,c) + graph.getValue(c,nextc)
-            route.setCost (route.getCost() - (costDel))
-            d = candidates[i]
-            route.getCustomers().insert(d,c+1)
-            costToAdd = graph.getValue(prevc,d) + graph.getValue(d,nextc)
-            route.setCost (route.getCost() + costToAdd)
+    return mutant
 
 
-def Elitism(population,elitism_precentage):
+def Elitism(chromosome,elitism_precentage):
     fitness = []
-    for p in population:
-        fitness.append((p,p.getCost()))
+    for cell in chromosome:
+        fitness.append((cell,cell.getCost()))
         fitness.sort(key=lambda x:x[1])
-        toCopy = math.ceil((len(population) * elitism_precentage / 100))
-        copied = fitness[0:toCopy]
+    toCopy = math.ceil((len(chromosome) * elitism_precentage / 100))
+    copied = fitness[0:toCopy]
     return fitness , copied
 
-def Tournament(fitness:list(tuple),copied):
-    maxF = fitness[0][1]
-    winner = [ f for f in fitness if f[1]>= maxF]
-    winner.extend(copied)
-
+def Tournament(fitness):
+    
+    winner = [ (f.getCost()/len(f.getCustomers()),f) for f in fitness  ]
+    winner.sort(key=lambda x:x[0])
+    winner = winner[int(len(winner)/2):]
     return winner
 
-
     
-
-
-
-    
-
-    
-
-def Crossover(winner:[Route],graph:cvrpGraph):
+def Crossover(winner,graph:cvrpGraph,tabuSearch:bool = False,tabuLister:list = []):
 
     demand = graph.getDemand()
-    for p in winner:
-          indexDemand = 0
-          for node in p.getCustomers():
-            indexDemand += demand[node]
-            if (indexDemand < p.getPayload()/2):
-                print("culo")
+    capacity = graph.getCapacity()
+    fittestChildren  = []
+    tabuList = tabuLister
+    checkList = []
+  
+
+
+    for parent1 in winner:
+        childs = []
+        
+        for parent2 in winner:
+            if(parent1[1] != parent2[1]):
+                cost = 0
+                chromosome1 = []
+                chromosome2 = []
+                parentroute1 = parent1[1]
+                parentroute2 = parent2[1]                          
+                crossover_point1 = np.random.randint(1,len(parentroute1.getCustomers()))
+                crossover_point2 = np.random.randint(1,len(parentroute2.getCustomers()))
+                chromosome1 = parentroute1.getCustomers()[crossover_point1:]
+                chromosome2= parentroute2.getCustomers()[:crossover_point2]
+
+                child = Route(capacity)
+                child.setCost(0)
+                merge = chromosome2 + chromosome1
+                for node in merge:
+                    control = child.addCustomer(node,demand[node],False)
+
+                    if(control < 0 ):
+                        continue
+              
+                for n in range(len(child.getCustomers())-1):
+                    cost += graph.getValue(n,n+1)
+                child.setCost(cost)
+                childs.append(child)
+                childs.sort(key=lambda x:x.getCost(),reverse=True)
+
+        ft = childs.pop()
+        if(tabuSearch == True and ft in tabuList):
+            while(ft not in tabuList):
+                ft= childs.pop()  
+        fittestChildren.append(ft)
+        tabuList.append(ft)
+    
+    return fittestChildren,tabuList
+            
+
+
+         
 
 
 

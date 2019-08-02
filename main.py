@@ -31,16 +31,51 @@ if __name__ == "__main__":
       #  sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRand,K_clusterRand,"mysol_DJ_kRand")
       #sol.ClusterFirst_RouteSecond(graphToSolve,"Sol_CR")
 
-      n_evolution = 10
-      while n_evolution > 0 :
-        #Population Generation
-        percentage = 1
+     
+
+      #Parameters setting: percentage of Elitism, threshold of improving fitting, number of cromosome
+      percentage = 1
+      treshold = 50
+      n_population = 10
+      population = []
+      family =  []
+      toCopy = []
+      #Population Generation: Select k customers, create routes and calculate fitness of each chromosome
+      for i in range(n_population):
         K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
         GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRand)
-        population = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRand,"mysol_FJ")
-        fitness, copied = sol.Elitism(population,percentage)
-        winnerCandidates = sol.Tournament(fitness,copied)
-        sol.Crossover(winnerCandidates,graphToSolve)
+        chromosome = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRand,"mysol_FJ")
+        fitness, copied = sol.Elitism(chromosome,percentage)
+        toCopy.append(copied)
+        population.append((sum([f[1] for f in fitness]),chromosome,copied))
+
+      for totalfitness , chromosome ,copied in population:
+        winnerCandidates = sol.Tournament(chromosome)
+        fittingCrossover = totalfitness        
+        while(treshold > 0 ):
+          children, tabuLister = sol.Crossover(winnerCandidates,graphToSolve)
+          fittingCrossover = sum([c.getCost() for c in children])
+          family.append((children,copied))
+          print(fittingCrossover)
+          treshold = treshold -1
+
+      
+      fittingMutation = 0
+      
+      mutant = []
+      for children,copied in family:
+        children.extend([c[0][0] for c in toCopy])
+        mutantChild = sol.Mutation(children,graphToSolve,1)
+        fittingMutation = sum([m.getCost for m in mutantChild])
+        mutant.append(mutantChild)
+        print(fittingMutation)
+    
+        
+
+
+        
+
+        
 
         
 

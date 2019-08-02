@@ -17,7 +17,7 @@ class Route:
         else:    
                 tempPayload = int(self.payload + demand)
                 if(tempPayload >  self.capacity[0]):
-                    print("Route Overloaded")
+                    #print("Route Overloaded")
                     return -1
                 else:
                     self.payload = tempPayload
@@ -58,6 +58,9 @@ class Route:
     
     def setCost(self,cost):
         self.cost = cost
+    
+    def getCapacity(self):
+        return self.capacity 
      
 
     def printRoute(self,name):
