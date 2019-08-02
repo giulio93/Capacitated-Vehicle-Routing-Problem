@@ -9,4 +9,4 @@ Route_5: 0-66-33-80-81-112-125-111-110-122-124-119-108-0-END
 Route_6: 0-24-23-59-60-61-62-52-51-50-53-102-103-56-57-105-104-101-100-98-99-36-35-37-38-39-96-97-55-54-58-31-93-94-40-49-48-1-75-0-END
 Total Routed Nodes 135
 Routing Total Cost: 1936.4890794559283
-Error of solution in Sol_F-n135-k7.vrp.txt: 0.6665138377417628
+Error of solution in Sol_F-n135-k7.vrp.txt: 0.6665138377417628Error of solution in Sol_F-n135-k7.vrp.txt: 0.6665138377417628Error of solution in Sol_F-n135-k7.vrp.txt: 0.6665138377417628Error of solution in Sol_F-n135-k7.vrp.txt: 0.6665138377417628Error of solution in Sol_F-n135-k7.vrp.txt: 0.6665138377417628Error of solution in Sol_F-n135-k7.vrp.txt: 0.6665138377417628Error of solution in Sol_F-n135-k7.vrp.txt: 0.6665138377417628

@@ -1,0 +1,21 @@
+att48
+48
+Route_0: 0-46-47-0-END
+Route_1: 0-44-45-0-END
+Route_2: 0-41-42-43-0-END
+Route_3: 0-38-39-40-0-END
+Route_4: 0-34-35-36-37-0-END
+Route_5: 0-31-32-33-0-END
+Route_6: 0-28-29-30-0-END
+Route_7: 0-25-26-27-0-END
+Route_8: 0-23-24-0-END
+Route_9: 0-21-22-0-END
+Route_10: 0-16-17-18-19-20-0-END
+Route_11: 0-14-15-0-END
+Route_12: 0-10-11-12-13-0-END
+Route_13: 0-5-6-7-8-9-0-END
+Route_14: 0-3-4-0-END
+Route_15: 0-1-2-0-END
+Total Routed Nodes 48
+Routing Total Cost: 172814.22968507683
+Error of solution in Sol_att-n48-k4.vrp.txt: 3.3201397351401636

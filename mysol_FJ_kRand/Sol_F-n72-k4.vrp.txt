@@ -6,4 +6,4 @@ Route_2: 0-29-30-24-28-47-48-50-49-51-70-45-46-41-55-56-57-0-END
 Route_3: 0-31-32-33-60-61-58-59-63-62-65-66-67-68-39-69-38-40-52-0-END
 Total Routed Nodes 72
 Routing Total Cost: 382.8806379945354
-Error of solution in Sol_F-n72-k4.vrp.txt: 0.6155301181204025
+Error of solution in Sol_F-n72-k4.vrp.txt: 0.6155301181204025Error of solution in Sol_F-n72-k4.vrp.txt: 0.6155301181204025Error of solution in Sol_F-n72-k4.vrp.txt: 0.6155301181204025Error of solution in Sol_F-n72-k4.vrp.txt: 0.6155301181204025Error of solution in Sol_F-n72-k4.vrp.txt: 0.6155301181204025Error of solution in Sol_F-n72-k4.vrp.txt: 0.6155301181204025Error of solution in Sol_F-n72-k4.vrp.txt: 0.6155301181204025

@@ -3,6 +3,7 @@ from cvrpGraph import cvrpGraph
 import operator
 from route import Route
 import parser as par
+import math
 
 
 def printResult(folderSol,folderRes):
@@ -438,18 +439,7 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
     nodeQueue= []
     auxGraph = [(i,Route(capacity)) for i in range(dimension)]
     
-    #Build the auxiliary Graph, starting from single path Depot-Customer-Depot
-    # for i in range(1,dimension):
-    #     appoRoute = Route(capacity)
-    #     appoRoute.addCustomer(0,demand[0],False)
-    #     appoRoute.addCustomer(i,demand[i],False)
-    #     appoRoute.addCustomer(0,demand[0],False)
-    #     appoRoute.setCost(0)
-    #     cost = graph.getValue(0,i) + graph.getValue(i,0)
-    #     appoRoute.setCost(cost)
-    #     auxGraph.append(appoRoute)
-        
-    #priorityQ.sort(key=lambda x: x.getCost(),reverse=True)
+  
 
     #Source Node has 0 cost, in this case route Depot - 1- Depot
     dist[0] = 0
@@ -499,18 +489,46 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
                     if(dist[j] > newRoute.getCost()+ cost):
                         dist[j] = newRoute.getCost() +cost
                         nodeQueue.append((j+1,dist[j],newRoute))
-                        auxGraph[j] = (node,newRoute)
+                        auxGraph[j] = (node-1,newRoute)
                         nodeQueue.sort(key=lambda x: x[1],reverse=True)
                 else: break
     
-    toTake = 0
-    cluster = np.unique([c[0] for c in auxGraph])
-    for i in range(1,len(cluster)-1):
-        index = cluster[i]
-        index2 = cluster[i+1]
-        toTake = toTake + (index2 - index) 
-       
-        finalRoutes.append(auxGraph[toTake][1])
+
+    u = len(auxGraph)-1
+    while (u != 0):
+        node = auxGraph[u]
+        u = node[0]
+        finalRoutes.append(node[1])
+
+    # toTake = 0
+    # countIndex = 0
+    # toTakeLeft = 0 
+    # cluster = np.unique([c[0] for c in auxGraph])
+
+    # checkList = []
+
+    # for i in range(1,len(cluster)-1):
+    #     index = cluster[i]
+    #     index2 = cluster[i+1]
+    #     countIndex += sum([ 1 for c in auxGraph if c[0] == index ])
+    #     toTake = toTake + (index2 - index) + toTakeLeft
+    #     toTakeLeft = (index2 - toTake) * np.sign(countIndex - toTake)    
+    #     routeAppo = auxGraph[toTake][1]
+    #     # for node in routeAppo.getCustomers():
+    #     #     if node != 0 : 
+    #     #         if node not in checkList:
+    #     #             checkList.append(node)
+    #     #         else:
+    #     #             routeAppo.getCustomers().remove(routeAppo.getCustomers()[0])
+    #     #             routeAppo.getCustomers().remove(node)
+    #     #             routeAppo.setCost(route.getCost() - graph.getValue(0,node) - graph.getValue(node,routeAppo.getCustomers()[0]))
+    #     #             routeAppo.addCustomer(0,demand[0],True)
+    #     #             routeAppo.setCost(route.getCost() + graph.getValue(0,routeAppo.getCustomers()[1]))
+        
+    #     finalRoutes.append(routeAppo)
+
+        
+ 
 
  
     routeCost = 0  
@@ -533,92 +551,54 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
     f.write("Routing Total Cost: "+ str(routeCost)+"\n")
 
 
-def LocalSearch(route:Route,graph:cvrpGraph):
-    for n in range(1,len(route.getCustomers()-1)):
-        node1 = n
-        node2 = n+2 % len(route.getCustomers())
-        if(node2 != 0):
-            firstCandidate = route.getCustomers[node1] 
-            prevfc =  route.getCustomers[node1-1] 
-            nextfc =  route.getCustomers[node1+1]
+def LocalSearch_FlippingPath(route:Route,graph:cvrpGraph,candidate1, candidate2):
 
-            secondCandidate = route.getCustomers[node2]
-            prevsc =  route.getCustomers[node2-1] 
-            nextsc =  route.getCustomers[node2+1]
+    node1 = candidate1 % len(route.getCustomers())
+    node2 = candidate2 % len(route.getCustomers())
+    if(node2 != 0):
+        firstCandidate = route.getCustomers[node1] 
+        prevfc =  route.getCustomers[node1-1] 
+        nextfc =  route.getCustomers[node1+1]
 
-            cost1 = graph.getValue(prevfc,firstCandidate) + graph.getValue(firstCandidate,nextfc)
-            cost2 = graph.getValue(secondCandidate-1,secondCandidate) + graph.getValue(secondCandidate,secondCandidate+1)
+        secondCandidate = route.getCustomers[node2]
+        prevsc =  route.getCustomers[node2-1] 
+        nextsc =  route.getCustomers[node2+1]
 
-            route.setCost (route.getCost() - (cost1 +cost2))
-            route.getCustomers()[firstCandidate] = secondCandidate
-            route.getCustomers()[secondCandidate] = firstCandidate
+        cost1 = graph.getValue(prevfc,firstCandidate) + graph.getValue(firstCandidate,nextfc)
+        cost2 = graph.getValue(prevsc,secondCandidate) + graph.getValue(secondCandidate,nextsc)
 
-            cost3 = graph.getValue(firstCandidate-1,secondCandidate) + graph.getValue(secondCandidate,firstCandidate+1)
-            cost4 = graph.getValue(secondCandidate-1,firstCandidate) + graph.getValue(firstCandidate,secondCandidate+1)
+        route.setCost (route.getCost() - (cost1 +cost2))
+        route.getCustomers()[firstCandidate] = secondCandidate
+        route.getCustomers()[secondCandidate] = firstCandidate
 
+        cost3 = graph.getValue(prevfc,secondCandidate) + graph.getValue(secondCandidate,nextfc)
+        cost4 = graph.getValue(prevsc,firstCandidate) + graph.getValue(firstCandidate,nextsc)
 
-
-
-        
-
-    print("casdd")
+        route.setCost (route.getCost() + (cost3 +cost4))
+           
+    return route
 
 
+def Mutation(route:Route,graph:cvrpGraph,percentage:int):
 
+        n_nodes = math.ceil((len(route.getCustomers()) * percentage) / 100)
 
+        candidates = [np.random.randint(1,graph.getDimension) for i in range(n_nodes)]
 
+        toSubstitute = [np.random.randint(1,len(route.getCustomers())-1) for i in range(n_nodes)]
 
-                
+        for i in range(candidates):
+            c = route.getCustomers().index(toSubstitute[i])
+            prevc =  route.getCustomers()[c-1] 
+            nextc =  route.getCustomers()[c+1]
 
-
-
-
-
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-#  1  function Dijkstra(Grafo, sorgente):
-#  2      For each vertice v in Grafo:                               // Inizializzazione
-#  3          dist[v] := infinito ;                                  // Distanza iniziale sconosciuta 
-#  4                                                                 // dalla sorgente a v
-#  5          precedente[v] := non definita ;                             // Nodo precedente in un percorso ottimale
-#  6      end for                                                    // dalla sorgente
-#  7
-#  8      dist[sorgente] := 0 ;                                        // Distanza dalla sorgente alla sorgente
-#  9      Q := L'insieme di tutti i nodi nel Grafo ;                       // Tutti i nodi nel grafo sono
-# 10                                                                 // Non ottimizzati e quindi stanno in Q
-# 11      while Q non è vuota:                                      // Loop principale
-# 12          u := vertice in Q con la più breve distanza in dist[] ;    // Nodo iniziale per il primo caso
-# 13          rimuovi u da Q ;
-# 14          if dist[u] = infinito:
-# 15              break ;                                            // tutti i vertici rimanenti sono
-# 16          end if                                                 // inaccessibili dal nodo sorgente
-# 17
-# 18          For each neighbour v di u:                              // dove v non è ancora stato 
-# 19                                                                 // rimosso da Q.
-# 20              alt := dist[u] + dist_tra(u, v) ;
-# 21              if alt < dist[v]:                                  // Rilascia (u,v,a)
-# 22                  dist[v] := alt ;
-# 23                  precedente[v] := u ;
-# 24                  decrease-key v in Q;                           // Riordina v nella coda
-# 25              end if
-# 26          end for
-# 27      end while
-# 28  return dist;
-
-
+            costDel = graph.getValue(prevc,c) + graph.getValue(c,nextc)
+            route.setCost (route.getCost() - (costDel))
+            d = candidates[i]
+            route.getCustomers().insert(d,c+1)
+            costToAdd = graph.getValue(prevc,d) + graph.getValue(d,nextc)
+            route.setCost (route.getCost() + costToAdd)
+  
 
 
 

@@ -6,4 +6,4 @@ Route_2: 0-13-14-19-18-20-11-0-END
 Route_3: 0-17-16-1-2-3-21-0-END
 Total Routed Nodes 22
 Routing Total Cost: 159120.0
-Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.9628421288571216
+Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.9628421288571216Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.9628421288571216Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.9628421288571216Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.9628421288571216Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.9628421288571216Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.9628421288571216Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.9628421288571216

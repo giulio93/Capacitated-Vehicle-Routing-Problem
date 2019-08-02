@@ -6,4 +6,4 @@ Route_2: 0-23-20-2-10-21-17-0-END
 Route_3: 0-11-3-22-8-12-0-END
 Total Routed Nodes 24
 Routing Total Cost: 2650.0
-Error of solution in Sol_gr-n24-k4.vrp.txt: 0.29079396005845104
+Error of solution in Sol_gr-n24-k4.vrp.txt: 0.29079396005845104Error of solution in Sol_gr-n24-k4.vrp.txt: 0.29079396005845104Error of solution in Sol_gr-n24-k4.vrp.txt: 0.29079396005845104Error of solution in Sol_gr-n24-k4.vrp.txt: 0.29079396005845104Error of solution in Sol_gr-n24-k4.vrp.txt: 0.29079396005845104Error of solution in Sol_gr-n24-k4.vrp.txt: 0.29079396005845104Error of solution in Sol_gr-n24-k4.vrp.txt: 0.29079396005845104

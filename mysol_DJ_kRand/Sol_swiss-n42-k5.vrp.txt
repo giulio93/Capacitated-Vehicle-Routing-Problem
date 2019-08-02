@@ -7,4 +7,4 @@ Route_3: 0-38-39-40-29-2-27-3-37-0-END
 Route_4: 0-15-14-5-13-12-11-10-4-0-END
 Total Routed Nodes 41
 Routing Total Cost: 2454.0
-Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.4712230215827338
+Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.4712230215827338Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.4712230215827338Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.4712230215827338Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.4712230215827338Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.4712230215827338Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.4712230215827338Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.4712230215827338

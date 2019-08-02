@@ -1,0 +1,13 @@
+bayg29
+29
+Route_0: 0-27-28-0-END
+Route_1: 0-24-25-26-0-END
+Route_2: 0-21-22-23-0-END
+Route_3: 0-14-15-16-17-18-19-20-0-END
+Route_4: 0-10-11-12-13-0-END
+Route_5: 0-8-9-0-END
+Route_6: 0-3-4-5-6-7-0-END
+Route_7: 0-1-2-0-END
+Total Routed Nodes 29
+Routing Total Cost: 5287.0
+Error of solution in Sol_bayg-n29-k4.vrp.txt: 1.5790243902439025

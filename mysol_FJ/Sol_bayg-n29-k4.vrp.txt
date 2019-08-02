@@ -6,4 +6,4 @@ Route_2: 0-26-15-23-19-25-10-24-0-END
 Route_3: 0-20-3-6-4-27-22-0-END
 Total Routed Nodes 28
 Routing Total Cost: 3011.0
-Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.468780487804878
+Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.468780487804878Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.468780487804878Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.468780487804878Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.468780487804878Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.468780487804878Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.468780487804878Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.468780487804878

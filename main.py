@@ -42,6 +42,9 @@ if __name__ == "__main__":
     sol.printResult('./cvrp-sol','./mysol_FJ_kRand')
     print("======================DIJKASTRA RANDOM K==================================") 
     sol.printResult('./cvrp-sol','./mysol_DJ_kRand')
+    print("======================DIJKASTRA CLUSTER FIRST ROUTE SECOND==================================") 
+    sol.printResult('./cvrp-sol','./Sol_CR')
+
 
 
 
