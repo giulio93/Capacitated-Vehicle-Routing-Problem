@@ -342,9 +342,13 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters,saveFolder):
             routedNodesControl = routedNodesControl +1
             routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
         routedNodesControl = routedNodesControl -1
+        fianlRoute.setCost(routeCost)
+
     
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
-    f.write("Routing Total Cost: "+ str(routeCost)+"\n") 
+    f.write("Routing Total Cost: "+ str(routeCost)+"\n")
+    
+    return routes
 
 def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters,saveFolder):
 
@@ -499,45 +503,13 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
         node = auxGraph[u]
         u = node[0]
         finalRoutes.append(node[1])
-
-    # toTake = 0
-    # countIndex = 0
-    # toTakeLeft = 0 
-    # cluster = np.unique([c[0] for c in auxGraph])
-
-    # checkList = []
-
-    # for i in range(1,len(cluster)-1):
-    #     index = cluster[i]
-    #     index2 = cluster[i+1]
-    #     countIndex += sum([ 1 for c in auxGraph if c[0] == index ])
-    #     toTake = toTake + (index2 - index) + toTakeLeft
-    #     toTakeLeft = (index2 - toTake) * np.sign(countIndex - toTake)    
-    #     routeAppo = auxGraph[toTake][1]
-    #     # for node in routeAppo.getCustomers():
-    #     #     if node != 0 : 
-    #     #         if node not in checkList:
-    #     #             checkList.append(node)
-    #     #         else:
-    #     #             routeAppo.getCustomers().remove(routeAppo.getCustomers()[0])
-    #     #             routeAppo.getCustomers().remove(node)
-    #     #             routeAppo.setCost(route.getCost() - graph.getValue(0,node) - graph.getValue(node,routeAppo.getCustomers()[0]))
-    #     #             routeAppo.addCustomer(0,demand[0],True)
-    #     #             routeAppo.setCost(route.getCost() + graph.getValue(0,routeAppo.getCustomers()[1]))
         
-    #     finalRoutes.append(routeAppo)
-
-        
- 
-
- 
     routeCost = 0  
     routedNodesControl = 1
     f= open(saveFolder+'/Sol_'+graph.getFileName()+".txt","w+")
     f.write(str(graph.name)+"\n")
     f.write(str(graph.dimension)+"\n")
     
-    nodesPresent = []
     for fianlRoute in finalRoutes:
             
         appo = fianlRoute.printRoute(finalRoutes.index(fianlRoute))
@@ -598,7 +570,44 @@ def Mutation(route:Route,graph:cvrpGraph,percentage:int):
             route.getCustomers().insert(d,c+1)
             costToAdd = graph.getValue(prevc,d) + graph.getValue(d,nextc)
             route.setCost (route.getCost() + costToAdd)
-  
+
+
+def Elitism(population,elitism_precentage):
+    fitness = []
+    for p in population:
+        fitness.append((p,p.getCost()))
+        fitness.sort(key=lambda x:x[1])
+        toCopy = math.ceil((len(population) * elitism_precentage / 100))
+        copied = fitness[0:toCopy]
+    return fitness , copied
+
+def Tournament(fitness:list(tuple),copied):
+    maxF = fitness[0][1]
+    winner = [ f for f in fitness if f[1]>= maxF]
+    winner.extend(copied)
+
+    return winner
+
+
+    
+
+
+
+    
+
+    
+
+def Crossover(winner:[Route],graph:cvrpGraph):
+
+    demand = graph.getDemand()
+    for p in winner:
+          indexDemand = 0
+          for node in p.getCustomers():
+            indexDemand += demand[node]
+            if (indexDemand < p.getPayload()/2):
+                print("culo")
+
+
 
 
 
