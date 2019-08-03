@@ -77,7 +77,8 @@ if __name__ == "__main__":
           for children,copied in family:
             children.extend([c[0][0] for c in toCopy])
             mutantChild = sol.Mutation(children,graphToSolve,1)
-            fittingMutation = sum([m.getCost()/int(len(m.getCustomers())) for m in mutantChild])
+            solution = sol.SearchaAndCompleteSequence(mutantChild,graph)
+            fittingMutation = sum([m.getCost() for m in mutantChild])
             mutant.append((fittingMutation,mutantChild))
             #print(fittingMutation)
 

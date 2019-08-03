@@ -648,7 +648,14 @@ def Crossover(winner,graph:cvrpGraph,tabuSearch:bool = False,tabuLister:list = [
                     cost += graph.getValue(child.getCustomers()[n],child.getCustomers()[n+1])
                 child.setCost(cost)
                 childs.append(child)
-               
+
+        # count =[]
+        # tot =0
+        # for k in childs:
+        #     for j in k.getCustomers() :
+        #          tot +=sum([1 for n in childs for i in n.getCustomers() if i == j])
+        #     count.append(hash(k),tot)
+
         childs.sort(key=lambda x:(x.getCost()/len(x.getCustomers())),reverse=True)
         ft = childs.pop()
         if(tabuSearch == True and ft in tabuList):
@@ -658,6 +665,50 @@ def Crossover(winner,graph:cvrpGraph,tabuSearch:bool = False,tabuLister:list = [
         tabuList.append(ft)
     
     return fittestChildren,tabuList
+
+def SearchaAndCompleteSequence(solution:[Route],graph:cvrpGraph):
+
+    demand = graph.getDemand()
+    nodes = []
+    nodesToCheck = [ i for i in range(1,graph.getDimension())]
+
+    for route in solution:
+        for n in route:
+            if(n!=0):
+                if n not in nodes:
+                    nodes.append(n)
+                    nodesToCheck.remove(n)
+                else:
+                    c = route.getCustomers().index(n)
+                    if(len(route) == 2):
+                        solution.remove(route)
+                        continue
+                    prevc =  route.getCustomers()[c-1] 
+                    nextc =  route.getCustomers()[c+1]
+
+                    costDel = graph.getValue(prevc,c) + graph.getValue(c,nextc)
+                    route.setCost (route.getCost() - (costDel) + graph.getValue(prevc,nextc))
+    
+    routeCheck = Route(graph.getCapacity())
+    routeCheck.addCustomer(0,demand[0],False)
+    route.setCost(0)
+    for check in nodesToCheck:
+        routeCheck.addCustomer(check,demand[check],False)
+        route.setCost(route.getCost()+ graph.getValue(routeCheck.getCustomers()[len(routeCheck.getCustomers())-1],check))
+
+    routeCheck.addCustomer(0,demand[0],False)
+    route.setCost(route.getCost()+ graph.getValue(routeCheck.getCustomers()[len(routeCheck.getCustomers())-1],0))
+
+
+
+
+
+    
+
+
+    return solution,nodesToCheck
+        
+
             
 
 
