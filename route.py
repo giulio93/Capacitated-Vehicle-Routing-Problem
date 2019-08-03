@@ -52,6 +52,9 @@ class Route:
 
     def getPayload(self):
         return self.payload
+    
+    def setPayload(self,payload):
+        self.payload = payload
 
     def getCost(self):
         return self.cost

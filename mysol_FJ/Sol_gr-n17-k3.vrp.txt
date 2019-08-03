@@ -1,7 +1,7 @@
 gr17
 17
-Route_0: 0-6-7-5-4-1-0-END
-Route_1: 0-12-3-13-2-15-0-END
-Route_2: 0-8-11-10-14-9-0-END
+Route_0: 0-13-14-8-11-15-0-END
+Route_1: 0-3-5-2-4-1-0-END
+Route_2: 0-12-6-7-10-9-0-END
 Total Routed Nodes 16
-Routing Total Cost: 4015.0
+Routing Total Cost: 3556.0

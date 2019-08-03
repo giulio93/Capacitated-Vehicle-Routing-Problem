@@ -328,14 +328,14 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters,saveFolder):
         routes.append(appoRoute)
 
     
-    routeCost = 0  
+    totSolCost = 0
     routedNodesControl = 1
     f= open(saveFolder +"/Sol_"+graph.getFileName()+".txt","w+")
     f.write(str(graph.name)+"\n")
     f.write(str(graph.dimension)+"\n")
     
     for fianlRoute in routes:
-            
+        routeCost = 0    
         appo = fianlRoute.printRoute(routes.index(fianlRoute))
         f.write(appo+"\n")
         for i in range(len(fianlRoute.getCustomers())-1):
@@ -343,10 +343,11 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters,saveFolder):
             routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
         routedNodesControl = routedNodesControl -1
         fianlRoute.setCost(routeCost)
+        totSolCost += routeCost
 
     
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
-    f.write("Routing Total Cost: "+ str(routeCost)+"\n")
+    f.write("Routing Total Cost: "+ str(totSolCost)+"\n")
     
     return routes
 
@@ -673,31 +674,44 @@ def SearchaAndCompleteSequence(solution:[Route],graph:cvrpGraph):
     nodesToCheck = [ i for i in range(1,graph.getDimension())]
 
     for route in solution:
-        for n in route:
+        
+             
+        for n in route.getCustomers():
+            cost = 0 
             if(n!=0):
                 if n not in nodes:
                     nodes.append(n)
                     nodesToCheck.remove(n)
                 else:
+                    prevc = -1
+                    nextc = -1
+                    costDel = 0
                     c = route.getCustomers().index(n)
-                    if(len(route) == 2):
+                    if(len(route.getCustomers()) == 2):
                         solution.remove(route)
                         continue
                     prevc =  route.getCustomers()[c-1] 
                     nextc =  route.getCustomers()[c+1]
-
+                    
                     costDel = graph.getValue(prevc,c) + graph.getValue(c,nextc)
-                    route.setCost (route.getCost() - (costDel) + graph.getValue(prevc,nextc))
+                    route.getCustomers().remove(n)
+                    route.setPayload(route.getPayload() - demand[n])
+                    #route.setCost(route.getCost() - (costDel) )
+                    for n in range(len(route.getCustomers())-1):
+                        cost += graph.getValue(route.getCustomers()[n],route.getCustomers()[n+1])
+                    route.setCost(cost)  
+                    route.setCost(route.getCost() + graph.getValue(prevc,nextc) )
     
     routeCheck = Route(graph.getCapacity())
     routeCheck.addCustomer(0,demand[0],False)
     route.setCost(0)
     for check in nodesToCheck:
-        routeCheck.addCustomer(check,demand[check],False)
         route.setCost(route.getCost()+ graph.getValue(routeCheck.getCustomers()[len(routeCheck.getCustomers())-1],check))
+        routeCheck.addCustomer(check,demand[check],False)
 
-    routeCheck.addCustomer(0,demand[0],False)
     route.setCost(route.getCost()+ graph.getValue(routeCheck.getCustomers()[len(routeCheck.getCustomers())-1],0))
+    routeCheck.addCustomer(0,demand[0],False)
+
 
 
 
@@ -706,7 +720,7 @@ def SearchaAndCompleteSequence(solution:[Route],graph:cvrpGraph):
     
 
 
-    return solution,nodesToCheck
+    return solution
         
 
             

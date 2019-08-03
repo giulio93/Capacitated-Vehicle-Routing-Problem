@@ -52,7 +52,10 @@ if __name__ == "__main__":
         toCopy.append(copied)
         population.append((sum([f[1] for f in fitness]),chromosome,copied))
 
-      while(era > 0):
+      while(era >0):
+        bestEv = []
+
+        mutant = []
         for k in range(int(len(population)/2)):
           family =  []
           c1 = np.random.randint(len(population))
@@ -73,18 +76,29 @@ if __name__ == "__main__":
           #print(fittingCrossover)
           treshold = treshold -1 
           fittingMutation = 0     
-          mutant = []
           for children,copied in family:
             children.extend([c[0][0] for c in toCopy])
             mutantChild = sol.Mutation(children,graphToSolve,1)
-            solution = sol.SearchaAndCompleteSequence(mutantChild,graph)
-            fittingMutation = sum([m.getCost() for m in mutantChild])
-            mutant.append((fittingMutation,mutantChild))
-            #print(fittingMutation)
+            solution = sol.SearchaAndCompleteSequence(mutantChild,graphToSolve)
+            fittingMutation = sum([m.getCost() for m in solution])
+            mutant.append((fittingMutation,solution))
+            print(fittingMutation)
 
-          mutant.sort(key=lambda x:x[0])
-        era = era - 1
-        print("BestSol:" + str(mutant[0][0]))
+        mutant.sort(key=lambda x:x[0],reverse=True)
+      
+        candidate = mutant.pop()
+        print("BestSol:" + str(candidate[0]))
+        bestEv.append(candidate)
+        era = era -1
+        for c in bestEv:
+          for p in population:
+            if(c[0] < p[0]+500):
+              population.remove(p)
+              fitness, copied = sol.Elitism(c[1],percentage)
+              toCopy.append(copied)
+              population.append((c[0],c[1],copied))
+
+
 
 
       
