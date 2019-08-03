@@ -9,6 +9,7 @@ import solver as sol
 import math 
 import random
 from route import Route
+import numpy as np
 
 
 if __name__ == "__main__":
@@ -38,10 +39,12 @@ if __name__ == "__main__":
       treshold = 50
       n_population = 10
       population = []
-      family =  []
-      toCopy = []
+      era = 100
+      
       #Population Generation: Select k customers, create routes and calculate fitness of each chromosome
       for i in range(n_population):
+       
+        toCopy = []
         K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
         GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRand)
         chromosome = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRand,"mysol_FJ")
@@ -49,26 +52,41 @@ if __name__ == "__main__":
         toCopy.append(copied)
         population.append((sum([f[1] for f in fitness]),chromosome,copied))
 
-      for totalfitness , chromosome ,copied in population:
-        winnerCandidates = sol.Tournament(chromosome)
-        fittingCrossover = totalfitness        
-        while(treshold > 0 ):
-          children, tabuLister = sol.Crossover(winnerCandidates,graphToSolve)
+      while(era > 0):
+        for k in range(int(len(population)/2)):
+          family =  []
+          c1 = np.random.randint(len(population))
+          c2 = np.random.randint(len(population))
+          f1,ch1,copy1 = population[c1]
+          f2,ch2,copy2 = population[c2]
+          winner1 = sol.Tournament(ch1,False)
+          winner2 = sol.Tournament(ch2,True)
+
+          f1 =  sum([w[1].getCost()  for w in winner1]) 
+          f2 =  sum([w[1].getCost()  for w in winner2]) 
+          fittingCrossover = f1 +f2
+          winner1.extend(winner2)
+
+          children, tabuLister = sol.Crossover(winner1,graphToSolve)
           fittingCrossover = sum([c.getCost() for c in children])
           family.append((children,copied))
-          print(fittingCrossover)
-          treshold = treshold -1
+          #print(fittingCrossover)
+          treshold = treshold -1 
+          fittingMutation = 0     
+          mutant = []
+          for children,copied in family:
+            children.extend([c[0][0] for c in toCopy])
+            mutantChild = sol.Mutation(children,graphToSolve,1)
+            fittingMutation = sum([m.getCost()/int(len(m.getCustomers())) for m in mutantChild])
+            mutant.append((fittingMutation,mutantChild))
+            #print(fittingMutation)
+
+          mutant.sort(key=lambda x:x[0])
+        era = era - 1
+        print("BestSol:" + str(mutant[0][0]))
+
 
       
-      fittingMutation = 0
-      
-      mutant = []
-      for children,copied in family:
-        children.extend([c[0][0] for c in toCopy])
-        mutantChild = sol.Mutation(children,graphToSolve,1)
-        fittingMutation = sum([m.getCost for m in mutantChild])
-        mutant.append(mutantChild)
-        print(fittingMutation)
     
         
 

@@ -1,9 +1,8 @@
 ulysses22.tsp
 22
-Route_0: 0-6-5-9-8-4-0-END
-Route_1: 0-15-12-11-13-10-0-END
-Route_2: 0-7-14-19-20-18-0-END
-Route_3: 0-3-17-16-2-1-0-END
+Route_0: 0-7-17-3-16-20-0-END
+Route_1: 0-6-5-9-8-4-0-END
+Route_2: 0-15-19-18-2-1-0-END
+Route_3: 0-12-11-13-14-10-0-END
 Total Routed Nodes 21
-Routing Total Cost: 154072.0
-Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.837123004507758Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.837123004507758Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.837123004507758Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.837123004507758Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.837123004507758Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.837123004507758Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.837123004507758
+Routing Total Cost: 154427.0

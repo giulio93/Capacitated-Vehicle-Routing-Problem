@@ -555,15 +555,23 @@ def Mutation(children,graph:cvrpGraph,percentage:int):
     mutant = []
     demand = graph.getDemand()
     for child in children:
+        candidates = []
+        toSubstitute = []
+
         n_nodes = math.ceil((len(child.getCustomers()) * percentage) / 100)
 
         candidates = [np.random.randint(1,graph.getDimension()) for i in range(n_nodes)]
+        #print("Length: "+str(len(child.getCustomers())))
 
-        toSubstitute = [np.random.randint(1,len(child.getCustomers())-1) for i in range(n_nodes)]
+        if(len(child.getCustomers()) ==2 ):
+            continue
+        else:
+            toSubstitute = [np.random.randint(1,len(child.getCustomers())-1) for i in range(n_nodes)]
 
         for i in range(len(candidates)):
-            nodeTosub = child.getCustomers()[toSubstitute[i]]
-            if(child.getPayload() + candidates[i] - demand[nodeTosub] <= child.getCapacity()):
+            j = toSubstitute[i]
+            nodeTosub = child.getCustomers()[j]
+            if(child.getPayload() + demand[candidates[i]] - demand[nodeTosub] <= child.getCapacity()):
                 c = child.getCustomers().index(nodeTosub)
                 prevc =  child.getCustomers()[c-1] 
                 nextc =  child.getCustomers()[c+1]
@@ -572,7 +580,9 @@ def Mutation(children,graph:cvrpGraph,percentage:int):
                 child.setCost (child.getCost() - (costDel))
         
                 d = candidates[i]
-                child.getCustomers().insert(c+1,d)
+                indexBefore =  child.getCustomers().index(nodeTosub)  
+                child.getCustomers().insert(indexBefore+1,d)
+                child.getCustomers().remove(nodeTosub)
                 costToAdd = graph.getValue(prevc,d) + graph.getValue(d,nextc)
                 child.setCost (child.getCost() + costToAdd)
                 mutant.append(child)
@@ -592,11 +602,14 @@ def Elitism(chromosome,elitism_precentage):
     copied = fitness[0:toCopy]
     return fitness , copied
 
-def Tournament(fitness):
+def Tournament(fitness,best:bool):
     
     winner = [ (f.getCost()/len(f.getCustomers()),f) for f in fitness  ]
     winner.sort(key=lambda x:x[0])
-    winner = winner[int(len(winner)/2):]
+    if(best == True):
+        winner = winner[:int(len(winner)/2)]
+    else:
+        winner = winner[int(len(winner)/2):]
     return winner
 
     
@@ -606,10 +619,7 @@ def Crossover(winner,graph:cvrpGraph,tabuSearch:bool = False,tabuLister:list = [
     capacity = graph.getCapacity()
     fittestChildren  = []
     tabuList = tabuLister
-    checkList = []
-  
-
-
+    
     for parent1 in winner:
         childs = []
         
@@ -635,11 +645,11 @@ def Crossover(winner,graph:cvrpGraph,tabuSearch:bool = False,tabuLister:list = [
                         continue
               
                 for n in range(len(child.getCustomers())-1):
-                    cost += graph.getValue(n,n+1)
+                    cost += graph.getValue(child.getCustomers()[n],child.getCustomers()[n+1])
                 child.setCost(cost)
                 childs.append(child)
-                childs.sort(key=lambda x:x.getCost(),reverse=True)
-
+               
+        childs.sort(key=lambda x:(x.getCost()/len(x.getCustomers())),reverse=True)
         ft = childs.pop()
         if(tabuSearch == True and ft in tabuList):
             while(ft not in tabuList):
