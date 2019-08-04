@@ -35,93 +35,64 @@ if __name__ == "__main__":
      
 
       #Parameters setting: percentage of Elitism, threshold of improving fitting, number of cromosome
-      percentage = 1
-      treshold = 50
+      mutationRate = 1
       n_population = 10
       population = []
-      era = 100
+      elitismList =[]
+      Eras = 1000
+      era = 0
       
-      #Population Generation: Select k customers, create routes and calculate fitness of each chromosome
-      for i in range(n_population):
-       
-        toCopy = []
+      #Initialize Population : Select k customers, create routes and calculate fitness of each chromosome
+      for i in range(n_population):            
         K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
         GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRand)
-        chromosome = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRand,"mysol_FJ")
-        fitness, copied = sol.Elitism(chromosome,percentage)
-        toCopy.append(copied)
-        population.append((sum([f[1] for f in fitness]),chromosome,copied))
+        chromosome = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRand,"mysol_FJ")               
+        population.append((sum([c.getCost() for c in chromosome]),chromosome))
 
-      while(era >0):
-        bestEv = []
-
-        mutant = []
+      #Stop Criterion
+      while(era < Eras):
+        print("Welcome to the ==> " + str(era) +" Era!")
+        toKeep = sol.Elitism(population)
+        popEra = []
+        #Do evolutionary opeeration half time population
         for k in range(int(len(population)/2)):
-          family =  []
-          c1 = np.random.randint(len(population))
-          c2 = np.random.randint(len(population))
-          f1,ch1,copy1 = population[c1]
-          f2,ch2,copy2 = population[c2]
-          winner1 = sol.Tournament(ch1,False)
-          winner2 = sol.Tournament(ch2,True)
+          
+          winner1,winner2 ,f1,f2= sol.Tournament(population,False)     
+          children, tabuLister , fittingCrossover = sol.Crossover(winner1,winner2,graphToSolve)
+          print("CROSSOVER ==> "+str(fittingCrossover))
+          
+          popEra.append((fittingCrossover,children))
+          if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
+             print("Invalid! " +str(fittingCrossover))
+          else:
+            popEra.sort(key=lambda x:x[0],reverse=True)
+            mutantChild = popEra[0]
+          if (np.random.randint(2,100) <= mutationRate):
+            for route in mutantChild[1]:
+                c1 = np.random.randint(1,len(route.getCustomers())-1)
+                c2 = np.random.randint(1,len(route.getCustomers())-1)
+                route = sol.LocalSearch_FlippingPath(route,graphToSolve,c1,c2)
 
-          f1 =  sum([w[1].getCost()  for w in winner1]) 
-          f2 =  sum([w[1].getCost()  for w in winner2]) 
-          fittingCrossover = f1 +f2
-          winner1.extend(winner2)
+            fittingMutation = sum([m.getCost() for m in children])
+            popEra.append((fittingMutation,mutantChild))
+            if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
+              print("Invalid! " +str(fittingCrossover))
+            print("CROSSOVER ==> "+str(fittingMutation))
 
-          children, tabuLister = sol.Crossover(winner1,graphToSolve)
-          fittingCrossover = sum([c.getCost() for c in children])
-          family.append((children,copied))
-          #print(fittingCrossover)
-          treshold = treshold -1 
-          fittingMutation = 0     
-          for children,copied in family:
-            children.extend([c[0][0] for c in toCopy])
-            mutantChild = sol.Mutation(children,graphToSolve,1)
-            solution = sol.SearchaAndCompleteSequence(mutantChild,graphToSolve)
-            fittingMutation = sum([m.getCost() for m in solution])
-            mutant.append((fittingMutation,solution))
-            print(fittingMutation)
+        for pe in popEra:
+          for po in population:
+            if(po[0]>pe[0]):
+              population.remove(po)
+              population.append(pe)
+              break
+        if toKeep not in population:
+          population.append(toKeep)
+        era = era + 1
 
-        mutant.sort(key=lambda x:x[0],reverse=True)
-      
-        candidate = mutant.pop()
-        print("BestSol:" + str(candidate[0]))
-        bestEv.append(candidate)
-        era = era -1
-        for c in bestEv:
-          for p in population:
-            if(c[0] < p[0]+500):
-              population.remove(p)
-              fitness, copied = sol.Elitism(c[1],percentage)
-              toCopy.append(copied)
-              population.append((c[0],c[1],copied))
+          
 
+          
 
-
-
-      
-    
-        
-
-
-        
-
-        
-
-        
-
-        
-
-
-              
-
-
-
-        
-
-    
    
     print("==============================CLARKE AND WRIGHT==================================")   
     sol.printResult('./cvrp-sol','./mysol')

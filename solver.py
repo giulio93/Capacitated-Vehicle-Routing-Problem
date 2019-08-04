@@ -562,7 +562,6 @@ def Mutation(children,graph:cvrpGraph,percentage:int):
         n_nodes = math.ceil((len(child.getCustomers()) * percentage) / 100)
 
         candidates = [np.random.randint(1,graph.getDimension()) for i in range(n_nodes)]
-        #print("Length: "+str(len(child.getCustomers())))
 
         if(len(child.getCustomers()) ==2 ):
             continue
@@ -594,133 +593,218 @@ def Mutation(children,graph:cvrpGraph,percentage:int):
     return mutant
 
 
-def Elitism(chromosome,elitism_precentage):
-    fitness = []
-    for cell in chromosome:
-        fitness.append((cell,cell.getCost()))
-        fitness.sort(key=lambda x:x[1])
-    toCopy = math.ceil((len(chromosome) * elitism_precentage / 100))
-    copied = fitness[0:toCopy]
-    return fitness , copied
+def Elitism(population): 
+    #toCopy = math.ceil((len(chromosome) * elitism_precentage / 100))
+    populSort = population.copy()
+    populSort.sort(key= lambda x:x[0],reverse=True)
+    toKeep = populSort.pop()
+    return toKeep
 
-def Tournament(fitness,best:bool):
-    
-    winner = [ (f.getCost()/len(f.getCustomers()),f) for f in fitness  ]
-    winner.sort(key=lambda x:x[0])
-    if(best == True):
-        winner = winner[:int(len(winner)/2)]
-    else:
-        winner = winner[int(len(winner)/2):]
-    return winner
+def Tournament(population,random:bool):
+
+    if(random == True):
+        c1 = np.random.randint(len(population))
+        c2 = np.random.randint(len(population))
+        f1,winner1 = population[c1]
+        f2,winner2 = population[c2]
+        return winner1,winner2,f1,f2
+
+    winners = population.copy()
+    winners.sort(key=lambda x:x[0],reverse=True)
+    f1,w1 = winners[0]
+    f2,w2 = winners.pop()
+    return w1, w2,f1,f2
+    # winner = [ (f.getCost()/len(f.getCustomers()),f) for f in fitness  ]
+    # winner.sort(key=lambda x:x[0])
+    # if(best == True):
+    #     winner = winner[:int(len(winner)/2)]
+    # else:
+    #     winner = winner[int(len(winner)/2):]
+    # return winner
 
     
-def Crossover(winner,graph:cvrpGraph,tabuSearch:bool = False,tabuLister:list = []):
+def Crossover(winner1,winner2,graph:cvrpGraph,tabuSearch:bool = False,tabuLister:list = []):
 
     demand = graph.getDemand()
     capacity = graph.getCapacity()
-    fittestChildren  = []
     tabuList = tabuLister
+    ft = Route(capacity)    
+    winner1Sequence = []
+    winner2Sequence = []
+
+    child1 = []
+    child2 = []
+    solution1 = []
+    solution2 = []
+
+    winner1Sequence += [p.getCustomers() for p in winner1]
+    winner1Sequence = [y for x in winner1Sequence for y in x]
+    winner2Sequence += [p.getCustomers() for p in winner2]
+    winner2Sequence = [y for x in winner2Sequence for y in x]
+
+
+    crossover_point1 = np.random.randint(int(len(winner1Sequence)/2))
+    crossover_point2 = np.random.randint(int(len(winner1Sequence)/2),len(winner1Sequence))
+
+    #Form child one List
+    for node in (winner1Sequence[crossover_point1:crossover_point2]):
+        if node not in child1 and node !=0:
+            child1.append(node)
     
-    for parent1 in winner:
-        childs = []
-        
-        for parent2 in winner:
-            if(parent1[1] != parent2[1]):
-                cost = 0
-                chromosome1 = []
-                chromosome2 = []
-                parentroute1 = parent1[1]
-                parentroute2 = parent2[1]                          
-                crossover_point1 = np.random.randint(1,len(parentroute1.getCustomers()))
-                crossover_point2 = np.random.randint(1,len(parentroute2.getCustomers()))
-                chromosome1 = parentroute1.getCustomers()[crossover_point1:]
-                chromosome2= parentroute2.getCustomers()[:crossover_point2]
+    for node in (winner2Sequence[crossover_point2:]):
+        if node not in child1 and node !=0:
+            child1.append(node)
 
-                child = Route(capacity)
-                child.setCost(0)
-                merge = chromosome2 + chromosome1
-                for node in merge:
-                    control = child.addCustomer(node,demand[node],False)
-
-                    if(control < 0 ):
-                        continue
-              
-                for n in range(len(child.getCustomers())-1):
-                    cost += graph.getValue(child.getCustomers()[n],child.getCustomers()[n+1])
-                child.setCost(cost)
-                childs.append(child)
-
-        # count =[]
-        # tot =0
-        # for k in childs:
-        #     for j in k.getCustomers() :
-        #          tot +=sum([1 for n in childs for i in n.getCustomers() if i == j])
-        #     count.append(hash(k),tot)
-
-        childs.sort(key=lambda x:(x.getCost()/len(x.getCustomers())),reverse=True)
-        ft = childs.pop()
-        if(tabuSearch == True and ft in tabuList):
-            while(ft not in tabuList):
-                ft= childs.pop()  
-        fittestChildren.append(ft)
-        tabuList.append(ft)
+    for node in (winner2Sequence[:crossover_point1]):
+       if node not in child1 and node !=0:
+            child1.insert(0,node)
     
-    return fittestChildren,tabuList
+    for node in (winner2Sequence[crossover_point1:crossover_point2]):
+       if node not in child1 and node !=0:
+            child1.insert(0,node)
+    
+    #Build and check the child one Route
+    
+    i=0
+    while(i < len(child1)):
+        route = Route(capacity)
+        cost = 0
+        route.setCost(0)
+        route.addCustomer(0,demand[0],False)
+        for node in child1[i:]:
+            i =i+1
+            if(route.addCustomer(node,demand[node],False)<0):
+                if(route.checkCustomer(node)== -1):
+                    route.addCustomer(0,demand[0],False)
+                    i = i-1
+                break
+            if(len(child1) == i ):
+                route.addCustomer(0,demand[0],False)
+        for n in range(len(route.getCustomers())-1):
+            cost += graph.getValue(route.getCustomers()[n],route.getCustomers()[n+1])
+        route.setCost(cost)
+        #i = i+ len(route.getCustomers())
+        solution1.append(route)
+    
+
+    crossover_point1 = np.random.randint(int(len(winner2Sequence)/2))
+    crossover_point2 = np.random.randint(int(len(winner2Sequence)/2),len(winner2Sequence))
+
+   #Form child two  List
+    for node in (winner2Sequence[crossover_point1:crossover_point2]):
+        if node not in child2 and node !=0:
+            child2.append(node)
+    
+    for node in (winner1Sequence[crossover_point2:]):
+        if node not in child2 or node !=0:
+            child2.append(node)
+
+    for node in (winner1Sequence[:crossover_point2]):
+       if node not in child2 or node !=0:
+            child2.append(node)
+    
+     
+    for node in (winner2Sequence[crossover_point1:crossover_point2]):
+       if node not in child2 and node !=0:
+            child2.insert(0,node)
+
+
+    
+    #Build and check the child one Route
+    
+    i=0
+    while(i < len(child2)):
+        route2 = Route(capacity)
+        cost = 0
+        route2.setCost(0)
+        route2.addCustomer(0,demand[0],True)
+        for node in child2[i:]:
+            i = i+1
+            if(route2.addCustomer(node,demand[node],False)<0):
+                route2.addCustomer(0,demand[0],False)
+                i = i-1
+                break
+        if(len(child1) == i ):
+                route.addCustomer(0,demand[0],False)
+        for n in range(len(route2.getCustomers())-1):
+            cost += graph.getValue(route2.getCustomers()[n],route2.getCustomers()[n+1])
+        route2.setCost(cost)
+        #i = i+ len(route.getCustomers())
+        solution2.append(route2)
+
+    
+    f1 = sum([c.getCost() for c in solution1])
+    f2 = sum([c.getCost() for c in solution2])
+
+    tabuState = []
+    if(f1> f2):
+        tabuState = child2
+    else: 
+        tabuState = child1
+
+    if(tabuSearch == True and tabuState in tabuList):
+        while(ft in tabuList):
+            print("TABULISTED ==> " +str(ft.getCost()))  
+            Crossover(winner1,winner2,graph,tabuList)
+               
+    tabuList.append(tabuState)
+
+    if(f1<f2): 
+        return solution1,tabuList,f1
+    else:
+        return solution2,tabuList,f2
+
 
 def SearchaAndCompleteSequence(solution:[Route],graph:cvrpGraph):
 
-    demand = graph.getDemand()
     nodes = []
     nodesToCheck = [ i for i in range(1,graph.getDimension())]
-
-    for route in solution:
-        
-             
+    
+    for route in solution:                   
         for n in route.getCustomers():
-            cost = 0 
             if(n!=0):
                 if n not in nodes:
                     nodes.append(n)
                     nodesToCheck.remove(n)
-                else:
-                    prevc = -1
-                    nextc = -1
-                    costDel = 0
-                    c = route.getCustomers().index(n)
-                    if(len(route.getCustomers()) == 2):
-                        solution.remove(route)
-                        continue
-                    prevc =  route.getCustomers()[c-1] 
-                    nextc =  route.getCustomers()[c+1]
+          
+
+
+    if (len(nodesToCheck)>0 and len(nodes)!= graph.getDimension() -1): 
+        return True 
+    else: 
+        return False
+    #             else:
+    #                 prevc = -1
+    #                 nextc = -1
+    #                 costDel = 0
+    #                 c = route.getCustomers().index(n)
+    #                 if(len(route.getCustomers()) == 2):
+    #                     solution.remove(route)
+    #                     continue
+    #                 prevc =  route.getCustomers()[c-1] 
+    #                 nextc =  route.getCustomers()[c+1]
                     
-                    costDel = graph.getValue(prevc,c) + graph.getValue(c,nextc)
-                    route.getCustomers().remove(n)
-                    route.setPayload(route.getPayload() - demand[n])
-                    #route.setCost(route.getCost() - (costDel) )
-                    for n in range(len(route.getCustomers())-1):
-                        cost += graph.getValue(route.getCustomers()[n],route.getCustomers()[n+1])
-                    route.setCost(cost)  
-                    route.setCost(route.getCost() + graph.getValue(prevc,nextc) )
+    #                 costDel = graph.getValue(prevc,c) + graph.getValue(c,nextc)
+    #                 route.getCustomers().remove(n)
+    #                 route.setPayload(route.getPayload() - demand[n])
+    #                 route.setCost(route.getCost() - (costDel) )
+    #                 route.setCost(route.getCost() + graph.getValue(prevc,nextc))
+    #                 # for n in range(len(route.getCustomers())-1):
+    #                 #     cost += graph.getValue(route.getCustomers()[n],route.getCustomers()[n+1])
+    #                 route.setCost(cost)  
+    #                 route.setCost(route.getCost() + graph.getValue(prevc,nextc) )
     
-    routeCheck = Route(graph.getCapacity())
-    routeCheck.addCustomer(0,demand[0],False)
-    route.setCost(0)
-    for check in nodesToCheck:
-        route.setCost(route.getCost()+ graph.getValue(routeCheck.getCustomers()[len(routeCheck.getCustomers())-1],check))
-        routeCheck.addCustomer(check,demand[check],False)
+    # routeCheck = Route(graph.getCapacity())
+    # routeCheck.addCustomer(0,demand[0],False)
+    # route.setCost(0)
+    # for check in nodesToCheck:
+    #     route.setCost(route.getCost()+ graph.getValue(routeCheck.getCustomers()[len(routeCheck.getCustomers())-1],check))
+    #     routeCheck.addCustomer(check,demand[check],False)
 
-    route.setCost(route.getCost()+ graph.getValue(routeCheck.getCustomers()[len(routeCheck.getCustomers())-1],0))
-    routeCheck.addCustomer(0,demand[0],False)
+    # route.setCost(route.getCost()+ graph.getValue(routeCheck.getCustomers()[len(routeCheck.getCustomers())-1],0))
+    # routeCheck.addCustomer(0,demand[0],False)
 
-
-
-
-
-
-    
-
-
-    return solution
+   
         
 
             
