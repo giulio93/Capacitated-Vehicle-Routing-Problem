@@ -576,8 +576,11 @@ def LocalSearch_FlippingPath(route:Route,graph:cvrpGraph,candidate1, candidate2)
         cost2 = graph.getValue(prevsc,secondCandidate) + graph.getValue(secondCandidate,nextsc)
 
         route.setCost (route.getCost() - (cost1 +cost2))
-        route.getCustomers()[firstCandidate] = secondCandidate
-        route.getCustomers()[secondCandidate] = firstCandidate
+        a = route.getCustomers().index(firstCandidate) 
+        b = route.getCustomers().index(secondCandidate) 
+        route.getCustomers()[a] = secondCandidate
+        route.getCustomers()[b] = firstCandidate
+
 
         cost3 = graph.getValue(prevfc,secondCandidate) + graph.getValue(secondCandidate,nextfc)
         cost4 = graph.getValue(prevsc,firstCandidate) + graph.getValue(firstCandidate,nextsc)
