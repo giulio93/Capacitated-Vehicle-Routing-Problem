@@ -2,7 +2,6 @@ import pandas as pd
 import os
 import numpy as np
 from cvrpGraph import cvrpGraph
-from GraphAdjList import Graph
 from math import acos, cos, sqrt, pi
 
 

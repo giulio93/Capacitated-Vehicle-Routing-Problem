@@ -170,25 +170,23 @@ def ClarkeWright(graph):
 
    
     #Finile routing adding connection to the Depot, print Route path and cost in a file
-    routeCost = 0  
-    routedNodesControl = 1
-    f= open("mysol/Sol_"+graph.getFileName()+".txt","w+")
-    f.write(str(graph.name)+"\n")
-    f.write(str(graph.dimension)+"\n")
+    # routeCost = 0  
+    # routedNodesControl = 1
+    # f= open("mysol/Sol_"+graph.getFileName()+".txt","w+")
+    # f.write(str(graph.name)+"\n")
+    # f.write(str(graph.dimension)+"\n")
     
-    for fianlRoute in routes:
-        fianlRoute.addCustomer(0,0,True)
-        fianlRoute.addCustomer(0,0,False)        
-        appo = fianlRoute.printRoute(routes.index(fianlRoute))
-        f.write(appo+"\n")
-        for i in range(len(fianlRoute.getCustomers())-1):
-            routedNodesControl = routedNodesControl +1
-            routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
-        routedNodesControl = routedNodesControl -1 
-
-          
-    f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
-    f.write("Routing Total Cost: "+ str(routeCost)+"\n")
+    # for fianlRoute in routes:
+    #     fianlRoute.addCustomer(0,0,True)
+    #     fianlRoute.addCustomer(0,0,False)        
+    #     appo = fianlRoute.printRoute(routes.index(fianlRoute))
+    #     f.write(appo+"\n")
+    #     for i in range(len(fianlRoute.getCustomers())-1):
+    #         routedNodesControl = routedNodesControl +1
+    #         routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
+    #     routedNodesControl = routedNodesControl -1      
+    # f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
+    # f.write("Routing Total Cost: "+ str(routeCost)+"\n")
 
     return routes
 
@@ -357,28 +355,28 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters,saveFolder):
         routes.append(appoRoute)
 
     
-    totSolCost = 0
-    routedNodesControl = 1
-    f= open(saveFolder +"/Sol_"+graph.getFileName()+".txt","w+")
-    f.write(str(graph.name)+"\n")
-    f.write(str(graph.dimension)+"\n")
+    # totSolCost = 0
+    # routedNodesControl = 1
+    # f= open(saveFolder +"/Sol_"+graph.getFileName()+".txt","w+")
+    # f.write(str(graph.name)+"\n")
+    # f.write(str(graph.dimension)+"\n")
     
-    for fianlRoute in routes:
-        routeCost = 0    
-        appo = fianlRoute.printRoute(routes.index(fianlRoute))
-        f.write(appo+"\n")
-        for i in range(len(fianlRoute.getCustomers())-1):
-            routedNodesControl = routedNodesControl +1
-            routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
-        routedNodesControl = routedNodesControl -1
-        fianlRoute.setCost(routeCost)
-        totSolCost += routeCost
+    # for fianlRoute in routes:
+    #     routeCost = 0    
+    #     appo = fianlRoute.printRoute(routes.index(fianlRoute))
+    #     f.write(appo+"\n")
+    #     for i in range(len(fianlRoute.getCustomers())-1):
+    #         routedNodesControl = routedNodesControl +1
+    #         routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
+    #     routedNodesControl = routedNodesControl -1
+    #     fianlRoute.setCost(routeCost)
+    #     totSolCost += routeCost
 
-    if(routedNodesControl < graph.getDimension()):
-        print("No solution")
-    f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
-    f.write("Routing Total Cost: "+ str(totSolCost)+"\n")
-    print("Routing Total Cost: "+ str(totSolCost)+"\n")
+    # if(routedNodesControl < graph.getDimension()):
+    #     print("No solution")
+    # f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
+    # f.write("Routing Total Cost: "+ str(totSolCost)+"\n")
+    # print("Routing Total Cost: "+ str(totSolCost)+"\n")
     
     return routes
 
@@ -446,26 +444,26 @@ def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters,saveFold
 
         finalRoutes.append(route)
     
-    totSolCost =  0
-    routeCost = 0  
-    routedNodesControl = 1
-    f= open(saveFolder+'/Sol_'+graph.getFileName()+".txt","w+")
-    f.write(str(graph.name)+"\n")
-    f.write(str(graph.dimension)+"\n")
+    # totSolCost =  0
+    # routeCost = 0  
+    # routedNodesControl = 1
+    # f= open(saveFolder+'/Sol_'+graph.getFileName()+".txt","w+")
+    # f.write(str(graph.name)+"\n")
+    # f.write(str(graph.dimension)+"\n")
     
-    for fianlRoute in finalRoutes:
+    # for fianlRoute in finalRoutes:
         
-        appo = fianlRoute.printRoute(finalRoutes.index(fianlRoute))
-        routeCost = 0
-        f.write(appo+"\n")
-        for i in range(len(fianlRoute.getCustomers())-1):
-            routedNodesControl = routedNodesControl +1
-            routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
-        routedNodesControl = routedNodesControl -1
-        fianlRoute.setCost(routeCost)
-        totSolCost += routeCost
-    f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
-    f.write("Routing Total Cost: "+ str(totSolCost)+"\n")
+    #     appo = fianlRoute.printRoute(finalRoutes.index(fianlRoute))
+    #     routeCost = 0
+    #     f.write(appo+"\n")
+    #     for i in range(len(fianlRoute.getCustomers())-1):
+    #         routedNodesControl = routedNodesControl +1
+    #         routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
+    #     routedNodesControl = routedNodesControl -1
+    #     fianlRoute.setCost(routeCost)
+    #     totSolCost += routeCost
+    # f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
+    # f.write("Routing Total Cost: "+ str(totSolCost)+"\n")
 
     return finalRoutes
 
@@ -541,23 +539,23 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
         u = node[0]
         finalRoutes.append(node[1])
         
-    routeCost = 0  
-    routedNodesControl = 1
-    f= open(saveFolder+'/Sol_'+graph.getFileName()+".txt","w+")
-    f.write(str(graph.name)+"\n")
-    f.write(str(graph.dimension)+"\n")
+    # routeCost = 0  
+    # routedNodesControl = 1
+    # f= open(saveFolder+'/Sol_'+graph.getFileName()+".txt","w+")
+    # f.write(str(graph.name)+"\n")
+    # f.write(str(graph.dimension)+"\n")
     
-    for fianlRoute in finalRoutes:
+    # for fianlRoute in finalRoutes:
             
-        appo = fianlRoute.printRoute(finalRoutes.index(fianlRoute))
-        f.write(appo+"\n")
-        for i in range(len(fianlRoute.getCustomers())-1):
-            routedNodesControl = routedNodesControl +1
-            routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
-        routedNodesControl = routedNodesControl -1
+    #     appo = fianlRoute.printRoute(finalRoutes.index(fianlRoute))
+    #     f.write(appo+"\n")
+    #     for i in range(len(fianlRoute.getCustomers())-1):
+    #         routedNodesControl = routedNodesControl +1
+    #         routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
+    #     routedNodesControl = routedNodesControl -1
     
-    f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
-    f.write("Routing Total Cost: "+ str(routeCost)+"\n")
+    # f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
+    # f.write("Routing Total Cost: "+ str(routeCost)+"\n")
     
     return finalRoutes
 
