@@ -6,6 +6,30 @@ import parser as par
 import math
 
 
+def writeResult(routes,graph,saveFolder):
+    totSolCost = 0
+    routedNodesControl = 1
+    f= open(saveFolder +"/Sol_"+graph.getFileName()+".txt","w+")
+    f.write(str(graph.name)+"\n")
+    f.write(str(graph.dimension)+"\n")
+    
+    for fianlRoute in routes:
+        routeCost = 0    
+        appo = fianlRoute.printRoute(routes.index(fianlRoute))
+        f.write(appo+"\n")
+        for i in range(len(fianlRoute.getCustomers())-1):
+            routedNodesControl = routedNodesControl +1
+            routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
+        routedNodesControl = routedNodesControl -1
+        fianlRoute.setCost(routeCost)
+        totSolCost += routeCost
+
+    if(routedNodesControl < graph.getDimension()):
+        print("No solution")
+    f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
+    f.write("Routing Total Cost: "+ str(totSolCost)+"\n")
+    print("Routing Total Cost: "+ str(totSolCost)+"\n")
+
 def printResult(folderSol,folderRes):
 
     #path='./mysol_DJ_kRand'

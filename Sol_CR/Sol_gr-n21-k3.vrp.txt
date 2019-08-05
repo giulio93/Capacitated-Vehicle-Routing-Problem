@@ -8,4 +8,4 @@ Route_4: 0-4-5-6-7-0-END
 Route_5: 0-1-2-3-0-END
 Total Routed Nodes 21
 Routing Total Cost: 7634.0
-Error of solution in Sol_gr-n21-k3.vrp.txt: 1.0610151187904968
+Error of solution in Sol_gr-n21-k3.vrp.txt: 1.0610151187904968Error of solution in Sol_gr-n21-k3.vrp.txt: 1.0610151187904968

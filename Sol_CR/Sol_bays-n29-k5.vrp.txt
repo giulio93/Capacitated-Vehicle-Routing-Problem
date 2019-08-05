@@ -12,4 +12,4 @@ Route_8: 0-3-4-0-END
 Route_9: 0-1-2-0-END
 Total Routed Nodes 29
 Routing Total Cost: 6659.0
-Error of solution in Sol_bays-n29-k5.vrp.txt: 1.2473844076949039
+Error of solution in Sol_bays-n29-k5.vrp.txt: 1.2473844076949039Error of solution in Sol_bays-n29-k5.vrp.txt: 1.2473844076949039

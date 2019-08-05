@@ -36,15 +36,14 @@ if __name__ == "__main__":
 
       #Parameters setting: percentage of Elitism, threshold of improving fitting, number of cromosome
       mutationRate = 1
-      n_population = 35
+      n_population = 50
       population = []
       elitismList =[]
-      Eras = 1000
+      Eras = 20
       era = 0
-      
-      #Initialize Population : Select k customers, create routes and calculate fitness of each chromosome
+          #Initialize Population : Select k customers, create routes and calculate fitness of each chromosome
       for i in range(n_population):            
-        K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
+        K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles+1)]
         GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRand)
         if(GAPassignementRR != -1):
           chromosome = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRand,"mysol_FJ") 
@@ -60,13 +59,13 @@ if __name__ == "__main__":
         #tabuLister = []
         #Do evolutionary opeeration half time population
         for k in range(int(len(population)/2)):
-          
+      
           winner1,winner2 ,f1,f2= sol.Tournament(population,True)   
           if (np.random.randint(1,100) <= 1):
              f1, winner1 = toKeep
           children, tabuLister , fittingCrossover = sol.Crossover(winner1,winner2,graphToSolve,True)
           print("CROSSOVER ==> "+str(fittingCrossover))
-          
+      
           popEra.append((fittingCrossover,children))
           if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
              print("Invalid! " +str(fittingCrossover))
@@ -85,18 +84,35 @@ if __name__ == "__main__":
               print("Invalid! " +str(fittingCrossover))
             print("CROSSOVER ==> "+str(fittingMutation))
 
-        for pe in popEra:
-          for po in population:
-            if(po[0]>pe[0]):
-              population.remove(po)
-              population.append(pe)
-              break
+        popEra.sort(key=lambda x:x[0],reverse=True)
+        best = [popEra.pop() for i in range(int(len(popEra)/2))]
+
+
+        for b in best:
+          for p in population:        
+            if(b[0] not in [ps[0] for ps in population]):
+              if(p[0] > b[0]):
+                population.remove(p)
+                population.append(b)
+                break
+            else: break
+
         if toKeep not in population:
           population.append(toKeep)
         era = era + 1
 
-        if era == 999 :
-          print("stop")
+        
+    
+      population.sort(key= lambda x: x[0], reverse = True)
+      bestGeneticSolution = population.pop()[1]    
+      sol.writeResult(bestGeneticSolution,graphToSolve,"mysol_Genetic")
+      
+  
+
+    
+      
+
+
           
 
           
@@ -110,6 +126,8 @@ if __name__ == "__main__":
     sol.printResult('./cvrp-sol','./mysol_DJ')
     print("======================FISHER AND JAIKUMAR ON RANDOM K==================================") 
     sol.printResult('./cvrp-sol','./mysol_FJ_kRand')
+    print("============================== GENETIC ON FJ SOL WITH RANDOM k  ==================================")  
+    sol.printResult('./cvrp-sol','./mysol_Genetic')
     print("======================DIJKASTRA RANDOM K==================================") 
     sol.printResult('./cvrp-sol','./mysol_DJ_kRand')
     print("======================DIJKASTRA CLUSTER FIRST ROUTE SECOND==================================") 

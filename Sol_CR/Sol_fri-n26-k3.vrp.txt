@@ -6,4 +6,4 @@ Route_2: 0-9-10-11-12-13-14-0-END
 Route_3: 0-1-2-3-4-5-6-7-8-0-END
 Total Routed Nodes 26
 Routing Total Cost: 1805.0
-Error of solution in Sol_fri-n26-k3.vrp.txt: 0.3340724316334072
+Error of solution in Sol_fri-n26-k3.vrp.txt: 0.3340724316334072Error of solution in Sol_fri-n26-k3.vrp.txt: 0.3340724316334072

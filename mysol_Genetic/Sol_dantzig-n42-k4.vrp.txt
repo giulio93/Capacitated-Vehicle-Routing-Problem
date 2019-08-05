@@ -1,0 +1,10 @@
+dantzig42
+42
+Route_0: 0-8-9-10-11-22-26-27-28-29-30-0-END
+Route_1: 0-1-2-3-4-5-6-7-24-23-25-0-END
+Route_2: 0-40-41-0-END
+Route_3: 0-39-38-37-36-34-33-31-32-35-0-END
+Route_4: 0-21-20-19-18-17-15-16-12-13-14-0-END
+Total Routed Nodes 42
+Routing Total Cost: 1315.0
+Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.15148861646234676Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.15148861646234676
