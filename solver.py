@@ -190,6 +190,7 @@ def ClarkeWright(graph):
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
     f.write("Routing Total Cost: "+ str(routeCost)+"\n")
 
+    return routes
 
 def FisherJaikumar_Kselector(graph,n_vehicles):
 
@@ -557,6 +558,8 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
     
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
     f.write("Routing Total Cost: "+ str(routeCost)+"\n")
+    
+    return finalRoutes
 
 
 def LocalSearch_FlippingPath(route:Route,graph:cvrpGraph,candidate1, candidate2):

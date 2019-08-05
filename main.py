@@ -19,19 +19,37 @@ if __name__ == "__main__":
     files = par.readInstanceList(path)
     for f in files:
       graphToSolve =  par.createGraph(f)
-      # sol.ClarkeWright(graphToSolve)
+      solution0 = sol.ClarkeWright(graphToSolve)
+      if(sol.SearchaAndCompleteSequence(solution0,graphToSolve)):
+          print("Solution Clarke and Wright Invalid ") 
+
       n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))
-      n_vehicles = n_vehicles +1
-      # K_cluster = sol.FisherJaikumar_Kselector(graphToSolve,7)
-      # K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)
-      # K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
-      # GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
-      # GAPassignementRand = sol.GAPsolver(graphToSolve,K_clusterRand)
-      # sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_FJ")
-      # sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_DJ")       
-      # sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRand,K_clusterRand,"mysol_FJ_kRand")
-      # sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRand,K_clusterRand,"mysol_DJ_kRand")
-      # sol.ClusterFirst_RouteSecond(graphToSolve,"Sol_CR")
+      #n_vehicles = n_vehicles +1
+      #K_cluster = sol.FisherJaikumar_Kselector(graphToSolve,7)
+      K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)
+      K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
+
+      GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
+      if(GAPassignementRR != -1):
+          solution = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_FJ")
+          solution2 = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_DJ") 
+          if(sol.SearchaAndCompleteSequence(solution,graphToSolve)):
+            print("Solution Routing NN RR Invalid! ")    
+          if(sol.SearchaAndCompleteSequence(solution2,graphToSolve)):
+            print("Solution Routing in DIjkastra RR Invalid! ")
+
+      GAPassignementRand = sol.GAPsolver(graphToSolve,K_clusterRand)
+      if(GAPassignementRand != -1):
+          solution = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_FJ")
+          solution2 = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRand,K_clusterRand,"mysol_DJ_kRand")
+          if(sol.SearchaAndCompleteSequence(solution,graphToSolve)):
+            print("Solution Routing NN Random Invalid! ! ")   
+          if(sol.SearchaAndCompleteSequence(solution2,graphToSolve)):
+            print("Solution Routing in DIjkastra Random Invalid! ") 
+          
+      solution3 = sol.ClusterFirst_RouteSecond(graphToSolve,"Sol_CR")
+      if(sol.SearchaAndCompleteSequence(solution3,graphToSolve)):
+          print("Solution Cluster First Route Second ") 
 
      
       #Parameters setting: percentage of Elitism, threshold of improving fitting, number of cromosome
