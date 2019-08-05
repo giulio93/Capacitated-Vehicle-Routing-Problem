@@ -291,13 +291,16 @@ def GAPsolver(graph,k_clusters):
                     i=i+1
                     break
                 else:
-                    alloc[np.argmin(alloc)] = sum(alloc)
+                    alloc[np.argmin(alloc)] = np.inf
                     print("Cluster Overloaded")
 
         #Devo tenere conto che la capacità di un cluster non deve eccedere
         #Ok, ma se i cluster non bastano? Se le route sono 6 ma i cluster sono 5?
-
-    return clusterAssignment
+    if(len(clusterAssignment)<graph.getDimension()-1):
+        print("Solution is Invalid")
+        return -1
+    else:
+        return clusterAssignment
 
 def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters,saveFolder):
 
@@ -305,6 +308,7 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters,saveFolder):
     capacity = graph.getCapacity()
     demand = graph.getDemand()
     depot = graph.getDepot()
+
     for k in range(len(k_clusters)):
         cluster = []
         for i in range(len(clusterAssignment)):
@@ -345,9 +349,11 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters,saveFolder):
         fianlRoute.setCost(routeCost)
         totSolCost += routeCost
 
-    
+    if(routedNodesControl < graph.getDimension()):
+        print("No solution")
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
     f.write("Routing Total Cost: "+ str(totSolCost)+"\n")
+    print("Routing Total Cost: "+ str(totSolCost)+"\n")
     
     return routes
 
@@ -415,6 +421,7 @@ def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters,saveFold
 
         finalRoutes.append(route)
     
+    totSolCost =  0
     routeCost = 0  
     routedNodesControl = 1
     f= open(saveFolder+'/Sol_'+graph.getFileName()+".txt","w+")
@@ -422,16 +429,20 @@ def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters,saveFold
     f.write(str(graph.dimension)+"\n")
     
     for fianlRoute in finalRoutes:
-            
+        
         appo = fianlRoute.printRoute(finalRoutes.index(fianlRoute))
+        routeCost = 0
         f.write(appo+"\n")
         for i in range(len(fianlRoute.getCustomers())-1):
             routedNodesControl = routedNodesControl +1
             routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
         routedNodesControl = routedNodesControl -1
-    
+        fianlRoute.setCost(routeCost)
+        totSolCost += routeCost
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
-    f.write("Routing Total Cost: "+ str(routeCost)+"\n")
+    f.write("Routing Total Cost: "+ str(totSolCost)+"\n")
+
+    return finalRoutes
 
 def ClusterFirst_RouteSecond(graph,saveFolder):
 
@@ -611,7 +622,7 @@ def Tournament(population,random:bool):
 
     winners = population.copy()
     winners.sort(key=lambda x:x[0],reverse=True)
-    f1,w1 = winners[0]
+    f1,w1 = winners.pop()
     f2,w2 = winners.pop()
     return w1, w2,f1,f2
     # winner = [ (f.getCost()/len(f.getCustomers()),f) for f in fitness  ]
@@ -638,13 +649,16 @@ def Crossover(winner1,winner2,graph:cvrpGraph,tabuSearch:bool = False,tabuLister
     solution2 = []
 
     winner1Sequence += [p.getCustomers() for p in winner1]
-    winner1Sequence = [y for x in winner1Sequence for y in x]
+    winner1Sequence = [y for x in winner1Sequence for y in x if y!=0]
     winner2Sequence += [p.getCustomers() for p in winner2]
-    winner2Sequence = [y for x in winner2Sequence for y in x]
+    winner2Sequence = [y for x in winner2Sequence for y in x if y!=0]
+
+    #winner1Sequence = [1 ,2 ,3 , 5 ,4 ,6 ,7 , 8 ,9]
+    #winner2Sequence = [4 ,5 ,2 , 1 ,8, 7 ,6 , 9 ,3]
 
 
-    crossover_point1 = np.random.randint(int(len(winner1Sequence)/2))
-    crossover_point2 = np.random.randint(int(len(winner1Sequence)/2),len(winner1Sequence))
+    crossover_point1 = np.random.randint(int(len(winner1Sequence)/4),(int(len(winner1Sequence)/2)))
+    crossover_point2 = np.random.randint(int(len(winner1Sequence)/2),(int(len(winner1Sequence)/2) +int(len(winner1Sequence)/4)))
 
     #Form child one List
     for node in (winner1Sequence[crossover_point1:crossover_point2]):
@@ -655,11 +669,7 @@ def Crossover(winner1,winner2,graph:cvrpGraph,tabuSearch:bool = False,tabuLister
         if node not in child1 and node !=0:
             child1.append(node)
 
-    for node in (winner2Sequence[:crossover_point1]):
-       if node not in child1 and node !=0:
-            child1.insert(0,node)
-    
-    for node in (winner2Sequence[crossover_point1:crossover_point2]):
+    for node in (winner2Sequence[:crossover_point2]):
        if node not in child1 and node !=0:
             child1.insert(0,node)
     
@@ -683,31 +693,24 @@ def Crossover(winner1,winner2,graph:cvrpGraph,tabuSearch:bool = False,tabuLister
         for n in range(len(route.getCustomers())-1):
             cost += graph.getValue(route.getCustomers()[n],route.getCustomers()[n+1])
         route.setCost(cost)
-        #i = i+ len(route.getCustomers())
         solution1.append(route)
     
 
-    crossover_point1 = np.random.randint(int(len(winner2Sequence)/2))
-    crossover_point2 = np.random.randint(int(len(winner2Sequence)/2),len(winner2Sequence))
 
    #Form child two  List
-    for node in (winner2Sequence[crossover_point1:crossover_point2]):
-        if node not in child2 and node !=0:
-            child2.append(node)
+    for node2 in (winner2Sequence[crossover_point1:crossover_point2]):
+        if node2 not in child2 and node2 !=0:
+            child2.append(node2)
     
-    for node in (winner1Sequence[crossover_point2:]):
-        if node not in child2 or node !=0:
-            child2.append(node)
+    for node2 in (winner1Sequence[crossover_point2:]):
+        if node2 not in child2 and node2 !=0:
+            child2.append(node2)
 
-    for node in (winner1Sequence[:crossover_point2]):
-       if node not in child2 or node !=0:
-            child2.append(node)
+    for node2 in (winner1Sequence[:crossover_point2]):
+       if node2 not in child2 and node2 !=0:
+            child2.append(node2)
     
      
-    for node in (winner2Sequence[crossover_point1:crossover_point2]):
-       if node not in child2 and node !=0:
-            child2.insert(0,node)
-
 
     
     #Build and check the child one Route
@@ -724,12 +727,11 @@ def Crossover(winner1,winner2,graph:cvrpGraph,tabuSearch:bool = False,tabuLister
                 route2.addCustomer(0,demand[0],False)
                 i = i-1
                 break
-        if(len(child1) == i ):
-                route.addCustomer(0,demand[0],False)
+        if(len(child2) == i ):
+                route2.addCustomer(0,demand[0],False)
         for n in range(len(route2.getCustomers())-1):
             cost += graph.getValue(route2.getCustomers()[n],route2.getCustomers()[n+1])
         route2.setCost(cost)
-        #i = i+ len(route.getCustomers())
         solution2.append(route2)
 
     
@@ -738,16 +740,15 @@ def Crossover(winner1,winner2,graph:cvrpGraph,tabuSearch:bool = False,tabuLister
 
     tabuState = []
     if(f1> f2):
-        tabuState = child2
+        tabuState = f1
     else: 
-        tabuState = child1
+        tabuState = f2
 
-    if(tabuSearch == True and tabuState in tabuList):
-        while(ft in tabuList):
-            print("TABULISTED ==> " +str(ft.getCost()))  
-            Crossover(winner1,winner2,graph,tabuList)
-               
-    tabuList.append(tabuState)
+    if(tabuSearch == True and int(tabuState) in tabuList):
+            print("TABULISTED ==> " +str(int(tabuState))) 
+            return Crossover(winner1,winner2,graph,tabuList)
+    else:            
+        tabuList.append(int(tabuState))
 
     if(f1<f2): 
         return solution1,tabuList,f1
@@ -766,43 +767,12 @@ def SearchaAndCompleteSequence(solution:[Route],graph:cvrpGraph):
                 if n not in nodes:
                     nodes.append(n)
                     nodesToCheck.remove(n)
-          
-
-
+        
     if (len(nodesToCheck)>0 and len(nodes)!= graph.getDimension() -1): 
         return True 
     else: 
         return False
-    #             else:
-    #                 prevc = -1
-    #                 nextc = -1
-    #                 costDel = 0
-    #                 c = route.getCustomers().index(n)
-    #                 if(len(route.getCustomers()) == 2):
-    #                     solution.remove(route)
-    #                     continue
-    #                 prevc =  route.getCustomers()[c-1] 
-    #                 nextc =  route.getCustomers()[c+1]
-                    
-    #                 costDel = graph.getValue(prevc,c) + graph.getValue(c,nextc)
-    #                 route.getCustomers().remove(n)
-    #                 route.setPayload(route.getPayload() - demand[n])
-    #                 route.setCost(route.getCost() - (costDel) )
-    #                 route.setCost(route.getCost() + graph.getValue(prevc,nextc))
-    #                 # for n in range(len(route.getCustomers())-1):
-    #                 #     cost += graph.getValue(route.getCustomers()[n],route.getCustomers()[n+1])
-    #                 route.setCost(cost)  
-    #                 route.setCost(route.getCost() + graph.getValue(prevc,nextc) )
     
-    # routeCheck = Route(graph.getCapacity())
-    # routeCheck.addCustomer(0,demand[0],False)
-    # route.setCost(0)
-    # for check in nodesToCheck:
-    #     route.setCost(route.getCost()+ graph.getValue(routeCheck.getCustomers()[len(routeCheck.getCustomers())-1],check))
-    #     routeCheck.addCustomer(check,demand[check],False)
-
-    # route.setCost(route.getCost()+ graph.getValue(routeCheck.getCustomers()[len(routeCheck.getCustomers())-1],0))
-    # routeCheck.addCustomer(0,demand[0],False)
 
    
         

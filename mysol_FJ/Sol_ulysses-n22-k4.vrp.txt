@@ -1,8 +1,8 @@
 ulysses22.tsp
 22
-Route_0: 0-7-6-9-8-10-0-END
-Route_1: 0-3-2-1-5-4-0-END
-Route_2: 0-15-12-11-13-14-0-END
-Route_3: 0-17-16-20-19-18-0-END
+Route_0: 0-15-20-19-18-14-0-END
+Route_1: 0-7-12-11-13-10-0-END
+Route_2: 0-3-17-16-2-1-0-END
+Route_3: 0-6-5-9-8-4-0-END
 Total Routed Nodes 21
-Routing Total Cost: 154166.0
+Routing Total Cost: 154054.0

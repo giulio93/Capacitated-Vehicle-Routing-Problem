@@ -23,7 +23,7 @@ if __name__ == "__main__":
       n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))
       #  K_cluster = sol.FisherJaikumar_Kselector(graphToSolve,7)
       #  K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)
-      K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
+      #K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
       #  GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
       #  GAPassignementRand = sol.GAPsolver(graphToSolve,K_clusterRand)
       #  sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_FJ")
@@ -36,7 +36,7 @@ if __name__ == "__main__":
 
       #Parameters setting: percentage of Elitism, threshold of improving fitting, number of cromosome
       mutationRate = 1
-      n_population = 10
+      n_population = 35
       population = []
       elitismList =[]
       Eras = 1000
@@ -46,19 +46,25 @@ if __name__ == "__main__":
       for i in range(n_population):            
         K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
         GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRand)
-        chromosome = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRand,"mysol_FJ")               
-        population.append((sum([c.getCost() for c in chromosome]),chromosome))
+        if(GAPassignementRR != -1):
+          chromosome = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRand,"mysol_FJ") 
+          if(sol.SearchaAndCompleteSequence(chromosome,graphToSolve)):
+            print("Invalid! ")              
+          population.append((sum([c.getCost() for c in chromosome]),chromosome))
 
       #Stop Criterion
       while(era < Eras):
         print("Welcome to the ==> " + str(era) +" Era!")
         toKeep = sol.Elitism(population)
         popEra = []
+        #tabuLister = []
         #Do evolutionary opeeration half time population
         for k in range(int(len(population)/2)):
           
-          winner1,winner2 ,f1,f2= sol.Tournament(population,False)     
-          children, tabuLister , fittingCrossover = sol.Crossover(winner1,winner2,graphToSolve)
+          winner1,winner2 ,f1,f2= sol.Tournament(population,True)   
+          if (np.random.randint(1,100) <= 1):
+             f1, winner1 = toKeep
+          children, tabuLister , fittingCrossover = sol.Crossover(winner1,winner2,graphToSolve,True)
           print("CROSSOVER ==> "+str(fittingCrossover))
           
           popEra.append((fittingCrossover,children))
@@ -89,6 +95,8 @@ if __name__ == "__main__":
           population.append(toKeep)
         era = era + 1
 
+        if era == 999 :
+          print("stop")
           
 
           
