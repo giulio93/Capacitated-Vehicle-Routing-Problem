@@ -4,9 +4,10 @@ import operator
 from route import Route
 import parser as par
 import math
+import time
 
 
-def writeResult(routes,graph,saveFolder):
+def writeResult(routes,graph,start_time,saveFolder):
     totSolCost = 0
     routedNodesControl = 1
     f= open(saveFolder +"/Sol_"+graph.getFileName()+".txt","w+")
@@ -27,8 +28,12 @@ def writeResult(routes,graph,saveFolder):
     if(routedNodesControl < graph.getDimension()):
         print("No solution")
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
+    f.write("Using no. Tracks: "+ str(len(routes))+"\n")
+    f.write("Time Horizon: "+ str(len(routes))+"\n")    
     f.write("Routing Total Cost: "+ str(totSolCost)+"\n")
     print("Routing Total Cost: "+ str(totSolCost)+"\n")
+    print ("time: " + str (time.time () - start_time))   
+
 
 def printResult(folderSol,folderRes):
 
