@@ -8,4 +8,4 @@ Total Routed Nodes 48
 Using no. Tracks: 4
 Time Horizon: 1565078358.681562
 Routing Total Cost: 22246.0
-Error of solution in Sol_hk-n48-k4.vrp.txt: 0.5083056478405316
+Error of solution in Sol_hk-n48-k4.vrp.txt: 0.5083056478405316Error of solution in Sol_hk-n48-k4.vrp.txt: 0.5083056478405316Error of solution in Sol_hk-n48-k4.vrp.txt: 0.5083056478405316Error of solution in Sol_hk-n48-k4.vrp.txt: 0.5083056478405316Error of solution in Sol_hk-n48-k4.vrp.txt: 0.5083056478405316Error of solution in Sol_hk-n48-k4.vrp.txt: 0.5083056478405316Error of solution in Sol_hk-n48-k4.vrp.txt: 0.5083056478405316Error of solution in Sol_hk-n48-k4.vrp.txt: 0.5083056478405316Error of solution in Sol_hk-n48-k4.vrp.txt: 0.5083056478405316

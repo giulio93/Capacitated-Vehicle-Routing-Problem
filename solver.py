@@ -43,22 +43,27 @@ def printResult(folderSol,folderRes):
     #path2='./cvrp-sol'
     path2 = folderSol
     cvrp_sol = par.readInstanceList(path2)
-    for sol in mysol:
-        with open(path+'/'+sol, "r+") as f:
-            for line in f:
-                keywords = line
-                if(keywords.split(':')[0].strip()=="Routing Total Cost"):
-                    stimated = float(keywords.split(':')[1].strip())
-                    for optimal in cvrp_sol:
-                        with open(path2+'/'+optimal, "r") as c:
-                            if(sol.split('.')[0] == "Sol_"+optimal.split('.')[0]):
-                                for linec in c:
-                                    keys = linec                                   
-                                    if(len(keys.split()) > 0 and keys.split()[0].strip()=="Cost"):
-                                        actual = float(keys.split()[1].strip())
-                                        error = (stimated - actual)/actual
-                                        print("Error of solution in "+sol + ": "+ str(float(error)))
-                                        f.write("Error of solution in "+sol + ": "+ str(float(error)))
+    with open('./CompareResult.txt','a+') as resume:
+        resume.write("============================== AUTO SAVE " +folderRes + " =============================" + "\n")
+        #resume.write("Solution in "+folderRes + "\n")
+        for sol in mysol:
+            with open(path+'/'+sol, "r+") as f:
+                for line in f:
+                    keywords = line
+                    if(keywords.split(':')[0].strip()=="Routing Total Cost"):
+                        stimated = float(keywords.split(':')[1].strip())
+                        for optimal in cvrp_sol:
+                            with open(path2+'/'+optimal, "r") as c:
+                                if(sol.split('.')[0] == "Sol_"+optimal.split('.')[0]):
+                                    for linec in c:
+                                        keys = linec                                   
+                                        if(len(keys.split()) > 0 and keys.split()[0].strip()=="Cost"):
+                                            actual = float(keys.split()[1].strip())
+                                            error = (stimated - actual)/actual
+                                            print("Error of solution in "+sol + ": "+ str(float(error)))
+                                            f.write("Error of solution in "+sol + ": "+ str(float(error)))
+                                            resume.write("Error of solution in "+sol + ": "+ str(float(error))+ "\n")
+
 
 def ClarkeWright(graph):
     print("Clarke & Wright have been evoked!")
