@@ -1,8 +1,10 @@
 ulysses16.tsp
 16
-Route_0: 0-3-2-1-15-11-0-END
-Route_1: 0-6-5-13-14-12-0-END
-Route_2: 0-9-8-10-4-7-0-END
+Route_0: 0-3-14-15-12-13-0-END
+Route_1: 0-8-11-5-2-9-0-END
+Route_2: 0-1-6-10-4-7-0-END
 Total Routed Nodes 16
-Routing Total Cost: 115164.0
-Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.7768595041322315Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.7768595041322315
+Using no. Tracks: 3
+Time Horizon: 0.4488868713378906
+Routing Total Cost: 116648.0
+Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.8255280073461893

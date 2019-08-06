@@ -1,9 +1,11 @@
 F-n45-k4
 45
-Route_0: 0-44-2-16-17-18-11-12-14-13-26-22-0-END
-Route_1: 0-37-38-43-32-25-0-END
-Route_2: 0-1-15-9-8-42-36-39-40-34-31-41-30-33-29-27-6-5-7-35-3-4-28-0-END
-Route_3: 0-23-19-20-21-24-10-0-END
+Route_0: 0-4-3-35-7-5-6-27-34-40-39-42-36-38-37-9-15-24-0-END
+Route_1: 0-1-2-16-10-17-18-11-12-14-13-26-22-0-END
+Route_2: 0-43-44-30-41-31-32-33-29-28-0-END
+Route_3: 0-20-21-8-19-25-23-0-END
 Total Routed Nodes 45
-Routing Total Cost: 1114.1595365997143
-Error of solution in Sol_F-n45-k4.vrp.txt: 0.5388943875686663Error of solution in Sol_F-n45-k4.vrp.txt: 0.5388943875686663Error of solution in Sol_F-n45-k4.vrp.txt: 0.5388943875686663Error of solution in Sol_F-n45-k4.vrp.txt: 0.5388943875686663Error of solution in Sol_F-n45-k4.vrp.txt: 0.5388943875686663Error of solution in Sol_F-n45-k4.vrp.txt: 0.5388943875686663Error of solution in Sol_F-n45-k4.vrp.txt: 0.5388943875686663Error of solution in Sol_F-n45-k4.vrp.txt: 0.5388943875686663
+Using no. Tracks: 4
+Time Horizon: 1565078355.8620772
+Routing Total Cost: 906.5689329909097
+Error of solution in Sol_F-n45-k4.vrp.txt: 0.2521670345178311

@@ -7,7 +7,7 @@ import math
 import time
 
 
-def writeResult(routes,graph,start_time,saveFolder):
+def writeResult(routes,graph,started_time,saveFolder):
     totSolCost = 0
     routedNodesControl = 1
     f= open(saveFolder +"/Sol_"+graph.getFileName()+".txt","w+")
@@ -29,10 +29,10 @@ def writeResult(routes,graph,start_time,saveFolder):
         print("No solution")
     f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
     f.write("Using no. Tracks: "+ str(len(routes))+"\n")
-    f.write("Time Horizon: "+ str(len(routes))+"\n")    
+    f.write("Time Horizon: "+ str (time.time () - started_time)+"\n")    
     f.write("Routing Total Cost: "+ str(totSolCost)+"\n")
     print("Routing Total Cost: "+ str(totSolCost)+"\n")
-    print ("time: " + str (time.time () - start_time))   
+    print ("time: " + str (time.time () - started_time))   
 
 
 def printResult(folderSol,folderRes):
@@ -171,7 +171,9 @@ def ClarkeWright(graph):
             control1 =  adhocRoute.addCustomer(node,demand[node],False)
             routes.append(adhocRoute)
 
-
+    for fianlRoute in routes:
+        fianlRoute.addCustomer(0,0,True)
+        fianlRoute.addCustomer(0,0,False)
 
    
     #Finile routing adding connection to the Depot, print Route path and cost in a file

@@ -21,7 +21,7 @@ if __name__ == "__main__":
     for f in files:
       graphToSolve =  par.createGraph(f)
       
-      start_time =time.time ()
+      start_time =time.time()
 
       solution0 = sol.ClarkeWright(graphToSolve)
       if(sol.SearchaAndCompleteSequence(solution0,graphToSolve)):
@@ -35,44 +35,47 @@ if __name__ == "__main__":
       n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))  
 
       while(GAPassignementRR == -1):
-        start_time_clustering =time.time ()   
+        start_time_clustering = time.time ()   
         K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)           
         GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
+        start_time_clustering = (time.time() - start_time_clustering)
         if(GAPassignementRR != -1):
-            start_time_sol1 =(time.time () - start_time_clustering)
+            start_time_sol1 =  time.time()
             solution = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_FJ")
-            start_time_sol2 =(time.time () - start_time_clustering)
-            solution2 = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_DJ") 
             if(sol.SearchaAndCompleteSequence(solution,graphToSolve)):
               print("Solution Routing NN RR Invalid! ") 
             else:
-              sol.writeResult(solution,graphToSolve,start_time_sol1,"mysol_FJ")
+              sol.writeResult(solution,graphToSolve,(start_time_sol1 - start_time_clustering),"mysol_FJ")
+            
+            start_time_sol2 = time.time()
+            solution2 = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_DJ")         
             if(sol.SearchaAndCompleteSequence(solution2,graphToSolve)):
               print("Solution Routing in DIjkastra RR Invalid! ")
             else:
-              sol.writeResult(solution2,graphToSolve,start_time_sol2,"mysol_DJ")   
+              sol.writeResult(solution2,graphToSolve,(start_time_sol2 - start_time_clustering),"mysol_DJ")   
         else:
           n_vehicles = n_vehicles +1
 
 
       n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))
       while(GAPassignementRand == -1):
-        start_time =time.time ()
+        start_time_clustering = time.time()   
         K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
         GAPassignementRand = sol.GAPsolver(graphToSolve,K_clusterRand)
         if(GAPassignementRand != -1):
-            start_time_sol1 =(time.time () - start_time_clustering)
+            start_time_sol1 =time.time()
             solution = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRand,K_clusterRand,"mysol_FJ_kRand")
-            start_time_sol2 =(time.time () - start_time_clustering)
-            solution2 = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRand,K_clusterRand,"mysol_DJ_kRand")
             if(sol.SearchaAndCompleteSequence(solution,graphToSolve)):
               print("Solution Routing NN Random Invalid! ! ")
             else :
-              sol.writeResult(solution,graphToSolve,start_time_sol1,"mysol_FJ_kRand")
+              sol.writeResult(solution,graphToSolve,(start_time_sol1 - start_time_clustering),"mysol_FJ_kRand")
+
+            start_time_sol2 =time.time()
+            solution2 = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRand,K_clusterRand,"mysol_DJ_kRand")          
             if(sol.SearchaAndCompleteSequence(solution2,graphToSolve)):
               print("Solution Routing in DIjkastra Random Invalid! ") 
             else:
-              sol.writeResult(solution2,graphToSolve,start_time_sol2,"mysol_DJ_kRand")
+              sol.writeResult(solution2,graphToSolve,(start_time_sol2-start_time_clustering),"mysol_DJ_kRand")
         else:
           n_vehicles = n_vehicles +1
         
@@ -92,17 +95,22 @@ if __name__ == "__main__":
       elitismList =[]
       Eras = 20
       era = 0
+      n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))           
+
       #Initialize Population : Select k customers, create routes and calculate fitness of each chromosome
       for i in range(n_population):
-        n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))           
         K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
         GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRand)
         if(GAPassignementRR != -1):
           chromosome = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRand,"mysol_FJ") 
           if(sol.SearchaAndCompleteSequence(chromosome,graphToSolve)):
             print("Invalid! ")
-            n_vehicles = n_vehicles + 1              
-          population.append((sum([c.getCost() for c in chromosome]),chromosome))
+          else:
+            population.append((sum([c.getCost() for c in chromosome]),chromosome))
+        else:
+          n_vehicles = n_vehicles + 1
+            
+
 
       #Stop Criterion
       while(era < Eras):

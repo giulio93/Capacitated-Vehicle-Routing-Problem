@@ -8,5 +8,7 @@ Route_4: 0-15-16-17-18-19-20-21-22-23-24-25-0-END
 Route_5: 0-10-11-12-13-14-0-END
 Route_6: 0-1-2-3-4-5-6-7-8-9-0-END
 Total Routed Nodes 48
+Using no. Tracks: 7
+Time Horizon: 0.18043851852416992
 Routing Total Cost: 49978.0
-Error of solution in Sol_hk-n48-k4.vrp.txt: 2.388568716523154Error of solution in Sol_hk-n48-k4.vrp.txt: 2.388568716523154
+Error of solution in Sol_hk-n48-k4.vrp.txt: 2.388568716523154

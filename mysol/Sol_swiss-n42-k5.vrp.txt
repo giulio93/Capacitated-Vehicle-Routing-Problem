@@ -6,5 +6,7 @@ Route_2: 0-30-29-9-8-10-11-12-18-26-0-END
 Route_3: 0-32-34-33-20-31-35-36-17-0-END
 Route_4: 0-25-41-23-40-24-21-39-22-38-0-END
 Total Routed Nodes 42
+Using no. Tracks: 5
+Time Horizon: 1.672344446182251
 Routing Total Cost: 1732.0
-Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.03836930455635491Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.03836930455635491Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.03836930455635491Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.03836930455635491Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.03836930455635491Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.03836930455635491Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.03836930455635491Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.03836930455635491
+Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.03836930455635491
