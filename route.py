@@ -12,7 +12,7 @@ class Route:
     def addCustomer(self,index, demand , onTop):
         
         if(demand >  self.capacity[0]):
-            print("Customer demand too large")
+            #print("Customer demand too large")
             return -1
         else:    
                 tempPayload = int(self.payload + demand)
@@ -33,14 +33,14 @@ class Route:
     
     def checkCustomer(self, index):
         if index not in self.customers:
-            print("Customer: " + str(index) +" not present")
+            #print("Customer: " + str(index) +" not present")
             return -1
            
         else:
 
             i = self.customers.index(index)
             if (0<i<len(self.customers)-1):
-                print("Customer: " + str(index) +" interior in the tour")
+                #print("Customer: " + str(index) +" interior in the tour")
                 return -2
 
             else: 
