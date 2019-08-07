@@ -5,45 +5,45 @@ The style file: unsrt.bst
 Database file #1: biblio.bib
 Warning--entry type for "ANFIA2017" isn't style-file defined
 --line 14 of file biblio.bib
-You've used 1 entry,
+You've used 2 entries,
             1791 wiz_defined-function locations,
-            449 strings with 3650 characters,
-and the built_in function-call counts, 134 in all, are:
-= -- 7
-> -- 4
+            455 strings with 3804 characters,
+and the built_in function-call counts, 285 in all, are:
+= -- 20
+> -- 12
 < -- 0
-+ -- 2
-- -- 1
-* -- 2
-:= -- 25
-add.period$ -- 2
-call.type$ -- 1
-change.case$ -- 1
++ -- 5
+- -- 3
+* -- 8
+:= -- 53
+add.period$ -- 5
+call.type$ -- 2
+change.case$ -- 2
 chr.to.int$ -- 0
-cite$ -- 1
-duplicate$ -- 5
-empty$ -- 19
-format.name$ -- 1
-if$ -- 28
+cite$ -- 2
+duplicate$ -- 13
+empty$ -- 33
+format.name$ -- 3
+if$ -- 61
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 0
-newline$ -- 7
-num.names$ -- 1
-pop$ -- 5
+int.to.str$ -- 2
+missing$ -- 1
+newline$ -- 12
+num.names$ -- 2
+pop$ -- 10
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 7
+skip$ -- 8
 stack$ -- 0
 substring$ -- 0
-swap$ -- 1
+swap$ -- 2
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 1
-width$ -- 2
-write$ -- 9
+while$ -- 2
+width$ -- 3
+write$ -- 20
 (There was 1 warning)
