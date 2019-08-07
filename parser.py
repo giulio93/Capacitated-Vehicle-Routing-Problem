@@ -3,6 +3,7 @@ import os
 import numpy as np
 from cvrpGraph import cvrpGraph
 from math import acos, cos, sqrt, pi
+import math
 
 
 def readInstanceList(path):
@@ -140,7 +141,7 @@ def parseGEO(graph,data, index):
 
     for i in range(dimension):
         a = appoVertex[i+1]
-        degrees = int(round(a[0]))
+        degrees = int(math.ceil(a[0]))
         minutes = a[0] - degrees
         latitudeA = PI * (degrees + 0.5 * minutes / 0.3) / 180.0
         degrees = int(a[1])
@@ -149,7 +150,7 @@ def parseGEO(graph,data, index):
         for j in range(dimension):
         
             b = appoVertex[j+1]
-            degrees = int(round(b[0]))
+            degrees = int(math.ceil(b[0]))
             minutes = b[0] - degrees
             latitudeB = PI * (degrees + 0.5 * minutes / 0.3) / 180.0
             degrees = int(a[1])
