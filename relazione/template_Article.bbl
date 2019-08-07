@@ -15,4 +15,37 @@ G.~Reinelt.
 \newblock Tsplib95.
 \newblock {\em Institut fur Angewandte Mathematik}, 1990.
 
+\bibitem{CK}
+Jens Lysgaard.
+\newblock Clarke and wright's savings algorithm.
+\newblock {\em Department of Management of Science and Logistic, the Aarhus
+  School of Business}.
+
+\bibitem{CK2}
+R.~Kawtummachai T.Pichpibula.
+\newblock An improved clarke and wright savings algorithm for the capacitated
+  vehicle routing problem.
+\newblock {\em Department of Management of Science and Logistic, the Aarhus
+  School of Business}.
+
+\bibitem{CK3}
+B.E. Gillet and L.R. Miller.
+\newblock A heuristic algorithm for the vehicle dispatch problem.
+\newblock {\em Operation Research, vol.22, pp. 340-349}.
+
+\bibitem{petal}
+C.~Hjorring D.~M.~Ryan and F.~Glover.
+\newblock Extensions of the petal method for vehicle routing.
+\newblock {\em Journal of the Operational Research Society,44:289-296}.
+
+\bibitem{sweep}
+Alias S.M.~Shamsuddin G.W.~Nurchahyo, R.A. and M.. md. Sap.
+\newblock Sweep algorithm in vehicle routing problem for public transport.
+\newblock {\em Journal Antarabangsa (Teknologi Maklumat)}.
+
+\bibitem{FJ}
+M.L. Fisher and R.~Jaikumar.
+\newblock A generalized assignment heuristic for vehicle routing.
+\newblock {\em Journal of the Operational Research Society,44:289-296}.
+
 \end{thebibliography}

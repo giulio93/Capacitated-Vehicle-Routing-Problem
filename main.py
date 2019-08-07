@@ -52,7 +52,7 @@ if __name__ == "__main__":
             if(sol.SearchaAndCompleteSequence(solution2,graphToSolve)):
               print("Solution Routing in DIjkastra RR Invalid! ")
             else:
-              sol.writeResult(solution2,graphToSolve,(start_time_sol2 - start_time_clustering),"mysol_DJ")   
+              sol.writeResult(solution2,graphToSolve,(start_time_sol2 - start_time_clustering ),"mysol_DJ")   
         else:
           n_vehicles = n_vehicles +1
 
@@ -62,6 +62,7 @@ if __name__ == "__main__":
         start_time_clustering34 = time.time()   
         K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
         GAPassignementRand = sol.GAPsolver(graphToSolve,K_clusterRand)
+        start_time_clustering34 = (time.time() - start_time_clustering34)
         if(GAPassignementRand != -1):
             start_time_sol3 =time.time()
             solution = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRand,K_clusterRand,"mysol_FJ_kRand")
@@ -75,7 +76,7 @@ if __name__ == "__main__":
             if(sol.SearchaAndCompleteSequence(solution2,graphToSolve)):
               print("Solution Routing in DIjkastra Random Invalid! ") 
             else:
-              sol.writeResult(solution2,graphToSolve,(start_time_sol4 - start_time_clustering34),"mysol_DJ_kRand")
+              sol.writeResult(solution2,graphToSolve,(start_time_sol4 - start_time_clustering34 ),"mysol_DJ_kRand")
         else:
           n_vehicles = n_vehicles +1
         
@@ -99,8 +100,10 @@ if __name__ == "__main__":
 
       #Initialize Population : Select k customers, create routes and calculate fitness of each chromosome
       for i in range(n_population):
-        K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
-        GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRand)
+        #K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
+        #GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRand)
+        K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)           
+        GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
         if(GAPassignementRR != -1):
           chromosome = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRand,"mysol_FJ") 
           if(sol.SearchaAndCompleteSequence(chromosome,graphToSolve)):

@@ -5,45 +5,53 @@ The style file: unsrt.bst
 Database file #1: biblio.bib
 Warning--entry type for "ANFIA2017" isn't style-file defined
 --line 14 of file biblio.bib
-You've used 3 entries,
+Warning--empty year in CK
+Warning--empty year in CK2
+Warning--empty year in CK3
+Warning--empty year in petal
+Too many commas in name 1 of "G.W. Nurchahyo,R.A., Alias,S.M. Shamsuddin and M.. md. Sap" for entry sweep
+while executing---line 944 of file unsrt.bst
+Warning--empty year in sweep
+Warning--empty year in FJ
+You've used 9 entries,
             1791 wiz_defined-function locations,
-            460 strings with 3847 characters,
-and the built_in function-call counts, 414 in all, are:
-= -- 31
-> -- 16
+            486 strings with 4630 characters,
+and the built_in function-call counts, 1266 in all, are:
+= -- 95
+> -- 56
 < -- 0
-+ -- 7
-- -- 4
-* -- 11
-:= -- 77
-add.period$ -- 8
-call.type$ -- 3
-change.case$ -- 3
++ -- 23
+- -- 14
+* -- 49
+:= -- 227
+add.period$ -- 26
+call.type$ -- 9
+change.case$ -- 9
 chr.to.int$ -- 0
-cite$ -- 3
-duplicate$ -- 21
-empty$ -- 47
-format.name$ -- 4
-if$ -- 89
+cite$ -- 15
+duplicate$ -- 69
+empty$ -- 131
+format.name$ -- 14
+if$ -- 267
 int.to.chr$ -- 0
-int.to.str$ -- 3
-missing$ -- 2
-newline$ -- 17
-num.names$ -- 3
-pop$ -- 13
+int.to.str$ -- 9
+missing$ -- 8
+newline$ -- 47
+num.names$ -- 9
+pop$ -- 37
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 11
+skip$ -- 33
 stack$ -- 0
 substring$ -- 0
-swap$ -- 3
+swap$ -- 9
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 0
-while$ -- 3
-width$ -- 4
-write$ -- 30
-(There was 1 warning)
+warning$ -- 6
+while$ -- 9
+width$ -- 10
+write$ -- 84
+(There was 1 error message)
