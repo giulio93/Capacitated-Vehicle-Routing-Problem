@@ -75,7 +75,7 @@ if __name__ == "__main__":
             if(sol.SearchaAndCompleteSequence(solution2,graphToSolve)):
               print("Solution Routing in DIjkastra Random Invalid! ") 
             else:
-              sol.writeResult(solution2,graphToSolve,(start_time_sol4 - start_time_clustering),"mysol_DJ_kRand")
+              sol.writeResult(solution2,graphToSolve,(start_time_sol4 - start_time_clustering34),"mysol_DJ_kRand")
         else:
           n_vehicles = n_vehicles +1
         

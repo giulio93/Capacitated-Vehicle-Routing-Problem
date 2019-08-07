@@ -2,12 +2,17 @@
 
 \bibitem{ANFIA2017}
 Associazione Nazionale Filiera Industria~Automobilistica ANFIA.
-\newblock Dossier trasporto merci su strada, Febbraio 2019.
+\newblock Dossier trasporto merci su strada, 2019.
 
 \bibitem{dispatching}
 G.B. Dantzig and J.H. Ramser.
 \newblock The truck dispatching problem.
 \newblock {\em Management Science, Vol. 6, No. 1 (Oct., 1959), pp. 80-91},
-  28/09/2008 15:00.
+  2008.
+
+\bibitem{TSPLIB95}
+G.~Reinelt.
+\newblock Tsplib95.
+\newblock {\em Institut fur Angewandte Mathematik}, 1990.
 
 \end{thebibliography}

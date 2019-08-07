@@ -62,7 +62,7 @@ Alla fine degli anni cinquanta Dantzig and Ramser hanno formalizzato il problema
 Da quel momento l'interesse nei problemi VRP è evoluto da un piccolo gruppo di matematici ad un grande gruppo di ricercatori da differenti discipline ancora oggi coinvolti.
 
 
-VRP consiste nell'ottimizzare l'uso di un insieme di veicoli per prelevare della merce da uno o più depositi e consegnarle presso stazioni che richiedono una certa quantità di merce.
+VRP consiste nell'ottimizzare l'uso di un insieme di veicoli per prelevare della merce da uno o più depositi e consegnarle presso dei clienti che richiedono una certa quantità di merce.
 Le stazioni , i depositi sono distribuiti in uno spazio rappresentato da delle distanze. I mezzi si spostano percorrendo tali distanze, che possono essere rappresentate in maniera diversa.
 La maggioranza the problemi reali sono sepsso più complessi del classico VRP. Quindi in pratica VRP è aumentato con dei vincoli, come ad esempio la capacità del veicolo: dove ogni veicolo è caratterizzato da una capacità limitata di carico delle merci, passando quindi da VRP a \textbf{Capacitated - VRP}.
 Gli obiettivi sono molteplici:
@@ -70,7 +70,7 @@ Gli obiettivi sono molteplici:
 	\item Minimizzare dei costi di trasporto (istanze percorse, consumo di carburante)
 	\item Minimizzare il numero di veicoli
 	\item Rispettare il vincolo di capacità imposto  sui veicoli.
-	\item Un percorso deve essere assegnato ad un solo veicolo.
+	\item Assegnare un percorso ad ogni singolo veicolo.
 \end{itemize}
 
 
@@ -83,6 +83,20 @@ Gli obiettivi sono molteplici:
 
 VRP è un problema di ottimizzazione combinatoria NP hard,che può essere risolto esattamente trovando l'ottimo solo per piccole istanze del problema. In ogni caso gli approcci euristici che non garantiscono l'ottimalità, forniscono ottimi risultati in pratica.
 Negli ultimi 30 anni sono stati applicati anche dei metodi meta-euristici che hanno mostrato una nuova direzione alla ricerca sulla famiglia di problemi VRP  
+In questo elaborato vengono prese in esame le istanze fornite dalla libreria TSPLIB95\cite{TSPLIB95}.
+Sono stati implementati i seguenti metodi per risolvere le istanze CVRP:
+\begin{itemize}
+	\item Metodo Costruttivo: Clarke and Wright
+	\item Metodo a due fasi:
+	\begin{itemize}
+		\item Cluster-First Route-Second: Fisher and Jaikumar
+		\item Route-First Cluster-Second: Dijkastra
+	\end{itemize}
+	\item Meta-euristiche: Algoritmi Genetici
+\end{itemize}
+
+In particolare, nell'algoritmo di Fisher and Jaikumar, è stato implementato un algoritmo per la selezione dei centroidi in modo da garantire la migliore copertura, a seconda della distribuzione dei depositi e dei clienti.
+
 
 
 
