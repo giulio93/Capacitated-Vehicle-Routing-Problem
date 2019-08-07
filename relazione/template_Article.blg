@@ -13,45 +13,46 @@ Too many commas in name 1 of "G.W. Nurchahyo,R.A., Alias,S.M. Shamsuddin and M..
 while executing---line 944 of file unsrt.bst
 Warning--empty year in sweep
 Warning--empty year in FJ
-You've used 9 entries,
+Warning--empty year in GA
+You've used 10 entries,
             1791 wiz_defined-function locations,
-            486 strings with 4630 characters,
-and the built_in function-call counts, 1266 in all, are:
-= -- 95
-> -- 56
+            491 strings with 4734 characters,
+and the built_in function-call counts, 1398 in all, are:
+= -- 105
+> -- 60
 < -- 0
-+ -- 23
-- -- 14
-* -- 49
-:= -- 227
-add.period$ -- 26
-call.type$ -- 9
-change.case$ -- 9
++ -- 25
+- -- 15
+* -- 54
+:= -- 252
+add.period$ -- 29
+call.type$ -- 10
+change.case$ -- 10
 chr.to.int$ -- 0
-cite$ -- 15
-duplicate$ -- 69
-empty$ -- 131
-format.name$ -- 14
-if$ -- 267
+cite$ -- 17
+duplicate$ -- 77
+empty$ -- 145
+format.name$ -- 15
+if$ -- 294
 int.to.chr$ -- 0
-int.to.str$ -- 9
-missing$ -- 8
-newline$ -- 47
-num.names$ -- 9
-pop$ -- 37
+int.to.str$ -- 10
+missing$ -- 9
+newline$ -- 52
+num.names$ -- 10
+pop$ -- 41
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 33
+skip$ -- 35
 stack$ -- 0
 substring$ -- 0
-swap$ -- 9
+swap$ -- 10
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 6
-while$ -- 9
-width$ -- 10
-write$ -- 84
+warning$ -- 7
+while$ -- 10
+width$ -- 12
+write$ -- 93
 (There was 1 error message)

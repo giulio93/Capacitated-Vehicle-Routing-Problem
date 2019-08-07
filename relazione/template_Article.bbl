@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{ANFIA2017}
 Associazione Nazionale Filiera Industria~Automobilistica ANFIA.
@@ -47,5 +47,10 @@ Alias S.M.~Shamsuddin G.W.~Nurchahyo, R.A. and M.. md. Sap.
 M.L. Fisher and R.~Jaikumar.
 \newblock A generalized assignment heuristic for vehicle routing.
 \newblock {\em Journal of the Operational Research Society,44:289-296}.
+
+\bibitem{GA}
+D.E: Goldberg.
+\newblock Genetic algorithm in search, optimization and machine learning".
+\newblock {\em New York Addison- Wesley}.
 
 \end{thebibliography}
