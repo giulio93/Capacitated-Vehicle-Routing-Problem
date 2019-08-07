@@ -97,12 +97,6 @@ Sono stati implementati i seguenti metodi per risolvere le istanze CVRP:
 \end{itemize}
 
 
-
-\textbf{In particolare, nell'algoritmo di Fisher and Jaikumar, è stato implementato un algoritmo per la selezione dei centroidi, Radar-Radius, che massimizza la distanza tra essi e tra il deposito in modo da garantire la migliore copertura, a seconda della distribuzione dei depositi e dei clienti.
-Sono stati usati due metodi diversi per realizzare il routing tra i clienti ed i centroid Nearest Neighbourn e Dijkastra.
-La scelta dei centroidi con l'algoritmo Radar-Radius a mostra un miglioramento rispetto alla selezione random dei centroidi, e nella fase di routing permette una più veloce selezione}
-
-
 \section{Related Works}
 Quasi tutti i metodi implementati sono euristici perchè nessuno degli algoritmi può garantire di trovare una soluzione ottima per grandi istanze, in un limite di tempo computazionale ragionevole.
 Un approccio euristico non esplora l'intero spazio di ricerca, piuttosto cerca di trovare una soluzione basandosi sulle informazioni che ha sul problema.
@@ -115,6 +109,12 @@ I metodi di clustering, risolvono il problema in due fasi , ed è per questo che
 \item \textbf{Fase 2- Routing} Nella seconda fase, per ogni cluster creato nella prima fase viene ricercata la strada più corta sfruttando tecniche di ottimizzazione.
 \end{itemize}
 Alcuni famosi algoritmi a due fasi sono: Petal algortihm \cite{petal}, Sweep algorithm \cite{sweep} e Fisher and Jaikumar \cite{FJ}.
+Questo studio investiga e compara le performance dei metodi costruttivi e di raggruppamento per risolvere istanze di CVRP.
+In particolare, nell'algoritmo di Fisher and Jaikumar, è stato implementato un algoritmo per la selezione dei centroidi chiamato Radar-Radius.Questo  massimizza la distanza tra centroidi (inter-centroid distance) e la distanza tra i centroidi e il deposito in modo da garantire la migliore copertura, a seconda della distribuzione del deposito e dei clienti.
+Questo algoritmo è stato implementato scegliendo un deposito per ogni istanza in TSPLIB95,solitamente il deposito con id identificativo 1.
+Sono stati usati due metodi diversi per realizzare il routing tra i clienti di uno stesso cluster: Nearest Neighbourn e Dijkastra.
+
+
 
 \section{Materiali e Metodi}
 

@@ -105,7 +105,7 @@ if __name__ == "__main__":
         K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)           
         GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
         if(GAPassignementRR != -1):
-          chromosome = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRand,"mysol_FJ") 
+          chromosome = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_FJ") 
           if(sol.SearchaAndCompleteSequence(chromosome,graphToSolve)):
             print("Invalid! ")
           else:
