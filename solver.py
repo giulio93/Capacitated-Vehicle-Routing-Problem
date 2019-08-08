@@ -61,7 +61,7 @@ def printResult(folderSol,folderRes):
                                         if(len(keys.split()) > 0 and (keys.split()[0].strip()=="Cost" or keys.split()[0].strip()=="cost")):
                                             actual = float(keys.split()[1].strip())
                                             error = (stimated - actual)/actual
-                                            print("Error of solution in "+sol + ": "+ str(float(error)))
+                                            print("Error of solution in "+sol + ": "+ str(float(error))+ "==> Stimated: " +str(stimated) + " ==> optimal: "+str(actual) )
                                             f.write("Error of solution in "+sol + ": "+ str(float(error)))
                                             resume.write("Error of solution in "+sol + ": "+ str(float(error))+ "\n")
 
