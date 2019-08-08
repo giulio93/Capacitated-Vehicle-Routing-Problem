@@ -96,6 +96,11 @@ Sono stati implementati i seguenti metodi per risolvere le istanze CVRP:
 	\item Meta-euristiche: Algoritmi Genetici
 \end{itemize}
 
+\section{Descrizione del problema}
+CVRP è la versione più comune dei problemi VRP. Ciò che caratterizza queta tipologia di problemi è il fatto che l servizio è di semplice ocnsgna senza raccolta.
+Inoltre le richieste dei clienti sononote a pripri e deterministiche e devono essere soddisfatte da un solo veicolo; tuti i veicoli sono identici e basati su un singolo deposito centrale. Gli unici vincoli imposti riguardano le capacità di veicoli. L'obbiettivo è minmizzare il costo totale di servizio che può essere una funzione del numero dei route, della lunghezza complessiva o del tempo di percorrenza.
+Consideraimo ora la rappresentazione su grafo di questo problema.
+\\ Sia \emph{G = (V,A)} un grafo completo dove \emph{V = \{0,...,n\}} è l'insieme dei vertici e \emph{A} quello degli archi. \\ I vertici \emph{i = i,...,n} corrispondono ai clienti, mentre il vertice 0 corrisponde al deposito. Ad ogni arco \emph{(i,j) $\in$ A} è associato un costo non negativo \emph{$c_{i,j}$}, che rappresenta il costo di trasferimento dall'indice \emph{i} all'indice 1\emph{j}
 
 \section{Related Works}
 Quasi tutti i metodi implementati sono euristici perchè nessuno degli algoritmi può garantire di trovare una soluzione ottima per grandi istanze, in un limite di tempo computazionale ragionevole.
@@ -120,6 +125,7 @@ In particolare è stato implementato un Algoritmo Genetico  \textbf{(GA)} \cite{
 
 
 \section{Materiali e Metodi}
+
 
 
 

@@ -148,20 +148,21 @@ def parseGEO(graph,data, index):
         minutes = a[1] - degrees
         longitudeA = PI * (degrees + 0.5 * minutes / 0.3) / 180.0
         for j in range(dimension):
-        
-            b = appoVertex[j+1]
-            degrees = int(math.ceil(b[0]))
-            minutes = b[0] - degrees
-            latitudeB = PI * (degrees + 0.5 * minutes / 0.3) / 180.0
-            degrees = int(a[1])
-            minutes = b[1] - degrees
-            longitudeB = PI * (degrees + 0.5 * minutes / 0.3) / 180.0                     
-            RRR = 6378.388
-            q1 = np.cos(longitudeA - longitudeB)
-            q2 = np.cos(latitudeA - latitudeB)
-            q3 = np.cos(latitudeA + latitudeB)
-            dij = int(RRR * acos(0.5 * ((0.1 + q1) * q2 - (1.0 - q1) * q3)) +1.0)
-            graph.addEdge(i, j, dij)
+            if i!=j:
+                b = appoVertex[j+1]
+                degrees = int(math.ceil(b[0]))
+                minutes = b[0] - degrees
+                latitudeB = PI * (degrees + 0.5 * minutes / 0.3) / 180.0
+                degrees = int(a[1])
+                minutes = b[1] - degrees
+                longitudeB = PI * (degrees + 0.5 * minutes / 0.3) / 180.0                     
+                RRR = 6378.388
+                q1 = np.cos(longitudeA - longitudeB)
+                q2 = np.cos(latitudeA - latitudeB)
+                q3 = np.cos(latitudeA + latitudeB)
+                dij = int(RRR * acos(0.5 * ((0.1 + q1) * q2 - (1.0 - q1) * q3)) +1.0)
+                graph.addEdge(i, j, dij)
+            
 
 
 
