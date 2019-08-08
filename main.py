@@ -91,10 +91,10 @@ if __name__ == "__main__":
       start_time = time.time ()
       #Parameters setting: percentage of Elitism, threshold of improving fitting, number of cromosome
       mutationRate = 30
-      n_population = 50
+      n_population = 100
       population = []
       elitismList =[]
-      Eras = 20
+      Eras = 40
       era = 0
       n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))           
 
