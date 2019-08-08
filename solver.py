@@ -58,7 +58,7 @@ def printResult(folderSol,folderRes):
                                 if(sol.split('.')[0] == "Sol_"+optimal[4:]):
                                     for linec in c:
                                         keys = linec                                   
-                                        if(len(keys.split()) > 0 and keys.split()[0].strip()=="Cost"):
+                                        if(len(keys.split()) > 0 and (keys.split()[0].strip()=="Cost" or keys.split()[0].strip()=="cost")):
                                             actual = float(keys.split()[1].strip())
                                             error = (stimated - actual)/actual
                                             print("Error of solution in "+sol + ": "+ str(float(error)))
