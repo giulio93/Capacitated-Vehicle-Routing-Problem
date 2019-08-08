@@ -122,6 +122,8 @@ def parseEUC2 (graph, data, index):
                 b = appoVertex[j+1]
                 weight = np.sqrt(((float(a[0]) - float(b[0]))**2) + ((float(a[1]) - float(b[1]))**2))
                 graph.addEdge(i,j, weight)
+            else: graph.addEdge(i,j, np.inf)
+
 
     print("EUC2  Done")
        
@@ -162,7 +164,7 @@ def parseGEO(graph,data, index):
                 q3 = np.cos(latitudeA + latitudeB)
                 dij = int(RRR * acos(0.5 * ((0.1 + q1) * q2 - (1.0 - q1) * q3)) +1.0)
                 graph.addEdge(i, j, dij)
-            
+            else:  graph.addEdge(i, j, np.inf)
 
 
 
@@ -196,11 +198,16 @@ def parseMatrix(graph, format, data,index):
     if format != "FULL_MATRIX":
         for i in range(dimension):
             for j in range(dimension):
-                graph.addEdge(i, j, float(graphMatrix[i][j]))
+                if i!=j:
+                    graph.addEdge(i, j, float(graphMatrix[i][j]))
+                else: graph.addEdge(i, j, np.inf)
+
     else:
         for i in range(dimension):
             for j in range(dimension):
-                graph.addEdge(i, j, float(graphMatrix[i][j]))
+                if i!=j:
+                    graph.addEdge(i, j, float(graphMatrix[i][j]))
+                else: graph.addEdge(i, j, np.inf)
 
     
     print("Done")
