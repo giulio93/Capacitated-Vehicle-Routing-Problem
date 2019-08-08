@@ -11,11 +11,11 @@ def readInstanceList(path):
     return files
 
 
-def createGraph(fileCVRP):
+def createGraph(folderRoot,fileCVRP):
 
     g = cvrpGraph()
     g.setFileName(fileCVRP)
-    data = pd.read_csv('cvrp/'+fileCVRP, sep="\n", header=None)
+    data = pd.read_csv(folderRoot+'/'+fileCVRP, sep="\n", header=None)
     i = 0
     for d in data[0]:
             line = d.split(':')
@@ -84,7 +84,7 @@ def initDemand(graph,data,index):
     
     dimension = graph.getDimension()
     appoDemand = np.zeros(dimension)
-    while data[0][index] != "DEPOT_SECTION":
+    while data[0][index].strip() != "DEPOT_SECTION":
 
         toSplit = data[0][index].split()
         appoDemand[int((toSplit[0]))-1] += int((toSplit[1]))
