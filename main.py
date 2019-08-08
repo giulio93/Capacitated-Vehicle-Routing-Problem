@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
       start_time = time.time ()
       #Parameters setting: percentage of Elitism, threshold of improving fitting, number of cromosome
-      mutationRate = 30
+      mutationRate = 1
       n_population = 100
       population = []
       elitismList =[]
@@ -105,7 +105,7 @@ if __name__ == "__main__":
         K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)           
         GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
         if(GAPassignementRR != -1):
-          chromosome = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_FJ") 
+          chromosome = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_FJ") 
           if(sol.SearchaAndCompleteSequence(chromosome,graphToSolve)):
             print("Invalid! ")
           else:
@@ -124,7 +124,7 @@ if __name__ == "__main__":
         #Do evolutionary opeeration half time population
         for k in range(int(len(population)/2)):
       
-          winner1,winner2 ,f1,f2= sol.Tournament(population,True)   
+          winner1,winner2 ,f1,f2= sol.Tournament(population,False)   
           if (np.random.randint(1,100) <= 1):
              f1, winner1 = toKeep
           children, tabuLister , fittingCrossover = sol.Crossover(winner1,winner2,graphToSolve,True)

@@ -126,17 +126,41 @@ Definiamo inoltre \emph{$q_{i}$} la richiesta associata ad ogni cliente visitato
 
 La funzione obbiettivo descritta formalmente è la seguente:
 
-\[
+\begin{equation} \label{objF}
 \min \sum_{k \in K} \sum_{(i,j) \in A} c_{i,j} \cdot x_{i,j}^k 
-\]
+\end{equation}
+
+
 
 al quale sono applicati i seguenti vincoli:
 
-\[
-\min \sum_{k \in K} \sum_{j \in V} x_{i,j^k} = 1 \ \forall i \in V
-\]
+\begin{equation} \label{v1}
+ \sum_{k \in K} \sum_{j \in V} M_{i,j}^k = 1 \ \forall i \in V
+\end{equation}
+
+\begin{equation} \label{v2}
+\sum_{i \in V} q_{i} \sum_{j \in V} M_{i,j}^k \leq C_{k} \ \forall k \in K
+\end{equation}
+
+\begin{equation} \label{v3}
+\sum_{j \in V} M_{0,j}^k = 1 \ \forall k \in K
+\end{equation}
+
+\begin{equation} \label{v4}
+\sum_{i \in V} M_{i,h}^k - \sum_{j \in V} M_{h,j}^k = 0 \ \forall k \in K ,\  \forall h \in V
+\end{equation}
+
+\begin{equation} \label{v5}
+\sum_{i \in V} M_{i,0}^k = 1 \ \forall k \in K
+\end{equation}
 
 
+
+La funzione obbiettivo \ref{objF}, minimizzare il costo dei km totali percorsi da ogni singolo veicolo.
+Il vincolo \ref{v1} impone che ogni cliente deve essere servito da un solo veicolo.
+Il vincolo \ref{v2} assicura che il limite sulla capacità dei veicoli venga rispettato.
+I vincoli \ref{v3}, \ref{v4} , \ref{v5} sono vincoli che impongono ad ogni veicolo di partire dal deposito il nodo 0, e collegarsi ad un nodo h, unico per ogni route,e di ritornare al deposito, indicato nella nostra implementazione sempre dal nodo 0. Questi vincoli definiscono la struttura della route.
+\textbf{Questa sezione va rivista }
 
 \section{Related Works}
 Quasi tutti i metodi implementati sono euristici perchè nessuno degli algoritmi può garantire di trovare una soluzione ottima per grandi istanze, in un limite di tempo computazionale ragionevole.
