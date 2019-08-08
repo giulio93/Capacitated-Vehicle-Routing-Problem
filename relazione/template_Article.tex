@@ -96,22 +96,45 @@ Sono stati implementati i seguenti metodi per risolvere le istanze CVRP:
 	\item Meta-euristiche: Algoritmi Genetici
 \end{itemize}
 
-\subsection{Descrizione del problema}
+\subsection{Rappresentazione del problema}
 CVRP è la versione più comune dei problemi VRP. Ciò che caratterizza queta tipologia di problemi è il fatto che l servizio è di semplice ocnsgna senza raccolta.
 Inoltre le richieste dei clienti sononote a pripri e deterministiche e devono essere soddisfatte da un solo veicolo; tuti i veicoli sono identici e basati su un singolo deposito centrale. Gli unici vincoli imposti riguardano le capacità di veicoli. L'obbiettivo è minmizzare il costo totale di servizio che può essere una funzione del numero dei route, della lunghezza complessiva o del tempo di percorrenza.
 Consideraimo ora la rappresentazione su grafo di questo problema.
 \begin{itemize}
 \item Sia \emph{G = (V,A)} un grafo completo dove \emph{V = \{0,...,n\}} è l'insieme dei vertici e \emph{A} quello degli archi.
-\item I vertici \emph{i = i,...,n} corrispondono ai clienti, mentre il vertice 0 corrisponde al deposito. Ad ogni arco \emph{(i,j) $\in$ A} è associato un costo non negativo \emph{$c_{i,j}$}, che rappresenta il costo di trasferimento dall'indice \emph{i} all'indice \emph{j}
+\item I vertici \emph{i = i,...,n} corrispondono ai clienti, mentre il vertice 0 corrisponde al deposito. 
+\item Ad ogni arco \emph{(i,j) $\in$ A} è associato un costo non negativo \emph{$c_{i,j}$}, che rappresenta il costo di trasferimento dall'indice \emph{i} all'indice \emph{j}
 \item In genere l'uso di loop non è consentito e ciò è imposto definendo \emph{$c_{i,j}$=+$\infty$}  \emph{ $\forall$ i $\in$ V}.Nella nostra implementazione invece abbiamo definito  \emph{$c_{i,j}$=0}  \emph{ $\forall$ i $\in$ V}.
 \item Dato un insieme \emph{ S $\subseteq$ V}, \emph{d(S)} denota la richiesta complessiva dei clienti in \emph{S: d(S) = $\sum_{s \in S} d_{s} $}.
 \item  Indicando con \emph{r} una \emph{route}, \emph{d(r)} denota la richiesta complessiva dei vertici da esso visitati.
 \item Un insieme \emph{K} di veicoli è disponibile presso il deposito. Tali veicoli sono tutti identici di capacità \emph{C}; una semplice condizione di ammissibilità del problema richiede \emph{$ d_{i} \leq C $ $ \forall i \in V \setminus \{0\} $}.
 \item Ogni veicolopuò percorrere al più un \emph{route}.
-\item Si assume che \emph{$K \geq K_{min}$} dove \emph{K_{min}} è il minimo numero di veicoli necessari per servire tutti i clienti.
+\item Si assume che \emph{$K \geq K_{min}$} dove \emph{$K_{min}$} è il minimo numero di veicoli necessari per servire tutti i clienti.
+\item In questa implementazione utilizziamo il numero minimo di veicoli necessari per servire tutti i vertici in \emph{S}, pari al  \emph{lower bound}  \emph{$ K_{min} =d(S)/C $}
 \end{itemize}
+Gli obbiettivi ed i vincoli già citati nella sezione precedente vengono ora descritti in maniera formale, associando ai vincoli il modello matematico che li esprime.
 
+\[M_{i,j}^k = \left\{
+\begin{array}{lr}
+1 :sse (i,j) \in A \wedge M_{i,j} \in  r(k) \mid k \in K \wedge r \in route\\
+0 :altrimenti
+\end{array}
+\right.
+\]
 
+Definiamo inoltre \emph{$q_{i}$} la richiesta associata ad ogni cliente visitato da un circuito e \emph{$C_{k}$} la capacità del veicolo \emph{$k \in K$}.
+
+La funzione obbiettivo descritta formalmente è la seguente:
+
+\[
+\min \sum_{k \in K} \sum_{(i,j) \in A} c_{i,j} \cdot x_{i,j}^k 
+\]
+
+al quale sono applicati i seguenti vincoli:
+
+\[
+\min \sum_{k \in K} \sum_{j \in V} x_{i,j^k} = 1 \ \forall i \in V
+\]
 
 
 
