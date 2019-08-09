@@ -97,13 +97,11 @@ def ClarkeWright(graph,parallel = True):
 def Sequential_CW(routes,savings,graph:cvrpGraph):
     capacity = graph.getCapacity()
     demand = graph.getDemand()
-    dimension = graph.getDimension()
-    print("Here")
+
     toDo,checked,_ = SearchaAndCompleteSequence(routes,graph,True)
     #no routes have been created yet
     while (SearchaAndCompleteSequence(routes,graph) == True and len(savings)>0):
         routeSelected =  Route(capacity)
-
         printable = savings.copy()
         k = 0
         saveNow = savings[0]

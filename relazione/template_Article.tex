@@ -260,14 +260,42 @@ Ci sono due approcci proposti per l'algoritmo di \emph{savings} \textbf{sequenzi
 Ogni volta che un cliente è inserito in una \emph{route}, l'algoritmo deve cominciare dall'inizio siccome le combinazioni che non erano disponibili fino a prima dell'inserimento potrebbero essere disponibili ora. Questo approccio crea una \emph{route} alla volta, richiedendo di ripassare la coda di \emph{savings} più di una volta.
 \item  Nell'approccio \textbf{parallelo} crea più \emph{routes} contemporaneamente. Quando una coppia i clienti è presa in considerazione, viene confrontata con tutte le \emph{routes} che sono già state generate, e non solamente con una singola \emph{route}.
 Se la coppia viene inserita in una route, tutte le \emph{routes} generate fino ad ora vengono confrontate per trovare possibili \emph{route} da unire ulteriormente con attraverso un \emph{merge}.
-Altriemnti,se la coppia di clienti non corrisponde con nessuna \emph{route},allora una nuova \emph{route} viene create, questa nell'approccio sequenziale invece verrebbe scartata.
+Altrimenti,se la coppia di clienti non corrisponde con nessuna \emph{route},allora una nuova \emph{route} viene create, questa nell'approccio sequenziale invece verrebbe scartata.
 Nella versione parallela la lista dei \emph{savings} viene passata una sola volta per tutta la sua lunghezza.
 \end{itemize}
 
+\begin{lstlisting}[language=Python, caption=Implementazione parallela di Clarke and Wright  ,escapeinside={(*}{*)}]
+def Clarke&Wright_Sequenziale:
+	Capacity = graph.getCapacity()
+	Demand:list = graph.getCapacity()
+	list savings = calculateSavings (i,j) (* $\forall \ i,j \ \in V \mid i \neq j \wedge i \neq 0 $*) 
+	savings.sort(descending)
+	list routes = []
+	
+	while((*$ \sum_{(r) \in R} \sum_{(v) \in V} ( v \in r) \neq  \ \mid V \mid $*) and len(savings)>0):
+		pair = savings.pop()
+		if(pair not served yet):
+			route = Route.create(pair)
+			
+			for save in savings:
+				if(i or j in save are in route):
+					route.join(i or j)
+					savings.remove(save)
+					savings.updateDistance(i,j)
+					restart from top of savings
+	
+
+################## MERGE ########################	    
+if routeA != routeB:
+if routeA.capacity() + routeB.capacity() <= Capacity:
+Merge(routeA,RouteB) 
+routes.remove(RouteA or RouteB)
+\end{lstlisting}
 
 
-\begin{lstlisting}[language=Python, caption=Implementazione di Clarke and Wright con Route Merge,escapeinside={(*}{*)}]
-def Clarke&Wright:
+\begin{lstlisting}[language=Python, caption=Implementazione parallela di Clarke and Wright  ,escapeinside={(*}{*)}]
+def Clarke&Wright_Parallelo:
+	Capacity = graph.getCapacity()
 	list savings = calculateSavings (i,j) (* $\forall \ i,j \ \in V \mid i \neq j \wedge i \neq 0 $*) 
 	savings.sort(descending)
 	list routes = []
@@ -288,15 +316,9 @@ def Clarke&Wright:
 					    
 	################## MERGE ########################	    
 	if routeA != routeB:
-		if routeA.capacity + routeB.capacity <= Capacity:
-			Merge(routeA,RouteB)
+		if routeA.capacity() + routeB.capacity() <= Capacity:
+			Merge(routeA,RouteB) 
 			routes.remove(RouteA or RouteB)
-	
-			
-		
-
-
-
 \end{lstlisting}
 
 
