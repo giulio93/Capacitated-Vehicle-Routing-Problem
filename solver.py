@@ -54,8 +54,8 @@ def printResult(folderSol,folderRes):
                         stimated = float(keywords.split(':')[1].strip())
                         for optimal in cvrp_sol:
                             with open(path2+'/'+optimal, "r") as c:
-                                #if(sol.split('.')[0] == "Sol_"+optimal.split('.')[0]):
-                                if(sol.split('.')[0] == "Sol_"+optimal[4:]):
+                                if(sol.split('.')[0] == "Sol_"+optimal.split('.')[0]):
+                                #if(sol.split('.')[0] == "Sol_"+optimal[4:]):
                                     for linec in c:
                                         keys = linec                                   
                                         if(len(keys.split()) > 0 and (keys.split()[0].strip()=="Cost" or keys.split()[0].strip()=="cost")):
@@ -233,15 +233,15 @@ def Parallel_CW(routes,savings,graph:cvrpGraph):
         #savings.remove(save) 
    
         #If a node is has not been served yet, let's add a route just for it
-        for node in range(1,graph.getDimension() -1):
-            checked = False
-            for r in routes:
-                if node in r.getCustomers():
-                    checked = True
-            if (checked == False):
-                adhocRoute =  Route(graph.getCapacity())
-                adhocRoute.addCustomer(node,demand[node],False)
-                routes.append(adhocRoute)
+        # for node in range(1,graph.getDimension() -1):
+        #     checked = False
+        #     for r in routes:
+        #         if node in r.getCustomers():
+        #             checked = True
+        #     if (checked == False):
+        #         adhocRoute =  Route(graph.getCapacity())
+        #         adhocRoute.addCustomer(node,demand[node],False)
+        #         routes.append(adhocRoute)
 
     return routes
 

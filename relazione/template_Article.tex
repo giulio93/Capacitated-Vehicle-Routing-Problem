@@ -290,6 +290,7 @@ def Clarke&Wright:
 	if routeA != routeB:
 		if routeA.capacity + routeB.capacity <= Capacity:
 			Merge(routeA,RouteB)
+			routes.remove(RouteA or RouteB)
 	
 			
 		

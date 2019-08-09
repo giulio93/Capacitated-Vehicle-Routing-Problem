@@ -1,0 +1,10 @@
+bayg29
+29
+Route_0: 0-17-18-23-15-21-2-9-16-0-END
+Route_1: 0-10-27-5-7-8-1-3-20-0-END
+Route_2: 0-25-28-19-11-13-12-6-22-0-END
+Route_3: 0-14-4-24-26-0-END
+Total Routed Nodes 29
+Using no. Tracks: 4
+Time Horizon: 0.7830243110656738
+Routing Total Cost: 2730.0
