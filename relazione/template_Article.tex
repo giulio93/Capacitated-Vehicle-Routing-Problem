@@ -272,6 +272,7 @@ def Clarke&Wright:
 	savings.sort(descending)
 	list routes = []
 	routes.append([0 - i - 0])  (* $\forall \ i \ \in V \mid i \neq 0 $*) 
+	
 	for save in savings:
 		i , j = tuple(save)
 		routeA = null
@@ -284,22 +285,7 @@ def Clarke&Wright:
 			elif route.served(j)
 				routeB = route
 				routeSelected = route
-			
-				
-	############### INSERIMENTO #####################
-	
-	if isNull(routeSelected): 
-		routeSelected = ([0 - i -j - 0]) 
-		routes.appen(routeSelected)	
-				
-	elif j is not in routeSelected:
-		if checkRouteCapacity(j):
-			routeSelected.join(j)
-			
-	elif i is not in routeSelected:
-		if checkRouteCapacity(i): 
-			routeSelected.join(i) 
-		    
+					    
 	################## MERGE ########################	    
 	if routeA != routeB:
 		if routeA.capacity + routeB.capacity <= Capacity:

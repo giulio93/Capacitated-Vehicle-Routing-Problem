@@ -97,49 +97,82 @@ def ClarkeWright(graph,parallel = True):
 def Sequential_CW(routes,savings,graph:cvrpGraph):
     capacity = graph.getCapacity()
     demand = graph.getDemand()
+    dimension = graph.getDimension()
+    print("Here")
+    toDo,checked,_ = SearchaAndCompleteSequence(routes,graph,True)
     #no routes have been created yet
-    while (SearchaAndCompleteSequence(routes,graph) == True):
+    while (SearchaAndCompleteSequence(routes,graph) == True and len(savings)>0):
         routeSelected =  Route(capacity)
-        toDo,checked,_ = SearchaAndCompleteSequence(routes,graph,True)
 
+        printable = savings.copy()
+        k = 0
+        saveNow = savings[0]
+        l = saveNow[1]
+        m = saveNow[2]
+        if((l  not in checked) and (m not in checked) and (len(routeSelected.getCustomers()) == 0)):
+            #No one served i and j so this route will be teh first
+            routeSelected.addCustomer(l,demand[l],True)
+            routeSelected.addCustomer(m,demand[m],False)
+            savings.remove(saveNow)
+     
+            while k<len(savings):
+                save = savings[k]
+                k=k+1
+                i = save[1]
+                j = save[2]
+                customerI = -1
+                customerJ = -1
+                toprint = save
+                if(toDo == True):
+                    #Check if someone alredy served i and j
+                    if((i  not in checked) and (j not in checked)):
+                        if(-2< customerI < 0 and len(routeSelected.getCustomers())>0):
+                            customerI = routeSelected.checkCustomer(i)
+                        
+                        if(-2< customerJ < 0 and len(routeSelected.getCustomers())>0):
+                            customerJ = routeSelected.checkCustomer(j)
+                        
+                        
+                        # case: i and j have not been served and they are not route first entry
+                        #customer i is served from this route but j is not.
+                        if (customerI >= 0 and customerJ == -1):
+                            if(customerI == 0):
+                                control = routeSelected.addCustomer(j,demand[j],True)
+                                if(control != -1):
+                                    savings.remove(save) 
+                                    k=0                    
+                            else:
+                                control = routeSelected.addCustomer(j,demand[j],False)
+                                if(control != -1):
+                                    savings.remove(save) 
+                                    k=0  
+                        #customer j is served from this route but i is not.
+                        if (customerI == -1 and customerJ >= 0):
+                            if(customerJ == 0):
+                                control = routeSelected.addCustomer(i,demand[i],True)
+                                if(control != -1):
+                                    savings.remove(save) 
+                                    k=0  
+                            else:
+                                control = routeSelected.addCustomer(i,demand[i],False)
+                                if(control != -1):
+                                    savings.remove(save) 
+                                    k=0  
+                print("Savings number :" + str(printable.index(toprint)))   
+            routes.append(routeSelected)
+            routeCost = 0                      
+            for i in range(len(routeSelected.getCustomers())-1):
+                #routedNodesControl = routedNodesControl +1
+                routeCost += graph.getValue(routeSelected.getCustomers()[i], routeSelected.getCustomers()[i+1])
+            routeSelected.setCost(routeCost)
+            toDo,checked,_ = SearchaAndCompleteSequence(routes,graph,True)
+
+            
+            savings.append((float(graph.getValue(i, 0) + graph.getValue(0, j) - routeSelected.getCost()), i, j))
+            savings.sort(key=lambda x: x[0], reverse=True)
+        else: savings.remove(saveNow)
         
-        for save in savings:
-            i = save[1]
-            j = save[2]
-            customerI = -1
-            customerJ = -1
-            
-            if(toDo == True):
-                #Check if someone alredy served i and j
-                if((i not in checked) and (j not in checked)):
-                    #No one served i and j so this route will be teh first
-                    if (len(routeSelected.getCustomers()) == 0):
-                        routeSelected.addCustomer(i,demand[i],True)
-                        routeSelected.addCustomer(j,demand[j],False)
-                elif(-2< customerI < 0 and len(routeSelected.getCustomers())>0):
-                    customerI = routeSelected.checkCustomer(i)
-            
-                elif(-2< customerJ < 0 and len(routeSelected.getCustomers())>0):
-                    customerJ = routeSelected.checkCustomer(j)
-                 
-               
-                # case: i and j have not been served and they are not route first entry
-                if(-2 < customerI < 0  and -2 < customerJ < 0):
-                   continue
-                #customer i is served from this route but j is not.
-                if (customerI >= 0 and customerJ == -1):
-                    if(customerI == 0):
-                        routeSelected.addCustomer(j,demand[j],True)
-                    else:
-                        routeSelected.addCustomer(j,demand[j],False)
-                #customer j is served from this route but i is not.
-                if (customerI == -1 and customerJ >= 0):
-                    if(customerJ == 0):
-                        routeSelected.addCustomer(i,demand[i],True)
-                    else:
-                        routeSelected.addCustomer(i,demand[i],False)
-            print("Savings number :" + str(savings.index(save)))   
-        routes.append(routeSelected)
+        
                 
     return routes
 
@@ -379,28 +412,7 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters,saveFolder):
         routes.append(appoRoute)
 
     
-    # totSolCost = 0
-    # routedNodesControl = 1
-    # f= open(saveFolder +"/Sol_"+graph.getFileName()+".txt","w+")
-    # f.write(str(graph.name)+"\n")
-    # f.write(str(graph.dimension)+"\n")
     
-    # for fianlRoute in routes:
-    #     routeCost = 0    
-    #     appo = fianlRoute.printRoute(routes.index(fianlRoute))
-    #     f.write(appo+"\n")
-    #     for i in range(len(fianlRoute.getCustomers())-1):
-    #         routedNodesControl = routedNodesControl +1
-    #         routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
-    #     routedNodesControl = routedNodesControl -1
-    #     fianlRoute.setCost(routeCost)
-    #     totSolCost += routeCost
-
-    # if(routedNodesControl < graph.getDimension()):
-    #     print("No solution")
-    # f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
-    # f.write("Routing Total Cost: "+ str(totSolCost)+"\n")
-    # print("Routing Total Cost: "+ str(totSolCost)+"\n")
     
     return routes
 
@@ -468,27 +480,7 @@ def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters,saveFold
 
         finalRoutes.append(route)
     
-    # totSolCost =  0
-    # routeCost = 0  
-    # routedNodesControl = 1
-    # f= open(saveFolder+'/Sol_'+graph.getFileName()+".txt","w+")
-    # f.write(str(graph.name)+"\n")
-    # f.write(str(graph.dimension)+"\n")
-    
-    # for fianlRoute in finalRoutes:
-        
-    #     appo = fianlRoute.printRoute(finalRoutes.index(fianlRoute))
-    #     routeCost = 0
-    #     f.write(appo+"\n")
-    #     for i in range(len(fianlRoute.getCustomers())-1):
-    #         routedNodesControl = routedNodesControl +1
-    #         routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
-    #     routedNodesControl = routedNodesControl -1
-    #     fianlRoute.setCost(routeCost)
-    #     totSolCost += routeCost
-    # f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
-    # f.write("Routing Total Cost: "+ str(totSolCost)+"\n")
-
+   
     return finalRoutes
 
 def ClusterFirst_RouteSecond(graph,saveFolder):
@@ -563,23 +555,7 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
         u = node[0]
         finalRoutes.append(node[1])
         
-    # routeCost = 0  
-    # routedNodesControl = 1
-    # f= open(saveFolder+'/Sol_'+graph.getFileName()+".txt","w+")
-    # f.write(str(graph.name)+"\n")
-    # f.write(str(graph.dimension)+"\n")
-    
-    # for fianlRoute in finalRoutes:
-            
-    #     appo = fianlRoute.printRoute(finalRoutes.index(fianlRoute))
-    #     f.write(appo+"\n")
-    #     for i in range(len(fianlRoute.getCustomers())-1):
-    #         routedNodesControl = routedNodesControl +1
-    #         routeCost += graph.getValue(fianlRoute.getCustomers()[i], fianlRoute.getCustomers()[i+1])
-    #     routedNodesControl = routedNodesControl -1
-    
-    # f.write("Total Routed Nodes "+ str(routedNodesControl)+"\n")
-    # f.write("Routing Total Cost: "+ str(routeCost)+"\n")
+
     
     return finalRoutes
 
@@ -677,13 +653,7 @@ def Tournament(population,random:bool):
     f1,w1 = winners.pop()
     f2,w2 = winners.pop()
     return w1, w2,f1,f2
-    # winner = [ (f.getCost()/len(f.getCustomers()),f) for f in fitness  ]
-    # winner.sort(key=lambda x:x[0])
-    # if(best == True):
-    #     winner = winner[:int(len(winner)/2)]
-    # else:
-    #     winner = winner[int(len(winner)/2):]
-    # return winner
+ 
 
     
 def Crossover(winner1,winner2,graph:cvrpGraph,tabuSearch:bool = False,tabuLister:list = []):

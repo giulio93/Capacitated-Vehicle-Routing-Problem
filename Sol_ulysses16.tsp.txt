@@ -1,7 +1,0 @@
-ulysses16.tsp
-16
-Route_0: 0-5-8-10-4-6-0-END
-Route_1: 0-12-14-9-11-13-0-END
-Route_2: 0-15-2-1-3-7-0-END
-Total Routed Nodes 14
-Routing Total Cost: 88593.0
