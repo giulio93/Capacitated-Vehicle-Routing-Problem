@@ -66,7 +66,7 @@ def printResult(folderSol,folderRes):
                                             resume.write("Error of solution in "+sol + ": "+ str(float(error))+ "\n")
 
 
-def ClarkeWright(graph):
+def ClarkeWright(graph,parallel = True):
     print("Clarke & Wright have been evoked!")
 
     dimension = graph.getDimension()
@@ -81,10 +81,76 @@ def ClarkeWright(graph):
                 savings.append((float(save), i, j))
 
     savings.sort(key=lambda x: x[0], reverse=True)
+    routes = []  
+    if(parallel == True):
+        routes = Parallel_CW(routes,savings,graph) 
+    else:    
+        routes = Sequential_CW(routes,savings,graph)
+    
+        
+    for fianlRoute in routes:
+        fianlRoute.addCustomer(0,0,True)
+        fianlRoute.addCustomer(0,0,False)
 
+    return routes
+
+def Sequential_CW(routes,savings,graph:cvrpGraph):
+    capacity = graph.getCapacity()
+    demand = graph.getDemand()
+    #no routes have been created yet
+    while (SearchaAndCompleteSequence(routes,graph) == True):
+        routeSelected =  Route(capacity)
+        toDo,checked,_ = SearchaAndCompleteSequence(routes,graph,True)
+
+        
+        for save in savings:
+            i = save[1]
+            j = save[2]
+            customerI = -1
+            customerJ = -1
+            
+            if(toDo == True):
+                #Check if someone alredy served i and j
+                if((i not in checked) and (j not in checked)):
+                    #No one served i and j so this route will be teh first
+                    if (len(routeSelected.getCustomers()) == 0):
+                        routeSelected.addCustomer(i,demand[i],True)
+                        routeSelected.addCustomer(j,demand[j],False)
+                elif(-2< customerI < 0 and len(routeSelected.getCustomers())>0):
+                    customerI = routeSelected.checkCustomer(i)
+            
+                elif(-2< customerJ < 0 and len(routeSelected.getCustomers())>0):
+                    customerJ = routeSelected.checkCustomer(j)
+                 
+               
+                # case: i and j have not been served and they are not route first entry
+                if(-2 < customerI < 0  and -2 < customerJ < 0):
+                   continue
+                #customer i is served from this route but j is not.
+                if (customerI >= 0 and customerJ == -1):
+                    if(customerI == 0):
+                        routeSelected.addCustomer(j,demand[j],True)
+                    else:
+                        routeSelected.addCustomer(j,demand[j],False)
+                #customer j is served from this route but i is not.
+                if (customerI == -1 and customerJ >= 0):
+                    if(customerJ == 0):
+                        routeSelected.addCustomer(i,demand[i],True)
+                    else:
+                        routeSelected.addCustomer(i,demand[i],False)
+            print("Savings number :" + str(savings.index(save)))   
+        routes.append(routeSelected)
+                
+    return routes
+
+def Parallel_CW(routes,savings,graph:cvrpGraph):
+    capacity = graph.getCapacity()
+    demand = graph.getDemand()
+    dimension = graph.getDimension()
     routes = []
+
     for x in range(1, dimension):
-        appoRoute =  Route(graph.getCapacity()) 
+        appoRoute =  Route(capacity) 
         appoRoute.addCustomer(x,demand[x],False)
         routes.append(appoRoute)
 
@@ -95,30 +161,15 @@ def ClarkeWright(graph):
         customerJ = -1
         routeA = -1
         routeB = -1
-        routeSelected = -1
-
-        # no routes have been created yet
-        # if len(routes) == 0:
-        #     firstRoute =  Route(graph.getCapacity())
-        #     firstRoute.addCustomer(i,demand[i],True)
-        #     firstRoute.addCustomer(j,demand[j],False)
-        #     routes.append(firstRoute)
-        
-            #check if customer i and j have been already served
         for route in routes:
             if(-2< customerI < 0):
                 customerI = route.checkCustomer(i)
                 routeA = route
-                routeSelected = route
             if(-2< customerJ < 0):
                 customerJ = route.checkCustomer(j)
                 routeB = route
-                routeSelected = route
-            #check if i and j have been served by a single route
-            
-            #routes = Sequential_CW(routeSelected,routes,customerI,customerJ,i,j,demand)
-
-            # both i and j have been served already, but from different routes, MERGE them
+              
+        # both i and j have been served already, but from different routes, MERGE them
         if (customerI >= 0 and customerJ >= 0 and routeA != -1 and routeB!= -1) :
             if (routes.index(routeA) != routes.index(routeB)):
                 # Does routeA and routeB merge's overload final route
@@ -128,13 +179,13 @@ def ClarkeWright(graph):
                         for customer in routeA.getCustomers():
                             routeB.addCustomer(customer,demand[customer],True)
                         routes.remove(routeA)
-                    
+                        
                     #The edge that connect routeA to routeB resides in head of routeA and tail of routeB
                     if(customerI == 0 and customerJ > 0):                     
                         for customer in routeA.getCustomers():
                             routeB.addCustomer(customer,demand[customer],False)
                         routes.remove(routeA)
-    
+
                     #The edge that connect routeA to routeB resides in head of routeB and tail of routeA
                     if(customerI > 0 and customerJ == 0):                     
                         for customer in routeB.getCustomers():
@@ -147,47 +198,21 @@ def ClarkeWright(graph):
                         routes.remove(routeB)
         print("Savings number :" + str(savings.index(save)))    
         #savings.remove(save) 
-    
-    #If a node is has not been served yet, let's add a route just for it
-    for node in range(1,graph.getDimension() -1):
-        checked = False
-        for r in routes:
-            if node in r.getCustomers():
-                checked = True
-        if (checked == False):
-            adhocRoute =  Route(graph.getCapacity())
-            control1 =  adhocRoute.addCustomer(node,demand[node],False)
-            routes.append(adhocRoute)
-
-    for fianlRoute in routes:
-        fianlRoute.addCustomer(0,0,True)
-        fianlRoute.addCustomer(0,0,False)
+   
+        #If a node is has not been served yet, let's add a route just for it
+        for node in range(1,graph.getDimension() -1):
+            checked = False
+            for r in routes:
+                if node in r.getCustomers():
+                    checked = True
+            if (checked == False):
+                adhocRoute =  Route(graph.getCapacity())
+                adhocRoute.addCustomer(node,demand[node],False)
+                routes.append(adhocRoute)
 
     return routes
 
-def Sequential_CW(routeSelected,routes,customerI,customerJ,i,j,demand,graph):
-     # case: i and j have not been served yet
-    if(-2 < customerI < 0  and -2 < customerJ < 0):
-        newRoute =  Route(graph.getCapacity())
-        control1 =  newRoute.addCustomer(i,demand[i],False)
-        control2 =  newRoute.addCustomer(j,demand[j],False)
-        # No constraint violated on the route
-        if(control1 != -1 and control2 != -1):
-            routes.append(newRoute)
-    #customer i is served but j not.
-    if (customerI >= 0 and customerJ == -1):
-        if(customerI == 0):
-            routeSelected.addCustomer(j,demand[j],True)
-        else:
-            routeSelected.addCustomer(j,demand[j],False)
-    #customer j is served but i not.
-    if (customerI == -1 and customerJ >= 0):
-        if(customerJ == 0):
-            routeSelected.addCustomer(i,demand[i],True)
-        else:
-            routeSelected.addCustomer(i,demand[i],False)
-    
-    return routes
+
 
 def FisherJaikumar_Kselector(graph,n_vehicles):
 
@@ -783,7 +808,7 @@ def Crossover(winner1,winner2,graph:cvrpGraph,tabuSearch:bool = False,tabuLister
         return solution2,tabuList,f2
 
 
-def SearchaAndCompleteSequence(solution:[Route],graph:cvrpGraph):
+def SearchaAndCompleteSequence(solution:[Route],graph:cvrpGraph,verbose:bool=False):
 
     nodes = []
     nodesToCheck = [ i for i in range(1,graph.getDimension())]
@@ -794,11 +819,20 @@ def SearchaAndCompleteSequence(solution:[Route],graph:cvrpGraph):
                 if n not in nodes:
                     nodes.append(n)
                     nodesToCheck.remove(n)
+    
+    if(verbose == False):
+        if (len(nodesToCheck)>0 and len(nodes)!= graph.getDimension() -1): 
+            return True 
+        else: 
+            return False
+    else:
+        if (len(nodesToCheck)>0 and len(nodes)!= graph.getDimension() -1): 
+            return True,nodes,nodesToCheck 
+        else: 
+            return False,nodes,nodesToCheck 
+       
         
-    if (len(nodesToCheck)>0 and len(nodes)!= graph.getDimension() -1): 
-        return True 
-    else: 
-        return False
+
     
 
    
