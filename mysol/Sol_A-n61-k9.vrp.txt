@@ -1,0 +1,16 @@
+A-n61-k9
+61
+Route_0: 0-59-2-46-54-5-8-6-0-END
+Route_1: 0-53-41-20-29-36-21-27-56-39-0-END
+Route_2: 0-42-30-37-45-49-10-3-0-END
+Route_3: 0-11-1-16-48-18-35-47-25-0-END
+Route_4: 0-33-15-38-40-0-END
+Route_5: 0-57-12-22-4-26-32-43-0-END
+Route_6: 0-34-44-28-60-31-52-17-0-END
+Route_7: 0-7-19-24-58-9-0-END
+Route_8: 0-51-13-50-55-23-14-0-END
+Total Routed Nodes 61
+Using no. Tracks: 9
+Time Horizon: 33.14092683792114
+Routing Total Cost: 1188.963961532119
+Error of solution in Sol_A-n61-k9.vrp.txt: 0.14986843475059855

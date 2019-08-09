@@ -1,0 +1,12 @@
+A-n39-k5
+39
+Route_0: 0-16-7-3-22-35-37-34-24-0-END
+Route_1: 0-29-5-10-32-2-15-30-0-END
+Route_2: 0-20-1-38-17-26-27-36-28-13-0-END
+Route_3: 0-33-25-23-31-12-9-18-11-0-END
+Route_4: 0-14-19-21-6-8-4-0-END
+Total Routed Nodes 39
+Using no. Tracks: 5
+Time Horizon: 8.619237661361694
+Routing Total Cost: 1014.2749673115948
+Error of solution in Sol_A-n39-k5.vrp.txt: 0.23391115244719557

@@ -1,0 +1,14 @@
+A-n54-k7
+54
+Route_0: 0-19-8-31-40-48-37-12-0-END
+Route_1: 0-45-44-53-3-22-0-END
+Route_2: 0-17-26-21-33-9-38-32-0-END
+Route_3: 0-41-46-51-42-24-14-2-27-13-11-36-0-END
+Route_4: 0-35-1-10-6-25-47-34-0-END
+Route_5: 0-23-20-15-29-49-39-50-7-5-18-28-0-END
+Route_6: 0-4-43-16-52-30-0-END
+Total Routed Nodes 54
+Using no. Tracks: 7
+Time Horizon: 21.136234045028687
+Routing Total Cost: 1289.180670828616
+Error of solution in Sol_A-n54-k7.vrp.txt: 0.1046963760313762

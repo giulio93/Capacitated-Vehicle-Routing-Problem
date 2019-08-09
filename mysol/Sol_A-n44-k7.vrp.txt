@@ -1,0 +1,12 @@
+A-n44-k6
+44
+Route_0: 0-1-35-18-20-16-42-32-21-11-0-END
+Route_1: 0-9-29-43-40-23-30-26-24-0-END
+Route_2: 0-12-39-33-10-37-5-27-0-END
+Route_3: 0-41-14-13-38-36-22-25-3-0-END
+Route_4: 0-6-17-34-19-28-15-7-0-END
+Route_5: 0-2-4-8-31-0-END
+Total Routed Nodes 44
+Using no. Tracks: 6
+Time Horizon: 10.054641485214233
+Routing Total Cost: 1099.876823448109

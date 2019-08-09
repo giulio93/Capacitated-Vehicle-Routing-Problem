@@ -1,0 +1,16 @@
+A-n65-k9
+65
+Route_0: 0-45-16-2-38-42-61-58-20-32-0-END
+Route_1: 0-56-59-8-10-52-24-0-END
+Route_2: 0-53-40-44-19-13-12-1-57-0-END
+Route_3: 0-41-50-60-30-37-35-4-26-48-0-END
+Route_4: 0-15-22-9-14-3-36-18-0-END
+Route_5: 0-55-21-25-33-23-11-7-39-0-END
+Route_6: 0-62-54-63-28-29-5-0-END
+Route_7: 0-46-64-6-31-34-47-0-END
+Route_8: 0-49-27-43-17-51-0-END
+Total Routed Nodes 65
+Using no. Tracks: 9
+Time Horizon: 41.57375884056091
+Routing Total Cost: 1479.4043860336176
+Error of solution in Sol_A-n65-k9.vrp.txt: 0.26014002217514276
