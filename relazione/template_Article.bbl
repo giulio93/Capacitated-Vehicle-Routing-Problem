@@ -15,23 +15,24 @@ G.~Reinelt.
 \newblock Tsplib95.
 \newblock {\em Institut fur Angewandte Mathematik}, 1990.
 
-\bibitem{CK}
+\bibitem{CK1}
+J.W Clarke, G. &~Wright.
+\newblock Scheduling of vehicles from a central depot to a number of delivery
+  points.
+\newblock {\em perations Research, Vol. 12, 1964, pp. 568-581}.
+
+\bibitem{CK2}
 Jens Lysgaard.
 \newblock Clarke and wright's savings algorithm.
 \newblock {\em Department of Management of Science and Logistic, the Aarhus
   School of Business}.
 
-\bibitem{CK2}
+\bibitem{CK3}
 R.~Kawtummachai T.Pichpibula.
 \newblock An improved clarke and wright savings algorithm for the capacitated
   vehicle routing problem.
 \newblock {\em Department of Management of Science and Logistic, the Aarhus
   School of Business}.
-
-\bibitem{CK3}
-B.E. Gillet and L.R. Miller.
-\newblock A heuristic algorithm for the vehicle dispatch problem.
-\newblock {\em Operation Research, vol.22, pp. 340-349}.
 
 \bibitem{petal}
 C.~Hjorring D.~M.~Ryan and F.~Glover.

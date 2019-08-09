@@ -5,7 +5,11 @@ The style file: unsrt.bst
 Database file #1: biblio.bib
 Warning--entry type for "ANFIA2017" isn't style-file defined
 --line 14 of file biblio.bib
-Warning--empty year in CK
+Repeated entry---line 57 of file biblio.bib
+ : @article{CK3
+ :             ,
+I'm skipping whatever remains of this entry
+Warning--empty year in CK1
 Warning--empty year in CK2
 Warning--empty year in CK3
 Warning--empty year in petal
@@ -16,15 +20,15 @@ Warning--empty year in FJ
 Warning--empty year in GA
 You've used 10 entries,
             1791 wiz_defined-function locations,
-            491 strings with 4734 characters,
-and the built_in function-call counts, 1398 in all, are:
-= -- 105
-> -- 60
+            491 strings with 4760 characters,
+and the built_in function-call counts, 1380 in all, are:
+= -- 104
+> -- 56
 < -- 0
-+ -- 25
-- -- 15
-* -- 54
-:= -- 252
++ -- 24
+- -- 14
+* -- 52
+:= -- 249
 add.period$ -- 29
 call.type$ -- 10
 change.case$ -- 10
@@ -32,8 +36,8 @@ chr.to.int$ -- 0
 cite$ -- 17
 duplicate$ -- 77
 empty$ -- 145
-format.name$ -- 15
-if$ -- 294
+format.name$ -- 14
+if$ -- 290
 int.to.chr$ -- 0
 int.to.str$ -- 10
 missing$ -- 9
@@ -43,7 +47,7 @@ pop$ -- 41
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 35
+skip$ -- 34
 stack$ -- 0
 substring$ -- 0
 swap$ -- 10
@@ -55,4 +59,4 @@ warning$ -- 7
 while$ -- 10
 width$ -- 12
 write$ -- 93
-(There was 1 error message)
+(There were 2 error messages)

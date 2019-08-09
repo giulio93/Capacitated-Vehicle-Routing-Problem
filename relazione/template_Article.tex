@@ -5,6 +5,35 @@
 \usepackage{geometry}
 \usepackage{hyperref}
 
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{blue},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
 
 
 
@@ -96,6 +125,7 @@ Sono stati implementati i seguenti metodi per risolvere le istanze CVRP:
 	\item Meta-euristiche: Algoritmi Genetici
 \end{itemize}
 
+\newpage
 \subsection{Rappresentazione del problema}
 CVRP è la versione più comune dei problemi VRP. Ciò che caratterizza queta tipologia di problemi è il fatto che l servizio è di semplice ocnsgna senza raccolta.
 Inoltre le richieste dei clienti sononote a pripri e deterministiche e devono essere soddisfatte da un solo veicolo; tuti i veicoli sono identici e basati su un singolo deposito centrale. Gli unici vincoli imposti riguardano le capacità di veicoli. L'obbiettivo è minmizzare il costo totale di servizio che può essere una funzione del numero dei route, della lunghezza complessiva o del tempo di percorrenza.
@@ -167,7 +197,7 @@ Quasi tutti i metodi implementati sono euristici perchè nessuno degli algoritmi
 Un approccio euristico non esplora l'intero spazio di ricerca, piuttosto cerca di trovare una soluzione basandosi sulle informazioni che ha sul problema.
 Le euristiche che risolvono istanze CVRP sono identificati come metodi costruttivi (\textbf{costructive}) e di raggruppamento \textbf{()clustering)}.
 I metodi costruttivi costruiscono una soluzione gradualmente,aggiornando continuamente l'informazione che riguarda il costo, ma potrebbe non contenere nessuna fase di miglioramento o di ottimizzazione della soluzione.
-Gli algoritmi costruttivi più famosi sono: Clarke and Wright's savings algorithm \cite{CK} , \cite{CK2} , Matching based algorithm e Multi-route improvement heuristic \cite{CK3}.
+Gli algoritmi costruttivi più famosi sono: Clarke and Wright's savings algorithm \cite{CK1}, \cite{CK2} , \cite{CK3} , Matching based algorithm e Multi-route improvement heuristic \cite{CK3}.
 I metodi di clustering, risolvono il problema in due fasi , ed è per questo che vengono chiamati metodi a 2 fasi.  l'approccio route-first cluster second è caratterizzato dalle due fasi seguenti:
 \begin{itemize}
 \item \textbf{Fase 1 - Clustering:} Un algoritmo di clustering viene utilizzato per raggruppare i clienti in cluster da dare in pasto alla seconda fase
@@ -184,8 +214,61 @@ In particolare è stato implementato un Algoritmo Genetico  \textbf{(GA)} \cite{
 
 
 
-\section{Materiali e Metodi}
 
+\section{Materiali e Metodi}
+\subsection{Metodi Costruttivi}
+Un metodo in questa categoria costruisce le strade per i veicoli mentre cerca di minimizzare la distanza percorsa.
+L'algoritmo di Savings di Clarke and Wright \cite{CK1}, trova una soluzione utilizzando un'euristica, quindi il risultato non è sempre la soluzione ottima, ma dovrebbe risultare mol+to vicina all'ottimo con un risparmio di tempo computazionale elevato rispetto ad un algoritmo brute force.
+
+
+\subsection{Algoritmo di Savings di Clarke and Wright}
+L'algoritmo si basa su una coda ordinata di risparmi, detta anche \emph{savings list}.
+Ogni record della coda è ottenuto collegando due \emph{route} che non hanno nodi in comune eccetto il deposito.
+Dall'unione si ottiene una singola \emph{route}, come mostrato nella figura \ref{fig:saving}, dove il nodo 0 rappresenta il deposito.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.25]{images/saving.png}
+	\caption{Inizialmente nella figura 1(a) i clienti \emph{i} e \emph{j} sono visitati da \emph{route} separate. Un alternativa per visitare i due clienti con la stessa \emph{route} è presentata in 1(b). }
+	\label{fig:saving}
+\end{figure}
+
+I costi di trasporto calcolati in 1(a) sono:
+\begin{equation}
+D_{a} = C_{o,i} +C_{i,0} + C_{o,j} + C_{j,0}
+\end{equation}
+
+Mentre i costi di trasporto in 1(b) sono:
+
+\begin{equation}
+D_{a} = C_{o,i} +C_{i,j} + C_{o,j} 
+\end{equation}
+
+Ora il costodi trasporto risparmiato detto \emph{saving distance} per visitare \emph{i} e \emph{j} nella stessa \emph{route} invece che visitarli con due \emph{route} separate è:
+\begin{equation}
+D_{a} = D_{a} +D_{b} =+ C_{i,0} +  C_{0,j} +  C_{i,j} 
+\end{equation}
+
+
+
+
+\begin{lstlisting}[language=Python, caption=Implementazione di Clarke and Wright con Route Merge]
+dimension = graph.getDimension()
+demand = graph.getDemand()
+depot = graph.getDepot()
+
+savings = []
+for i in range(1,dimension):
+	for j in range(1,dimension):
+		if i!=j:
+			save = graph.getValue(i,0) + graph.getValue(0,j) - graph.getValue(i,j)
+			savings.append((float(save), i, j))
+
+savings.sort(key=lambda x: x[0], reverse=True)
+
+
+
+\end{lstlisting}
 
 
 
