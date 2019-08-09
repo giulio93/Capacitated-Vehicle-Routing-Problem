@@ -83,10 +83,10 @@ def ClarkeWright(graph):
     savings.sort(key=lambda x: x[0], reverse=True)
 
     routes = []
-    for x in range(1, dimension):
-        appoRoute =  Route(graph.getCapacity()) 
-        appoRoute.addCustomer(x,demand[x],False)
-        routes.append(appoRoute)
+    # for x in range(1, dimension):
+    #     appoRoute =  Route(graph.getCapacity()) 
+    #     appoRoute.addCustomer(x,demand[x],False)
+    #     routes.append(appoRoute)
 
     for save in savings:
         i = save[1]

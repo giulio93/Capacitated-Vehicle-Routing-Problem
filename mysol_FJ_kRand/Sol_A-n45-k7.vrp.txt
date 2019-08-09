@@ -1,0 +1,13 @@
+A-n45-k7
+45
+Route_0: 0-21-24-14-11-3-19-23-0-END
+Route_1: 0-18-13-7-16-20-8-17-15-0-END
+Route_2: 0-26-28-27-29-41-30-0-END
+Route_3: 0-35-39-32-40-42-36-0-END
+Route_4: 0-9-38-10-22-5-25-1-0-END
+Route_5: 0-2-34-4-6-33-31-37-0-END
+Route_6: 0-12-44-43-0-END
+Total Routed Nodes 45
+Using no. Tracks: 7
+Time Horizon: 0.1599445343017578
+Routing Total Cost: 1740.4570883409394

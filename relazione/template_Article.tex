@@ -244,28 +244,69 @@ Mentre i costi di trasporto in 1(b) sono:
 D_{a} = C_{o,i} +C_{i,j} + C_{o,j} 
 \end{equation}
 
-Ora il costodi trasporto risparmiato detto \emph{saving distance} per visitare \emph{i} e \emph{j} nella stessa \emph{route} invece che visitarli con due \emph{route} separate è:
+Ora il costo di trasporto risparmiato detto \emph{saving distance} per visitare \emph{i} e \emph{j} nella stessa \emph{route} invece che visitarli con due \emph{route} separate è:
 \begin{equation}
 D_{a} = D_{a} +D_{b} =+ C_{i,0} +  C_{0,j} +  C_{i,j} 
 \end{equation}
 
-\subsubsection{Sequential and Parallel version}
+\subsubsection{Sequenziale e Parallelo }
+La distanza risparmiata è direttamente proporzionale alla vicinanza dei clienti e inversamente proporzionale alla vicinanza al deposito.
+Più grande è la distanza risparmiata più vicini si troveranno i clienti, e più distanti essi saranno dal deposito.
+Le coppie di clienti sono ordiate in ordine decrescente secondo il valore di \emph{savings} che è stato calcolato sulla coppia.
+La costruzione delle \emph{routes} parte dal primo record della coda. Quando una coppia \emph{i}  e \emph{j} viene considerata se questa è già presente in una \emph{route} allora si passa alla prossima coppia per l'inserimento.
+Ci sono due approcci proposti per l'algoritmo di \emph{savings} \textbf{sequenziale}  e \textbf{parallelo}.
+\begin{itemize}
+\item Nell'approccio \textbf{sequenziale} se una coppia di cliente non corrisponde con uno dei nodi presenti nella strada, la coppia viene ignorata.
+Ogni volta che un cliente è inserito in una \emph{route}, l'algoritmo deve cominciare dall'inizio siccome le combinazioni che non erano disponibili fino a prima dell'inserimento potrebbero essere disponibili ora. Questo approccio crea una \emph{route} alla volta, richiedendo di ripassare la coda di \emph{savings} più di una volta.
+\item  Nell'approccio \textbf{parallelo} crea più \emph{routes} contemporaneamente. Quando una coppia i clienti è presa in considerazione, viene confrontata con tutte le \emph{routes} che sono già state generate, e non solamente con una singola \emph{route}.
+Se la coppia viene inserita in una route, tutte le \emph{routes} generate fino ad ora vengono confrontate per trovare possibili \emph{route} da unire ulteriormente con attraverso un \emph{merge}.
+Altriemnti,se la coppia di clienti non corrisponde con nessuna \emph{route},allora una nuova \emph{route} viene create, questa nell'approccio sequenziale invece verrebbe scartata.
+Nella versione parallela la lista dei \emph{savings} viene passata una sola volta per tutta la sua lunghezza.
+\end{itemize}
 
 
 
-\begin{lstlisting}[language=Python, caption=Implementazione di Clarke and Wright con Route Merge]
-dimension = graph.getDimension()
-demand = graph.getDemand()
-depot = graph.getDepot()
-
-savings = []
-for i in range(1,dimension):
-	for j in range(1,dimension):
-		if i!=j:
-			save = graph.getValue(i,0) + graph.getValue(0,j) - graph.getValue(i,j)
-			savings.append((float(save), i, j))
-
-savings.sort(key=lambda x: x[0], reverse=True)
+\begin{lstlisting}[language=Python, caption=Implementazione di Clarke and Wright con Route Merge,escapeinside={(*}{*)}]
+def Clarke&Wright:
+	list savings = calculateSavings (i,j) (* $\forall \ i,j \ \in V \mid i \neq j \wedge i \neq 0 $*) 
+	savings.sort(descending)
+	list routes = []
+	routes.append([0 - i - 0])  (* $\forall \ i \ \in V \mid i \neq 0 $*) 
+	for save in savings:
+		i , j = tuple(save)
+		routeA = null
+		routeB = null
+		routeSelected = null
+		for route in routes
+			if route.served(i):
+				routeA = route
+				routeSelected = route
+			elif route.served(j)
+				routeB = route
+				routeSelected = route
+			
+				
+	############### INSERIMENTO #####################
+	
+	if isNull(routeSelected): 
+		routeSelected = ([0 - i -j - 0]) 
+		routes.appen(routeSelected)	
+				
+	elif j is not in routeSelected:
+		if checkRouteCapacity(j):
+			routeSelected.join(j)
+			
+	elif i is not in routeSelected:
+		if checkRouteCapacity(i): 
+			routeSelected.join(i) 
+		    
+	################## MERGE ########################	    
+	if routeA != routeB:
+		if routeA.capacity + routeB.capacity <= Capacity:
+			Merge(routeA,RouteB)
+	
+			
+		
 
 
 
