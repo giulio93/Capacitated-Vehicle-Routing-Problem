@@ -288,7 +288,8 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
                         seeds.append(c)
                         scannerRadius[c] = 0
                         #depotDistance[c] = 0
-                        maxCoverDistance = graph.getArgMaxNodeDistance(c)
+                        if(maxCoverDistance < graph.getArgMaxNodeDistance(c)):
+                            maxCoverDistance = graph.getArgMaxNodeDistance(c)
                         break
                 else:
                     if ( sum(demand) == dimension-1):
