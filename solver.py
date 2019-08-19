@@ -237,7 +237,7 @@ def Parallel_CW(routes,savings,graph:cvrpGraph):
 
     return routes
 
-
+ 
 
 def FisherJaikumar_Kselector(graph,n_vehicles):
 
