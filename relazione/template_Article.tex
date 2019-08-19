@@ -39,6 +39,8 @@
 
 
 
+
+
 \geometry{
 	a4paper,
 	total={170mm,257mm},
@@ -258,44 +260,59 @@ Ci sono due approcci proposti per l'algoritmo di \emph{savings} \textbf{sequenzi
 \begin{itemize}
 \item Nell'approccio \textbf{sequenziale} se una coppia di cliente non corrisponde con uno dei nodi presenti nella strada, la coppia viene ignorata.
 Ogni volta che un cliente è inserito in una \emph{route}, l'algoritmo deve cominciare dall'inizio siccome le combinazioni che non erano disponibili fino a prima dell'inserimento potrebbero essere disponibili ora. Questo approccio crea una \emph{route} alla volta, richiedendo di ripassare la coda di \emph{savings} più di una volta.
-\item  Nell'approccio \textbf{parallelo} crea più \emph{routes} contemporaneamente. Quando una coppia i clienti è presa in considerazione, viene confrontata con tutte le \emph{routes} che sono già state generate, e non solamente con una singola \emph{route}.
-Se la coppia viene inserita in una route, tutte le \emph{routes} generate fino ad ora vengono confrontate per trovare possibili \emph{route} da unire ulteriormente con attraverso un \emph{merge}.
-Altrimenti,se la coppia di clienti non corrisponde con nessuna \emph{route},allora una nuova \emph{route} viene create, questa nell'approccio sequenziale invece verrebbe scartata.
-Nella versione parallela la lista dei \emph{savings} viene passata una sola volta per tutta la sua lunghezza.
-\end{itemize}
+Il codice allegato Listing1 descrive come è stato implementato l'algoritmo sequenziale di Clarke and Wright.
+La riga 2 e 3, importano il valore di capacità per ogni veicolo, e la rispettiva domanda di ogni cliente. Alla riga 4, la lista di savings viene calcolata attraverso la funzione \emph{calculateSavings} per ogni arco presente nel grafo. Alla riga 8 l'istruzione di controllo \emph{while}, continua a eseguire il codice al suo interno fino a quando tutti i clienti sono assegnati ad una \emph{route} e la lista di  \emph{savings} contiene elementi di risparmio. All'interno del \emph{while} alla riga 9 viene estratta la prima coppia di risparmi,alla riga 10 si inizializza il puntatore \emph{k}, che servirà a scorrere la lista \emph{savings} durate la costruzione della strada \emph{route}, inizializzata poco più sotto alla riga 12, dopo l'istruzione di controllo \emph{if} che controlla che nessun componente della coppia sia già servito da un'altra \emph{route} e che nessuna \emph{route} sia stata già creata. Se il controllo risulta vero allora si passa all'inizializzazione della strada con la coppia selezionata \emph{pair} e quindi si prosegue scorrendo il resto della lista \emph{savings} alla riga 14. Al suo interno i controlli alla riga 18 e 23, garantiscono al mutuale esclusività dei componenti della coppia all'interno della strada che viene estesa dalle rispettive istruzioni 20 e 25; in 21,22 \emph{k} viene azzerato e \emph{save} tolto dalla lista \emph{savings},per ricominciare dall'inizio della lista e scorrere eventuali coppie che adesso potrebbero essere collegate, grazie ai nuovi clienti. Le istruzioni solo uguali in 26,27. Le istruzioni di controllo 19 e 24, garantiscono che il cliente aggiunto rispetti i vincoli di capacità del veicolo, in caso questo.  Infine in 30 si aggiunge la \emph{route} alla soluzione e 31 aggiorna la lista \emph{savings} con la nuova distanza della coppia \emph{pair}. In 32 si ritorna la soluzione.
 
-\begin{lstlisting}[language=Python, caption=Implementazione parallela di Clarke and Wright  ,escapeinside={(*}{*)}]
+\item  L'approccio \textbf{parallelo} crea più \emph{routes} contemporaneamente.Quando una coppia di clienti è presa in considerazione, viene confrontata con tutte le \emph{routes} che sono già state generate fino a quel momento.
+Se la coppia viene inserita in una route, tutte le \emph{routes} generate fino ad ora vengono confrontate per trovare possibili \emph{route} da unire ulteriormente con attraverso un \emph{merge}. Altrimenti,se la coppia di clienti non corrisponde con nessuna \emph{route},allora una nuova \emph{route} viene create, questa nell'approccio sequenziale invece verrebbe scartata. Nella versione parallela la lista dei \emph{savings} viene visitata una sola volta per tutta la sua lunghezza.
+Nel codice Listing2 Dalla riga 2 alla riga 6 le istruzioni sono identiche al codice Listing 1 già presentato. Dalla riga 7 invece si differenzia, in quanto per ogni cliente viene creata una strada: deposito $\rightarrow$ cliente $\rightarrow$ deposito. In 0 il ciclo \emph{for} si occupa di scorrere la lista. Al suo intenro a riga 10 si estrae la tupla che forma la coppia di clienti che appartengono al risparmio. 11,12 e 13 inizializzano a \emph{null} tre di appoggio contenitori \emph{route}. Una volta estratti i clienti, si scorrono tutte le \emph{routes} come in 14, il controllo in 15 si controlla se una \emph{route} passa per \emph{i}, quando questa viene trovata, viene allocata sia in \emph{routeA} in 16, la stessa cosa viene fatta per \emph{j} in 18, 19 con  \emph{routeB}. Il senso di questa doppio allocazione viene si spiega nella righe successive: in 22 si verifica se  \emph{routeA} e \emph{routeA} hanno valori diversi, siccome tutti i clienti hanno una strada assegnata, \emph{routeA} e \emph{routeB} saranno sicuramente diverse da \emph{null} di conseguenza si controlla in 21 se \emph{i} e \emph{j} provengono da strade diverse. In caso positivo si controlla se i componenti della \emph{routeA} e i componenti della \emph{routeB}  rispettano i vincoli di capacità, come descritto in riga 22.Se anche questo controllo viene passato con successo, allora si passa al metodo fondamentale di questo algoritmo, \emph{il Merge}	riga 23.
+Questo metodo si preoccupa di capire se i due clienti presenti nelle due diverse \emph{route}, stanno in testa o in coda alla \emph{route}, di conseguenza unisce le due strade importando i clienti nella \emph{routeA} o nella \emph{routeB} a seconda dell'ordine dato da \emph{save}. In 24 si rimuove da \emph{routes} la \emph{route} che è stata copiata e in 26 si ritorna la soluzione.
+\end{itemize}
+\textbf{
+La differenza sostanziale tra i due metodi è la seguente: il metodo sequenziale tende a generare una \emph{route} unica molto grande, e le \emph{route} seguenti invece sono più piccole. Mentre il metodo parallelo tende a formare più strade larghe e quindi riduce il numero finale di \emph{routes}} 
+
+\begin{lstlisting}[language=Python, caption=Implementazione sequenziale di Clarke and Wright  ,escapeinside={(*}{*)}]
 def Clarke&Wright_Sequenziale:
 	Capacity = graph.getCapacity()
-	Demand:list = graph.getCapacity()
+	Demands:list = graph.getDemands()
 	list savings = calculateSavings (i,j) (* $\forall \ i,j \ \in V \mid i \neq j \wedge i \neq 0 $*) 
 	savings.sort(descending)
 	list routes = []
 	
 	while((*$ \sum_{(r) \in R} \sum_{(v) \in V} ( v \in r) \neq  \ \mid V \mid $*) and len(savings)>0):
-		pair = savings.pop()
-		if(pair not served yet):
+		pair = savings.popFirst()
+		k=0
+		if(pair not served yet and No route is selected):
 			route = Route.create(pair)
 			
-			for save in savings:
-				if(i or j in save are in route):
-					route.join(i or j)
-					savings.remove(save)
-					savings.updateDistance(i,j)
-					restart from top of savings
-	
-
-################## MERGE ########################	    
-if routeA != routeB:
-if routeA.capacity() + routeB.capacity() <= Capacity:
-Merge(routeA,RouteB) 
-routes.remove(RouteA or RouteB)
+			while(k< lenghtOf(savings)):
+				save = savings[k]
+				i , j = tuple(save)
+				k=k+1
+				
+				if(route already served i):
+					if(checkCustomer(j)):
+						route.AddCustomer(j)
+						k=0
+						savings.remove(save)							
+				elif (route already served j):
+					if(checkCustomer(i)):
+						route.AddCustomer(i)
+						k=0
+						savings.remove(save)				
+					
+			routes.append(route)
+			savings.update(route)
+					
+	return routes	
+				
 \end{lstlisting}
 
 
 \begin{lstlisting}[language=Python, caption=Implementazione parallela di Clarke and Wright  ,escapeinside={(*}{*)}]
 def Clarke&Wright_Parallelo:
 	Capacity = graph.getCapacity()
+	Demands:list = graph.getDemands()
 	list savings = calculateSavings (i,j) (* $\forall \ i,j \ \in V \mid i \neq j \wedge i \neq 0 $*) 
 	savings.sort(descending)
 	list routes = []
@@ -309,17 +326,79 @@ def Clarke&Wright_Parallelo:
 		for route in routes
 			if route.served(i):
 				routeA = route
-				routeSelected = route
+
 			elif route.served(j)
 				routeB = route
-				routeSelected = route
 					    
-	################## MERGE ########################	    
-	if routeA != routeB:
-		if routeA.capacity() + routeB.capacity() <= Capacity:
-			Merge(routeA,RouteB) 
-			routes.remove(RouteA or RouteB)
+		if rotues.index(routeA) != routes.index(routeB):
+			if routeA.capacity() + routeB.capacity() <= Capacity:
+				Merge(routeA,RouteB) 
+				routes.remove(RouteA or RouteB)
+				
+	return routes
 \end{lstlisting}
+
+\subsection{Metodi di Raggruppamento (Clustering)}
+I metodi di raggruppamento chiamati anche clustering method, si differenziano dagli altri metodo perchè la risoluzione del probelma è divisi a in due fasi.
+\begin{itemize}
+\item \textbf{Fase A} Tutti i nodi sono divisi in gruppi (cluster) utilizzando un algoritmo di raggruppamento.
+\item \textbf{Fase B} Per ogni gruppo di nodi si utilizza un algoritmo di ottimizzazione per trovare il miglior routing, per servire tutti i nodi del gruppo.
+\end{itemize}
+Ecco perchè questi algoritmi sono conosciuti anche come algoritmi a 2 fasi.
+In questo elaborato vengo presentati i seguenti metodi di raggruppamento a due fasi:
+\begin{itemize}
+	\item Cluster First,Route Second: Fisher and Jaikumar.
+		\begin{itemize}
+			\item K centroid selector algoritms :  Random
+			\item K centroid selector algoritms :  Radar Radius
+			\item General Asignement Problem solver
+			\item Routing algoritms: Nearest Neighborn
+			\item Routing algoritms: Dijkastra		
+		\end{itemize}
+	\item Route First,Cluster Second: using an auxiliary graph and Dijkastra
+\end{itemize}
+
+\subsubsection{Algoritmo di Fisher and Jaikumar}
+L'algoritmo di \emph{Fisher and Jaikumar} si basa su un'assunzione il numero di veicoli per servire tutti i clienti è dato da input.
+Inoltre questo metodo non è applicabile direttamente a VRP che hanno vincoli sulla distanze percorribile da parte del veicolo.
+L'algoritmo si svolge in due fasi come abbiamo già detto sopra, in particolare.
+\begin{itemize}
+ \item Fase 1 - clustering
+ 	\begin{enumerate}
+		\item Selezione dei centroidi: scegli un vertice \emph{k} $\in$ \emph{V} t.c. $\mid K \mid$ = \emph{numero veicoli}.
+		\item Calcola il costo di inserimento $c_{i,k}$ del clienti \emph{i} al cluster \emph{k}: \\
+		$c_{i,k} = min(c_{o,i} + c_{i,k}+ c_{k,0} + c_{0,k} + c_{k,i} + c_{i,0}) - (c_{0,k} + c_{k,0})  $ $ \forall k \in K$.
+		\item Assegnamento Generale: risolvere un \emph{\textbf{G}eneralized \textbf{A}ssignement \textbf{P}roblem} con i costi $c_{i,k} $ $ \forall i \in V , \forall k \in K$, le richieste dei clienti \emph{D} e la capacità prestabilita \emph{C}.
+ 	\end{enumerate}
+ \item Fase 2 - Routing: risolvere un TSP per ogni cluster.
+ 
+\end{itemize}
+
+In questo elaborato per quanto riguarda la Fase 1.1 sono stati implementati due metodi: La selezione casuale e la selezione utilizzando un algoritmo chiamato dall'autore Radar Radius.
+
+\begin{itemize}
+\item Selezione casuale dei centroidi: vengono scelti casualmente un numero di centroidi uguale al numero di veicoli.
+\item Selezione con Radar Radius: 
+\begin{equation}
+L = max \sum_{i \in V} c_{v,0} \ 
+\end{equation}
+
+\begin{equation}
+L = max \sum_{(i,j) \in L} c_{i,j} \wedge i \neq j \ 
+\end{equation}
+
+\begin{equation} \label{v2}
+\mid L \mid = \mid K \mid
+\end{equation}
+
+\begin{equation} \label{v2}
+ l \geq C/2 \ \forall l \in L  
+\end{equation}
+
+
+
+
+\end{itemize}
 
 
 

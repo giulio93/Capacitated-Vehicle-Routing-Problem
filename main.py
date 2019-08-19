@@ -40,7 +40,7 @@ if __name__ == "__main__":
 
       # n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))  
 
-      # while(GAPassignementRR == -1):
+      # while(GAPassignementRR == -1):  
       #   start_time_clustering = time.time ()   
       #   K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)           
       #   GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)

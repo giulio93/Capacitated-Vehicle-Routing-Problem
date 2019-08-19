@@ -72,22 +72,18 @@ def ClarkeWright(graph,parallel = True):
     dimension = graph.getDimension()
     demand = graph.getDemand()
     depot = graph.getDepot()
-
     savings = []
     for i in range(1,dimension):
         for j in range(1,dimension):
             if i!=j:
                 save = graph.getValue(i,0) + graph.getValue(0,j) - graph.getValue(i,j)
                 savings.append((float(save), i, j))
-
     savings.sort(key=lambda x: x[0], reverse=True)
     routes = []  
     if(parallel == True):
         routes = Parallel_CW(routes,savings,graph) 
     else:    
         routes = Sequential_CW(routes,savings,graph)
-    
-        
     for fianlRoute in routes:
         fianlRoute.addCustomer(0,0,True)
         fianlRoute.addCustomer(0,0,False)
@@ -122,7 +118,7 @@ def Sequential_CW(routes,savings,graph:cvrpGraph):
                 customerJ = -1
                 toprint = save
                 if(toDo == True):
-                    #Check if someone alredy served i and j
+                    #Check if someone alraedy served i and j
                     if((i  not in checked) and (j not in checked)):
                         if(-2< customerI < 0 and len(routeSelected.getCustomers())>0):
                             customerI = routeSelected.checkCustomer(i)
@@ -169,9 +165,7 @@ def Sequential_CW(routes,savings,graph:cvrpGraph):
             savings.append((float(graph.getValue(i, 0) + graph.getValue(0, j) - routeSelected.getCost()), i, j))
             savings.sort(key=lambda x: x[0], reverse=True)
         else: savings.remove(saveNow)
-        
-        
-                
+                   
     return routes
 
 def Parallel_CW(routes,savings,graph:cvrpGraph):
@@ -283,7 +277,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
                 
                 add = True
                 for v in seeds:
-                    if(graph.getValue(c,v) < maxCoverDistance/5):                   
+                    if(graph.getValue(c,v) < maxCoverDistance/n_vehicles):                   
                         add = False
                     if(c in seeds):
                         add = False
