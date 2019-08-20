@@ -249,7 +249,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
     seeds = []
     treshold = capacity/2
     depotDistance = []
-    scaledown = 1
+    scaledown = 2
     for c in range(dimension):
         depotDistance.append(graph.getValue(0,c))
 
