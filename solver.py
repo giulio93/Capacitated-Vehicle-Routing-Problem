@@ -267,7 +267,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
             candidates = np.arange(dimension)
 
         for c in sorted(candidates):           
-            if(depotDistance[c] >= np.max(scannerRadius)):
+            if(depotDistance[c] >= np.max(scannerRadius)/scaledown):
                 if len(seeds) == 0:
                     seeds.append(c)
                     scannerRadius[c] = 0
@@ -304,9 +304,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
         if ( sum(demand) != dimension-1):
             print("Decrease Radious")
             scannerRadius[np.argmax(scannerRadius)] = 0
-
-                    
-       
+      
         print(np.max(scannerRadius))
 
     count = []
