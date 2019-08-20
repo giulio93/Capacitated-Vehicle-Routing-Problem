@@ -261,7 +261,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
         candidates = []
         if( sum(demand) != dimension-1):
             for i in range(dimension):
-                if (demand[i] > capacity/scaledown):
+                if (demand[i] > capacity):
                     candidates.append(i)
         else:
             candidates = np.arange(dimension)
