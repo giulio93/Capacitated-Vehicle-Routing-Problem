@@ -111,7 +111,7 @@ if __name__ == "__main__":
         K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)           
         GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
         if(GAPassignementRR != -1):
-          chromosome = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_FJ") 
+          chromosome = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRR,K_clusterRR,"trash") 
           if(sol.SearchaAndCompleteSequence(chromosome,graphToSolve)):
             print("Invalid! ")
           else:
@@ -180,8 +180,10 @@ if __name__ == "__main__":
           
 
         
-    print("==============================CLARKE AND WRIGHT==================================")   
+    print("==============================CLARKE AND WRIGHT SEQUENTIAL==================================")   
     sol.printResult('./cvrp-sol','./mysol')
+     print("==============================CLARKE AND WRIGHT PARALLEL==================================")   
+    sol.printResult('./cvrp-sol','./mysol_par')
     print("==============================FISHER AND JAIKUMAR ==================================")       
     sol.printResult('./cvrp-sol','./mysol_FJ')
     print("==============================MODIFIED DIJKASTRA ==================================") 
