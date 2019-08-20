@@ -249,7 +249,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
     seeds = []
     treshold = capacity/2
     depotDistance = []
-    scaledown = 2
+    scaledown = 1
     for c in range(dimension):
         depotDistance.append(graph.getValue(0,c))
 
@@ -261,7 +261,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
         candidates = []
         if( sum(demand) != dimension-1):
             for i in range(dimension):
-                if (demand[i] > capacity):
+                if (demand[i] > capacity/scaledown):
                     candidates.append(i)
         else:
             candidates = np.arange(dimension)
