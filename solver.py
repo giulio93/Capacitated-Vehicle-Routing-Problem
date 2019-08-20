@@ -261,7 +261,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
         candidates = []
         if( sum(demand) != dimension-1):
             for i in range(dimension):
-                if (demand[i] > capacity/scaledown):
+                if (demand[i] > capacity/scaledown):    
                     candidates.append(i)
         else:
             candidates = np.arange(dimension)
@@ -277,7 +277,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
                 
                 add = True
                 for v in seeds:
-                    if(graph.getValue(c,v) < maxCoverDistance/n_vehicles):                   
+                    if(graph.getValue(c,v) < maxCoverDistance/scaledown):                   
                         add = False
                     if(c in seeds):
                         add = False
@@ -293,7 +293,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
                         break
                 else:
                     scaledown = scaledown + 0.5
-                    if ( sum(demand) == dimension-1):
+                    if (sum(demand) == dimension-1):
                         if(c in seeds):
                             continue
                         else:
@@ -307,13 +307,13 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
       
         print(np.max(scannerRadius))
 
-    count = []
-    fromCenter = []
-    for s in seeds:
-        fromCenter.append(appo[s])
-        for v in seeds:
-            if s!=v:
-                count.append(graph.getValue(s,v))
+    # count = []
+    # fromCenter = []
+    # for s in seeds:
+    #     fromCenter.append(appo[s])
+    #     for v in seeds:
+    #         if s!=v:
+    #             count.append(graph.getValue(s,v))
             
 
 

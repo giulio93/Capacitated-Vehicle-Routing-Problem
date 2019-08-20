@@ -275,10 +275,10 @@ Questo metodo si preoccupa di capire se i due clienti presenti nelle due diverse
 La differenza sostanziale tra i due metodi è la seguente: il metodo sequenziale tende a generare una \emph{route} unica molto grande, e le \emph{route} seguenti invece sono più piccole. Mentre il metodo parallelo tende a formare più strade larghe e quindi riduce il numero finale di \emph{routes}} 
 
 \begin{lstlisting}[language=Python, caption=Implementazione sequenziale di Clarke and Wright  ,escapeinside={(*}{*)}]
-def Clarke&Wright_Sequenziale:
+def Clarke&Wright_Sequenziale(graph):
 	Capacity = graph.getCapacity()
 	Demands:list = graph.getDemands()
-	list savings = calculateSavings (i,j) (* $\forall \ i,j \ \in V \mid i \neq j \wedge i \neq 0 $*) 
+	list savings = []calculateSavings (i,j) (* $\forall \ i,j \ \in V \mid i \neq j \wedge i \neq 0 $*)]
 	savings.sort(descending)
 	list routes = []
 	
@@ -313,10 +313,10 @@ def Clarke&Wright_Sequenziale:
 
 
 \begin{lstlisting}[language=Python, caption=Implementazione parallela di Clarke and Wright  ,escapeinside={(*}{*)}]
-def Clarke&Wright_Parallelo:
+def Clarke&Wright_Parallelo(graph):
 	Capacity = graph.getCapacity()
 	Demands:list = graph.getDemands()
-	list savings = calculateSavings (i,j) (* $\forall \ i,j \ \in V \mid i \neq j \wedge i \neq 0 $*) 
+	list savings = [calculateSavings (i,j) (* $\forall \ i,j \ \in V \mid i \neq j \wedge i \neq 0 $*)]
 	savings.sort(descending)
 	list routes = []
 	routes.append([0 - i - 0])  (* $\forall \ i \ \in V \mid i \neq 0 $*) 
@@ -391,14 +391,13 @@ c_{i,j} \geq argmax(c_{n,m})/2 \ \ \forall i,j \in K \wedge n,m \in V
 \end{equation}
 
 
-
 \begin{equation}\label{RR3}
  d_{k} \geq C/2 \ \forall k \in K  
 \end{equation}
 
 I centroidi vengono individuati con la lettera \emph{K},in quanto il numero di centroidi corrisponde al numero di veicoli. La funzione di obbiettivo \ref{RR1} massimizza la distanza dei centroidi dal deposito \emph{0}.
 Il vincolo \ref{RR2} richiede ai centroidi selezionati, di rispettare una distanza che sia uguale o superiore alla metà della distanza massima tra centroidi e clienti, ovvero la distanza massima tra un centroide e qualsiasi altro cliente nel grafo. \ref{RR3} vincola i centroidi ad avere una richiesta che sia maggiore della metà della capacità del veicolo, in quanto i clienti più onerosi in termini di richiesta hanno una probabilità maggiore di risiedere in \emph{route} diverse.
-I vicoli \ref{RR2} e \ref{RR3} durante l'esecuzione vengono rilassati ad ogni esplorazione dello spazio delle soluzioni, in modo da avere più clienti candidabili.
+I vicoli \ref{RR2} e \ref{RR3} durante l'esecuzione vengono rilassati ad ogni esplorazione dello spazio delle soluzioni, in modo da avere più clienti candidabili. In Table \ref{Table:1} viene rappresentata la selezione dei primi due centrodi, da parte dell'algoritmo.
 
 
 
@@ -419,15 +418,61 @@ I vicoli \ref{RR2} e \ref{RR3} durante l'esecuzione vengono rilassati ad ogni es
 			\includegraphics[scale = 0.15]{images/RR7.png} & \includegraphics[scale = 0.15]{images/RR8.png} & \includegraphics[scale = 0.15]{images/RR9.png}\\
 						
 		\end{tabular}
-		\caption{In alto a destra lo il deposito al centro bianco e contorno nero, con tutti  clienti attorno da servire grigi. In alto al centro Radar Radius cerca il cliente più distante dal deposito e con richiesta superiore alla metà della capacità dei veicoli. Una volta trovato un cliente che soddisfa le condizioni, crea cerchio di raggio uguale alla distanza, candidato deposito, come nella figura n alto a sinistra. Tutti clienti al di fuori di questo cerchio, non vengono considerati nelle lista dei potenziali candidati, figura centrale a sinistra.  }
+		\caption{In alto a sinistra il deposito al centro bianco e contorno nero, con tutti  clienti attorno da servire di colore grigio. In alto al centro l'algoritmo traccia il  raggio del utilizzando la distanza massima tra il deposito e il cliente più lontano, si definisce così il radar del deposito. Il raggio diminuisce in quanto i candidati che rispettano il vincolo \ref{RR3} si trovano più vicino al deposito,  i clienti che stazionano sulla frontiera diventano i possibili candidati, mentre gli esterni vengono esclusi,i clienti interni devono ancora essere esplorati . La figura centrale mostra il primo candidato sulla frontiera, selezionato come centroide con la distanza massima dal deposito, nella figura seguente, l'algoritmo traccia la distanza massima tra il centroide e tutti i clienti. Questa serve per tracciare il raggio del radar del centroide selezionato. Il raggio è scalato dividendolo per il numero di veicoli. Di conseguenza nella figura in basso a sinistra tutti i clienti all'interno del raggio del centroide sono esclusi dalla lista dei possibili candidati.Il raggio del radar del deposito diminuisce e dando la possibilità ad altri clienti di diventare condidati se e solo se rispettano \ref{RR3}. Viene quindi selezionato il nuovo centroide sulla frontiera e tracciato il raggio che comporrà il suo radar, come in figura in basso a destra.}
 		\label{Table:1}
 \end{table}
 
+\begin{lstlisting}[language=Python, caption=RadarRadiusFrontier selettore di centroidi per Fisher and Jaikumar ,escapeinside={(*}{*)}]
+def RadarRadiusFrontier(graph,n_vehicles):
+	Dimension = graph.getDimension()
+	Capacity = graph.getCapacity()
+	Demands:list = graph.getDemands()
+	scaleDown = 2
+	depotDistance:list = [(*$c_{v,0} \  \forall v \in V$*)]
+	seeds = []
+	scannerRadius = DepotDistance
+	maxCoverDistance = 0
+
+	while (len(seeds)< n_vehicles):
+		candidates = []
+		if ( (*$ \sum_{i \in V} d_{i} \ \neq Dimension-1  $*)):
+			for i in range(Dimension):
+				if(demand[i] (*$\geq$*) capacity/scaleDown)
+					candidates.append(i)
+		else:
+			candidates = np.arange(Dimension)
+		
+		for c in candidates:
+			if(depotDistance[c] (*$\geq$*) argmax(scannerRadius)):
+				if(seeds is empty):
+					seeds.append(c)
+					scannerRadius[c] = 0
+					maxCoverDistance = graph.getArgMaxNodeDistance(c)
+					break
+			
+				for v in seeds:
+			 		if((graph.getValue(c,v) >= maxCoverDistance/n_vehicles) and (c not in v)): 
+			 			seeds.append(c)
+			 			scannerRadius[c] = 0
+			 			if(maxCoverDistance < graph.getArgMaxNodeDistance(c)):
+			 				maxCoverDistance = graph.getArgMaxNodeDistance(c)
+			 			break
+			 		else:
+			 			scaleDown = scaleDown + 0.5
+			 			scannerRadius[c]=0
+			 			continue
+			 		
+		if ( (*$ \sum_{i \in V} d_{i} \ \neq Dimension-1  $*)):
+			print("Decrease Radius")
+			scannerRadius[np.argmax(scannerRadius)] = 0
+			
+				
+\end{lstlisting}
+L'algoritmo descritto in Listing 3, presenta quanto già descritto formalmente sopra. Dalla riga 2 alla 4 si riportano le informazioni acquisite dal grafo, in 5 si inizializza il fattore di scala applicato ad ogni ciclo, che verrà aggiornato rilassando così il vincolo \ref{RR3}. In 6 si estraggono le distanze di ogni cliente dal deposito,in 7 si inizializza seeds, il contenitore di centroidi. In 8 si crea una copia di \textit{DepotDistance} andando così a creare \textit{ScannerRadius} che sarà utilizzato poi per ridurre il raggio del radar del deposito. 9 \textit{MaxCoverDistance} rappresenta la distanza massima tra centroidi e clienti.
+Si inizia con la riga 11 dove il while termina solo quando avrà trovato un numero di centroidi uguale al numero di veicoli. In 13 si effettua un importante controllo: alcune istanze presenti nel dataset fornito in questo elaborato hanno una richiesta uguale per tutti i clienti spesso apri a 1. Di conseguenza se la richiesta è uguale per tutti i clienti, il vincolo sulla capacità può essere evitato, immettendo tutti i clienti come a riga 18. In caso contrario si aggiungono solo quelli che soddisfano il vincolo \ref{RR3} rilassato da scaleDown, righe 14,15,16. In 20 si scorrono tutta la lista di candidati, in 21 accetta solo i candidati con una distanza maggiore o uguale alla distanza massima tra i componenti di \textit{ScannerRadius}. Se troviamo un candidato che rispetta entrambi i controlli,in caso seeds sia vuoto possiamo aggiungerlo direttamente 22 - 26, azzeriamo il suo valore in \textit{ScannerRadius} e aggiorniamo \textit{MaxCoverDistance} con la distanza massima tra il candidato selezionato e il cliente più distante. Altrimenti scorriamo la lista di seeds, se il candidato è distante almeno \textit{MaxCoverDistance} diviso il numero di veicoli e il candidato non è già presente in seeds, lo aggiungiamo a seeds e aggiorniamo di conseguenza \textit{MaxCoverDistance} 
 
 
-
-
-
+Una volta individuati i centroidi si passa alla Fase 2.2, L'algoritmo risolve un 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
 
