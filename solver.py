@@ -250,6 +250,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
     treshold = capacity/2
     depotDistance = []
     scaledown = 2
+    add = None
     for c in range(dimension):
         depotDistance.append(graph.getValue(0,c))
 
@@ -301,7 +302,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
                             #depotDistance[c] = 0
                             continue
 
-        if ( sum(demand) != dimension-1):
+        if ( sum(demand) != dimension-1 and add==False):
             print("Decrease Radious")
             scannerRadius[np.argmax(scannerRadius)] = 0
       

@@ -86,12 +86,12 @@ if __name__ == "__main__":
         else:
           n_vehicles = n_vehicles +1
         
-      start_time =time.time ()
-      solution3 = sol.ClusterFirst_RouteSecond(graphToSolve,"Sol_CR")
-      if(sol.SearchaAndCompleteSequence(solution3,graphToSolve)):
-        print("Solution Cluster First Route Second ") 
-      else:
-        sol.writeResult(solution3,graphToSolve,start_time,"Sol_CR")   
+      # start_time =time.time ()
+      # solution3 = sol.ClusterFirst_RouteSecond(graphToSolve,"Sol_CR")
+      # if(sol.SearchaAndCompleteSequence(solution3,graphToSolve)):
+      #   print("Solution Cluster First Route Second ") 
+      # else:
+      #   sol.writeResult(solution3,graphToSolve,start_time,"Sol_CR")   
 
 
       # start_time = time.time ()
