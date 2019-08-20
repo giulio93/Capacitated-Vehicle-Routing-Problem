@@ -307,13 +307,13 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
       
         print(np.max(scannerRadius))
 
-    # count = []
-    # fromCenter = []
-    # for s in seeds:
-    #     fromCenter.append(appo[s])
-    #     for v in seeds:
-    #         if s!=v:
-    #             count.append(graph.getValue(s,v))
+    count = []
+    fromCenter = []
+    for s in seeds:
+        fromCenter.append(appo[s])
+        for v in seeds:
+            if s!=v:
+                count.append(graph.getValue(s,v))
             
 
 
