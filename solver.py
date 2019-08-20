@@ -259,12 +259,12 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
     #select K seeds
     while len(seeds) < n_vehicles  or np.max(scannerRadius)==0:
         candidates = []
-        if( sum(demand) != dimension-1):
-            for i in range(dimension):
-                if (demand[i] > capacity/scaledown):    
-                    candidates.append(i)
-        else:
-            candidates = np.arange(dimension)
+        # if( sum(demand) != dimension-1):
+        #     for i in range(dimension):
+        #         if (demand[i] > capacity/scaledown):    
+        #             candidates.append(i)
+        # else:
+        candidates = np.arange(dimension)
 
         for c in sorted(candidates):           
             if(depotDistance[c] >= np.max(scannerRadius)/scaledown):
