@@ -174,7 +174,7 @@ al quale sono applicati i seguenti vincoli:
 \end{equation}
 
 \begin{equation} \label{v2}
-\sum_{i \in V} q_{i} \sum_{j \in V} M_{i,j}^k \leq C_{k} \ \forall k \in K
+\sum_{i \in V} d_{i} \sum_{j \in V} M_{i,j}^k \leq C_{k} \ \forall k \in K
 \end{equation}
 
 \begin{equation} \label{v3}
@@ -382,22 +382,23 @@ In questo elaborato per quanto riguarda la Fase 1.1 sono stati implementati due 
 \begin{itemize}
 \item Selezione casuale dei centroidi: vengono scelti casualmente un numero di centroidi uguale al numero di veicoli.
 \item Selezione con Radar Radius: 
-\begin{equation}
-L = max \sum_{i \in V} c_{v,0} \ 
+\begin{equation}  \label{RR1}
+max \sum_{i \in K} c_{i,0} \ 
 \end{equation}
 
-\begin{equation}
-L = max \sum_{(i,j) \in L} c_{i,j}  
+\begin{equation} \label{RR2}
+c_{i,j} \geq argmax(c_{n,m})/2 \ \ \forall i,j \in K \wedge n,m \in V
 \end{equation}
 
-\begin{equation} \label{v2}
-\mid L \mid = \mid K \mid
+
+
+\begin{equation}\label{RR3}
+ d_{k} \geq C/2 \ \forall k \in K  
 \end{equation}
 
-\begin{equation} \label{v2}
- l \geq C/2 \ \forall l \in L  
-\end{equation}
-
+I centroidi vengono individuati con la lettera \emph{K},in quanto il numero di centroidi corrisponde al numero di veicoli. La funzione di obbiettivo \ref{RR1} massimizza la distanza dei centroidi dal deposito \emph{0}.
+Il vincolo \ref{RR2} richiede ai centroidi selezionati, di rispettare una distanza che sia uguale o superiore alla metà della distanza massima tra centroidi e clienti, ovvero la distanza massima tra un centroide e qualsiasi altro cliente nel grafo. \ref{RR3} vincola i centroidi ad avere una richiesta che sia maggiore della metà della capacità del veicolo, in quanto i clienti più onerosi in termini di richiesta hanno una probabilità maggiore di risiedere in \emph{route} diverse.
+I vicoli \ref{RR2} e \ref{RR3} durante l'esecuzione vengono rilassati ad ogni esplorazione dello spazio delle soluzioni, in modo da avere più clienti candidabili.
 
 
 
@@ -408,16 +409,21 @@ L = max \sum_{(i,j) \in L} c_{i,j}
 
 \begin{table}
 		\begin{tabular}{c|c|c}
-			\includegraphics[scale = 0.15]{images/RR1.png} & \includegraphics[scale = 0.15]{images/RR2.png} & \includegraphics[scale = 0.15]{images/RR3.png}\\
+			\includegraphics[scale = 0.15]{images/RR1.png} & 
+			\includegraphics[scale = 0.15]{images/RR2.png}  & 
+			\includegraphics[scale = 0.15]{images/RR3.png}\\
 			\\ \hline \\
+			
 			\includegraphics[scale = 0.15]{images/RR4.png} & \includegraphics[scale = 0.15]{images/RR5.png} & \includegraphics[scale = 0.15]{images/RR6.png}\\
 			\\ \hline \\
 			\includegraphics[scale = 0.15]{images/RR7.png} & \includegraphics[scale = 0.15]{images/RR8.png} & \includegraphics[scale = 0.15]{images/RR9.png}\\
 						
 		\end{tabular}
-		\caption{Example}
-		\label{table:1}
+		\caption{In alto a destra lo il deposito al centro bianco e contorno nero, con tutti  clienti attorno da servire grigi. In alto al centro Radar Radius cerca il cliente più distante dal deposito e con richiesta superiore alla metà della capacità dei veicoli. Una volta trovato un cliente che soddisfa le condizioni, crea cerchio di raggio uguale alla distanza, candidato deposito, come nella figura n alto a sinistra. Tutti clienti al di fuori di questo cerchio, non vengono considerati nelle lista dei potenziali candidati, figura centrale a sinistra.  }
+		\label{Table:1}
 \end{table}
+
+
 
 
 

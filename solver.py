@@ -305,7 +305,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
             scannerRadius[np.argmax(scannerRadius)] = 0
 
                     
-        scaledown = scaledown + 0.5
+        #scaledown = scaledown + 0.5
         print(np.max(scannerRadius))
 
     count = []
