@@ -277,7 +277,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
                 
                 add = True
                 for v in seeds:
-                    if(graph.getValue(c,v) < maxCoverDistance):                   
+                    if(graph.getValue(c,v) < maxCoverDistance/n_vehicles):                   
                         add = False
                     if(c in seeds):
                         add = False
