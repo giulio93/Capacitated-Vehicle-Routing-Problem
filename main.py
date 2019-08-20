@@ -182,7 +182,7 @@ if __name__ == "__main__":
         
     print("==============================CLARKE AND WRIGHT SEQUENTIAL==================================")   
     sol.printResult('./cvrp-sol','./mysol')
-     print("==============================CLARKE AND WRIGHT PARALLEL==================================")   
+    print("==============================CLARKE AND WRIGHT PARALLEL==================================")   
     sol.printResult('./cvrp-sol','./mysol_par')
     print("==============================FISHER AND JAIKUMAR ==================================")       
     sol.printResult('./cvrp-sol','./mysol_FJ')
