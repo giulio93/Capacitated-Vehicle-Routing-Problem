@@ -292,6 +292,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
                             maxCoverDistance = graph.getArgMaxNodeDistance(c)
                         break
                 else:
+                    scaledown = scaledown + 0.5
                     if ( sum(demand) == dimension-1):
                         if(c in seeds):
                             continue
@@ -305,7 +306,7 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
             scannerRadius[np.argmax(scannerRadius)] = 0
 
                     
-        #scaledown = scaledown + 0.5
+       
         print(np.max(scannerRadius))
 
     count = []
