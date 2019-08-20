@@ -190,10 +190,10 @@ if __name__ == "__main__":
     sol.printResult('./cvrp-sol','./mysol_DJ')
     print("======================FISHER AND JAIKUMAR ON RANDOM K ==================================") 
     sol.printResult('./cvrp-sol','./mysol_FJ_kRand')
-    print("============================== GENETIC ON FJ SOL WITH RANDOM k  ==================================")  
-    sol.printResult('./cvrp-sol','./mysol_Genetic')
-    print("======================DIJKASTRA RANDOM K ==================================") 
+    print("======================MODIFIED DIJKASTRA  ON RANDOM K ==================================") 
     sol.printResult('./cvrp-sol','./mysol_DJ_kRand')
+    print("============================== GENETIC ON DIJ-KSEL   ==================================")  
+    sol.printResult('./cvrp-sol','./mysol_Genetic')
     print("======================DIJKASTRA CLUSTER FIRST ROUTE SECOND==================================") 
     sol.printResult('./cvrp-sol','./Sol_CR')
   
