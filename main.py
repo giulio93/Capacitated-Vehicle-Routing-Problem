@@ -86,95 +86,95 @@ if __name__ == "__main__":
         else:
           n_vehicles = n_vehicles +1
         
-      # start_time =time.time ()
-      # solution3 = sol.ClusterFirst_RouteSecond(graphToSolve,"Sol_CR")
-      # if(sol.SearchaAndCompleteSequence(solution3,graphToSolve)):
-      #   print("Solution Cluster First Route Second ") 
-      # else:
-      #   sol.writeResult(solution3,graphToSolve,start_time,"Sol_CR")   
+      start_time =time.time ()
+      solution3 = sol.ClusterFirst_RouteSecond(graphToSolve,"Sol_CR")
+      if(sol.SearchaAndCompleteSequence(solution3,graphToSolve)):
+        print("Solution Cluster First Route Second ") 
+      else:
+        sol.writeResult(solution3,graphToSolve,start_time,"Sol_CR")   
 
 
-      # start_time = time.time ()
-      # #Parameters setting: percentage of Elitism, threshold of improving fitting, number of cromosome
-      # mutationRate = 1
-      # n_population = 100
-      # population = []
-      # elitismList =[]
-      # Eras = 40
-      # era = 0
-      # n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))           
+      start_time = time.time ()
+      #Parameters setting: percentage of Elitism, threshold of improving fitting, number of cromosome
+      mutationRate = 1
+      n_population = 100
+      population = []
+      elitismList =[]
+      Eras = 40
+      era = 0
+      n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))           
 
-      # #Initialize Population : Select k customers, create routes and calculate fitness of each chromosome
-      # for i in range(n_population):
-      #   #K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
-      #   #GAPassignementRand = sol.GAPsolver(graphToSolve,K_clusterRand)
-      #   K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)           
-      #   GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
-      #   if(GAPassignementRR != -1):
-      #     chromosome = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRR,K_clusterRR,"trash") 
-      #     if(sol.SearchaAndCompleteSequence(chromosome,graphToSolve)):
-      #       print("Invalid! ")
-      #     else:
-      #       population.append((sum([c.getCost() for c in chromosome]),chromosome))
-      #   else:
-      #     n_vehicles = n_vehicles + 1
+      #Initialize Population : Select k customers, create routes and calculate fitness of each chromosome
+      for i in range(n_population):
+        #K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
+        #GAPassignementRand = sol.GAPsolver(graphToSolve,K_clusterRand)
+        K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)           
+        GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
+        if(GAPassignementRR != -1):
+          chromosome = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRR,K_clusterRR,"trash") 
+          if(sol.SearchaAndCompleteSequence(chromosome,graphToSolve)):
+            print("Invalid! ")
+          else:
+            population.append((sum([c.getCost() for c in chromosome]),chromosome))
+        else:
+          n_vehicles = n_vehicles + 1
             
 
 
-      # #Stop Criterion
-      # while(era < Eras):
-      #   print("Welcome to the ==> " + str(era) +" Era!")
-      #   toKeep = sol.Elitism(population)
-      #   popEra = []
-      #   #tabuLister = []
-      #   #Do evolutionary opeeration half time population
-      #   for k in range(int(len(population)/2)):
+      #Stop Criterion
+      while(era < Eras):
+        print("Welcome to the ==> " + str(era) +" Era!")
+        toKeep = sol.Elitism(population)
+        popEra = []
+        #tabuLister = []
+        #Do evolutionary opeeration half time population
+        for k in range(int(len(population)/2)):
       
-      #     winner1,winner2 ,f1,f2= sol.Tournament(population,False)   
-      #     if (np.random.randint(1,100) <= 1):
-      #        f1, winner1 = toKeep
-      #     children, tabuLister , fittingCrossover = sol.Crossover(winner1,winner2,graphToSolve,True)
-      #     print("CROSSOVER ==> "+str(fittingCrossover))
+          winner1,winner2 ,f1,f2= sol.Tournament(population,False)   
+          if (np.random.randint(1,100) <= 1):
+             f1, winner1 = toKeep
+          children, tabuLister , fittingCrossover = sol.Crossover(winner1,winner2,graphToSolve,True)
+          print("CROSSOVER ==> "+str(fittingCrossover))
       
-      #     popEra.append((fittingCrossover,children))
-      #     if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
-      #        print("Invalid! " +str(fittingCrossover))
-      #     else:
-      #       popEra.sort(key=lambda x:x[0],reverse=True)
-      #       mutantChild = popEra[0]
-      #     if (np.random.randint(1,100) <= mutationRate):
-      #       for route in mutantChild[1]:
-      #           c1 = np.random.randint(1,len(route.getCustomers())-1)
-      #           c2 = np.random.randint(1,len(route.getCustomers())-1)
-      #           route = sol.LocalSearch_FlippingPath(route,graphToSolve,c1,c2)
+          popEra.append((fittingCrossover,children))
+          if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
+             print("Invalid! " +str(fittingCrossover))
+          else:
+            popEra.sort(key=lambda x:x[0],reverse=True)
+            mutantChild = popEra[0]
+          if (np.random.randint(1,100) <= mutationRate):
+            for route in mutantChild[1]:
+                c1 = np.random.randint(1,len(route.getCustomers())-1)
+                c2 = np.random.randint(1,len(route.getCustomers())-1)
+                route = sol.LocalSearch_FlippingPath(route,graphToSolve,c1,c2)
 
-      #       fittingMutation = sum([m.getCost() for m in mutantChild[1]])
-      #       if(fittingMutation < mutantChild[0]):
-      #         popEra.append((fittingMutation,mutantChild[1]))
-      #       if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
-      #         print("Invalid! " +str(fittingCrossover))
-      #       print("CROSSOVER + MUTATION ==> "+str(fittingMutation))
+            fittingMutation = sum([m.getCost() for m in mutantChild[1]])
+            if(fittingMutation < mutantChild[0]):
+              popEra.append((fittingMutation,mutantChild[1]))
+            if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
+              print("Invalid! " +str(fittingCrossover))
+            print("CROSSOVER + MUTATION ==> "+str(fittingMutation))
 
-      #   popEra.sort(key=lambda x:x[0],reverse=True)
-      #   best = [popEra.pop() for i in range(int(len(popEra)/2))]
+        popEra.sort(key=lambda x:x[0],reverse=True)
+        best = [popEra.pop() for i in range(int(len(popEra)/2))]
 
 
-      #   for b in best:
-      #     for p in population:        
-      #       if(b[0] not in [ps[0] for ps in population]):
-      #         if(p[0] > b[0]):
-      #           population.remove(p)
-      #           population.append(b)
-      #           break
-      #       else: break
+        for b in best:
+          for p in population:        
+            if(b[0] not in [ps[0] for ps in population]):
+              if(p[0] > b[0]):
+                population.remove(p)
+                population.append(b)
+                break
+            else: break
 
-      #   if toKeep not in population:
-      #     population.append(toKeep)
-      #   era = era + 1
+        if toKeep not in population:
+          population.append(toKeep)
+        era = era + 1
           
-      # population.sort(key= lambda x: x[0], reverse = True)
-      # bestGeneticSolution = population.pop()[1]    
-      # sol.writeResult(bestGeneticSolution,graphToSolve,start_time,"mysol_Genetic")
+      population.sort(key= lambda x: x[0], reverse = True)
+      bestGeneticSolution = population.pop()[1]    
+      sol.writeResult(bestGeneticSolution,graphToSolve,start_time,"mysol_Genetic")
       
   
           
@@ -188,14 +188,14 @@ if __name__ == "__main__":
     sol.printResult('./cvrp-sol','./mysol_FJ')
     print("==============================MODIFIED DIJKASTRA ==================================") 
     sol.printResult('./cvrp-sol','./mysol_DJ')
-    # print("======================FISHER AND JAIKUMAR ON RANDOM K ==================================") 
-    # sol.printResult('./cvrp-sol','./mysol_FJ_kRand')
-    # print("======================MODIFIED DIJKASTRA  ON RANDOM K ==================================") 
-    # sol.printResult('./cvrp-sol','./mysol_DJ_kRand')
-    # print("============================== GENETIC ON DIJ-KSEL   ==================================")  
-    # sol.printResult('./cvrp-sol','./mysol_Genetic')
-    # print("======================DIJKASTRA CLUSTER FIRST ROUTE SECOND==================================") 
-    # sol.printResult('./cvrp-sol','./Sol_CR')
+    print("======================FISHER AND JAIKUMAR ON RANDOM K ==================================") 
+    sol.printResult('./cvrp-sol','./mysol_FJ_kRand')
+    print("======================MODIFIED DIJKASTRA  ON RANDOM K ==================================") 
+    sol.printResult('./cvrp-sol','./mysol_DJ_kRand')
+    print("============================== GENETIC ON DIJ-KSEL   ==================================")  
+    sol.printResult('./cvrp-sol','./mysol_Genetic')
+    print("======================DIJKASTRA CLUSTER FIRST ROUTE SECOND==================================") 
+    sol.printResult('./cvrp-sol','./Sol_CR')
   
            
     # print("==============================CLARKE AND WRIGHT==================================")   
