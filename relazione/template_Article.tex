@@ -546,10 +546,7 @@ def GAPsolver(graph,Kclusters):
 		return -1
 	else:
 		return clusterAssignment
-			
-				
-					
-			
+															
 \end{lstlisting}
 
 Listing 4 presenta lo pseudocodice implementato del GAP solver implementato. Alla riga 1 la firma del metodo riceve il graph e i centroidi selezionati con le tecniche descritte nella sezione precedente.Dalla riga 2 alla riga 4 si recuperano le informazioni sul grafo, in 5 si estrae il numero di cluster. \textit{allocCosts} è la lista che conterrà i costi di allocazione di ogni cliente per ogni cluster, alla riga 5 viene inizializzata a 0 e ha dimensione uguale a \textit{Dimension}* \textit{Ncluster}. In 7 viene inizializzata a vuoto la lista \textit{clusterAssignement} che conterrà i nodi assegnati ad ogni cluster. In 8 si inizializzano a 0,il totale di domande soddisfatte per ogni cluster. In 10 vengono calcolati i costi di inserimento di ogni nodo per ogni cluster: \textit{calculateIns(i,k)} calcola i costi come è stato già descritto nella sezione \textbf{\ref{FJ-Sec}}. In 12 si inizializza il puntatore \emph{i} che servirà per puntare alla domanda del nodo corrispondente in \textit{Demands}. 13 e 14 si occupano di scorrere ogni riga di \textit{allocCosts} e al suo interno ogni cluster di \textit{Kcluster}. Il controllo a riga 15, assicura che il cluster con costo di inserimento minimo per il nodo, non superi la capacità prestabilita. Se il controllo viene superato con successo alla riga 16 si aggiorna la domanda totale soddisfatta dal cluster, in 17 si assegan al nodo il cluster e in 18 si incrementa di uno il puntatore. Siccome il nodo è stato assegnato con 19 si passa alla prossima riga di \textit{allocCosts}. Altrimenti, se il controllo a riga 15 fallisce, la riga 21 pone ad infinito il valore minimo calcolato per quel nodo, in modo che nel ciclo seguente si prenda in considerazione il secondo valore minimo calcolato tra quel nodo e un altro cluster, questo viene ripetuto per k in Kclusters.
@@ -567,9 +564,43 @@ M_{i,j}^k \in \{0,1\}
 
 A differenza di ciò che è descritto nella sezione  \ref{RappProb-sec} i vincoli sono già stati rispettati dalla lista di assegnamento fornita dal GAP solver.
 
+
+
 In questa elaborato sono state utilizzate due tecniche per implementare il routing:
 \begin{itemize}
 \item \textbf{Nearest Neighbourn}: Partendo dal deposito ci si collega al nodo successivo, si prosegue fino a quando tutti i nodi sono stati collegati.
+
+\begin{lstlisting}[language=Python, caption=NearestNeighbourn  ,escapeinside={(*}{*)}]
+def Routing_NearestNeighbourn(graph,clusterAssignement,Kclusters,saveFolder):
+	rutes = []
+	Demands = graph.getDemands()
+	Capacity = graph.getCapacity()
+	
+	for k in Kclusters:
+		cluster =  []
+		for i in range(len(clusterAssignment)):
+			if(clusterAssignment[i] == k ):
+			cluster.append(i+1)
+				
+		appoRoute =  Route(Capacity) 
+		appoRoute.addCustomer(0,0,False)
+			
+		while(len(cluster)>0):
+			prevnode = appoRoute.getCustomers()[len(appoRoute.getCustomers())-1]
+			distPrevNode = graph.getValue(prevnode,[c for c in cluster if c not in appoRoute.getCustomers() ])
+			nearestN = cluster[np.argmin(distPrevNode)] 
+			if nearestN not in appoRoute.getCustomers():
+				appoRoute.addCustomer(nearestN,demand[nearestN],False)
+				cluster.remove(nearestN)
+			
+		appoRoute.addCustomer(0,0,False)
+		appoRoute.printRoute("Route cluster:" +str(k))
+		routes.append(appoRoute)
+			
+	return routes
+
+
+\end{lstlisting}
 \item \textbf{Modified Dijkastra}:
 \end{itemize}
 \newpage

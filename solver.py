@@ -375,6 +375,7 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters,saveFolder):
 
     routes = []
     demand = graph.getDemand()
+    capacity = graph.getCapacity()
 
     for k in range(len(k_clusters)):
         cluster = []
@@ -383,12 +384,12 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters,saveFolder):
                 cluster.append(i+1)
         
        
-        appoRoute =  Route(graph.getCapacity()) 
+        appoRoute =  Route(capacity) 
         appoRoute.addCustomer(0,0,False)
 
         while(len(cluster)>0):
             prevnode = appoRoute.getCustomers()[len(appoRoute.getCustomers())-1]
-            distPrevNode = graph.getValue(prevnode,[c for c in cluster if c not in appoRoute.getCustomers() ])
+            distPrevNode = graph.getValue(prevnode,[c for c in cluster])
             nearestN = cluster[np.argmin(distPrevNode)] 
             if nearestN not in appoRoute.getCustomers():
                 appoRoute.addCustomer(nearestN,demand[nearestN],False)

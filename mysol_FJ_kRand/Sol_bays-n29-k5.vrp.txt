@@ -1,11 +1,12 @@
 bays29
 29
-Route_0: 0-20-23-26-22-24-28-0-END
-Route_1: 0-7-9-3-13-10-6-0-END
-Route_2: 0-1-19-4-25-2-21-0-END
-Route_3: 0-12-15-18-14-17-16-0-END
-Route_4: 0-27-5-11-8-0-END
+Route_0: 0-20-23-7-22-24-21-0-END
+Route_1: 0-12-15-18-14-17-16-0-END
+Route_2: 0-27-26-28-25-0-END
+Route_3: 0-5-11-8-4-19-2-0-END
+Route_4: 0-1-9-3-13-10-6-0-END
 Total Routed Nodes 29
 Using no. Tracks: 5
-Time Horizon: 0.0036995410919189453
-Routing Total Cost: 4465.0
+Time Horizon: 0.004747629165649414
+Routing Total Cost: 4315.0
+Error of solution in Sol_bays-n29-k5.vrp.txt: 0.456294296321296

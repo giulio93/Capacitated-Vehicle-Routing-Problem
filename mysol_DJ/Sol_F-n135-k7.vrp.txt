@@ -10,5 +10,6 @@ Route_6: 0-46-118-19-130-65-119-132-115-114-0-END
 Route_7: 0-131-117-0-END
 Total Routed Nodes 135
 Using no. Tracks: 8
-Time Horizon: 0.2830686569213867
+Time Horizon: 0.3439195156097412
 Routing Total Cost: 1769.0730408811098
+Error of solution in Sol_F-n135-k7.vrp.txt: 0.5224380730474267

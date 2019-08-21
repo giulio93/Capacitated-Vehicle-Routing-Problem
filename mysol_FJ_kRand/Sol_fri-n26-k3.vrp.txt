@@ -1,9 +1,10 @@
 fri26
 26
-Route_0: 0-24-22-21-20-25-23-0-END
-Route_1: 0-14-13-12-11-15-18-19-17-16-0-END
-Route_2: 0-1-2-3-4-5-6-7-8-9-10-0-END
+Route_0: 0-14-13-9-8-6-7-4-5-3-22-0-END
+Route_1: 0-11-12-10-15-18-19-17-16-20-21-0-END
+Route_2: 0-1-2-24-25-23-0-END
 Total Routed Nodes 26
 Using no. Tracks: 3
-Time Horizon: 0.0026242733001708984
-Routing Total Cost: 1505.0
+Time Horizon: 0.0035371780395507812
+Routing Total Cost: 1854.0
+Error of solution in Sol_fri-n26-k3.vrp.txt: 0.37028824833702884

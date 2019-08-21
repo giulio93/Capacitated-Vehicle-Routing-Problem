@@ -1,10 +1,11 @@
 ulysses22.tsp
 22
-Route_0: 0-20-11-21-0-END
-Route_1: 0-12-9-5-4-8-10-0-END
-Route_2: 0-2-1-16-3-17-7-0-END
-Route_3: 0-13-14-6-18-19-15-0-END
+Route_0: 0-12-11-14-18-9-15-0-END
+Route_1: 0-7-6-5-4-8-10-0-END
+Route_2: 0-2-1-16-3-17-21-0-END
+Route_3: 0-20-19-13-0-END
 Total Routed Nodes 22
 Using no. Tracks: 4
-Time Horizon: 0.007157802581787109
-Routing Total Cost: 159826.0
+Time Horizon: 0.008757829666137695
+Routing Total Cost: 159824.0
+Error of solution in Sol_ulysses-n22-k4.vrp.txt: 2.980375065374941

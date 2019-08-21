@@ -6,6 +6,6 @@ Route_2: 0-5-30-29-31-28-27-26-25-24-21-20-0-END
 Route_3: 0-40-41-39-38-37-36-34-35-0-END
 Total Routed Nodes 42
 Using no. Tracks: 4
-Time Horizon: 0.009872674942016602
+Time Horizon: 0.010722160339355469
 Routing Total Cost: 1503.0
 Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.3161120840630473
