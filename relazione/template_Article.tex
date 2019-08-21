@@ -531,7 +531,7 @@ def GAPsolver(graph,Kclusters):
 	i=1
 	for alloc in allocCosts:
 		for k in Kclusters:
-			if(clusterDemand[argmin(alloc)] + Demands[i] < Capacity):
+			if(clusterDemand[argmin(alloc)] + Demands[i] <= Capacity):
 				clusterDemand[argmin(alloc)] =+ Demands[i]
 				clusterAssignment.append(np.argmin(alloc))
 				i++
@@ -551,7 +551,8 @@ def GAPsolver(graph,Kclusters):
 			
 \end{lstlisting}
 
-Listing 4 presenta lo pseudocodice implementato del GAP solver implementato. Alla riga 1 la firma del metodo riceve il graph e i centroidi selezionati con le tecniche descritte nella sezione precedente.Dalla riga 2 alla riga 4 si recuperano le informazioni sul grafo, in 5 si estrae il numero di cluster. \textit{allocCosts} è la lista che conterrà i costi di allocazione di ogni cliente per ogni cluster, alla riga 5 viene inizializzata a 0 e ha dimensione uguale a \textit{Dimension}* \textit{Ncluster}. In 7 viene inizializzata a vuoto la lista \textit{clusterAssignement} che conterrà i nodi assegnati ad ogni cluster. In 8 si inizializzano a 0,il totale di domande soddisfatte per ogni cluster. In 10 vengono calcolati i costi di inserimento di ogni nodo per ogni cluster: \textit{calculateIns(i,k)} calcola i costi come è stato già descritto nella sezione \textbf{\ref{FJ-Sec}}. In 12 si inizializza il puntatore \emph{i} che servirà per puntare alla domanda del nodo corrispondente in \textit{Demands}. 13 e 14 si accupano di scorrere ogni riga di \textit{allocCosts} e al suo interno ogni cluster di \textit{Kcluster}.
+Listing 4 presenta lo pseudocodice implementato del GAP solver implementato. Alla riga 1 la firma del metodo riceve il graph e i centroidi selezionati con le tecniche descritte nella sezione precedente.Dalla riga 2 alla riga 4 si recuperano le informazioni sul grafo, in 5 si estrae il numero di cluster. \textit{allocCosts} è la lista che conterrà i costi di allocazione di ogni cliente per ogni cluster, alla riga 5 viene inizializzata a 0 e ha dimensione uguale a \textit{Dimension}* \textit{Ncluster}. In 7 viene inizializzata a vuoto la lista \textit{clusterAssignement} che conterrà i nodi assegnati ad ogni cluster. In 8 si inizializzano a 0,il totale di domande soddisfatte per ogni cluster. In 10 vengono calcolati i costi di inserimento di ogni nodo per ogni cluster: \textit{calculateIns(i,k)} calcola i costi come è stato già descritto nella sezione \textbf{\ref{FJ-Sec}}. In 12 si inizializza il puntatore \emph{i} che servirà per puntare alla domanda del nodo corrispondente in \textit{Demands}. 13 e 14 si occupano di scorrere ogni riga di \textit{allocCosts} e al suo interno ogni cluster di \textit{Kcluster}. Il controllo a riga 15, assicura che il cluster con costo di inserimento minimo per il nodo, non superi la capacità prestabilita. Se il controllo viene superato con successo alla riga 16 si aggiorna la domanda totale soddisfatta dal cluster, in 17 si assegan al nodo il cluster e in 18 si incrementa di uno il puntatore. Siccome il nodo è stato assegnato con 19 si passa alla prossima riga di \textit{allocCosts}. Altrimenti, se il controllo a riga 15 fallisce, la riga 21 pone ad infinito il valore minimo calcolato per quel nodo, in modo che nel ciclo seguente si prenda in considerazione il secondo valore minimo calcolato tra quel nodo e un altro cluster, questo viene ripetuto per k in Kclusters.
+Se alla fine dei due cicli, la lunghezza della lista \textit{clusterAssignement} non è pari al numero di nodi scluso il deposito, vuol dire che l'allocazione clienti-clusters non è andata a buon fine. Quindi la soluzione è invalida, sarà necessario aumentare il numero di veicoli e quindi si ritorna -1 . Altrimenti se tutto va bene, si ritorna l'assegnamento attraverso la lista \textit{clusterAssignement}. 
 
 \newpage
 

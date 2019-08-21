@@ -1,10 +1,9 @@
 gr48
 48
-Route_0: 0-32-30-9-11-4-14-23-39-38-41-44-42-46-45-47-40-0-END
-Route_1: 0-43-1-34-19-36-17-33-22-24-2-18-3-29-37-6-27-0-END
-Route_2: 0-28-35-12-15-10-5-21-7-20-31-26-16-8-13-25-0-END
+Route_0: 0-12-15-10-5-21-7-25-14-23-9-11-4-20-8-13-16-0-END
+Route_1: 0-24-2-22-33-45-46-42-44-29-37-18-3-40-43-47-35-0-END
+Route_2: 0-28-6-27-17-36-39-34-1-19-41-38-30-32-31-26-0-END
 Total Routed Nodes 48
 Using no. Tracks: 3
-Time Horizon: 1.5491597652435303
-Routing Total Cost: 8354.0
-Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327Error of solution in Sol_gr-n48-k3.vrp.txt: 0.3958228905597327
+Time Horizon: 7.837406396865845
+Routing Total Cost: 8374.0
