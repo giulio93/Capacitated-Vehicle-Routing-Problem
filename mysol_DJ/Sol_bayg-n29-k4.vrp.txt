@@ -6,6 +6,6 @@ Route_2: 0-25-27-10-24-28-15-26-0-END
 Route_3: 0-4-6-22-3-20-0-END
 Total Routed Nodes 29
 Using no. Tracks: 4
-Time Horizon: 0.016254663467407227
+Time Horizon: 0.1768202781677246
 Routing Total Cost: 2871.0
 Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.4004878048780488

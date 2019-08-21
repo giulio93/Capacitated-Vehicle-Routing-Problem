@@ -6,6 +6,6 @@ Route_2: 0-23-11-12-15-32-39-9-1-8-37-30-22-16-3-14-0-END
 Route_3: 0-5-28-2-33-40-45-0-END
 Total Routed Nodes 48
 Using no. Tracks: 4
-Time Horizon: 0.059839487075805664
+Time Horizon: 0.4426145553588867
 Routing Total Cost: 53118.38845059037
 Error of solution in Sol_att-n48-k4.vrp.txt: 0.3278933165989293

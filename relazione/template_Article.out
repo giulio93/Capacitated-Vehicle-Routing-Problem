@@ -7,6 +7,4 @@
 \BOOKMARK [3][-]{subsubsection.3.2.1}{Sequenziale e Parallelo }{subsection.3.2}% 7
 \BOOKMARK [2][-]{subsection.3.3}{Metodi di Raggruppamento \(Clustering\)}{section.3}% 8
 \BOOKMARK [3][-]{subsubsection.3.3.1}{Algoritmo di Fisher and Jaikumar}{subsection.3.3}% 9
-\BOOKMARK [3][-]{subsubsection.3.3.2}{Fase 1.1 - Selezione dei Centroidi}{subsection.3.3}% 10
-\BOOKMARK [3][-]{subsubsection.3.3.3}{Fase 2.2 e 2.3 General Assignement Problem}{subsection.3.3}% 11
-\BOOKMARK [3][-]{subsubsection.3.3.4}{Fase 2 - Routing }{subsection.3.3}% 12
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Route First, Cluster Second}{subsection.3.3}% 10

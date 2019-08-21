@@ -9,8 +9,6 @@
 \usepackage{xcolor}
 \usepackage{multicol}
 
-
-
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -36,6 +34,9 @@
 }
 
 \lstset{style=mystyle}
+
+
+
 
 
 
@@ -357,7 +358,7 @@ In questo elaborato vengo presentati i seguenti metodi di raggruppamento a due f
 			\item K centroid selector algoritms :  Radar Radius
 			\item General Asignement Problem solver
 			\item Routing algoritms: Nearest Neighborn
-			\item Routing algoritms: Dijkastra		
+			\item Routing algoritms: Nearest Neighborn TrackPath		
 		\end{itemize}
 	\item Route First,Cluster Second: using an auxiliary graph and Dijkastra
 \end{itemize}
@@ -377,10 +378,8 @@ L'algoritmo si svolge in due fasi come abbiamo già detto sopra, in particolare.
  \item Fase 2 - Routing: risolvere un TSP per ogni cluster.
  
 \end{itemize}
-
-
-
-\subsubsection{Fase 1.1 - Selezione dei Centroidi}
+	
+\paragraph{Fase 1.1 - Selezione dei Centroidi} \hfill
 
 In questo elaborato per quanto riguarda la Fase 1.1 sono stati implementati due metodi: La selezione casuale e la selezione utilizzando un algoritmo chiamato dall'autore Radar Radius.
 
@@ -478,7 +477,7 @@ L'algoritmo descritto in Listing 3, presenta quanto già descritto formalmente s
 Si inizia con la riga 11 dove il while termina solo quando avrà trovato un numero di centroidi uguale al numero di veicoli. In 13 si effettua un importante controllo: alcune istanze presenti nel dataset fornito in questo elaborato hanno una richiesta uguale per tutti i clienti spesso apri a 1. Di conseguenza se la richiesta è uguale per tutti i clienti, il vincolo sulla capacità può essere evitato, immettendo tutti i clienti come a riga 18. In caso contrario si aggiungono solo quelli che soddisfano il vincolo \ref{RR3} rilassato da scaleDown, righe 14,15,16. In 20 si scorrono tutta la lista di candidati, in 21 accetta solo i candidati con una distanza maggiore o uguale alla distanza massima tra i componenti di \textit{ScannerRadius}. Se troviamo un candidato che rispetta entrambi i controlli,in caso seeds sia vuoto possiamo aggiungerlo direttamente 22 - 26, azzeriamo il suo valore in \textit{ScannerRadius} e aggiorniamo \textit{MaxCoverDistance} con la distanza massima tra il candidato selezionato e il cliente più distante. Altrimenti scorriamo la lista di seeds, se il candidato è distante almeno \textit{MaxCoverDistance} diviso il numero di veicoli e il candidato non è già presente in seeds, lo aggiungiamo a seeds e aggiorniamo di conseguenza \textit{MaxCoverDistance}  righe 28 - -34.In caso contrario aumentiamo il fattore scaleDown e azzeriamo il candidato in \textit{ScannerRadius}. Le righe 40,41,42, vengono eseguire nel caso le richieste dei clienti siano diverse, rilassa il vincolo \ref{RR2} aumentando il bacino di candidati. 
 
 
-\subsubsection{Fase 2.2 e 2.3  General Assignement Problem}
+\paragraph{Fase 2.2 e 2.3  General Assignement Problem} \hfill
 Una volta individuati i centroidi si passa alla Fase 2.2. L'algoritmo deve assegnare ongni cliente ad ogni centroide. Per fare questo l'algoritmo risolve un problema di asseganemtno generale.Si richiede di trovare un assegnamento dei clienti ai cluster tale da non superare la capacità del veicolo assegnato al cluster. Il numero di chilometri totali percorsi dalla soluzione va minimizzato. Più formalmente:
 \[x_{i,k} = \left\{
 \begin{array}{lr}
@@ -552,7 +551,8 @@ def GAPsolver(graph,Kclusters):
 Listing 4 presenta lo pseudocodice implementato del GAP solver implementato. Alla riga 1 la firma del metodo riceve il graph e i centroidi selezionati con le tecniche descritte nella sezione precedente.Dalla riga 2 alla riga 4 si recuperano le informazioni sul grafo, in 5 si estrae il numero di cluster. \textit{allocCosts} è la lista che conterrà i costi di allocazione di ogni cliente per ogni cluster, alla riga 5 viene inizializzata a 0 e ha dimensione uguale a \textit{Dimension}* \textit{Ncluster}. In 7 viene inizializzata a vuoto la lista \textit{clusterAssignement} che conterrà i nodi assegnati ad ogni cluster. In 8 si inizializzano a 0,il totale di domande soddisfatte per ogni cluster. In 10 vengono calcolati i costi di inserimento di ogni nodo per ogni cluster: \textit{calculateIns(i,k)} calcola i costi come è stato già descritto nella sezione \textbf{\ref{FJ-Sec}}. In 12 si inizializza il puntatore \emph{i} che servirà per puntare alla domanda del nodo corrispondente in \textit{Demands}. 13 e 14 si occupano di scorrere ogni riga di \textit{allocCosts} e al suo interno ogni cluster di \textit{Kcluster}. Il controllo a riga 15, assicura che il cluster con costo di inserimento minimo per il nodo, non superi la capacità prestabilita. Se il controllo viene superato con successo alla riga 16 si aggiorna la domanda totale soddisfatta dal cluster, in 17 si assegan al nodo il cluster e in 18 si incrementa di uno il puntatore. Siccome il nodo è stato assegnato con 19 si passa alla prossima riga di \textit{allocCosts}. Altrimenti, se il controllo a riga 15 fallisce, la riga 21 pone ad infinito il valore minimo calcolato per quel nodo, in modo che nel ciclo seguente si prenda in considerazione il secondo valore minimo calcolato tra quel nodo e un altro cluster, questo viene ripetuto per k in Kclusters.
 Se alla fine dei due cicli, la lunghezza della lista \textit{clusterAssignement} non è pari al numero di nodi escluso il deposito, vuol dire che l'allocazione clienti-clusters non è andata a buon fine. Quindi la soluzione è invalida, sarà necessario aumentare il numero di veicoli e quindi si ritorna -1 . Altrimenti se tutto va bene, si ritorna l'assegnamento attraverso la lista \textit{clusterAssignement}. 
 
-\subsubsection{Fase 2 - Routing }
+\paragraph{Fase 2 - Routing } \hfill
+
 Ora che gli assegnamenti sono stati decisi, ci dobbiamo preoccupare di collegare i nodi all'interno di ogni cluster, in modo da formare le \emph{routes} necessarie per descrivere la soluzione. La descrizione formale di questo problema è simile a quella già descritta nella sezione  \ref{RappProb-sec}: La funzione obiettivo che descrive questa fase è la seguente:
 \begin{equation} \label{objF2}
 \min \sum_{k \in K} \sum_{(i,j) \in A} c_{i,j} \cdot M_{i,j}^k 
@@ -570,40 +570,180 @@ In questa elaborato sono state utilizzate due tecniche per implementare il routi
 \begin{itemize}
 \item \textbf{Nearest Neighbourn}: Partendo dal deposito ci si collega al nodo successivo, si prosegue fino a quando tutti i nodi sono stati collegati.
 
-\begin{lstlisting}[language=Python, caption=NearestNeighbourn  ,escapeinside={(*}{*)}]
-def Routing_NearestNeighbourn(graph,clusterAssignement,Kclusters,saveFolder):
-	rutes = []
+\begin{lstlisting}[language=Python, caption=NearestNeighbourn Routing ,escapeinside={(*}{*)}]
+def Routing_NearestNeighbourn(graph,clusterAssignement,Kclusters):
 	Demands = graph.getDemands()
 	Capacity = graph.getCapacity()
+	routes:list = []
 	
 	for k in Kclusters:
-		cluster =  []
+		cluster:list =  []
 		for i in range(len(clusterAssignment)):
 			if(clusterAssignment[i] == k ):
 			cluster.append(i+1)
 				
 		appoRoute =  Route(Capacity) 
-		appoRoute.addCustomer(0,0,False)
+		appoRoute.addCustomer(deposit)
 			
-		while(len(cluster)>0):
-			prevnode = appoRoute.getCustomers()[len(appoRoute.getCustomers())-1]
-			distPrevNode = graph.getValue(prevnode,[c for c in cluster if c not in appoRoute.getCustomers() ])
-			nearestN = cluster[np.argmin(distPrevNode)] 
-			if nearestN not in appoRoute.getCustomers():
-				appoRoute.addCustomer(nearestN,demand[nearestN],False)
-				cluster.remove(nearestN)
+	    while(len(cluster)>0):
+				prevnode = appoRoute.getLastCustmerServed()
+				distPrevNode = [(*$c_{prevnode,i}  \forall i \in cluster $*)]
+				nearestN = cluster[np.argmin(distPrevNode)] 
+				if nearestN not in appoRoute.getCustomers():
+					appoRoute.addCustomer(nearestN)
+					cluster.remove(nearestN)
 			
-		appoRoute.addCustomer(0,0,False)
-		appoRoute.printRoute("Route cluster:" +str(k))
+		appoRoute.addCustomer(deposit)
 		routes.append(appoRoute)
 			
 	return routes
 
+\end{lstlisting}
+Listing 5 presenta lo pseudocodice: la firma del metodo in linea 1 richiede il grafo, l'assegnamento creato dal GAP solver, i \textit{Kcluster} selezionati dalla procedura precedente. La riga 2,3 estraggono le informazioni dal grafo, la 4 inizializza la soluzione da ritornare \textit{routes} a vuoto. Da 6 a 10 si creano i singoli cluster, scorrendo la lista \textit{clusterAssignement} e individuando a quale cluster sono stati assegnati i clienti. Per ogni cluster è creata una lista \textit{cluster}. Dentro al ciclo che scorre i cluster in 6, si inizializza la \emph{appoRoute},con capacità e deposito 12,13. Questa \emph{route} collegherà i clienti della lista  \textit{cluster} che abbiamo appena popolato. All'interno del while a riga 15, si estrae l'ultimo nodo inserito in \emph{appoRoute} e si calcolano tutte le distanze dei clienti che popolano la lista \textit{cluster} 16, 17. Si trova il più vicino al nodo estratto \textit{prevNode} 18. Se il nodo non è ancora presente nella  lista di clienti di \emph{appoRoute}, lo aggiungo e lo rimuvo dalla lista \textit{cluster} 20,21. Una volta raggiunti tutti i clienti chiudo la strada aggiungendo il deposito alal fine della lista di clienti,e aggiungo \textit{appoRoute} a \textit{routes}. Dopo aver esaurito i componenti di \textit{Kcluster}, ritorno la soluzione \textit{routes}.
+\item \textbf{Nearest Neighbourn TrackPath}: Partendo dal deposito si crea una \emph{route} per ogni cliente appartenente al cluster, si espandono quindi i percorsi che hanno un costo minore. I percorsi vengono espansi aggiungendo il nodo più vicino. Infine si ritorna la \emph{route} meno costosa per ogni cluster.
+
+\begin{lstlisting}[language=Python, caption=Nearest Neighbourn TrackPath Routing ,escapeinside={(*}{*)}]
+def Routing_NN_TrackPath(graph,clusterAssignement,Kclusters):
+	Demands = graph.getDemands()
+	priorityQ:list =[]
+	finalRoutes:list = []
+	
+	for k in range(len(Kclusters)):
+		cluster = []
+		routes =[]
+		for i in range(len(clusterAssignment)):
+			if(clusterAssignment[i] == k ):
+			cluster.append(i+1)
+	
+		for node in cluster:          
+			nodeRoute = Route(graph.getCapacity())
+			nodeRoute.addCustomer(0)
+			nodeRoute.addCustomer(node)
+			nodeRoute.setCost(graph.getValue(0,node))
+			priorityQ.append(nodeRoute)
+		
+		priorityQ.sort(key=lambda x: x.getCost(),reverse=True)
+	
+		while (len(priorityQ) > 0) :
+			shortRoute = priorityQ.pop()
+			
+			prevNode = shortRoute.getLastCustmerServed()
+			appoCluster:list = []
+			for v in cluster:
+				if v!= prevNode:
+					if(v is not in shortRoute):
+						appoCluster.append(v)
+					
+			if (len(appoCluster) > 0):
+				index,value = graph.getNearestNeighbours(prevNode,appoCluster)
+				costToAdd = shortRoute.getCost() + value
+				shortRoute.setCost(costToAdd)
+				shortRoute.addCustomer(appoCluster[index],demand[appoCluster[index]],False)
+				priorityQ.append(shortRoute)
+				priorityQ.sort(key=lambda x: x.getCost(),reverse=True)
+				
+			else:
+				value = graph.getValue(prevNode,0)
+				costToAdd = shortRoute.getCost() + value
+				shortRoute.setCost(costToAdd)
+				shortRoute.addCustomer(0,0,False)               
+				routes.append(shortRoute)
+			
+			routes.sort(key=lambda x: x.getCost(),reverse=True)
+			route = routes.pop()
+			finalRoutes.append(route)
+	
+	return finalRoutes
+\end{lstlisting}
+In Listing 6 la firma del metodo è uguale a Listing 5. La  riga 2 estrae la \textit{Demand} dal grafo.
+3 inizializza la priority queue \textit{priorityQ} che conterrà le strade da esplorare, ordinate in base al costo. In riga 4 si inizializza \textit{finalRoutes},la lista di \emph{routes} che sarà ritornata come soluzione. Le righe da 6 a 11 inizializzano il contenitore \textit{cluster} come già abbiamo visto nella procedura precedente. In 8 si inizializza \textit{routes} una variabile di appoggio per rendere disponibile le \emph{route} esplorate anche al di fuori del ciclo. Da 13 a 18 per ogni cliente nel cluster viene creata una \emph{route} deposito $\rightarrow$ cliente, con relativo costo, e aggiunta alla lista \textit{priorityQ}.
+Al di fuori del ciclo alla riga 20 la lista viene ordinata in ordine decrescente. Si prosegue con la riga 22 dove il ciclo while controlla lo stasto della coda \textit{priorityQ}. In 23 si estrae il primo nodo della coda, che equivale alla strada più breve trovata fino a questo punto. Alla riga 22 si estrae l'ultimo nodo servito da \textit{shortRoute}. Da 26 a 30 si utilizza la lista \textit{appoCluster} per collezionare i nodi non ancora collegati a \textit{shortRoute}. In 31 si controlla la lunghezza di  \textit{shortRoute}, se contiene elementi allora si cerca il cliente più vicino a \textit{prevNode} all'interno della lista \textit{appoCluster} in riga 33. Una volta trovato il cliente, lo si aggiunge a \textit{shortRoute}, aggiornando il costo e la domanda: da riga 34 a 36. Si aggiunge la nuova \emph{route} a \textit{priorityQ}, e si ordina in ordine decrescente in 37 e 38.
+Quando la lista \textit{appoCluster} non contiene più elementi si chiude la \emph{route}, aggiungendo come destinazione finale il deposito e aggiornando opportunamente i costi e la domanda: da riga 41 a 44.Infine la strada viene aggiunta a \textit{routes} 45. Quando tutte le strade sono state esploarate e collegate a tutti i nodi del cluster si sceglie la meno costosa, ordinando \textit{routes} in ordine decrescente in 47. Si  estrae la \emph{route} meno costosa in 48, e si aggiunge alla soluzione finale \textit{finalRoutes} in 49. Questa procedura viene svolta per ogni \textit{Kcluster}. Infine si ritorna la soluzione  \textit{finalRoutes}
+
+
+\end{itemize}
+
+
+\subsubsection{Route First, Cluster Second}
+Una procedura inversa rispetto a quella che abbiamo presentato: nella prima fase si tende a costruire una grande unica \emph{route} rilassando il vicolo sulla capacità dei veicoli. Nella fase successiva si reintroduce il vincolo dividendo la singola grande \emph{route} costruita in \emph{route}  più piccole, portando il veicolo al deposito, tali da rispettare il vincolo sulla capacità. Ci sono ovviamente più modi per creare trovare una soluzione con questo metodo: si può scorrere i nodi della singola \emph{route} in ordine e ogni qualvolta la capacità eccede si chiude il tracciato e si inizia dal nodo successivo con una nuova  \emph{route}; oppure si costruisce un grafo ausiliario nel seguente modo: i nodi sono i clienti, gli archi entranti sono composti dal numero massimo di clienti che un veicolo può visitare senza superare la sua capacità compreso il nodo di partenza e di arrivo, il peso degli archi rappresenta i chilometri percorsi dal nodo di partenza al nodo di arrivo.
+La rappresentazione attraverso grafo ausiliario e la conseguente applicazione dell'algoritmo di Dijkastra è l'implementazione  scelta in questo elaborato per quanto riguarda il metodo di raggruppamento route first, cluster second. In \ref{Table:3} un esempio esplicativo.
+\begin{table}
+	\begin{tabular}{c|c}
+		\includegraphics[scale = 0.20]{images/RFSC1.png} & 
+		\includegraphics[scale = 0.20]{images/RFSC2.png}  
+	
+	\end{tabular}
+	\begin{centering}
+		\includegraphics[scale = 0.20]{images/RFSC3.png}\\	
+	\end{centering}
+
+	\caption{Il grafo viene rappresentato escludendo il deposito,i clienti sono distirbuiti in ordine \textbf{topologico}, di conseguenza una volta arrivati al'ultimo nodo sarà sufficente procedere dall'ultimo nodo fino al primo per ricostruire la soluzione. In sostanza ogni arco del grafo rappresenta una \emph{route} l'algoritmo di Dijkastra esplora gli archi che portano al nodo finale minimizzando il costo totale del percorso,in questo caso i kilometri percorsi per ogni \emph{route}. }
+	\label{Table:3}
+\end{table}
+
+\begin{lstlisting}[language=Python, caption=Nearest Neighbourn TrackPath Routing ,escapeinside={(*}{*)}]
+def ClusterFirst_RouteSecond(graph):
+
+	finalRoutes = []
+	capacity = graph.getCapacity()
+	demand = graph.getDemand()
+	dimension = graph.getDimension()
+	dist = [np.inf for i in range(dimension)]
+	nodeQueue= []
+	auxGraph = [(i,Route(capacity)) for i in range(dimension)]
+	
+	#Source Node has 0 cost, in this case route Depot - 1- Depot
+	dist[0] = 0
+	
+	#nodeQueue = [(c+1,dist[c]) for c in range(len(dist))]
+	route = Route(capacity)
+	route.addCustomer(0,demand[0],False)
+	route.addCustomer(1,demand[1],False)
+	route.addCustomer(0,demand[0],False)
+	route.setCost(0)
+	
+	nodeQueue = [(1,0,route)]
+	node = 0
+	nodeQueue.sort(key=lambda x: x[1],reverse=True)
+	
+	while len(nodeQueue)>0:
+		#Give the node in the auxiliary graph that has low cost
+		nodeToexpand = nodeQueue.pop()
+		node = nodeToexpand[0]
+		cost = nodeToexpand[1]
+		#Give the corresponding route, that contain node
+		#auxGraph.pop()
+		#Create each child of the node in the auxiliary graph
+		for j in range(1,dimension):
+			#j child
+			if(j >= node):
+			newRoute = Route(capacity)
+			newRoute.setCost(0)
+			newRoute.addCustomer(0,demand[0],False)
+			control = -3
+				#for each child that not exceed the truck capacity
+				for i in range(node,j+1):
+					#The not is not in the route and it not exceed the truck capacity
+					#Add Node
+					if (newRoute.checkCustomer(i) == -1):
+						control = newRoute.addCustomer(i,demand[i],False)
+						#Update Cost
+						if(control > 0):
+							newRoute.setCost(newRoute.getCost() + graph.getValue(newRoute.getCustomers()[node-i],i))
+						else:                            
+							break
+					#Close the route 
+					if(control > 0):
+					newRoute.setCost(newRoute.getCost() + graph.getValue(j,0))
+					newRoute.addCustomer(0,demand[0],False)
+					if(dist[j] > newRoute.getCost()+ cost):
+					dist[j] = newRoute.getCost() +cost
+		
+
+
 
 \end{lstlisting}
-\item \textbf{Modified Dijkastra}:
-\end{itemize}
-\newpage
+
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}

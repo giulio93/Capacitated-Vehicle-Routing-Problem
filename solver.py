@@ -414,9 +414,6 @@ def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters,saveFold
             if(clusterAssignment[i] == k ):
                 cluster.append(i+1)
 
-        if len(cluster) < 1 :
-            continue
-
         for node in cluster:          
             nodeRoute = Route(graph.getCapacity())
             nodeRoute.addCustomer(0,demand[0],False)
@@ -439,7 +436,9 @@ def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters,saveFold
                 index,value = graph.getNearestNeighbours(prevNode,appoCluster)
                 costToAdd = shortRoute.getCost() + value
                 shortRoute.setCost(costToAdd)
-                shortRoute.addCustomer(appoCluster[index],demand[appoCluster[index]],False)
+                control = shortRoute.addCustomer(appoCluster[index],demand[appoCluster[index]],False)
+                if(control == -1):
+                    print("fail")
                 priorityQ.append(shortRoute)
                 priorityQ.sort(key=lambda x: x.getCost(),reverse=True)
             else:
@@ -448,14 +447,13 @@ def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters,saveFold
                 shortRoute.setCost(costToAdd)
                 shortRoute.addCustomer(0,0,False)               
                 routes.append(shortRoute)
-
+                
         routes.sort(key=lambda x: x.getCost(),reverse=True)
         route = routes.pop()
         route.printRoute("Route")
 
         finalRoutes.append(route)
-    
-   
+       
     return finalRoutes
 
 def ClusterFirst_RouteSecond(graph,saveFolder):
@@ -467,8 +465,6 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
     dist = [np.inf for i in range(dimension)]
     nodeQueue= []
     auxGraph = [(i,Route(capacity)) for i in range(dimension)]
-    
-  
 
     #Source Node has 0 cost, in this case route Depot - 1- Depot
     dist[0] = 0
@@ -527,9 +523,7 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
         node = auxGraph[u]
         u = node[0]
         finalRoutes.append(node[1])
-        
-
-    
+           
     return finalRoutes
 
 def LocalSearch_FlippingPath(route:Route,graph:cvrpGraph,candidate1, candidate2):

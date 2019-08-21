@@ -6,6 +6,6 @@ Route_2: 0-3-22-8-12-0-END
 Route_3: 0-15-23-20-21-13-0-END
 Total Routed Nodes 24
 Using no. Tracks: 4
-Time Horizon: 0.006522655487060547
+Time Horizon: 0.07649350166320801
 Routing Total Cost: 2667.0
 Error of solution in Sol_gr-n24-k4.vrp.txt: 0.2990745250852411

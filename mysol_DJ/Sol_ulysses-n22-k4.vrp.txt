@@ -6,6 +6,6 @@ Route_2: 0-4-14-7-21-0-END
 Route_3: 0-2-1-16-3-17-5-0-END
 Total Routed Nodes 22
 Using no. Tracks: 4
-Time Horizon: 0.009592533111572266
+Time Horizon: 0.09532451629638672
 Routing Total Cost: 160699.0
 Error of solution in Sol_ulysses-n22-k4.vrp.txt: 3.0021667123253555
