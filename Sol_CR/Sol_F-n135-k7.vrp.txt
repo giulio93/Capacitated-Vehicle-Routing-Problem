@@ -22,5 +22,5 @@ Route_18: 0-17-18-19-20-0-END
 Route_19: 0-1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-0-END
 Total Routed Nodes 135
 Using no. Tracks: 20
-Time Horizon: 1.506608009338379
+Time Horizon: 0.7192249298095703
 Routing Total Cost: 2417.329196984628

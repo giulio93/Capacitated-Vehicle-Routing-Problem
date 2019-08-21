@@ -68,8 +68,6 @@ def ClarkeWright(graph,parallel = True):
     print("Clarke & Wright have been evoked!")
 
     dimension = graph.getDimension()
-    demand = graph.getDemand()
-    depot = graph.getDepot()
     savings = []
     for i in range(1,dimension):
         for j in range(1,dimension):
@@ -240,10 +238,8 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
     dimension = graph.getDimension()
     capacity = graph.getCapacity()
     demand = graph.getDemand()
-    depot = graph.getDepot()
     maxCoverDistance = graph.getArgMaxDistance()
     seeds = []
-    treshold = capacity/2
     depotDistance = []
     scaledown = 2
     add = None
@@ -378,9 +374,7 @@ def GAPsolver(graph,k_clusters):
 def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters,saveFolder):
 
     routes = []
-    capacity = graph.getCapacity()
     demand = graph.getDemand()
-    depot = graph.getDepot()
 
     for k in range(len(k_clusters)):
         cluster = []
@@ -403,20 +397,13 @@ def FisherJaikumar_Routing(graph,clusterAssignment,k_clusters,saveFolder):
         appoRoute.addCustomer(0,0,False)
         appoRoute.printRoute("Route cluster:" +str(k))
         routes.append(appoRoute)
-
-    
-    
-    
+  
     return routes
 
 def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters,saveFolder):
 
     finalRoutes = []
-    capacity = graph.getCapacity()
     demand = graph.getDemand()
-    depot = graph.getDepot()
-    dimension = graph.getDimension()
-    dist = np.zeros(dimension)
     priorityQ =[]
     
     for k in range(len(k_clusters)):
@@ -461,13 +448,7 @@ def FisherJaikumar_Routing_Dijkastra(graph,clusterAssignment,k_clusters,saveFold
                 shortRoute.addCustomer(0,0,False)               
                 routes.append(shortRoute)
 
-
-      
-     
-  
-        print("Areo")
         routes.sort(key=lambda x: x.getCost(),reverse=True)
-        #a = np.argmin([r.getCost() for r in routes])
         route = routes.pop()
         route.printRoute("Route")
 
@@ -481,7 +462,6 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
     finalRoutes = []
     capacity = graph.getCapacity()
     demand = graph.getDemand()
-    depot = graph.getDepot()
     dimension = graph.getDimension()
     dist = [np.inf for i in range(dimension)]
     nodeQueue= []
@@ -508,7 +488,6 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
         nodeToexpand = nodeQueue.pop()
         node = nodeToexpand[0]
         cost = nodeToexpand[1]
-        prevRoute =nodeToexpand[2] 
         #Give the corresponding route, that contain node
         #auxGraph.pop()
         #Create each child of the node in the auxiliary graph
@@ -551,7 +530,6 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
 
     
     return finalRoutes
-
 
 def LocalSearch_FlippingPath(route:Route,graph:cvrpGraph,candidate1, candidate2):
 
@@ -624,7 +602,6 @@ def Mutation(children,graph:cvrpGraph,percentage:int):
 
     return mutant
 
-
 def Elitism(population): 
     #toCopy = math.ceil((len(chromosome) * elitism_precentage / 100))
     populSort = population.copy()
@@ -646,15 +623,12 @@ def Tournament(population,random:bool):
     f1,w1 = winners.pop()
     f2,w2 = winners.pop()
     return w1, w2,f1,f2
- 
-
     
 def Crossover(winner1,winner2,graph:cvrpGraph,tabuSearch:bool = False,tabuLister:list = []):
 
     demand = graph.getDemand()
     capacity = graph.getCapacity()
     tabuList = tabuLister
-    ft = Route(capacity)    
     winner1Sequence = []
     winner2Sequence = []
 
@@ -769,7 +743,6 @@ def Crossover(winner1,winner2,graph:cvrpGraph,tabuSearch:bool = False,tabuLister
         return solution1,tabuList,f1
     else:
         return solution2,tabuList,f2
-
 
 def SearchaAndCompleteSequence(solution:[Route],graph:cvrpGraph,verbose:bool=False):
 

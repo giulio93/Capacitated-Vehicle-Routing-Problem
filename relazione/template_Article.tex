@@ -131,7 +131,7 @@ Sono stati implementati i seguenti metodi per risolvere le istanze CVRP:
 \end{itemize}
 
 \newpage
-\subsection{Rappresentazione del problema}
+\subsection{Rappresentazione del problema} \label{RappProb-sec}
 CVRP è la versione più comune dei problemi VRP. Ciò che caratterizza queta tipologia di problemi è il fatto che l servizio è di semplice ocnsgna senza raccolta.
 Inoltre le richieste dei clienti sononote a pripri e deterministiche e devono essere soddisfatte da un solo veicolo; tuti i veicoli sono identici e basati su un singolo deposito centrale. Gli unici vincoli imposti riguardano le capacità di veicoli. L'obbiettivo è minmizzare il costo totale di servizio che può essere una funzione del numero dei route, della lunghezza complessiva o del tempo di percorrenza.
 Consideraimo ora la rappresentazione su grafo di questo problema.
@@ -162,7 +162,7 @@ Definiamo inoltre \emph{$q_{i}$} la richiesta associata ad ogni cliente visitato
 La funzione obbiettivo descritta formalmente è la seguente:
 
 \begin{equation} \label{objF}
-\min \sum_{k \in K} \sum_{(i,j) \in A} c_{i,j} \cdot x_{i,j}^k 
+\min \sum_{k \in K} \sum_{(i,j) \in A} c_{i,j} \cdot M_{i,j}^k 
 \end{equation}
 
 
@@ -188,6 +188,7 @@ al quale sono applicati i seguenti vincoli:
 \begin{equation} \label{v5}
 \sum_{i \in V} M_{i,0}^k = 1 \ \forall k \in K
 \end{equation}
+
 
 
 
@@ -379,7 +380,7 @@ L'algoritmo si svolge in due fasi come abbiamo già detto sopra, in particolare.
 
 
 
-\subsubsection{Fase 1.1 - Radius Radar Frontier}
+\subsubsection{Fase 1.1 - Selezione dei Centroidi}
 
 In questo elaborato per quanto riguarda la Fase 1.1 sono stati implementati due metodi: La selezione casuale e la selezione utilizzando un algoritmo chiamato dall'autore Radar Radius.
 
@@ -477,7 +478,7 @@ L'algoritmo descritto in Listing 3, presenta quanto già descritto formalmente s
 Si inizia con la riga 11 dove il while termina solo quando avrà trovato un numero di centroidi uguale al numero di veicoli. In 13 si effettua un importante controllo: alcune istanze presenti nel dataset fornito in questo elaborato hanno una richiesta uguale per tutti i clienti spesso apri a 1. Di conseguenza se la richiesta è uguale per tutti i clienti, il vincolo sulla capacità può essere evitato, immettendo tutti i clienti come a riga 18. In caso contrario si aggiungono solo quelli che soddisfano il vincolo \ref{RR3} rilassato da scaleDown, righe 14,15,16. In 20 si scorrono tutta la lista di candidati, in 21 accetta solo i candidati con una distanza maggiore o uguale alla distanza massima tra i componenti di \textit{ScannerRadius}. Se troviamo un candidato che rispetta entrambi i controlli,in caso seeds sia vuoto possiamo aggiungerlo direttamente 22 - 26, azzeriamo il suo valore in \textit{ScannerRadius} e aggiorniamo \textit{MaxCoverDistance} con la distanza massima tra il candidato selezionato e il cliente più distante. Altrimenti scorriamo la lista di seeds, se il candidato è distante almeno \textit{MaxCoverDistance} diviso il numero di veicoli e il candidato non è già presente in seeds, lo aggiungiamo a seeds e aggiorniamo di conseguenza \textit{MaxCoverDistance}  righe 28 - -34.In caso contrario aumentiamo il fattore scaleDown e azzeriamo il candidato in \textit{ScannerRadius}. Le righe 40,41,42, vengono eseguire nel caso le richieste dei clienti siano diverse, rilassa il vincolo \ref{RR2} aumentando il bacino di candidati. 
 
 
-\subsubsection{Fase 2.2 General Assignement Problem}
+\subsubsection{Fase 2.2 e 2.3  General Assignement Problem}
 Una volta individuati i centroidi si passa alla Fase 2.2. L'algoritmo deve assegnare ongni cliente ad ogni centroide. Per fare questo l'algoritmo risolve un problema di asseganemtno generale.Si richiede di trovare un assegnamento dei clienti ai cluster tale da non superare la capacità del veicolo assegnato al cluster. Il numero di chilometri totali percorsi dalla soluzione va minimizzato. Più formalmente:
 \[x_{i,k} = \left\{
 \begin{array}{lr}
@@ -552,8 +553,25 @@ def GAPsolver(graph,Kclusters):
 \end{lstlisting}
 
 Listing 4 presenta lo pseudocodice implementato del GAP solver implementato. Alla riga 1 la firma del metodo riceve il graph e i centroidi selezionati con le tecniche descritte nella sezione precedente.Dalla riga 2 alla riga 4 si recuperano le informazioni sul grafo, in 5 si estrae il numero di cluster. \textit{allocCosts} è la lista che conterrà i costi di allocazione di ogni cliente per ogni cluster, alla riga 5 viene inizializzata a 0 e ha dimensione uguale a \textit{Dimension}* \textit{Ncluster}. In 7 viene inizializzata a vuoto la lista \textit{clusterAssignement} che conterrà i nodi assegnati ad ogni cluster. In 8 si inizializzano a 0,il totale di domande soddisfatte per ogni cluster. In 10 vengono calcolati i costi di inserimento di ogni nodo per ogni cluster: \textit{calculateIns(i,k)} calcola i costi come è stato già descritto nella sezione \textbf{\ref{FJ-Sec}}. In 12 si inizializza il puntatore \emph{i} che servirà per puntare alla domanda del nodo corrispondente in \textit{Demands}. 13 e 14 si occupano di scorrere ogni riga di \textit{allocCosts} e al suo interno ogni cluster di \textit{Kcluster}. Il controllo a riga 15, assicura che il cluster con costo di inserimento minimo per il nodo, non superi la capacità prestabilita. Se il controllo viene superato con successo alla riga 16 si aggiorna la domanda totale soddisfatta dal cluster, in 17 si assegan al nodo il cluster e in 18 si incrementa di uno il puntatore. Siccome il nodo è stato assegnato con 19 si passa alla prossima riga di \textit{allocCosts}. Altrimenti, se il controllo a riga 15 fallisce, la riga 21 pone ad infinito il valore minimo calcolato per quel nodo, in modo che nel ciclo seguente si prenda in considerazione il secondo valore minimo calcolato tra quel nodo e un altro cluster, questo viene ripetuto per k in Kclusters.
-Se alla fine dei due cicli, la lunghezza della lista \textit{clusterAssignement} non è pari al numero di nodi scluso il deposito, vuol dire che l'allocazione clienti-clusters non è andata a buon fine. Quindi la soluzione è invalida, sarà necessario aumentare il numero di veicoli e quindi si ritorna -1 . Altrimenti se tutto va bene, si ritorna l'assegnamento attraverso la lista \textit{clusterAssignement}. 
+Se alla fine dei due cicli, la lunghezza della lista \textit{clusterAssignement} non è pari al numero di nodi escluso il deposito, vuol dire che l'allocazione clienti-clusters non è andata a buon fine. Quindi la soluzione è invalida, sarà necessario aumentare il numero di veicoli e quindi si ritorna -1 . Altrimenti se tutto va bene, si ritorna l'assegnamento attraverso la lista \textit{clusterAssignement}. 
 
+\subsubsection{Fase 2 - Routing }
+Ora che gli assegnamenti sono stati decisi, ci dobbiamo preoccupare di collegare i nodi all'interno di ogni cluster, in modo da formare le \emph{routes} necessarie per descrivere la soluzione. La descrizione formale di questo problema è simile a quella già descritta nella sezione  \ref{RappProb-sec}: La funzione obiettivo che descrive questa fase è la seguente:
+\begin{equation} \label{objF2}
+\min \sum_{k \in K} \sum_{(i,j) \in A} c_{i,j} \cdot M_{i,j}^k 
+\end{equation}
+
+\begin{equation} \label{}
+M_{i,j}^k \in \{0,1\}
+\end{equation}
+
+A differenza di ciò che è descritto nella sezione  \ref{RappProb-sec} i vincoli sono già stati rispettati dalla lista di assegnamento fornita dal GAP solver.
+
+In questa elaborato sono state utilizzate due tecniche per implementare il routing:
+\begin{itemize}
+\item \textbf{Nearest Neighbourn}: Partendo dal deposito ci si collega al nodo successivo, si prosegue fino a quando tutti i nodi sono stati collegati.
+\item \textbf{Modified Dijkastra}:
+\end{itemize}
 \newpage
 
 \bibliographystyle{unsrt}
