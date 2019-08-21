@@ -1,11 +1,9 @@
 gr21
 21
-Route_0: 0-1-13-12-10-3-11-0-END
-Route_1: 0-16-9-17-14-19-15-0-END
-Route_2: 0-20-18-0-END
-Route_3: 0-2-8-4-5-7-6-0-END
+Route_0: 0-19-20-17-16-18-15-0-END
+Route_1: 0-14-13-12-9-10-3-11-0-END
+Route_2: 0-1-2-8-4-5-7-6-0-END
 Total Routed Nodes 21
-Using no. Tracks: 4
-Time Horizon: 1565078399.0316675
-Routing Total Cost: 5480.0
-Error of solution in Sol_gr-n21-k3.vrp.txt: 0.4794816414686825Error of solution in Sol_gr-n21-k3.vrp.txt: 0.4794816414686825Error of solution in Sol_gr-n21-k3.vrp.txt: 0.4794816414686825Error of solution in Sol_gr-n21-k3.vrp.txt: 0.4794816414686825Error of solution in Sol_gr-n21-k3.vrp.txt: 0.4794816414686825Error of solution in Sol_gr-n21-k3.vrp.txt: 0.4794816414686825Error of solution in Sol_gr-n21-k3.vrp.txt: 0.4794816414686825Error of solution in Sol_gr-n21-k3.vrp.txt: 0.4794816414686825Error of solution in Sol_gr-n21-k3.vrp.txt: 0.4794816414686825Error of solution in Sol_gr-n21-k3.vrp.txt: 0.4794816414686825Error of solution in Sol_gr-n21-k3.vrp.txt: 0.4794816414686825
+Using no. Tracks: 3
+Time Horizon: 0.009053707122802734
+Routing Total Cost: 4690.0

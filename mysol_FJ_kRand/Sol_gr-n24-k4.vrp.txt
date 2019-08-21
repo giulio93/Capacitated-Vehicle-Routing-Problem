@@ -1,11 +1,10 @@
 gr24
 24
-Route_0: 0-11-9-16-1-13-12-0-END
-Route_1: 0-3-6-7-4-2-8-0-END
-Route_2: 0-20-21-17-18-14-19-0-END
-Route_3: 0-15-5-23-10-22-0-END
+Route_0: 0-3-13-9-1-14-12-8-0-END
+Route_1: 0-15-5-6-7-4-2-10-0-END
+Route_2: 0-11-20-16-21-17-18-19-0-END
+Route_3: 0-23-22-0-END
 Total Routed Nodes 24
 Using no. Tracks: 4
-Time Horizon: 1565078387.471585
-Routing Total Cost: 3127.0
-Error of solution in Sol_gr-n24-k4.vrp.txt: 0.5231368728689723Error of solution in Sol_gr-n24-k4.vrp.txt: 0.5231368728689723Error of solution in Sol_gr-n24-k4.vrp.txt: 0.5231368728689723Error of solution in Sol_gr-n24-k4.vrp.txt: 0.5231368728689723Error of solution in Sol_gr-n24-k4.vrp.txt: 0.5231368728689723Error of solution in Sol_gr-n24-k4.vrp.txt: 0.5231368728689723Error of solution in Sol_gr-n24-k4.vrp.txt: 0.5231368728689723Error of solution in Sol_gr-n24-k4.vrp.txt: 0.5231368728689723Error of solution in Sol_gr-n24-k4.vrp.txt: 0.5231368728689723Error of solution in Sol_gr-n24-k4.vrp.txt: 0.5231368728689723Error of solution in Sol_gr-n24-k4.vrp.txt: 0.5231368728689723
+Time Horizon: 0.0028460025787353516
+Routing Total Cost: 2688.0

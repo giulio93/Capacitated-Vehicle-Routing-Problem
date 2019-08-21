@@ -1,13 +1,12 @@
 bays29
 29
-Route_0: 0-9-3-12-5-11-0-END
-Route_1: 0-15-24-6-22-7-0-END
-Route_2: 0-23-26-18-10-21-0-END
-Route_3: 0-2-1-20-4-8-0-END
-Route_4: 0-28-25-27-0-END
-Route_5: 0-14-17-13-16-19-0-END
+Route_0: 0-12-9-3-13-5-11-0-END
+Route_1: 0-7-23-15-24-6-22-0-END
+Route_2: 0-14-17-16-21-10-18-0-END
+Route_3: 0-20-1-4-8-25-2-0-END
+Route_4: 0-27-26-19-28-0-END
 Total Routed Nodes 29
-Using no. Tracks: 6
-Time Horizon: 1565078410.1763415
-Routing Total Cost: 3908.0
-Error of solution in Sol_bays-n29-k5.vrp.txt: 0.3189335133310834Error of solution in Sol_bays-n29-k5.vrp.txt: 0.3189335133310834Error of solution in Sol_bays-n29-k5.vrp.txt: 0.3189335133310834Error of solution in Sol_bays-n29-k5.vrp.txt: 0.3189335133310834Error of solution in Sol_bays-n29-k5.vrp.txt: 0.3189335133310834Error of solution in Sol_bays-n29-k5.vrp.txt: 0.3189335133310834Error of solution in Sol_bays-n29-k5.vrp.txt: 0.3189335133310834Error of solution in Sol_bays-n29-k5.vrp.txt: 0.3189335133310834Error of solution in Sol_bays-n29-k5.vrp.txt: 0.3189335133310834Error of solution in Sol_bays-n29-k5.vrp.txt: 0.3189335133310834Error of solution in Sol_bays-n29-k5.vrp.txt: 0.3189335133310834
+Using no. Tracks: 5
+Time Horizon: 0.015555620193481445
+Routing Total Cost: 3715.0
+Error of solution in Sol_bays-n29-k5.vrp.txt: 0.25379682753965577

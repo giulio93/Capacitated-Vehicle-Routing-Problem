@@ -1,11 +1,10 @@
 att48
 48
-Route_0: 0-13-11-12-15-9-1-8-16-3-18-7-6-19-17-0-END
-Route_1: 0-14-46-45-43-47-0-END
-Route_2: 0-38-31-21-5-28-2-41-10-24-44-34-25-4-40-0-END
-Route_3: 0-23-39-22-33-32-20-35-27-29-26-42-36-30-37-0-END
+Route_0: 0-38-31-47-5-41-10-24-44-34-25-4-2-46-0-END
+Route_1: 0-14-11-12-15-9-1-8-16-3-20-18-7-6-19-17-0-END
+Route_2: 0-33-40-28-45-0-END
+Route_3: 0-13-23-39-22-37-30-43-35-27-29-26-42-36-32-21-0-END
 Total Routed Nodes 48
 Using no. Tracks: 4
-Time Horizon: 1565078420.5994189
-Routing Total Cost: 63694.27408618422
-Error of solution in Sol_att-n48-k4.vrp.txt: 0.5922772382926909Error of solution in Sol_att-n48-k4.vrp.txt: 0.5922772382926909Error of solution in Sol_att-n48-k4.vrp.txt: 0.5922772382926909Error of solution in Sol_att-n48-k4.vrp.txt: 0.5922772382926909Error of solution in Sol_att-n48-k4.vrp.txt: 0.5922772382926909Error of solution in Sol_att-n48-k4.vrp.txt: 0.5922772382926909Error of solution in Sol_att-n48-k4.vrp.txt: 0.5922772382926909Error of solution in Sol_att-n48-k4.vrp.txt: 0.5922772382926909Error of solution in Sol_att-n48-k4.vrp.txt: 0.5922772382926909Error of solution in Sol_att-n48-k4.vrp.txt: 0.5922772382926909Error of solution in Sol_att-n48-k4.vrp.txt: 0.5922772382926909
+Time Horizon: 0.005328655242919922
+Routing Total Cost: 58980.01313906146

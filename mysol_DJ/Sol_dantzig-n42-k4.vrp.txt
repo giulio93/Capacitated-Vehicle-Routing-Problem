@@ -1,12 +1,11 @@
 dantzig42
 42
-Route_0: 0-40-8-9-10-11-22-12-15-14-13-0-END
-Route_1: 0-16-17-18-19-7-6-2-3-4-1-0-END
-Route_2: 0-39-41-0-END
-Route_3: 0-5-30-29-31-28-27-26-25-21-20-0-END
-Route_4: 0-38-37-36-34-33-32-35-24-23-0-END
+Route_0: 0-33-32-8-9-23-10-11-12-15-14-13-0-END
+Route_1: 0-2-3-4-6-7-22-16-17-18-19-1-0-END
+Route_2: 0-5-30-29-31-28-27-26-25-24-21-20-0-END
+Route_3: 0-41-40-39-38-37-36-34-35-0-END
 Total Routed Nodes 42
-Using no. Tracks: 5
-Time Horizon: 1565078428.1871295
-Routing Total Cost: 1605.0
-Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.4054290718038529Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.4054290718038529Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.4054290718038529Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.4054290718038529Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.4054290718038529Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.4054290718038529Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.4054290718038529Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.4054290718038529Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.4054290718038529Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.4054290718038529Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.4054290718038529
+Using no. Tracks: 4
+Time Horizon: 0.03347635269165039
+Routing Total Cost: 1492.0
+Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.3064798598949212

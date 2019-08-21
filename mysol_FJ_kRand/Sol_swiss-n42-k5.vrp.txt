@@ -1,13 +1,11 @@
 swiss42
 42
-Route_0: 0-31-17-36-35-20-33-39-0-END
-Route_1: 0-27-28-29-30-32-34-38-25-0-END
-Route_2: 0-3-4-6-5-13-12-11-10-0-END
-Route_3: 0-1-26-19-14-16-15-41-40-0-END
-Route_4: 0-2-18-8-9-23-21-24-22-0-END
-Route_5: 0-7-37-0-END
+Route_0: 0-27-28-29-22-38-39-21-25-26-0-END
+Route_1: 0-2-18-8-9-23-24-19-14-16-0-END
+Route_2: 0-1-6-4-5-13-12-11-10-7-0-END
+Route_3: 0-3-15-37-41-40-0-END
+Route_4: 0-32-30-34-20-33-31-17-36-35-0-END
 Total Routed Nodes 42
-Using no. Tracks: 6
-Time Horizon: 1565078386.6406598
-Routing Total Cost: 2752.0
-Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.6498800959232613Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.6498800959232613Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.6498800959232613Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.6498800959232613Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.6498800959232613Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.6498800959232613Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.6498800959232613Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.6498800959232613Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.6498800959232613Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.6498800959232613Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.6498800959232613
+Using no. Tracks: 5
+Time Horizon: 0.004980802536010742
+Routing Total Cost: 2742.0

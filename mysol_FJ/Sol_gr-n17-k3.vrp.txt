@@ -1,11 +1,10 @@
 gr17
 17
-Route_0: 0-6-7-5-2-1-0-END
+Route_0: 0-6-7-5-2-4-1-0-END
 Route_1: 0-16-13-14-10-9-0-END
-Route_2: 0-4-0-END
-Route_3: 0-12-3-8-11-15-0-END
+Route_2: 0-12-3-8-11-15-0-END
 Total Routed Nodes 17
-Using no. Tracks: 4
-Time Horizon: 1565078360.0917633
-Routing Total Cost: 3945.0
-Error of solution in Sol_gr-n17-k3.vrp.txt: 0.4692737430167598Error of solution in Sol_gr-n17-k3.vrp.txt: 0.4692737430167598Error of solution in Sol_gr-n17-k3.vrp.txt: 0.4692737430167598Error of solution in Sol_gr-n17-k3.vrp.txt: 0.4692737430167598Error of solution in Sol_gr-n17-k3.vrp.txt: 0.4692737430167598Error of solution in Sol_gr-n17-k3.vrp.txt: 0.4692737430167598Error of solution in Sol_gr-n17-k3.vrp.txt: 0.4692737430167598Error of solution in Sol_gr-n17-k3.vrp.txt: 0.4692737430167598Error of solution in Sol_gr-n17-k3.vrp.txt: 0.4692737430167598Error of solution in Sol_gr-n17-k3.vrp.txt: 0.4692737430167598Error of solution in Sol_gr-n17-k3.vrp.txt: 0.4692737430167598
+Using no. Tracks: 3
+Time Horizon: 0.0029375553131103516
+Routing Total Cost: 3127.0
+Error of solution in Sol_gr-n17-k3.vrp.txt: 0.16461824953445064

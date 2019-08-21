@@ -361,7 +361,7 @@ In questo elaborato vengo presentati i seguenti metodi di raggruppamento a due f
 	\item Route First,Cluster Second: using an auxiliary graph and Dijkastra
 \end{itemize}
 
-\subsubsection{Algoritmo di Fisher and Jaikumar}
+\subsubsection{Algoritmo di Fisher and Jaikumar} \label{FJ-Sec}
 L'algoritmo di \emph{Fisher and Jaikumar} si basa su un'assunzione il numero di veicoli per servire tutti i clienti è dato da input.
 Inoltre questo metodo non è applicabile direttamente a VRP che hanno vincoli sulla distanze percorribile da parte del veicolo.
 L'algoritmo si svolge in due fasi come abbiamo già detto sopra, in particolare.
@@ -370,18 +370,24 @@ L'algoritmo si svolge in due fasi come abbiamo già detto sopra, in particolare.
  	\begin{enumerate}
 		\item Selezione dei centroidi: scegli un vertice \emph{k} $\in$ \emph{V} t.c. $\mid K \mid$ = \emph{numero veicoli}.
 		\item Calcola il costo di inserimento $c_{i,k}$ del clienti \emph{i} al cluster \emph{k}: \\
-		$c_{i,k} = min(c_{o,i} + c_{i,k}+ c_{k,0} + c_{0,k} + c_{k,i} + c_{i,0}) - (c_{0,k} + c_{k,0})  $ $ \forall k \in K$.
+		$a_{i,k} = min(c_{o,i} + c_{i,k}+ c_{k,0} + c_{0,k} + c_{k,i} + c_{i,0}) - (c_{0,k} + c_{k,0})  $ $ \forall k \in K$.
 		\item Assegnamento Generale: risolvere un \emph{\textbf{G}eneralized \textbf{A}ssignement \textbf{P}roblem} con i costi $c_{i,k} $ $ \forall i \in V , \forall k \in K$, le richieste dei clienti \emph{D} e la capacità prestabilita \emph{C}.
  	\end{enumerate}
  \item Fase 2 - Routing: risolvere un TSP per ogni cluster.
  
 \end{itemize}
 
+
+
+\subsubsection{Fase 1.1 - Radius Radar Frontier}
+
 In questo elaborato per quanto riguarda la Fase 1.1 sono stati implementati due metodi: La selezione casuale e la selezione utilizzando un algoritmo chiamato dall'autore Radar Radius.
 
 \begin{itemize}
-\item Selezione casuale dei centroidi: vengono scelti casualmente un numero di centroidi uguale al numero di veicoli.
-\item Selezione con Radar Radius Frontier: 
+	\item Selezione casuale dei centroidi: vengono scelti casualmente un numero di centroidi uguale al numero di veicoli.
+	\item Selezione con Radius Radar Frontier:
+\end{itemize}  
+
 \begin{equation}  \label{RR1}
 max \sum_{i \in K} c_{i,0} \ 
 \end{equation}
@@ -401,7 +407,6 @@ I vicoli \ref{RR2} e \ref{RR3} durante l'esecuzione vengono rilassati ad ogni es
 
 
 
-\end{itemize}
 
 \newpage
 
@@ -469,10 +474,87 @@ def RadarRadiusFrontier(graph,n_vehicles):
 				
 \end{lstlisting}
 L'algoritmo descritto in Listing 3, presenta quanto già descritto formalmente sopra. Dalla riga 2 alla 4 si riportano le informazioni acquisite dal grafo, in 5 si inizializza il fattore di scala applicato ad ogni ciclo, che verrà aggiornato rilassando così il vincolo \ref{RR3}. In 6 si estraggono le distanze di ogni cliente dal deposito,in 7 si inizializza seeds, il contenitore di centroidi. In 8 si crea una copia di \textit{DepotDistance} andando così a creare \textit{ScannerRadius} che sarà utilizzato poi per ridurre il raggio del radar del deposito. 9 \textit{MaxCoverDistance} rappresenta la distanza massima tra centroidi e clienti.
-Si inizia con la riga 11 dove il while termina solo quando avrà trovato un numero di centroidi uguale al numero di veicoli. In 13 si effettua un importante controllo: alcune istanze presenti nel dataset fornito in questo elaborato hanno una richiesta uguale per tutti i clienti spesso apri a 1. Di conseguenza se la richiesta è uguale per tutti i clienti, il vincolo sulla capacità può essere evitato, immettendo tutti i clienti come a riga 18. In caso contrario si aggiungono solo quelli che soddisfano il vincolo \ref{RR3} rilassato da scaleDown, righe 14,15,16. In 20 si scorrono tutta la lista di candidati, in 21 accetta solo i candidati con una distanza maggiore o uguale alla distanza massima tra i componenti di \textit{ScannerRadius}. Se troviamo un candidato che rispetta entrambi i controlli,in caso seeds sia vuoto possiamo aggiungerlo direttamente 22 - 26, azzeriamo il suo valore in \textit{ScannerRadius} e aggiorniamo \textit{MaxCoverDistance} con la distanza massima tra il candidato selezionato e il cliente più distante. Altrimenti scorriamo la lista di seeds, se il candidato è distante almeno \textit{MaxCoverDistance} diviso il numero di veicoli e il candidato non è già presente in seeds, lo aggiungiamo a seeds e aggiorniamo di conseguenza \textit{MaxCoverDistance} 
+Si inizia con la riga 11 dove il while termina solo quando avrà trovato un numero di centroidi uguale al numero di veicoli. In 13 si effettua un importante controllo: alcune istanze presenti nel dataset fornito in questo elaborato hanno una richiesta uguale per tutti i clienti spesso apri a 1. Di conseguenza se la richiesta è uguale per tutti i clienti, il vincolo sulla capacità può essere evitato, immettendo tutti i clienti come a riga 18. In caso contrario si aggiungono solo quelli che soddisfano il vincolo \ref{RR3} rilassato da scaleDown, righe 14,15,16. In 20 si scorrono tutta la lista di candidati, in 21 accetta solo i candidati con una distanza maggiore o uguale alla distanza massima tra i componenti di \textit{ScannerRadius}. Se troviamo un candidato che rispetta entrambi i controlli,in caso seeds sia vuoto possiamo aggiungerlo direttamente 22 - 26, azzeriamo il suo valore in \textit{ScannerRadius} e aggiorniamo \textit{MaxCoverDistance} con la distanza massima tra il candidato selezionato e il cliente più distante. Altrimenti scorriamo la lista di seeds, se il candidato è distante almeno \textit{MaxCoverDistance} diviso il numero di veicoli e il candidato non è già presente in seeds, lo aggiungiamo a seeds e aggiorniamo di conseguenza \textit{MaxCoverDistance}  righe 28 - -34.In caso contrario aumentiamo il fattore scaleDown e azzeriamo il candidato in \textit{ScannerRadius}. Le righe 40,41,42, vengono eseguire nel caso le richieste dei clienti siano diverse, rilassa il vincolo \ref{RR2} aumentando il bacino di candidati. 
 
 
-Una volta individuati i centroidi si passa alla Fase 2.2, L'algoritmo risolve un 
+\subsubsection{Fase 2.2 General Assignement Problem}
+Una volta individuati i centroidi si passa alla Fase 2.2. L'algoritmo deve assegnare ongni cliente ad ogni centroide. Per fare questo l'algoritmo risolve un problema di asseganemtno generale.Si richiede di trovare un assegnamento dei clienti ai cluster tale da non superare la capacità del veicolo assegnato al cluster. Il numero di chilometri totali percorsi dalla soluzione va minimizzato. Più formalmente:
+\[x_{i,k} = \left\{
+\begin{array}{lr}
+1 :se i \ assegnato \ al \ cluster \ k \\
+0 :altrimenti
+\end{array}
+\right.
+\]
+
+\begin{equation} \label{GAP1}
+min \sum_{i \in V} \sum_{k \in K} x_{i,k} \cdot a_{i,k} 
+\end{equation}
+
+\begin{equation} \label{GAP2}
+ \sum_{k \in K} x_{i,k} = 1 \ \forall i
+\end{equation}
+
+\begin{equation} \label{GAP3}
+\sum_{i \in V} d_{i}  \cdot x_{i,k} \leq C \ \forall k
+\end{equation}
+
+\begin{equation} \label{GAP3}
+x_{i,k} \in \{0,1\}
+\end{equation}
+
+
+\begin{table}
+	\begin{tabular}{c|c|c}
+		\includegraphics[scale = 0.13]{images/CL-FJ-a} & 
+		\includegraphics[scale = 0.13]{images/FJ_CL.png}  & 
+		\includegraphics[scale = 0.13]{images/FJ_R.png}\\	
+	\end{tabular}
+	\caption{Un esempio di risoluzione GAP una volta scelto i centroidi. A sinistra vengono calcolati i costi di inserimento per ogni vertice in ogni cluster. In centro avviene l'assegnamento, associando ogni nodo al cluster che ha un costo di inserimento minore. A destra si prosegue con il routing di ogni cluster: in questo caso si usa l'algoritmo Nearest Neighbor partendo dal deposito e proseguendo verso il nodo più vicino appartenente al cluster, si prosegue per vicinanza collegando il resto dei nodi in ogni singolo cluster.}
+	\label{Table:2}
+\end{table}
+
+\pagebreak
+
+\begin{lstlisting}[language=Python, caption=General Assignement Problem solver ,escapeinside={(*}{*)}]
+def GAPsolver(graph,Kclusters):
+	Dimension = graph.getDimension()
+	Capacity = graph.getCapacity()
+	Demands:list = graph.getDemands()
+	Nclusters = len(Kclusters)
+	allocCosts:[list,list] = [(*$ allocCosts_{i,k} = 0 \ \forall i \in V \wedge k \in Nclusters $*)]
+	clusterAssignement:list = []
+	clusterDemand:list =  [(*$ clusterDemand_{k} = 0 \ k \in Kclusters $*)]
+	
+	allocCosts:list = [(*$ allocCosts_{i,k} =calculateIns(i,k) \ \forall i \in V \wedge k \in Nclusters $*)]
+	
+	i=1
+	for alloc in allocCosts:
+		for k in Kclusters:
+			if(clusterDemand[argmin(alloc)] + Demands[i] < Capacity):
+				clusterDemand[argmin(alloc)] =+ Demands[i]
+				clusterAssignment.append(np.argmin(alloc))
+				i++
+				break
+			else:
+				alloc[argmin(alloc)] = np.inf
+				print("Cluster Overloaded")
+
+	if(len(clusterAssignment)<Dimension-1):
+		print("Solution is Invalid")
+		return -1
+	else:
+		return clusterAssignment
+			
+				
+					
+			
+\end{lstlisting}
+
+Listing 4 presenta lo pseudocodice implementato del GAP solver implementato. Alla riga 1 la firma del metodo riceve il graph e i centroidi selezionati con le tecniche descritte nella sezione precedente.Dalla riga 2 alla riga 4 si recuperano le informazioni sul grafo, in 5 si estrae il numero di cluster. \textit{allocCosts} è la lista che conterrà i costi di allocazione di ogni cliente per ogni cluster, alla riga 5 viene inizializzata a 0 e ha dimensione uguale a \textit{Dimension}* \textit{Ncluster}. In 7 viene inizializzata a vuoto la lista \textit{clusterAssignement} che conterrà i nodi assegnati ad ogni cluster. In 8 si inizializzano a 0,il totale di domande soddisfatte per ogni cluster. In 10 vengono calcolati i costi di inserimento di ogni nodo per ogni cluster: \textit{calculateIns(i,k)} calcola i costi come è stato già descritto nella sezione \textbf{\ref{FJ-Sec}}. In 12 si inizializza il puntatore \emph{i} che servirà per puntare alla domanda del nodo corrispondente in \textit{Demands}. 13 e 14 si accupano di scorrere ogni riga di \textit{allocCosts} e al suo interno ogni cluster di \textit{Kcluster}.
+
+\newpage
+
 \bibliographystyle{unsrt}
 \bibliography{biblio}
 

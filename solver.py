@@ -34,7 +34,6 @@ def writeResult(routes,graph,started_time,saveFolder):
     print("Routing Total Cost: "+ str(totSolCost)+"\n")
     print ("time: " + str (time.time () - started_time))   
 
-
 def printResult(folderSol,folderRes):
 
     #path='./mysol_DJ_kRand'
@@ -64,7 +63,6 @@ def printResult(folderSol,folderRes):
                                             print("Error of solution in "+sol + ": "+ str(float(error))+ "==> Stimated: " +str(stimated) + " ==> optimal: "+str(actual) )
                                             f.write("Error of solution in "+sol + ": "+ str(float(error)))
                                             resume.write("Error of solution in "+sol + ": "+ str(float(error))+ "\n")
-
 
 def ClarkeWright(graph,parallel = True):
     print("Clarke & Wright have been evoked!")
@@ -237,8 +235,6 @@ def Parallel_CW(routes,savings,graph:cvrpGraph):
 
     return routes
 
- 
-
 def FisherJaikumar_Kselector(graph,n_vehicles):
 
     dimension = graph.getDimension()
@@ -266,12 +262,13 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
                     candidates.append(i)
         else:
             candidates = np.arange(dimension)
-
-        for c in sorted(candidates):           
+        touch = False
+        for c in sorted(candidates):         
             if(depotDistance[c] >= np.max(scannerRadius)):
                 if len(seeds) == 0:
                     seeds.append(c)
                     scannerRadius[c] = 0
+                    touch = True
                     #depotDistance[c] = 0
                     maxCoverDistance = graph.getArgMaxNodeDistance(c)
                     break
@@ -288,12 +285,13 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
                     if(len(seeds)< n_vehicles):      
                         seeds.append(c)
                         scannerRadius[c] = 0
+                        touch = True
                         #depotDistance[c] = 0
-                        if(maxCoverDistance < graph.getArgMaxNodeDistance(c)):
-                            maxCoverDistance = graph.getArgMaxNodeDistance(c)
+                        # if(maxCoverDistance < graph.getArgMaxNodeDistance(c)):
+                        maxCoverDistance = graph.getArgMaxNodeDistance(c)
                         break
                 else:
-                    scaledown = scaledown + 0.5
+                    scaledown = scaledown + 0.2
                     if (sum(demand) == dimension-1):
                         if(c in seeds):
                             continue
@@ -302,9 +300,11 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
                             #depotDistance[c] = 0
                             continue
 
-        if ( sum(demand) != dimension-1 and add==False):
+        if ( sum(demand) != dimension-1 and touch == False):
             print("Decrease Radious")
             scannerRadius[np.argmax(scannerRadius)] = 0
+            #scaledown = scaledown + 0.5
+
       
         print(np.max(scannerRadius))
 
@@ -358,7 +358,7 @@ def GAPsolver(graph,k_clusters):
     i = 1
     for alloc in allocCosts[1:]:
         for k  in k_clusters:
-                if(cluster_demand[np.argmin(alloc)] + demand[i] < capacity):
+                if(cluster_demand[np.argmin(alloc)] + demand[i] <= capacity):
                     cluster_demand[np.argmin(alloc)] += demand[i]
                     clusterAssignment.append(np.argmin(alloc))
                     i=i+1
@@ -367,9 +367,9 @@ def GAPsolver(graph,k_clusters):
                     alloc[np.argmin(alloc)] = np.inf
                     print("Cluster Overloaded")
 
-        #Devo tenere conto che la capacità di un cluster non deve eccedere
-        #Ok, ma se i cluster non bastano? Se le route sono 6 ma i cluster sono 5?
+    #Controllo se tutti i clienti sono stati serviti da un veicoli.
     if(len(clusterAssignment)<graph.getDimension()-1):
+        #La soluzione è invalida, è necessario aumentare il numero di veicoli.
         print("Solution is Invalid")
         return -1
     else:
