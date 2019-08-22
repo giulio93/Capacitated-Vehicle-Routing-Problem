@@ -16,7 +16,7 @@ G.~Reinelt.
 \newblock {\em Institut fur Angewandte Mathematik}, 1990.
 
 \bibitem{CK1}
-J.W Clarke, G. &~Wright.
+Clarke G. and Wright J.W.
 \newblock Scheduling of vehicles from a central depot to a number of delivery
   points.
 \newblock {\em perations Research, Vol. 12, 1964, pp. 568-581}.
@@ -51,7 +51,14 @@ M.L. Fisher and R.~Jaikumar.
 
 \bibitem{GA}
 D.E: Goldberg.
-\newblock Genetic algorithm in search, optimization and machine learning".
+\newblock Genetic algorithm in search, optimization and machine learning.
 \newblock {\em New York Addison- Wesley}.
+
+\bibitem{OCR}
+Krunoslav Puljic.
+\newblock Comparison of eight evolutionary crossover operators for the vehicle
+  routing problem.
+\newblock {\em Department of Mathematics, University of Zagreb, Bijenička
+  cesta 30, HR-10 000Zagreb, Croatia}.
 
 \end{thebibliography}

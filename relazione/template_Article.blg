@@ -18,45 +18,46 @@ while executing---line 944 of file unsrt.bst
 Warning--empty year in sweep
 Warning--empty year in FJ
 Warning--empty year in GA
-You've used 10 entries,
+Warning--empty year in OCR
+You've used 11 entries,
             1791 wiz_defined-function locations,
-            491 strings with 4760 characters,
-and the built_in function-call counts, 1380 in all, are:
-= -- 104
-> -- 56
+            496 strings with 4959 characters,
+and the built_in function-call counts, 1528 in all, are:
+= -- 115
+> -- 64
 < -- 0
-+ -- 24
-- -- 14
-* -- 52
-:= -- 249
-add.period$ -- 29
-call.type$ -- 10
-change.case$ -- 10
++ -- 27
+- -- 16
+* -- 59
+:= -- 275
+add.period$ -- 32
+call.type$ -- 11
+change.case$ -- 11
 chr.to.int$ -- 0
-cite$ -- 17
-duplicate$ -- 77
-empty$ -- 145
-format.name$ -- 14
-if$ -- 290
+cite$ -- 19
+duplicate$ -- 85
+empty$ -- 159
+format.name$ -- 16
+if$ -- 321
 int.to.chr$ -- 0
-int.to.str$ -- 10
-missing$ -- 9
-newline$ -- 52
-num.names$ -- 10
-pop$ -- 41
+int.to.str$ -- 11
+missing$ -- 10
+newline$ -- 57
+num.names$ -- 11
+pop$ -- 45
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 34
+skip$ -- 38
 stack$ -- 0
 substring$ -- 0
-swap$ -- 10
+swap$ -- 11
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 7
-while$ -- 10
-width$ -- 12
-write$ -- 93
+warning$ -- 8
+while$ -- 11
+width$ -- 13
+write$ -- 102
 (There were 2 error messages)

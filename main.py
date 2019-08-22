@@ -138,6 +138,7 @@ if __name__ == "__main__":
               
           if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
              print("Invalid! " +str(fittingCrossover))
+             continue
           else:
             popEra.append((fittingCrossover,children))
           
@@ -151,6 +152,7 @@ if __name__ == "__main__":
             if(fittingMutation < mutantChild[0]):
               if(sol.SearchaAndCompleteSequence(mutant,graphToSolve)):
                   print("Invalid! " +str(fittingCrossover))
+                  continue
               else:
                   popEra.append((fittingMutation,mutant))
                   print("CROSSOVER + MUTATION  HARD ==> "+str(fittingMutation))
@@ -170,6 +172,7 @@ if __name__ == "__main__":
             if(fittingMutation < mutantChild[0]):
               if(sol.SearchaAndCompleteSequence(mutantChild[1],graphToSolve)):
                 print("Invalid! " +str(fittingCrossover))
+                continue
               else:
                 popEra.append((fittingMutation,mutantChild[1]))
                 print("CROSSOVER + MUTATION FLIPPING  ==> "+str(fittingMutation))
