@@ -116,7 +116,7 @@ if __name__ == "__main__":
             print("Invalid! ")
           else:
             population.append((sum([c.getCost() for c in chromosome]),chromosome))
-        else:
+        #else:
           #n_vehicles = n_vehicles + 1
             
       #Stop Criterion
