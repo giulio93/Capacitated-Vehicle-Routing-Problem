@@ -3,8 +3,7 @@
 \BOOKMARK [1][-]{section.2}{Related Works}{}% 3
 \BOOKMARK [1][-]{section.3}{Materiali e Metodi}{}% 4
 \BOOKMARK [2][-]{subsection.3.1}{Metodi Costruttivi}{section.3}% 5
-\BOOKMARK [2][-]{subsection.3.2}{Algoritmo di Savings di Clarke and Wright}{section.3}% 6
-\BOOKMARK [3][-]{subsubsection.3.2.1}{Sequenziale e Parallelo }{subsection.3.2}% 7
-\BOOKMARK [2][-]{subsection.3.3}{Metodi di Raggruppamento \(Clustering\)}{section.3}% 8
-\BOOKMARK [3][-]{subsubsection.3.3.1}{Algoritmo di Fisher and Jaikumar}{subsection.3.3}% 9
-\BOOKMARK [3][-]{subsubsection.3.3.2}{Route First, Cluster Second}{subsection.3.3}% 10
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Algoritmo di Savings di Clarke and Wright}{subsection.3.1}% 6
+\BOOKMARK [2][-]{subsection.3.2}{Metodi di Raggruppamento \(Clustering\)}{section.3}% 7
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Algoritmo di Fisher and Jaikumar}{subsection.3.2}% 8
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Route First, Cluster Second}{subsection.3.2}% 9

@@ -7,4 +7,4 @@ Total Routed Nodes 16
 Using no. Tracks: 3
 Time Horizon: 0.053375959396362305
 Routing Total Cost: 116272.0
-Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.813196904105995
+Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.813196904105995Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.813196904105995Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.813196904105995Error of solution in Sol_ulysses-n16-k3.vrp.txt: 2.813196904105995

@@ -8,4 +8,4 @@ Total Routed Nodes 42
 Using no. Tracks: 4
 Time Horizon: 0.3891720771789551
 Routing Total Cost: 1486.0
-Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.30122591943957966
+Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.30122591943957966Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.30122591943957966Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.30122591943957966Error of solution in Sol_dantzig-n42-k4.vrp.txt: 0.30122591943957966

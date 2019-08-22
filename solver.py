@@ -474,9 +474,9 @@ def ClusterFirst_RouteSecond(graph,saveFolder):
     route.addCustomer(0,demand[0],False)
     route.addCustomer(1,demand[1],False)
     route.addCustomer(0,demand[0],False)
-    route.setCost(0)
+    route.setCost(graph.getValue(0,1) + graph.getValue(1,0))
 
-    nodeQueue = [(1,0,route)]
+    nodeQueue = [(1,route.getCost(),route)]
     node = 0
     nodeQueue.sort(key=lambda x: x[1],reverse=True)
 
@@ -636,10 +636,6 @@ def Crossover(winner1,winner2,graph:cvrpGraph,tabuSearch:bool = False,tabuLister
     winner1Sequence = [y for x in winner1Sequence for y in x if y!=0]
     winner2Sequence += [p.getCustomers() for p in winner2]
     winner2Sequence = [y for x in winner2Sequence for y in x if y!=0]
-
-    #winner1Sequence = [1 ,2 ,3 , 5 ,4 ,6 ,7 , 8 ,9]
-    #winner2Sequence = [4 ,5 ,2 , 1 ,8, 7 ,6 , 9 ,3]
-
 
     crossover_point1 = np.random.randint(int(len(winner1Sequence)/4),(int(len(winner1Sequence)/2)))
     crossover_point2 = np.random.randint(int(len(winner1Sequence)/2),(int(len(winner1Sequence)/2) +int(len(winner1Sequence)/4)))

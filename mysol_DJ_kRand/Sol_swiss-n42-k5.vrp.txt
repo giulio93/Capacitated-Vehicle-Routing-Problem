@@ -9,4 +9,4 @@ Total Routed Nodes 42
 Using no. Tracks: 5
 Time Horizon: 0.23177027702331543
 Routing Total Cost: 2376.0
-Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.4244604316546763
+Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.4244604316546763Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.4244604316546763Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.4244604316546763Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.4244604316546763

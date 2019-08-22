@@ -8,4 +8,4 @@ Total Routed Nodes 29
 Using no. Tracks: 4
 Time Horizon: 0.11825275421142578
 Routing Total Cost: 2990.0
-Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.4585365853658537
+Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.4585365853658537Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.4585365853658537Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.4585365853658537Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.4585365853658537

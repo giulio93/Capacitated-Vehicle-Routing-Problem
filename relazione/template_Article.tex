@@ -228,7 +228,7 @@ Un metodo in questa categoria costruisce le strade per i veicoli mentre cerca di
 L'algoritmo di Savings di Clarke and Wright \cite{CK1}, trova una soluzione utilizzando un'euristica, quindi il risultato non è sempre la soluzione ottima, ma dovrebbe risultare mol+to vicina all'ottimo con un risparmio di tempo computazionale elevato rispetto ad un algoritmo brute force.
 
 
-\subsection{Algoritmo di Savings di Clarke and Wright}
+\subsubsection{Algoritmo di Savings di Clarke and Wright}
 L'algoritmo si basa su una coda ordinata di risparmi, detta anche \emph{savings list}.
 Ogni record della coda è ottenuto collegando due \emph{route} che non hanno nodi in comune eccetto il deposito.
 Dall'unione si ottiene una singola \emph{route}, come mostrato nella figura \ref{fig:saving}, dove il nodo 0 rappresenta il deposito.
@@ -256,7 +256,7 @@ Ora il costo di trasporto risparmiato detto \emph{saving distance} per visitare 
 D_{a} = D_{a} +D_{b} =+ C_{i,0} +  C_{0,j} +  C_{i,j} 
 \end{equation}
 
-\subsubsection{Sequenziale e Parallelo }
+\paragraph{Sequenziale e Parallelo } \hfill
 La distanza risparmiata è direttamente proporzionale alla vicinanza dei clienti e inversamente proporzionale alla vicinanza al deposito.
 Più grande è la distanza risparmiata più vicini si troveranno i clienti, e più distanti essi saranno dal deposito.
 Le coppie di clienti sono ordiate in ordine decrescente secondo il valore di \emph{savings} che è stato calcolato sulla coppia.
@@ -666,7 +666,7 @@ Quando la lista \textit{appoCluster} non contiene più elementi si chiude la \em
 
 \subsubsection{Route First, Cluster Second}
 Una procedura inversa rispetto a quella che abbiamo presentato: nella prima fase si tende a costruire una grande unica \emph{route} rilassando il vicolo sulla capacità dei veicoli. Nella fase successiva si reintroduce il vincolo dividendo la singola grande \emph{route} costruita in \emph{route}  più piccole, portando il veicolo al deposito, tali da rispettare il vincolo sulla capacità. Ci sono ovviamente più modi per creare trovare una soluzione con questo metodo: si può scorrere i nodi della singola \emph{route} in ordine e ogni qualvolta la capacità eccede si chiude il tracciato e si inizia dal nodo successivo con una nuova  \emph{route}; oppure si costruisce un grafo ausiliario nel seguente modo: i nodi sono i clienti, gli archi entranti sono composti dal numero massimo di clienti che un veicolo può visitare senza superare la sua capacità compreso il nodo di partenza e di arrivo, il peso degli archi rappresenta i chilometri percorsi dal nodo di partenza al nodo di arrivo.
-La rappresentazione attraverso grafo ausiliario e la conseguente applicazione dell'algoritmo di Dijkastra è l'implementazione  scelta in questo elaborato per quanto riguarda il metodo di raggruppamento route first, cluster second. In \ref{Table:3} un esempio esplicativo.
+La rappresentazione attraverso grafo ausiliario e la conseguente applicazione dell'algoritmo di Dijkastra è l'implementazione  scelta in questo elaborato per quanto riguarda il metodo di raggruppamento route first, cluster second. In Table \ref{Table:3} un esempio esplicativo.
 \begin{table}
 	\begin{tabular}{c|c}
 		\includegraphics[scale = 0.20]{images/RFSC1.png} & 
@@ -681,69 +681,66 @@ La rappresentazione attraverso grafo ausiliario e la conseguente applicazione de
 	\label{Table:3}
 \end{table}
 
-\begin{lstlisting}[language=Python, caption=Nearest Neighbourn TrackPath Routing ,escapeinside={(*}{*)}]
+\begin{lstlisting}[language=Python, caption=Route First Cluster Second con grafo ausiliario e Dijkastra  ,escapeinside={(*}{*)}]
 def ClusterFirst_RouteSecond(graph):
-
-	finalRoutes = []
-	capacity = graph.getCapacity()
-	demand = graph.getDemand()
-	dimension = graph.getDimension()
-	dist = [np.inf for i in range(dimension)]
-	nodeQueue= []
-	auxGraph = [(i,Route(capacity)) for i in range(dimension)]
+	Capacity = graph.getCapacity()
+	Demands = graph.getDemands()
+	Dimension = graph.getDimension()
+	dist:list = [(*$ dist_v =  \infty \ \forall v \in V $*)]
+	nodeQueue:list= []
+	finalRoutes:list = []
+	auxGraph = [(*$auxGraph_v =(i,Route(Capacity))  \ \forall v \in V$*) ]
 	
-	#Source Node has 0 cost, in this case route Depot - 1- Depot
-	dist[0] = 0
-	
-	#nodeQueue = [(c+1,dist[c]) for c in range(len(dist))]
+	dist[0] = 0	
 	route = Route(capacity)
 	route.addCustomer(0,demand[0],False)
 	route.addCustomer(1,demand[1],False)
 	route.addCustomer(0,demand[0],False)
-	route.setCost(0)
+ 	route.setCost(graph.getValue(0,1) + graph.getValue(1,0))
 	
-	nodeQueue = [(1,0,route)]
+	nodeQueue = [(1,route.getCost(),route)]
 	node = 0
 	nodeQueue.sort(key=lambda x: x[1],reverse=True)
 	
-	while len(nodeQueue)>0:
-		#Give the node in the auxiliary graph that has low cost
+	while (len(nodeQueue)>0):
 		nodeToexpand = nodeQueue.pop()
 		node = nodeToexpand[0]
 		cost = nodeToexpand[1]
-		#Give the corresponding route, that contain node
-		#auxGraph.pop()
-		#Create each child of the node in the auxiliary graph
+	
 		for j in range(1,dimension):
-			#j child
 			if(j >= node):
-			newRoute = Route(capacity)
-			newRoute.setCost(0)
-			newRoute.addCustomer(0,demand[0],False)
-			control = -3
-				#for each child that not exceed the truck capacity
+				newRoute = Route(capacity)
+				newRoute.setCost(0)
+				newRoute.addCustomer(0,demand[0],False)
 				for i in range(node,j+1):
-					#The not is not in the route and it not exceed the truck capacity
-					#Add Node
-					if (newRoute.checkCustomer(i) == -1):
-						control = newRoute.addCustomer(i,demand[i],False)
-						#Update Cost
-						if(control > 0):
-							newRoute.setCost(newRoute.getCost() + graph.getValue(newRoute.getCustomers()[node-i],i))
-						else:                            
-							break
-					#Close the route 
-					if(control > 0):
+					if (i is not in newRoute and do not overload newRoute):
+						newRoute.addCustomer(i)
+						newRoute.setCost(newRoute.getCost()+ newRoute.getCost(lastNode,i))
+					else:                            
+						break
+						
 					newRoute.setCost(newRoute.getCost() + graph.getValue(j,0))
-					newRoute.addCustomer(0,demand[0],False)
+					newRoute.addCustomer(0)
 					if(dist[j] > newRoute.getCost()+ cost):
-					dist[j] = newRoute.getCost() +cost
+						dist[j] = newRoute.getCost() +cost
+						nodeQueue.append((j+1,dist[j],newRoute))
+						auxGraph[j] = (node-1,newRoute)
+						nodeQueue.sort(key=lambda x: x[1],reverse=True)
+					else: break	
+	
+	u = len(auxGraph)-1
+	while (u != 0):
+		node = auxGraph[u]
+		u = node[0]
+		finalRoutes.append(node[1])
+	
+	return finalRoutes				
 		
-
-
-
 \end{lstlisting}
-
+Listing 7 mostra alla riga 1 al firma del metodo, la quale richiede come input solo il grafo. In questo metodo non è possibile scegliere a priori il nuemro di veicoli, in quanto dipende da come viene gestito l'algoritmo di routing. Dalla riga 2 alla riga 4 si estraggono le informazioni dal grafo come abbiamo già visto precedentemente.Ala riga 5 si inizializza la lista di \textit{dist}, ovvero la lista che contiene i nodi e per ogni nodo assegna il corrispettivo numero totale di chilometri per raggiungere il nodo. In riga 6 si inizializza \textit{nodeQueue} la coda che contiene per ogni elemento, il nodo, la distanza percorsa per raggiungerlo e la \emph{route} utilizzata per raggiungere il nodo. In 7 si inizializza \textit{finalRoutes} la lista di \emph{route} che conterrà la nostra soluzione. A riga 8 viene inizializzato il grafo ausiliario \textit{auxGraph} che contiene per ogni elemento: il nodo e la strada utilizzata per raggiungerlo.
+A riga 10 \texttt{dist[0]} viene assegnato a  \emph{0}, questo valore non verrà mai utlizzato durante tutta l'esecuzione dell'algoritmo, serve solamente per mantenere una coerenza con gli indici dei vertici \emph{V}. Di conseguenza dalla riga 11 alla 15 di crea la strada corrispondente al nodo sorgente, con costo uguale a 0. In 17 si inizializza \textit{nodeQueue} con il nodo sorgente, la distanza pari a alla lunghezza di  \emph{route}  e la \emph{route} corrispondente.
+In 18 si inizializza la variabile \textit{node} in 19 si ordina in ordine decrescente \textit{nodeQueue}. Alla riga 21 il \texttt{while} si occupa di scorre tutta la lista \textit{nodeQueue}, fino al suo esaurimento. In 22 si estrae il nodo dalla coda \textit{nodeQueue} con costo minore, in 23 viene inserito l'indice identificativo del nodo , mentre in 24 viene riposto il suo costo. Il \texttt{for} a riga 26 crea tutti i figli del nodo, rispettando l'ordine topologico garantito dal controllo a riga 27. Per ogni figlio si crea una \emph{route} che parte dal deposito, inizializzando il costo a \emph{0}, righe da 28 a 30. Alla riga 31 il ciclo \texttt{for} scorre tutti i nodi tra il nodo estratto  \textit{node} e il figlio \emph{j+1}, 32 controlla se \emph{i} non è presente nella \textit{newRoute} e non supera il vincolo di capacità, le righe 33 e 34 lo aggiungono aggiornando il costo di \textit{newRoute} di conseguenza.
+Altrimenti in si esce dal ciclo con 36, in 38 e 39 si chiude la strada. In 40 si verifica l'aggiornamento del costo dei figli esplorati confrontando il costo per arrivare la nodo figlio \textit{j} con il costo di \textit{newRoute} sommato al costo del percorso già effettuato per arrivare al nodo padre \textit{cost}. Se \textit{dist[j]} risulta maggiore, si aggiorna con il nuovo costo in 41. In 42 si aggiorna \textit{nodeQueue} con \textit{j+1} il nodo dove l'arco entra, costo dell'arco nella lista \textit{dist[j]} per arrivare al nodo  e \textit{newRoute} il collegamento tra \textit{node} e \textit{j+1}. Una volta terminato di esplorare tutti gli elementi presenti nella coda \textit{nodeQueue}, si procede estreendo l'ultimo elemento del grafo in ordine topologico e fino a quando non si arriva al nodo sorgente si risale il grafo ausiliario, percorrendo e salvando gli archi in \textit{finalRoutes}, componendo così la soluzione finale. In 53 si ritorna \textit{finalRoutes}.
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}

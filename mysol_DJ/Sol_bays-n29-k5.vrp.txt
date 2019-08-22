@@ -9,4 +9,4 @@ Total Routed Nodes 29
 Using no. Tracks: 5
 Time Horizon: 0.16095829010009766
 Routing Total Cost: 3715.0
-Error of solution in Sol_bays-n29-k5.vrp.txt: 0.25379682753965577
+Error of solution in Sol_bays-n29-k5.vrp.txt: 0.25379682753965577Error of solution in Sol_bays-n29-k5.vrp.txt: 0.25379682753965577Error of solution in Sol_bays-n29-k5.vrp.txt: 0.25379682753965577Error of solution in Sol_bays-n29-k5.vrp.txt: 0.25379682753965577
