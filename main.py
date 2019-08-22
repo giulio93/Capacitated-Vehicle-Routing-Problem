@@ -117,7 +117,7 @@ if __name__ == "__main__":
           else:
             population.append((sum([c.getCost() for c in chromosome]),chromosome))
         else:
-          n_vehicles = n_vehicles + 1
+          #n_vehicles = n_vehicles + 1
             
       #Stop Criterion
       while(era < Eras):

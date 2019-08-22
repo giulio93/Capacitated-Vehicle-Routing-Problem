@@ -817,18 +817,15 @@ del vertice corrispondente. L’intero 0, rappresentante il deposito, può
 comparire più volte nella stringa ed è spesso utilizzato come carattere
 separatore tra i route.
 
-\paragraph{Riproduzione}\hfill
-Si utilizza il metodo di selezione dei centroidi casuale congiunto all'algoritmo di routing Nearest Neoghbourn, già presentato nella sezione precedente.
 
 
 \begin{lstlisting}[language=Python, caption=Algoritmo Genetico ,escapeinside={(*}{*)}]
 def GeneticAlgorithm(graph):
 	DemandsTot = graph.getTotalDemand() 
 	Capacity = graph.getCapacity()
-	mutationRate = 10
-	n_population = 100
-	population = []
-	elitismList =[]
+	mutationRate = 1
+	Npopulation = 100
+	population:list = []
 	Eras = 40
 	era = 0
 	
@@ -863,7 +860,9 @@ def GeneticAlgorithm(graph):
 				popEra.sort(key=lambda x:x[0],reverse=True)	
 						
 			if (np.random.randint(1,100) <= mutationRate):
-			    mutantChild = popEra[0]
+			    if(len(popEra)>0):
+			    	mutantChild = popEra[0]
+			    else: break 
 				for route in mutantChild[1]:
 					c1 = randomCustomer(route.getCustomers())
 					c2 = randomCustomer(route.getCustomers())
@@ -875,6 +874,19 @@ def GeneticAlgorithm(graph):
 					else
 						popEra.append((fittingMutation,mutantChild[1]))
 						print("CROSSOVER + MUTATION FLIPPING  ==> "+str(fittingMutation))
+						
+			if (np.random.randint(1,100) <= mutationRate):
+			if(len(popEra)>0):
+				mutantChild = popEra[0]
+			else: break 
+			mutant = sol.Mutation(mutantChild[1],graphToSolve,1)
+			fittingMutation = sum([m.getCost() for m in mutant])
+			if(fittingMutation < mutantChild[0]):
+				if(sol.SearchaAndCompleteSequence(mutant,graphToSolve)):
+					print("Invalid! " +str(fittingCrossover))
+				else:
+					popEra.append((fittingMutation,mutant))
+					print("CROSSOVER + MUTATION  HARD ==> "+str(fittingMutation))
 			
 			popEra.sort(key=lambda x:x[0],reverse=True)
 			best = [popEra.pop() for i in range(int(len(popEra)/2))]			
@@ -889,6 +901,13 @@ def GeneticAlgorithm(graph):
 		sol.writeResult(bestGeneticSolution,graphToSolve,start_time,"mysol_Genetic")
 			
 \end{lstlisting}
+
+\begin{enumerate}
+\item \textbf{Riproduzione} Si utilizza il metodo di selezione dei centroidi casuale congiunto all'algoritmo di routing Nearest Neoghbourn, già presentato nella sezione precedente.
+Alla riga 2 e 3 si estraggono le informazioni necessari dal grafo. Alla riga 4 e 5 si settano i parametri \textit{mutationRate} e \textit{Npopulation} che definiscono rispettivamente, la probabilità che un cromosoma subisca una mutazione e la grandezza della popolazione di cromosomi. Alla riga 6 si inizializza la lista che conterrà la popolazione di cromosomi. In 7 e8 si inizializza il numero di ere a cui ogni popolazione sarà sottomessa. Il numero di veicoli è stimato con un lower bound: la domanda totale diviso la capacità di un singolo veicolo, riga 10. Alla riga 12 il ciclo \texttt{for} scandisce il numero della popolazione, al suo interno alla riga 13 e 14, si scelgono casualmente i centroidi e si risolve il \textit{GAP} corrispondente. Se l'assegnamento risolto è valido, si procede con il \emph{routing} da parte dell'algorimo \texttt{Nearest Neightbourn}
+
+\end{enumerate}
+
 
 
 
