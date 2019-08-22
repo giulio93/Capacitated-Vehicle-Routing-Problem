@@ -801,13 +801,11 @@ denti ;
 tazione ai cromosomi discendenti;
 \item  \textbf{Rinnovo generazionale} - A partire da \emph{$X^t$} , si crea la popolazione \emph{$X^t+1$} rimuovendo le 2k peggiori soluzioni e sostituendole con le 2k generate nelle k precedenti applicazioni dei passi elencati.
 \end{itemize}
-Al termine delle T iterazioni, si prende come soluzione finale la mi-
+Al termine delle \emph{T} iterazioni, si prende come soluzione finale la mi-
 gliore dell’ultima generazione.
-Ciò che contraddistingue questo paradigma è l’assoluta generalità del-
-la sua specifica. Cosı̀ come è stato descritto, infatti, esso può essere
+Ciò che contraddistingue questo paradigma è l’assoluta generalità della sua specifica. Così come è stato descritto, infatti, esso può essere
 applicato a diverse tipologie di problema. Il punto chiave riguarda, in
-realtà, la definizione degli operatori di crossover e mutazione, che neces-
-sariamente si differenzieranno a seconda del problema affrontato. Inoltre,
+realtà, la definizione degli operatori di crossover e mutazione, che necessariamente si differenzieranno a seconda del problema affrontato. Inoltre,
 bisogna definire come una soluzione ad un determinato problema deve
 essere codificata in una stringa di bit, imponendo quindi una serie di
 regole per l’ammissibilità delle stringhe/soluzioni.
@@ -818,6 +816,46 @@ la posizione dell’intero nella stringa indica l’ordine di visita, nel route,
 del vertice corrispondente. L’intero 0, rappresentante il deposito, può
 comparire più volte nella stringa ed è spesso utilizzato come carattere
 separatore tra i route.
+
+\paragraph{Riproduzione}\hfill
+Si utilizza il metodo di selezione dei centroidi casuale congiunto all'algoritmo di routing Nearest Neoghbourn, già presentato nella sezione precedente.
+
+
+\begin{lstlisting}[language=Python, caption=Route First Cluster Second con grafo ausiliario e Dijkastra  ,escapeinside={(*}{*)}]
+def GeneticAlgorithm():
+	mutationRate = 10
+	n_population = 100
+	population = []
+	elitismList =[]
+	Eras = 40
+	era = 0
+	n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))           
+	
+	for i in range(n_population):
+		K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
+		GAPassignementRand = GAPsolver(graphToSolve,K_clusterRand)
+	
+		if(GAPassignementRand != -1):
+			chromosome = FisherJaikumar_NearestNeightbourn(graphToSolve,GAPassignementRand,K_clusterRand) 
+			if(SearchaAndCompleteSequence(chromosome,graphToSolve)):
+				print("Invalid! ")
+			else:
+				population.append((sum([c.getCost() for c in chromosome]),chromosome))
+		else:
+			n_vehicles = n_vehicles + 1
+	while(era<Eras):
+		for k in range(len(population)/2):
+			winner1,winner2 ,f1,f2= Tournament(population)   
+			children,fittingCrossover = sol.Crossover(winner1,winner2,graphToSolve)\\
+			
+			
+			
+			
+						
+
+\end{lstlisting}
+
+
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}

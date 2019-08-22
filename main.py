@@ -136,10 +136,11 @@ if __name__ == "__main__":
               continue
           print("CROSSOVER ==> "+str(fittingCrossover))
       
-          popEra.append((fittingCrossover,children))
+         
           if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
              print("Invalid! " +str(fittingCrossover))
           else:
+            popEra.append((fittingCrossover,children))
             popEra.sort(key=lambda x:x[0],reverse=True)
             mutantChild = popEra[0]
 
