@@ -96,7 +96,7 @@ if __name__ == "__main__":
 
       start_time = time.time ()
       #Parameters setting: percentage of Elitism, threshold of improving fitting, number of cromosome
-      mutationRate = 10
+      mutationRate = 1
       n_population = 100
       population = []
       elitismList =[]
