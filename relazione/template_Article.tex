@@ -837,7 +837,6 @@ def GeneticAlgorithm(graph):
 	for i in range(n_population):
 		K_clusterRand = [(*$random(1,Dimension-1) ] \ \forall v \in Nvehicles $*)]
 		GAPassignementRand = GAPsolver(graphToSolve,K_clusterRand)
-	
 		if(GAPassignementRand != -1):
 			chromosome = NearestNeightbourn(graphToSolve,GAPassignementRand,K_clusterRand) 
 			if(SearchaAndCompleteSequence(chromosome,graphToSolve)):
@@ -846,28 +845,29 @@ def GeneticAlgorithm(graph):
 				population.append((sum([c.getCost() for c in chromosome]),chromosome))
 		else:
 			n_vehicles = n_vehicles + 1
+			
 	while(era<Eras):
 		toKeep = Elitism(Population)
 		popEra:list = []
+		
 		for k in range(len(population)/2):
+		
 			winner1,winner2 ,f1,f2= Tournament(population)   
 			children,fittingCrossover = sol.Crossover(winner1,winner2,graphToSolve)
 			if (fittingCrossover>f1 or fittingCrossover>f2):
-				continue
-				
+				continue			
 			if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
 				print("Invalid! " +str(fittingCrossover))
 			else:
 				popEra.append((fittingCrossover,children))
-				popEra.sort(key=lambda x:x[0],reverse=True)
-			
+				popEra.sort(key=lambda x:x[0],reverse=True)	
+						
 			if (np.random.randint(1,100) <= mutationRate):
 			    mutantChild = popEra[0]
 				for route in mutantChild[1]:
-					c1 = randomCustomer(route.getCustomers()))
-					c2 = randomCustomer((route.getCustomers()))
-					route = sol.LocalSearch_FlippingPath(route,graphToSolve,c1,c2)
-					
+					c1 = randomCustomer(route.getCustomers())
+					c2 = randomCustomer(route.getCustomers())
+					route = sol.LocalSearch_FlippingPath(route,graphToSolve,c1,c2)					
 				fittingMutation = MutantChild[1].routeCost()
 				if(fittingMutation < mutantChild[0]):
 					if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
@@ -888,12 +888,6 @@ def GeneticAlgorithm(graph):
 		bestGeneticSolution = population.pop()[1]    
 		sol.writeResult(bestGeneticSolution,graphToSolve,start_time,"mysol_Genetic")
 			
-			
-			
-			
-			
-						
-
 \end{lstlisting}
 
 
