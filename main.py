@@ -145,7 +145,7 @@ if __name__ == "__main__":
           if (np.random.randint(1,100) <= mutationRate):
             popEra.sort(key=lambda x:x[0],reverse=True)
             if(len(popEra)>0):
-              mutantChild = popEra[0]
+              mutantChild = popEra.pop()
             else: break 
             mutant = sol.Mutation(mutantChild[1],graphToSolve,1)
             fittingMutation = sum([m.getCost() for m in mutant])
@@ -160,7 +160,7 @@ if __name__ == "__main__":
           if (np.random.randint(1,100) <= mutationRate):
             popEra.sort(key=lambda x:x[0],reverse=True)
             if(len(popEra)>0):
-              mutantChild = popEra[0]
+              mutantChild = popEra.pop()
             else: break
 
             for route in mutantChild[1]:

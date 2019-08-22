@@ -909,6 +909,7 @@ Successivamente si eseguono le operazioni di \textit{Ricombinazione} e \textit{R
 
 \item  \textbf{Elitarismo}:
 Per ogni era si salva il cromosoma migliore all'interno della popolazione. Questo viene reintrodotto nelle generazioni future, oppure riutilizzato durante i crossover e le mutazioni.Alla riga 24 si inizializza \textit{popEra} che conterrà gli elementi geneticamente modificati di  \textit{population}.
+
 \item \textbf{Ricombinazione (Crossover)}
 Alla riga 26 scandisce il numero di volte che la popolazione subirà un editing genetico, in questa implementazione \emph{h=N/2}. La riga successiva 28 estrae i due candidati, per fare ciò chiama il metodo \texttt{Tournament} che data come input la popolazione, ritorna due candidati, in questo metodo di default ritorna due candidati random, ma è possibile specificare se si vuole il migliore e il peggiore della popolazione. Alla riga 29, si applica la ricombinazione attraverso l'istruzione \texttt{Crossover} che prende in input i due candidati e il grafo.
 La ricombinazione funziona in questo modo: copia una parte di soluzione estratta dal primo candidato all'interno del nuovo cromosoma e definisce il resto della soluzione seguendo l'ordine di visita del secondo candidato, ovviamente senza inserire doppioni. Più precisamente, i cromosomi rappresentano le soluzioni come lunghe sequenze di clienti intervallate dal deposito \emph{0} le sequenze hanno la stessa lunghezza essendo soluzioni dello stesso grafo. Si individuano due punti dove tagliare le soluzioni, la parte di soluzione  appartenente al primo candidato compresa tra questi due punti sarà copiata all'interno del nuovo cromosoma, disponendola nella stessa posizione da cui è stata copiata. Le posizioni rimanenti sono riempite una alla volta , partendo dal secondo punto di taglio fino alla fine del secondo candidato e successivamente partendo dall'inizio fino al primo punto di taglio sempre del secondo candidato, fino al completamento della soluzione.
@@ -933,10 +934,13 @@ Se scambiamo i ruoli di \emph{$p_1$} e \emph{$p_2$} otteniamo il  secondo figlio
 \end{center}
 
 Solo il cromosoma figlio con il minor numero di chilometri trascorsi viene aggiunto a \textit{popEra} 
+
+
+Tornando al nostro pseudocodice, alla linea 30 si controlla se la soluzione ritornata da \texttt{Crossover} è migliore di almeno uno dei due candidati, in caso contrario si va direttamente alla prossima era 31, in caso contrario si controlla se la soluzione è valida  con il metodo \texttt{earchAndComleteSequence} a riga 32. Se la soluzione è valida viene aggiunta alla \textit{popEra} e la lista di conseguenza riordinata.
+
+\item \textbf{Mutazione}
+
 \end{enumerate}
-
-
-
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
