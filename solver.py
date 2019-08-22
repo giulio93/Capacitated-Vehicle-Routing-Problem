@@ -725,7 +725,7 @@ def Crossover(winner1,winner2,graph:cvrpGraph,tabuSearch:bool = False,tabuLister
         tabuState = f2
 
     if(tabuSearch == True and int(tabuState) in tabuList):
-            print("TABULISTED ==> " +str(int(tabuState))) 
+            #print("TABULISTED ==> " +str(int(tabuState))) 
             return Crossover(winner1,winner2,graph,tabuList)
     else:            
         tabuList.append(int(tabuState))

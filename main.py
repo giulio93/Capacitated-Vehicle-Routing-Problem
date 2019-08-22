@@ -153,9 +153,9 @@ if __name__ == "__main__":
             fittingMutation = sum([m.getCost() for m in mutantChild[1]])
             if(fittingMutation < mutantChild[0]):
               popEra.append((fittingMutation,mutantChild[1]))
+              print("CROSSOVER + MUTATION ==> "+str(fittingMutation))
             if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
               print("Invalid! " +str(fittingCrossover))
-            print("CROSSOVER + MUTATION ==> "+str(fittingMutation))
 
         popEra.sort(key=lambda x:x[0],reverse=True)
         best = [popEra.pop() for i in range(int(len(popEra)/2))]
