@@ -822,21 +822,24 @@ Si utilizza il metodo di selezione dei centroidi casuale congiunto all'algoritmo
 
 
 \begin{lstlisting}[language=Python, caption=Route First Cluster Second con grafo ausiliario e Dijkastra  ,escapeinside={(*}{*)}]
-def GeneticAlgorithm():
+def GeneticAlgorithm(graph):
+	DemandsTot = graph.getTotalDemand() 
+	Capacity = graph.getCapacity()
 	mutationRate = 10
 	n_population = 100
 	population = []
 	elitismList =[]
 	Eras = 40
 	era = 0
-	n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))           
+	
+	n_vehicles = int( math.ceil(DemandsTot/Capacity))           
 	
 	for i in range(n_population):
-		K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
+		K_clusterRand = [(*$random(1,Dimension-1) ] \ \forall v \in Nvehicles $*)]
 		GAPassignementRand = GAPsolver(graphToSolve,K_clusterRand)
 	
 		if(GAPassignementRand != -1):
-			chromosome = FisherJaikumar_NearestNeightbourn(graphToSolve,GAPassignementRand,K_clusterRand) 
+			chromosome = NearestNeightbourn(graphToSolve,GAPassignementRand,K_clusterRand) 
 			if(SearchaAndCompleteSequence(chromosome,graphToSolve)):
 				print("Invalid! ")
 			else:
@@ -857,7 +860,34 @@ def GeneticAlgorithm():
 			else:
 				popEra.append((fittingCrossover,children))
 				popEra.sort(key=lambda x:x[0],reverse=True)
-				
+			
+			if (np.random.randint(1,100) <= mutationRate):
+			    mutantChild = popEra[0]
+				for route in mutantChild[1]:
+					c1 = randomCustomer(route.getCustomers()))
+					c2 = randomCustomer((route.getCustomers()))
+					route = sol.LocalSearch_FlippingPath(route,graphToSolve,c1,c2)
+					
+				fittingMutation = MutantChild[1].routeCost()
+				if(fittingMutation < mutantChild[0]):
+					if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
+						print("Invalid! " +str(fittingCrossover))
+					else
+						popEra.append((fittingMutation,mutantChild[1]))
+						print("CROSSOVER + MUTATION FLIPPING  ==> "+str(fittingMutation))
+			
+			popEra.sort(key=lambda x:x[0],reverse=True)
+			best = [popEra.pop() for i in range(int(len(popEra)/2))]			
+			population.substituteBestChildren(best)
+			
+			if toKeep not in population:
+				population.append(toKeep)
+				era = era + 1
+			
+		population.sort(key= lambda x: x[0], reverse = True)
+		bestGeneticSolution = population.pop()[1]    
+		sol.writeResult(bestGeneticSolution,graphToSolve,start_time,"mysol_Genetic")
+			
 			
 			
 			

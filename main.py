@@ -140,9 +140,7 @@ if __name__ == "__main__":
              print("Invalid! " +str(fittingCrossover))
           else:
             popEra.append((fittingCrossover,children))
-            popEra.sort(key=lambda x:x[0],reverse=True)
-            mutantChild = popEra[0]
-
+          
           # if (np.random.randint(1,100) <= mutationRate):
           #   # for route in mutantChild[1]:
           #   #     c1 = np.random.randint(1,len(route.getCustomers())-1)
@@ -158,6 +156,9 @@ if __name__ == "__main__":
           #     print("Invalid! " +str(fittingCrossover))
 
           if (np.random.randint(1,100) <= mutationRate):
+            popEra.sort(key=lambda x:x[0],reverse=True)
+            mutantChild = popEra[0]
+
             for route in mutantChild[1]:
                 c1 = np.random.randint(1,len(route.getCustomers())-1)
                 c2 = np.random.randint(1,len(route.getCustomers())-1)
