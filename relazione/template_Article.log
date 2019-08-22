@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.6)  22 AUG 2019 17:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.6)  22 AUG 2019 18:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -848,24 +848,24 @@ Overfull \hbox (16.52594pt too wide) in paragraph at lines 790--792
 one
  []
 
-[16] [17] (./template_Article.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 949.
- [18]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 949.
+[16] [17] (./template_Article.bbl [18])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 952.
+ [19]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 952.
  (./template_Article.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 949.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 949.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 952.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 952.
 Package rerunfilecheck Info: File `template_Article.out' has not changed.
 (rerunfilecheck)             Checksum: 2F4BAFC7ABC0AE9BB9DCE348C494C1B8;843.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 949.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 952.
  ) 
 Here is how much of TeX's memory you used:
- 9174 strings out of 494923
- 127525 string characters out of 6180743
+ 9175 strings out of 494923
+ 127520 string characters out of 6180743
  409552 words of memory out of 5000000
  11975 multiletter control sequences out of 15000+600000
  9543 words of font info for 34 fonts, out of 8000000 for 9000
@@ -893,10 +893,10 @@ st/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts
 ts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on template_Article.pdf (18 pages, 1296883 bytes).
+Output written on template_Article.pdf (19 pages, 1298671 bytes).
 PDF statistics:
- 771 PDF objects out of 1000 (max. 8388607)
- 693 compressed objects within 7 object streams
- 421 named destinations out of 1000 (max. 500000)
+ 776 PDF objects out of 1000 (max. 8388607)
+ 697 compressed objects within 7 object streams
+ 422 named destinations out of 1000 (max. 500000)
  174 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -850,10 +850,10 @@ def GeneticAlgorithm(graph):
 		for k in range(len(population)/2):
 		
 			winner1,winner2 ,f1,f2= Tournament(population)   
-			children,fittingCrossover = sol.Crossover(winner1,winner2,graphToSolve)
+			children,fittingCrossover = Crossover(winner1,winner2,graphToSolve)
 			if (fittingCrossover>f1 or fittingCrossover>f2):
 				continue			
-			if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
+			if(SearchaAndCompleteSequence(children,graphToSolve)):
 				print("Invalid! " +str(fittingCrossover))
 			else:
 				popEra.append((fittingCrossover,children))
@@ -866,31 +866,31 @@ def GeneticAlgorithm(graph):
 				for route in mutantChild[1]:
 					c1 = randomCustomer(route.getCustomers())
 					c2 = randomCustomer(route.getCustomers())
-					route = sol.LocalSearch_FlippingPath(route,graphToSolve,c1,c2)					
+					route = FlippingPath(route,graphToSolve,c1,c2)					
 				fittingMutation = MutantChild[1].routeCost()
 				if(fittingMutation < mutantChild[0]):
-					if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
+					if(SearchaAndCompleteSequence(children,graphToSolve)):
 						print("Invalid! " +str(fittingCrossover))
 					else
 						popEra.append((fittingMutation,mutantChild[1]))
 						print("CROSSOVER + MUTATION FLIPPING  ==> "+str(fittingMutation))
 						
 			if (np.random.randint(1,100) <= mutationRate):
-			if(len(popEra)>0):
-				mutantChild = popEra[0]
-			else: break 
-			mutant = sol.Mutation(mutantChild[1],graphToSolve,1)
-			fittingMutation = sum([m.getCost() for m in mutant])
-			if(fittingMutation < mutantChild[0]):
-				if(sol.SearchaAndCompleteSequence(mutant,graphToSolve)):
-					print("Invalid! " +str(fittingCrossover))
-				else:
-					popEra.append((fittingMutation,mutant))
-					print("CROSSOVER + MUTATION  HARD ==> "+str(fittingMutation))
-			
-			popEra.sort(key=lambda x:x[0],reverse=True)
-			best = [popEra.pop() for i in range(int(len(popEra)/2))]			
-			population.substituteBestChildren(best)
+				if(len(popEra)>0):
+					mutantChild = popEra[0]
+				else: break 
+				mutant = Mutation(mutantChild[1],graphToSolve,1)
+				fittingMutation = sum([m.getCost() for m in mutant])
+				if(fittingMutation < mutantChild[0]):
+					if(SearchaAndCompleteSequence(mutant,graphToSolve)):
+						print("Invalid! " +str(fittingCrossover))
+					else:
+						popEra.append((fittingMutation,mutant))
+						print("CROSSOVER + MUTATION  HARD ==> "+str(fittingMutation))
+				
+				popEra.sort(key=lambda x:x[0],reverse=True)
+				best = [popEra.pop() for i in range(int(len(popEra)/2))]			
+				population.substituteBestChildren(best)
 			
 			if toKeep not in population:
 				population.append(toKeep)
@@ -939,6 +939,9 @@ Solo il cromosoma figlio con il minor numero di chilometri trascorsi viene aggiu
 Tornando al nostro pseudocodice, alla linea 30 si controlla se la soluzione ritornata da \texttt{Crossover} è migliore di almeno uno dei due candidati, in caso contrario si va direttamente alla prossima era 31, in caso contrario si controlla se la soluzione è valida  con il metodo \texttt{earchAndComleteSequence} a riga 32. Se la soluzione è valida viene aggiunta alla \textit{popEra} e la lista di conseguenza riordinata.
 
 \item \textbf{Mutazione}
+Il controllo a riga 38, estrae un numero a random e se questo è minore alla percentuale segnalata da \textit{mutationRate}, la soluzione peggiore all'interno della popolazione, controllando che popEra non sia vuota: righe 39 a 41. Il ciclo a riga 42 scorre tutte le \emph{route} della soluzione , al suo interno vengono scelti due clienti random, quindi viene chiamato il metodo \texttt{FlippingPath}: 43,44,45.
+Il metodo dato in input, \emph{route} , il grafo e i due clienti, li scambia di posto all'interno della stessa \emph{route} riconnettendo i clienti con i rispettivi nuovi vicini. Da 47 a 52 si effettuano i controlli necessari per assicurarsi che la nuova soluzione sia valida e che questa sia migliore rispetto alla soluzione di partenza.
+Un altra mutazione messa in atto è quella presente nel blocco da riga 54 a riga 65, il blocco di codice è simile a quello precedente se non per la riga 58 dove viene chiamato il metodo \texttt{Mutation}
 
 \end{enumerate}
 
