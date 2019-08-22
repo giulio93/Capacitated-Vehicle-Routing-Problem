@@ -111,7 +111,7 @@ if __name__ == "__main__":
         #K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)           
         #GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
         if(GAPassignementRand != -1):
-          chromosome = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRand,K_clusterRand,"trash") 
+          chromosome = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRand,K_clusterRand,"trash") 
           if(sol.SearchaAndCompleteSequence(chromosome,graphToSolve)):
             print("Invalid! ")
           else:
@@ -132,7 +132,10 @@ if __name__ == "__main__":
           winner1,winner2 ,f1,f2= sol.Tournament(population,True)   
           if (np.random.randint(1,100) <= 1):
              f1, winner1 = toKeep
+            
           children, tabuLister , fittingCrossover = sol.Crossover(winner1,winner2,graphToSolve,True)
+          if (fittingCrossover>f1 or fittingCrossover>f2):
+              continue
           print("CROSSOVER ==> "+str(fittingCrossover))
       
           popEra.append((fittingCrossover,children))
