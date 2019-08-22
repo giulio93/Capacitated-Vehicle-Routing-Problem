@@ -96,7 +96,7 @@ if __name__ == "__main__":
 
       start_time = time.time ()
       #Parameters setting: percentage of Elitism, threshold of improving fitting, number of cromosome
-      mutationRate = 1
+      mutationRate = 10
       n_population = 100
       population = []
       elitismList =[]
@@ -119,8 +119,6 @@ if __name__ == "__main__":
         else:
           n_vehicles = n_vehicles + 1
             
-
-
       #Stop Criterion
       while(era < Eras):
         print("Welcome to the ==> " + str(era) +" Era!")
@@ -145,10 +143,11 @@ if __name__ == "__main__":
             popEra.sort(key=lambda x:x[0],reverse=True)
             mutantChild = popEra[0]
           if (np.random.randint(1,100) <= mutationRate):
-            for route in mutantChild[1]:
-                c1 = np.random.randint(1,len(route.getCustomers())-1)
-                c2 = np.random.randint(1,len(route.getCustomers())-1)
-                route = sol.LocalSearch_FlippingPath(route,graphToSolve,c1,c2)
+            # for route in mutantChild[1]:
+            #     c1 = np.random.randint(1,len(route.getCustomers())-1)
+            #     c2 = np.random.randint(1,len(route.getCustomers())-1)
+            #     route = sol.LocalSearch_FlippingPath(route,graphToSolve,c1,c2)
+            mutantChild[1] = sol.Mutation(mutantChild[1],graph,1)
 
             fittingMutation = sum([m.getCost() for m in mutantChild[1]])
             if(fittingMutation < mutantChild[0]):

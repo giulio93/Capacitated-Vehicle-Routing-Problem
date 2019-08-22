@@ -2,8 +2,10 @@
 \BOOKMARK [2][-]{subsection.1.1}{Rappresentazione del problema}{section.1}% 2
 \BOOKMARK [1][-]{section.2}{Related Works}{}% 3
 \BOOKMARK [1][-]{section.3}{Materiali e Metodi}{}% 4
-\BOOKMARK [2][-]{subsection.3.1}{Metodi Costruttivi}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Metodi Euristici Costruttivi}{section.3}% 5
 \BOOKMARK [3][-]{subsubsection.3.1.1}{Algoritmo di Savings di Clarke and Wright}{subsection.3.1}% 6
-\BOOKMARK [2][-]{subsection.3.2}{Metodi di Raggruppamento \(Clustering\)}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.2}{Metodi Euristici di Raggruppamento \(Clustering\)}{section.3}% 7
 \BOOKMARK [3][-]{subsubsection.3.2.1}{Algoritmo di Fisher and Jaikumar}{subsection.3.2}% 8
-\BOOKMARK [3][-]{subsubsection.3.2.2}{Route First, Cluster Second}{subsection.3.2}% 9
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Metodo Euristico Route First, Cluster Second}{subsection.3.2}% 9
+\BOOKMARK [2][-]{subsection.3.3}{Metodi metaeuristici}{section.3}% 10
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Algoritmo Genetico}{subsection.3.3}% 11

@@ -215,15 +215,32 @@ Questo studio investiga e compara le performance dei metodi costruttivi e di rag
 In particolare, nell'algoritmo di Fisher and Jaikumar, è stato implementato un algoritmo per la selezione dei centroidi chiamato Radar-Radius.Questo  massimizza la distanza tra centroidi (inter-centroid distance) e la distanza tra i centroidi e il deposito in modo da garantire la migliore copertura, a seconda della distribuzione del deposito e dei clienti.
 Questo algoritmo è stato implementato scegliendo un deposito per ogni istanza in TSPLIB95,solitamente il deposito con id identificativo 1.
 Sono stati usati due metodi diversi per realizzare il routing tra i clienti di uno stesso cluster: Nearest Neighbourn e Dijkastra.
-I raggruppamenti formati dai metodi di clustering sono successivamente sottomesse a tecniche di ottimizzazione del routing.
-In particolare è stato implementato un Algoritmo Genetico  \textbf{(GA)} \cite{GA}, i quali sono famosi algoritmi utilizzati per risolvere istanze Travelling Salesman Problem (TSP).
+I raggruppamenti formati dai metodi di clustering sono successivamente ottimizzate da metodi metaeuristici, in questa implementazione viene presentato un Algoritmo Genetico  \textbf{(GA)} \cite{GA}, il quale è un famoso approccio utilizzato per risolvere istanze Travelling Salesman Problem (TSP).
 \textbf{Bensi i metodi costruttivi generano già delle soluzioni molto vicino all'ottimo, l'algoritmo Genetico è applicato anche al Savings algorithm per avere una misura di performance.}
 
 
 
 
 \section{Materiali e Metodi}
-\subsection{Metodi Costruttivi}
+Lo sviluppo di algoritmi euristici è mirato a fornire una soluzione di buona
+qualità ad un problema difficile con un limitato tempo di calcolo. Nella
+maggior parte dei casi infatti, non si ha il tempo neccessario per applicare
+metodi esatti.
+In questo senso ci vengono in aiuto gli algoritmi euristici, che im-
+piegano tempi di calcolo relativamente ristretti per fornire soluzioni di
+buona qualità. Laport e Semet hanno fornito una classificazione di que-
+sti metodi, distinguendo tra euristici classici e metaeuristici; la differen-
+za principale sta nel livello di profondità che questi metodi raggiungono
+nell’esplorazione dello spazio delle soluzioni. Mentre gli euristici classici
+ottengono buone soluzioni con limitati tempi di calcolo, i metaeuristici
+approfondiscono la ricerca della soluzione ottima nelle zone più promet-
+tenti dello spazio delle soluzioni, implementando sofisticate regole di ri-
+cerca e di ricombinazione dei risultati parziali ottenuti. Questi metodi,
+seppur impiegando un tempo di risoluzione maggiore, ottengono soluzio-
+ni migliori rispetto ai metodi classici. Rinviamo la trattazione di questi
+ultimi al capitolo successivo, focalizzando ora l’attenzione sugli euristici
+classici.
+\subsection{Metodi Euristici Costruttivi}
 Un metodo in questa categoria costruisce le strade per i veicoli mentre cerca di minimizzare la distanza percorsa.
 L'algoritmo di Savings di Clarke and Wright \cite{CK1}, trova una soluzione utilizzando un'euristica, quindi il risultato non è sempre la soluzione ottima, ma dovrebbe risultare mol+to vicina all'ottimo con un risparmio di tempo computazionale elevato rispetto ad un algoritmo brute force.
 
@@ -343,7 +360,7 @@ def Clarke&Wright_Parallelo(graph):
 	return routes
 \end{lstlisting}
 
-\subsection{Metodi di Raggruppamento (Clustering)}
+\subsection{Metodi Euristici di Raggruppamento (Clustering)}
 I metodi di raggruppamento chiamati anche clustering method, si differenziano dagli altri metodo perchè la risoluzione del probelma è divisi a in due fasi.
 \begin{itemize}
 \item \textbf{Fase A} Tutti i nodi sono divisi in gruppi (cluster) utilizzando un algoritmo di raggruppamento.
@@ -664,7 +681,7 @@ Quando la lista \textit{appoCluster} non contiene più elementi si chiude la \em
 \end{itemize}
 
 
-\subsubsection{Route First, Cluster Second}
+\subsubsection{Metodo Euristico Route First, Cluster Second}
 Una procedura inversa rispetto a quella che abbiamo presentato: nella prima fase si tende a costruire una grande unica \emph{route} rilassando il vicolo sulla capacità dei veicoli. Nella fase successiva si reintroduce il vincolo dividendo la singola grande \emph{route} costruita in \emph{route}  più piccole, portando il veicolo al deposito, tali da rispettare il vincolo sulla capacità. Ci sono ovviamente più modi per creare trovare una soluzione con questo metodo: si può scorrere i nodi della singola \emph{route} in ordine e ogni qualvolta la capacità eccede si chiude il tracciato e si inizia dal nodo successivo con una nuova  \emph{route}; oppure si costruisce un grafo ausiliario nel seguente modo: i nodi sono i clienti, gli archi entranti sono composti dal numero massimo di clienti che un veicolo può visitare senza superare la sua capacità compreso il nodo di partenza e di arrivo, il peso degli archi rappresenta i chilometri percorsi dal nodo di partenza al nodo di arrivo.
 La rappresentazione attraverso grafo ausiliario e la conseguente applicazione dell'algoritmo di Dijkastra è l'implementazione  scelta in questo elaborato per quanto riguarda il metodo di raggruppamento route first, cluster second. In Table \ref{Table:3} un esempio esplicativo.
 \begin{table}
@@ -741,6 +758,25 @@ Listing 7 mostra alla riga 1 al firma del metodo, la quale richiede come input s
 A riga 10 \texttt{dist[0]} viene assegnato a  \emph{0}, questo valore non verrà mai utlizzato durante tutta l'esecuzione dell'algoritmo, serve solamente per mantenere una coerenza con gli indici dei vertici \emph{V}. Di conseguenza dalla riga 11 alla 15 di crea la strada corrispondente al nodo sorgente, con costo uguale a 0. In 17 si inizializza \textit{nodeQueue} con il nodo sorgente, la distanza pari a alla lunghezza di  \emph{route}  e la \emph{route} corrispondente.
 In 18 si inizializza la variabile \textit{node} in 19 si ordina in ordine decrescente \textit{nodeQueue}. Alla riga 21 il \texttt{while} si occupa di scorre tutta la lista \textit{nodeQueue}, fino al suo esaurimento. In 22 si estrae il nodo dalla coda \textit{nodeQueue} con costo minore, in 23 viene inserito l'indice identificativo del nodo , mentre in 24 viene riposto il suo costo. Il \texttt{for} a riga 26 crea tutti i figli del nodo, rispettando l'ordine topologico garantito dal controllo a riga 27. Per ogni figlio si crea una \emph{route} che parte dal deposito, inizializzando il costo a \emph{0}, righe da 28 a 30. Alla riga 31 il ciclo \texttt{for} scorre tutti i nodi tra il nodo estratto  \textit{node} e il figlio \emph{j+1}, 32 controlla se \emph{i} non è presente nella \textit{newRoute} e non supera il vincolo di capacità, le righe 33 e 34 lo aggiungono aggiornando il costo di \textit{newRoute} di conseguenza.
 Altrimenti in si esce dal ciclo con 36, in 38 e 39 si chiude la strada. In 40 si verifica l'aggiornamento del costo dei figli esplorati confrontando il costo per arrivare la nodo figlio \textit{j} con il costo di \textit{newRoute} sommato al costo del percorso già effettuato per arrivare al nodo padre \textit{cost}. Se \textit{dist[j]} risulta maggiore, si aggiorna con il nuovo costo in 41. In 42 si aggiorna \textit{nodeQueue} con \textit{j+1} il nodo dove l'arco entra, costo dell'arco nella lista \textit{dist[j]} per arrivare al nodo  e \textit{newRoute} il collegamento tra \textit{node} e \textit{j+1}. Una volta terminato di esplorare tutti gli elementi presenti nella coda \textit{nodeQueue}, si procede estreendo l'ultimo elemento del grafo in ordine topologico e fino a quando non si arriva al nodo sorgente si risale il grafo ausiliario, percorrendo e salvando gli archi in \textit{finalRoutes}, componendo così la soluzione finale. In 53 si ritorna \textit{finalRoutes}.
+
+\subsection{Metodi metaeuristici}
+Le caratteristiche principali degli algoritmi metaeuristici sono l’esplora-
+zione approfondita delle regioni, considerate più promettenti, dello spa-
+zio delle soluzioni e l’impiego di sofisticate regole di ricerca del neighbo-
+rhood, particolari strutture dati e metodi di ricombinazione delle solu-
+zioni. Una caratteristica che spesso distingue questi algoritmi da quelli
+euristici è che il procedimento di ricerca può passare attraverso soluzioni
+non ammissibili e/o fasi non migliorative.
+Il tempo necessario a questi algoritmi per giungere ad una soluzione
+ottima è sensibilmente maggiore rispetto alle performance degli euristi-
+ci classici, ma i risultati ottenuti sono solitamente di qualità superiore.
+Inoltre, l’esecuzione di questi algoritmi è subordinata alla corretta valu-
+tazione e impostazione di un predeterminato numero di parametri, pro-
+pri dell’algoritmo stesso, al fine di adattare il metodo di risoluzione al
+problema e ottenere la soluzione migliore possibile.
+
+\subsubsection{Algoritmo Genetico}
+
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
