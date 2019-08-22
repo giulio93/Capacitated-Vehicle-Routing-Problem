@@ -801,6 +801,23 @@ denti ;
 tazione ai cromosomi discendenti;
 \item  \textbf{Rinnovo generazionale} - A partire da \emph{$X^t$} , si crea la popolazione \emph{$X^t+1$} rimuovendo le 2k peggiori soluzioni e sostituendole con le 2k generate nelle k precedenti applicazioni dei passi elencati.
 \end{itemize}
+Al termine delle T iterazioni, si prende come soluzione finale la mi-
+gliore dell’ultima generazione.
+Ciò che contraddistingue questo paradigma è l’assoluta generalità del-
+la sua specifica. Cosı̀ come è stato descritto, infatti, esso può essere
+applicato a diverse tipologie di problema. Il punto chiave riguarda, in
+realtà, la definizione degli operatori di crossover e mutazione, che neces-
+sariamente si differenzieranno a seconda del problema affrontato. Inoltre,
+bisogna definire come una soluzione ad un determinato problema deve
+essere codificata in una stringa di bit, imponendo quindi una serie di
+regole per l’ammissibilità delle stringhe/soluzioni.
+Nel caso specifico, per i problemi di VRP, la codifica in stringhe di
+bit dei route che compongono una soluzione non è la traduzione più
+adatta. Si preferisce codificare i route con delle sequenze di interi, dove
+la posizione dell’intero nella stringa indica l’ordine di visita, nel route,
+del vertice corrispondente. L’intero 0, rappresentante il deposito, può
+comparire più volte nella stringa ed è spesso utilizzato come carattere
+separatore tra i route.
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
