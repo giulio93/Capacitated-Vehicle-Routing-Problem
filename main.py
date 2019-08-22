@@ -148,11 +148,11 @@ if __name__ == "__main__":
 
             fittingMutation = sum([m.getCost() for m in mutant])
             if(fittingMutation < mutantChild[0]):
-               if(sol.SearchaAndCompleteSequence(mutant,graphToSolve)):
-                print("Invalid! " +str(fittingCrossover))
+              if(sol.SearchaAndCompleteSequence(mutant,graphToSolve)):
+                  print("Invalid! " +str(fittingCrossover))
               else:
-                popEra.append((fittingMutation,mutant))
-                print("CROSSOVER + MUTATION  HARD ==> "+str(fittingMutation))
+                  popEra.append((fittingMutation,mutant))
+                  print("CROSSOVER + MUTATION  HARD ==> "+str(fittingMutation))
            
           if (np.random.randint(1,100) <= mutationRate):
             popEra.sort(key=lambda x:x[0],reverse=True)
