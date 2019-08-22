@@ -149,7 +149,7 @@ if __name__ == "__main__":
             #     route = sol.LocalSearch_FlippingPath(route,graphToSolve,c1,c2)
             mutant = sol.Mutation(mutantChild[1],graphToSolve,1)
 
-            fittingMutation = sum([m.getCost() for m in mutant)
+            fittingMutation = sum([m.getCost() for m in mutant])
             if(fittingMutation < mutantChild[0]):
               popEra.append((fittingMutation,mutant))
               print("CROSSOVER + MUTATION ==> "+str(fittingMutation))
