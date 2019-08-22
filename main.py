@@ -152,7 +152,20 @@ if __name__ == "__main__":
             fittingMutation = sum([m.getCost() for m in mutant])
             if(fittingMutation < mutantChild[0]):
               popEra.append((fittingMutation,mutant))
-              print("CROSSOVER + MUTATION ==> "+str(fittingMutation))
+              print("CROSSOVER + MUTATION  FLIP ==> "+str(fittingMutation))
+            if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
+              print("Invalid! " +str(fittingCrossover))
+
+          if (np.random.randint(1,100) <= mutationRate):
+            for route in mutantChild[1]:
+                c1 = np.random.randint(1,len(route.getCustomers())-1)
+                c2 = np.random.randint(1,len(route.getCustomers())-1)
+                route = sol.LocalSearch_FlippingPath(route,graphToSolve,c1,c2)
+
+            fittingMutation = sum([m.getCost() for m in mutantChild[1]])
+            if(fittingMutation < mutantChild[0]):
+              popEra.append((fittingMutation,mutantChild[1]))
+              print("CROSSOVER + MUTATION HARD  ==> "+str(fittingMutation))
             if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
               print("Invalid! " +str(fittingCrossover))
 

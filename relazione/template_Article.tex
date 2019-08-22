@@ -776,7 +776,31 @@ pri dell’algoritmo stesso, al fine di adattare il metodo di risoluzione al
 problema e ottenere la soluzione migliore possibile.
 
 \subsubsection{Algoritmo Genetico}
+Nel 1975 è stato proposto, da Holland, il paradigma alla base degli ago-
+ritmi genetici: si tratta di una tecnica che cerca di risolvere problemi
+imitando i processi tipici dell’evoluzione naturale. In via del tutto gene-
+rale, l’idea di fondo consiste nel mantenere memoria di stringhe di bit,
+chiamate cromosomi, rappresentanti la codifica binaria di una soluzione
+al problema. L’evoluzione della popolazione è ottenuta applicando degli
+operatori che simulino i più importanti fenomeni naturali: riproduzione
+e mutazione.Una descrizione generica del paradigma può essere data nelle seguenti
+modalità: innanzitutto sia definita una popolazione iniziale di cromosomi:
+\begin{equation}
+ X^1 = \{ x_{1}^1,..,x_{N}^1\}
+\end{equation}
+alla quale  ad ogni iterazione \emph{t = 1,..,T} sono applicate \emph{k} volte con \emph{k=N/2} le operazioni di riproduzione,ricombinazione e mutazione seguite dal passo finale di rinnovo generazionale.
 
+\begin{itemize}
+\item \textbf{Riproduzione} - Si selezionano, dalla popolazione \emph{$X^t$} , due cromosomi
+generatori, privilegiando statisticamente la scelta dei cromosomi
+migliori;
+\item \textbf{Ricombinazione} - Si applica un operatore di crossover ai due gene-
+ratori in modo da ottenere una nuova coppia di cromosomi discen-
+denti ;
+\item  \textbf{Mutazione} - Con piccola probabilità, si applica l’operatore di mu-
+tazione ai cromosomi discendenti;
+\item  \textbf{Rinnovo generazionale} - A partire da \emph{$X^t$} , si crea la popolazione \emph{$X^t+1$} rimuovendo le 2k peggiori soluzioni e sostituendole con le 2k generate nelle k precedenti applicazioni dei passi elencati.
+\end{itemize}
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
