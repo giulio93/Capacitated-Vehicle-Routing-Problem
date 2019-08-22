@@ -844,9 +844,20 @@ def GeneticAlgorithm():
 		else:
 			n_vehicles = n_vehicles + 1
 	while(era<Eras):
+		toKeep = Elitism(Population)
+		popEra:list = []
 		for k in range(len(population)/2):
 			winner1,winner2 ,f1,f2= Tournament(population)   
-			children,fittingCrossover = sol.Crossover(winner1,winner2,graphToSolve)\\
+			children,fittingCrossover = sol.Crossover(winner1,winner2,graphToSolve)
+			if (fittingCrossover>f1 or fittingCrossover>f2):
+				continue
+				
+			if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
+				print("Invalid! " +str(fittingCrossover))
+			else:
+				popEra.append((fittingCrossover,children))
+				popEra.sort(key=lambda x:x[0],reverse=True)
+				
 			
 			
 			

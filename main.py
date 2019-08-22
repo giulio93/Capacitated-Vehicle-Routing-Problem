@@ -135,8 +135,7 @@ if __name__ == "__main__":
           if (fittingCrossover>f1 or fittingCrossover>f2):
               continue
           print("CROSSOVER ==> "+str(fittingCrossover))
-      
-         
+              
           if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
              print("Invalid! " +str(fittingCrossover))
           else:
@@ -166,10 +165,11 @@ if __name__ == "__main__":
 
             fittingMutation = sum([m.getCost() for m in mutantChild[1]])
             if(fittingMutation < mutantChild[0]):
-              popEra.append((fittingMutation,mutantChild[1]))
-              print("CROSSOVER + MUTATION FLIPPING  ==> "+str(fittingMutation))
-            if(sol.SearchaAndCompleteSequence(children,graphToSolve)):
-              print("Invalid! " +str(fittingCrossover))
+              if(sol.SearchaAndCompleteSequence(mutantChild[1],graphToSolve)):
+                print("Invalid! " +str(fittingCrossover))
+              else:
+                popEra.append((fittingMutation,mutantChild[1]))
+                print("CROSSOVER + MUTATION FLIPPING  ==> "+str(fittingMutation))
 
         popEra.sort(key=lambda x:x[0],reverse=True)
         best = [popEra.pop() for i in range(int(len(popEra)/2))]
