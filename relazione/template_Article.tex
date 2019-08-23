@@ -297,9 +297,9 @@ La differenza sostanziale tra i due metodi è la seguente: il metodo sequenziale
 def Clarke&Wright_Sequenziale(graph):
 	Capacity = graph.getCapacity()
 	Demands:list = graph.getDemands()
-	list savings = []calculateSavings (i,j) (* $\forall \ i,j \ \in V \mid i \neq j \wedge i \neq 0 $*)]
+	savings:list = [calculateSavings (i,j) (* $\forall \ i,j \ \in V \mid i \neq j \wedge i \neq 0 $*)]
 	savings.sort(descending)
-	list routes = []
+	routes:list = []
 	
 	while((*$ \sum_{(r) \in R} \sum_{(v) \in V} ( v \in r) \neq  \ \mid V \mid $*) and len(savings)>0):
 		pair = savings.popFirst()
@@ -484,7 +484,7 @@ def RadarRadiusFrontier(graph,n_vehicles):
 			 			scannerRadius[c]=0
 			 			continue
 			 		
-		if ( (*$ \sum_{i \in V} d_{i} \ \neq Dimension-1  $*)):
+		if ( (*$ \sum_{i \in V} d_{i} \ \neq Dimension-1 $*) and  No seeds added):
 			print("Decrease Radius")
 			scannerRadius[np.argmax(scannerRadius)] = 0
 			
@@ -516,7 +516,7 @@ min \sum_{i \in V} \sum_{k \in K} x_{i,k} \cdot a_{i,k}
 \sum_{i \in V} d_{i}  \cdot x_{i,k} \leq C \ \forall k
 \end{equation}
 
-\begin{equation} \label{GAP3}
+\begin{equation} \label{GAP4}
 x_{i,k} \in \{0,1\}
 \end{equation}
 
@@ -585,7 +585,7 @@ A differenza di ciò che è descritto nella sezione  \ref{RappProb-sec} i vincol
 
 In questa elaborato sono state utilizzate due tecniche per implementare il routing:
 \begin{itemize}
-\item \textbf{Nearest Neighbourn}: Partendo dal deposito ci si collega al nodo successivo, si prosegue fino a quando tutti i nodi sono stati collegati.
+\item \textbf{Nearest Neighbourn}: Partendo dal deposito ci si collega al nodo successivo più vicino, si prosegue fino a quando tutti i nodi sono stati collegati.
 
 \begin{lstlisting}[language=Python, caption=NearestNeighbourn Routing ,escapeinside={(*}{*)}]
 def Routing_NearestNeighbourn(graph,clusterAssignement,Kclusters):
@@ -597,7 +597,7 @@ def Routing_NearestNeighbourn(graph,clusterAssignement,Kclusters):
 		cluster:list =  []
 		for i in range(len(clusterAssignment)):
 			if(clusterAssignment[i] == k ):
-			cluster.append(i+1)
+				cluster.append(i+1)
 				
 		appoRoute =  Route(Capacity) 
 		appoRoute.addCustomer(deposit)
@@ -874,20 +874,7 @@ def GeneticAlgorithm(graph):
 					else
 						popEra.append((fittingMutation,mutantChild[1]))
 						print("CROSSOVER + MUTATION FLIPPING  ==> "+str(fittingMutation))
-						
-			if (np.random.randint(1,100) <= mutationRate):
-				if(len(popEra)>0):
-					mutantChild = popEra[0]
-				else: break 
-				mutant = Mutation(mutantChild[1],graphToSolve,1)
-				fittingMutation = sum([m.getCost() for m in mutant])
-				if(fittingMutation < mutantChild[0]):
-					if(SearchaAndCompleteSequence(mutant,graphToSolve)):
-						print("Invalid! " +str(fittingCrossover))
-					else:
-						popEra.append((fittingMutation,mutant))
-						print("CROSSOVER + MUTATION  HARD ==> "+str(fittingMutation))
-				
+										
 				popEra.sort(key=lambda x:x[0],reverse=True)
 				best = [popEra.pop() for i in range(int(len(popEra)/2))]			
 				population.substituteBestChildren(best)
@@ -898,8 +885,8 @@ def GeneticAlgorithm(graph):
 			
 		population.sort(key= lambda x: x[0], reverse = True)
 		bestGeneticSolution = population.pop()[1]    
-		sol.writeResult(bestGeneticSolution,graphToSolve,start_time,"mysol_Genetic")
-			
+	
+	return 	bestGeneticSolution
 \end{lstlisting}
 
 \begin{enumerate}
@@ -941,9 +928,47 @@ Tornando al nostro pseudocodice, alla linea 30 si controlla se la soluzione rito
 \item \textbf{Mutazione}
 Il controllo a riga 38, estrae un numero a random e se questo è minore alla percentuale segnalata da \textit{mutationRate}, la soluzione peggiore all'interno della popolazione, controllando che popEra non sia vuota: righe 39 a 41. Il ciclo a riga 42 scorre tutte le \emph{route} della soluzione , al suo interno vengono scelti due clienti random, quindi viene chiamato il metodo \texttt{FlippingPath}: 43,44,45.
 Il metodo dato in input, \emph{route} , il grafo e i due clienti, li scambia di posto all'interno della stessa \emph{route} riconnettendo i clienti con i rispettivi nuovi vicini. Da 47 a 52 si effettuano i controlli necessari per assicurarsi che la nuova soluzione sia valida e che questa sia migliore rispetto alla soluzione di partenza.
-Un altra mutazione messa in atto è quella presente nel blocco da riga 54 a riga 65, il blocco di codice è simile a quello precedente se non per la riga 58 dove viene chiamato il metodo \texttt{Mutation}
+
+\item \textbf{Rinnovo Generazionale}
+In 54 \textit{popEra} viene riordinato , in \textit{best} vengono riposte solo metà dei migliori cromosomi. In 55 si sostituiscono i cromosomi migliori all'interno di \textit{population}, da 58 e 60 si reintroduce la soluzione memorizzata con elitismo nel caso sia andata persa. 62 e 63 estraggono la miglire soluzione e in 64 viene ritornata.
 
 \end{enumerate}
+
+\section{Analisi di Complessità}
+Segue l'analisi di complessità degli algoritmi presentati.
+\subsection{Clarke and Wright Sequenziale}: 
+Il calcolo della lista \textit{savings} in riga 4 richiede tempo pari a \emph{$O(V^2)$}. A questo punto la lista viene \textit{savings} ordinata e richiede una complessità pari a \emph{$O(n^2)$} dove \emph{n} sono gli elementi appartenenti alla lista, tutti i vertici a parte il deposito. Nel \texttt{while} ricerca sel la soluzione è completa: scorre gli elementi presenti in ogni \emph{route} contandoli e ritorna \texttt{false} se la soluzione non è completa, scorrendo così nel caso peggiore  \emph{$O(V)$}. Alla riga 14 il while scorre la lista  \textit{savings}, e ogni un nodo viene aggiunto alla \emph{route} si toglie un elemento e si ricomincia dall'inizio della lista \textit{savings}, con una complessità pari a  \emph{$O(\frac{n!}{\mid R \mid })$} dove \emph{R} è il numero di \emph{route} che compongono la soluzione. I controlli a riga 19 e 24 richiedono \emph{$O(c)$} con c appartenente ai clienti della \emph(route). La complessità finale è  \emph{$ O(V^2 + \frac{n!}{\mid R \mid })$}.
+
+\subsection{Clarke and Wright Parallelo}:
+Anche qui il calcolo della lista \textit{savings} in riga 4 richiede tempo pari a \emph{$O(V^2)$} e la lista  ordinata richiede una complessità pari a \emph{$O(n^2)$} dove \emph{n} sono gli elementi appartenenti alla lista, tutti i vertici a parte il deposito. Alla riga 7 si crea una \emph{route} per ogni cliente, questo richiede \emph{$O(V)$}. Il ciclo \texttt{for} a riga 9 scorre la lista \textit{savings} e in questa versione la lista viene scorsa tutta una sola volta, quindi con complessità \emph{$O(n)$}. Alla riga 14 si scorrono tutte le \emph{route} trovate e si cerca quale serve \emph{i} e quale serve \emph{j}. L'algoritmo inizia ci sono \emph{$\mid V \mid$} \emph{route}, nel caso peggiore una strada contiene tutti i clienti, la complessità da riga 14 a riga 19 è \emph{$O(V^2)$}. Se i due clienti \emph{i} e \emph{j} sono in due strade diverse e queste possono essere sottomesse al metodo \texttt{Merge}, vuol dire che \textit{RouteA} e \textit{RouteB} contengono \emph{l} nodi con \emph{$l < V$}. Il metodo unisce le due \emph{route} rispettando l'ordine di visita dei rispettivi clienti, quindi unisce le \emph{route} aggiungendo in coda o in testa i clienti in \textit{RouteA} o \textit{RouteB}, questo richiede complessità \emph{$O(l)$}. La rimozione a riga 24 richiede tempo costante \emph{O(1)}. La complessità totale dell'algoritmo parallelo è quindi \emph{$O(V^2)$}.	
+
+\subsection{Fisher and Jaikumar}
+
+\subsubsection{Selezioni dei centroidi}
+
+\begin{itemize}
+\item \textbf{Metodo Random}: Si estraggono a random \emph{k} clienti, complessità totale \emph{O(k)}
+
+\item  \textbf{Radius Radar Frontier}: 
+Alla riga 6si inizializza \textit{depotDistance} con tutte le distanze a \emph{0} per ogni vertice, richiede complessità \emph{O(V)}. Il \texttt{while} a riga 11, continua ad eseguire il suo nucleo fino a quando il numero di centroidi scelti è uguale al numero di veicoli richiesti, un buon lower bound di veicoli richiesti è \emph{$TotDem = (\sum_{d \in Demands} d)  \ / Capacity$}, questo perchè atrimenti la soluzione è invalida. Quindi complessità compresa tra \emph{$O(TotDem) \leq O \leq O(V)$}. Il controllo in 13 somma le domande di ogni clienti per capire se sono diverse tra loro, richiede complessità \emph{O(V)}, anche la riga 16 e la riga 18. In riga 20 il \texttt{for} scorre tutti i candidati che al come descritto dall'istruzione 18 nel caso peggiore sono tutti i clienti, quindi complessità pari a  \emph{O(V)}. Il controllo 21 si accede costante con complessità \emph{O(1)} costante alla lista \textit{depotDistance} mentre la ricerca del massimo in  \textit{scannerRadius} richiede \emph{O(V)}. L'istruzione a riga 25 ritorna la massima distanza dal nodo \emph{c}, anche questa con complessità \emph{O(V)}. In riga 28 si scorrono i centrodi già trovati e quindi la complessità sarà compresa tra \emph{$O(TotDem) \leq O \leq O(V)$}, i 29 per controllare che \emph{c} non sia già all'interno della lista di centroidi la complessità è sempre \emph{$O(TotDem) \leq O \leq O(V)$}. Il controllo a riga 40 ha la stessa complessità di quello a riga13. La complessità totale è \emph{$O(V)$}
+\end{itemize}
+
+\subsubsection{General Assignement Problem solver}
+Alla riga 6 si inizializza la lista \textit{allocCosts} con una complessità  pari a \emph{$O(V) \cdot O(k)$} con \emph{k} pari al numero di cluster e \emph{$ k \ll V $}. Alla riga 8 le domande dei cluster vengono inizializzate con complessità \emph{O(k)}. Alla riga 10 si calcolano i costi di allocazioni di ogni singolo clienti per ogni singolo cluster, la complessità è di nuovo  pari a \emph{$O(V) \cdot O(k)$}. Riga 13 il ciclo \texttt{for} scorre per tutta la sua lunghezza \textit{alloCosts} che nel caso peggiore è lungo \emph{$O(V)$} il secondo \emph{for} a riga 14 si occupa di scorrere i cluster la complessità di questi due cicli è di nuovo \emph{$O(V) \cdot O(k)$}. Il resto delle operazione richiede tempo costante \emph{O(1)}. La complessità totale è quindi \emph{$O(V \cdot k)$}.
+\textbf{Ordine di allocamento di allocCost, infierisce sulla validità della soluzione, tutto dipende da quanti grassi clienti abbiamo}
+
+\subsubsection{Routing}
+ 
+\subsubsection{Nearest Neighbourn}
+Alla riga 6 si scorrono tutti i cluster con complessità \emph{O(k)}, come già visto  \emph{$ k \ll V $}. Al suo interno  alla riga 8 si scorre la lista \textit{clusterAssignement} di lunghezza \emph{V}, con complessità \emph{O(V)} in totale questi due cicli \texttt{for} hanno complessità \emph{$O(V) \cdot O(k)$}.
+L'istruzione \texttt{while} a riga 15 scorre \textit{cluster} per tutta la sua lunghezza che nel caso peggiore è \emph{V}, quindi \emph{O(V)}. Al suo interno alla riga 17 \textit{distPrevNode} contiene tutte le distanze dall'ultimo nodo aggiunto e il resto dei clienti esterni a \texttt{appoRoute} nel caso peggiore jha complessità \emph{O(V-1)}, alla riga 18 si ritorna l'indice minimo in \textit{distPrevNode} e di conseguenza si ritorna il corrispondente elemento in \textit{cluster}, con complessità \emph{O(V)}. Il controllo a riga 16 anch'esso ha complessità \emph{O(V)} nel caso peggiore. La complessità totale dell'algoritmo è 
+emph{$O(k \cdot V^3)$}. 
+\textbf{Ovviamente la complessità nono sarà mai così alta perchè altrimenti non saremo in CVRP ma in un cammino hamiltoniano, e ci sarebbe un solo vicolo con capcità uglae alla soamm di tute l e domande. DI conseguenza la lungehzza di un cluster e di un veicolo e di una route, sarannno sicuramente minori comprese appunto tra  \emph{$TotDem \leq O \leq V/FatBoy$} }
+
+\subsubsection{Nearest Neighbourn TrackPath}
+Le righe 6 e 9 hanno complessità \emph{$O(V) \cdot O(k)$}. Alla riga 13 l'inizilizzazione di tutte le \emph{route} dal deposito al cliente richiede complessità complessità \emph{$O(V)$)}, alla riga  20 il sort di \textit{priorityQ} richiede anche'essa complessità \emph{$O(V)$)}. Il \texttt{while} in 22 scorre \textit{priorityQ} in  \emph{$O(V)$)}.
+Da riga 27 a 30, si scorre \textit{cluster} e si controlla se il cliente è già presente nella \emph{shortRoute},  richiedendo   \emph{$O(V)$}, come già precisato \emph{shortRoute} contiene \emph{l < V} nodi quindi la complessità  è \emph{$O(V \cdot l)$}. In 33 \texttt{getNearestNeighbourn} richiede \emph{$O(V \setminus l)$}. Ala riga 47 si ordinano le le \emph{O(V)} \emph{route} e si estare la migliore in tempo costatante in riga 48. In totale l'algoritmo richiede
+ 
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}

@@ -6,6 +6,6 @@ Route_2: 0-41-39-66-63-37-38-40-51-49-50-47-48-44-42-43-46-53-45-52-27-28-22-21-
 Route_3: 0-9-7-4-8-3-5-10-6-71-18-17-62-67-68-69-70-0-END
 Total Routed Nodes 72
 Using no. Tracks: 4
-Time Horizon: 1.37583589553833
+Time Horizon: 0.1377856731414795
 Routing Total Cost: 338.83605311834606
-Error of solution in Sol_F-n72-k4.vrp.txt: 0.4296879878411226Error of solution in Sol_F-n72-k4.vrp.txt: 0.4296879878411226Error of solution in Sol_F-n72-k4.vrp.txt: 0.4296879878411226Error of solution in Sol_F-n72-k4.vrp.txt: 0.4296879878411226
+Error of solution in Sol_F-n72-k4.vrp.txt: 0.4296879878411226

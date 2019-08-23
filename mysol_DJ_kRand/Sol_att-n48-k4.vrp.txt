@@ -1,11 +1,11 @@
 att48
 48
-Route_0: 0-5-47-41-25-4-2-28-0-END
-Route_1: 0-45-43-46-21-38-31-24-10-34-44-0-END
-Route_2: 0-23-11-12-15-9-1-8-18-7-6-19-26-17-20-13-0-END
-Route_3: 0-32-35-27-29-42-36-30-37-39-3-22-16-40-33-14-0-END
+Route_0: 0-38-31-47-41-24-44-34-25-28-33-0-END
+Route_1: 0-10-4-2-5-14-13-11-12-15-9-1-8-3-7-6-0-END
+Route_2: 0-23-39-45-43-18-35-27-30-37-22-16-40-0-END
+Route_3: 0-21-46-20-32-29-26-19-36-42-17-0-END
 Total Routed Nodes 48
 Using no. Tracks: 4
-Time Horizon: 0.4163367748260498
-Routing Total Cost: 53527.51429605967
-Error of solution in Sol_att-n48-k4.vrp.txt: 0.33812095135392406Error of solution in Sol_att-n48-k4.vrp.txt: 0.33812095135392406Error of solution in Sol_att-n48-k4.vrp.txt: 0.33812095135392406Error of solution in Sol_att-n48-k4.vrp.txt: 0.33812095135392406
+Time Horizon: 0.04066061973571777
+Routing Total Cost: 60961.243146713154
+Error of solution in Sol_att-n48-k4.vrp.txt: 0.5239548809237826

@@ -1,11 +1,11 @@
 hk48
 48
-Route_0: 0-30-19-10-15-41-3-45-44-38-43-26-0-END
-Route_1: 0-22-29-32-20-42-14-18-36-0-END
-Route_2: 0-17-13-37-6-35-33-5-7-12-27-21-11-16-34-23-0-END
-Route_3: 0-1-47-25-28-31-24-2-4-9-39-8-40-46-0-END
+Route_0: 0-23-34-16-11-21-12-27-13-17-37-35-33-19-10-15-0-END
+Route_1: 0-18-42-20-14-47-40-32-39-46-0-END
+Route_2: 0-41-3-45-44-38-43-26-36-0-END
+Route_3: 0-1-25-28-31-24-2-4-9-8-22-29-6-7-5-30-0-END
 Total Routed Nodes 48
 Using no. Tracks: 4
-Time Horizon: 0.2975311279296875
-Routing Total Cost: 19865.0
-Error of solution in Sol_hk-n48-k4.vrp.txt: 0.34687097430334257Error of solution in Sol_hk-n48-k4.vrp.txt: 0.34687097430334257Error of solution in Sol_hk-n48-k4.vrp.txt: 0.34687097430334257Error of solution in Sol_hk-n48-k4.vrp.txt: 0.34687097430334257
+Time Horizon: 0.03972363471984863
+Routing Total Cost: 19866.0
+Error of solution in Sol_hk-n48-k4.vrp.txt: 0.3469387755102041

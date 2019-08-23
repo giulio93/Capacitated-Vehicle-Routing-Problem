@@ -152,15 +152,15 @@ def Sequential_CW(routes,savings,graph:cvrpGraph):
             routes.append(routeSelected)
             routeCost = 0                      
             for i in range(len(routeSelected.getCustomers())-1):
-                #routedNodesControl = routedNodesControl +1
                 routeCost += graph.getValue(routeSelected.getCustomers()[i], routeSelected.getCustomers()[i+1])
             routeSelected.setCost(routeCost)
-            toDo,checked,_ = SearchaAndCompleteSequence(routes,graph,True)
-
             
+            toDo,checked,_ = SearchaAndCompleteSequence(routes,graph,True)            
             savings.append((float(graph.getValue(i, 0) + graph.getValue(0, j) - routeSelected.getCost()), i, j))
             savings.sort(key=lambda x: x[0], reverse=True)
-        else: savings.remove(saveNow)
+
+        else: 
+            savings.remove(saveNow)
                    
     return routes
 
@@ -322,13 +322,8 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
             print("Graph Demand Distribution ==> Max : " + str(np.max(demand)) +" Min : " + str(np.min(demand[1:])))
             print('\n')
     print("Seeds Inter Distance      ==> Max : " + str(np.max(count)) +" Min : " + str(np.min(count)))
-    print("Graph Distribution        ==> Max : " + str(graph.getMaxInterNodesDistance()) +" Min : " + str(graph.getMinInterNodesDistance()))
-
-    print("Seeds Depot Distance      ==> Max : " + str(np.max(fromCenter)) +" Min : " + str(np.min(fromCenter)))
-    print("Node-Depot  Distance      ==> Max : " + str(np.max(appo)) +" Min : " + str(np.min(appo[1:])))
-
-
-    print("Done")
+    print("Graph Distribution        ==> Max : " + str(graph.getMaxInterNodesDistance()) +" Min : " + str(graph.getMinInterNodesDistance()))    print("Seeds Depot Distance      ==> Max : " + str(np.max(fromCenter)) +" Min : " + str(np.min(fromCenter)))
+    print("Node-Depot  Distance      ==> Max : " + str(np.max(appo)) +" Min : " + str(np.min(appo[1:])))    print("Done")
     print("==========================================================================================")
 
     return seeds

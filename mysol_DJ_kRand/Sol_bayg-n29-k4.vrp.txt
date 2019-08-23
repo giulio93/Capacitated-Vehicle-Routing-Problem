@@ -1,11 +1,11 @@
 bayg29
 29
-Route_0: 0-18-26-15-17-25-23-19-8-0-END
-Route_1: 0-24-28-27-22-0-END
-Route_2: 0-3-1-10-9-2-4-7-5-0-END
-Route_3: 0-16-6-14-21-13-11-12-20-0-END
+Route_0: 0-28-25-23-18-26-27-5-21-0-END
+Route_1: 0-20-4-15-24-0-END
+Route_2: 0-3-6-16-12-22-17-19-9-0-END
+Route_3: 0-10-1-7-8-13-2-14-11-0-END
 Total Routed Nodes 29
 Using no. Tracks: 4
-Time Horizon: 0.11825275421142578
-Routing Total Cost: 2990.0
-Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.4585365853658537Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.4585365853658537Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.4585365853658537Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.4585365853658537
+Time Horizon: 0.01389455795288086
+Routing Total Cost: 3464.0
+Error of solution in Sol_bayg-n29-k4.vrp.txt: 0.6897560975609756
