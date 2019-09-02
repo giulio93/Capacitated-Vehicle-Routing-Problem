@@ -61,7 +61,9 @@ def printResult(folderSol,folderRes):
                                         if(len(keys.split()) > 0 and (keys.split()[0].strip()=="Cost" or keys.split()[0].strip()=="cost")):
                                             actual = float(keys.split()[1].strip())
                                             error = (stimated - actual)/actual
-                                            print("Error of solution in "+sol + ": "+ str(float(error))+ "==> Stimated: " +str(stimated) + " ==> optimal: "+str(actual) + "==> Time: "+str(time))
+                                            #print("Error of solution in "+sol + ": "+ str(float(error))+ "==> Stimated: " +str(stimated) + " ==> optimal: "+str(actual) + "==> Time: "+str(time))
+                                            print(sol[4:-8] + " & "+ str(round(stimated,1)) + " & "+str(round(actual,1)) + " & " + str(float(round(error,4)))+ " & "+str(round(time,4)) +" "+ r" \\")
+
                                             f.write("Error of solution in "+sol + ": "+ str(float(error)))
                                             resume.write("Error of solution in "+sol + ": "+ str(float(error))+ "\n")
                     if(keywords.split(':')[0].strip()=="Time Horizon"):

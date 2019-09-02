@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.6)  2 SEP 2019 15:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.6)  2 SEP 2019 17:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -719,7 +719,7 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 105.
-<images/ITA28.png, id=95, 601.24625pt x 865.2325pt>
+<images/ITA28.png, id=107, 601.24625pt x 865.2325pt>
 File: images/ITA28.png Graphic file (type png)
 <use images/ITA28.png>
 Package pdftex.def Info: images/ITA28.png  used on input line 114.
@@ -734,7 +734,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 140.
 [3]
-<images/saving.png, id=152, 512.91624pt x 245.91875pt>
+<images/saving.png, id=164, 512.91624pt x 245.91875pt>
 File: images/saving.png Graphic file (type png)
 <use images/saving.png>
 Package pdftex.def Info: images/saving.png  used on input line 255.
@@ -751,47 +751,47 @@ Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 296.
  [6] [7]
 [8]
-<images/RR1.png, id=272, 963.6pt x 542.025pt>
+<images/RR1.png, id=284, 963.6pt x 542.025pt>
 File: images/RR1.png Graphic file (type png)
 <use images/RR1.png>
 Package pdftex.def Info: images/RR1.png  used on input line 433.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR2.png, id=273, 963.6pt x 542.025pt>
+<images/RR2.png, id=285, 963.6pt x 542.025pt>
 File: images/RR2.png Graphic file (type png)
 <use images/RR2.png>
 Package pdftex.def Info: images/RR2.png  used on input line 434.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR3.png, id=274, 963.6pt x 542.025pt>
+<images/RR3.png, id=286, 963.6pt x 542.025pt>
 File: images/RR3.png Graphic file (type png)
 <use images/RR3.png>
 Package pdftex.def Info: images/RR3.png  used on input line 435.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR4.png, id=275, 963.6pt x 542.025pt>
+<images/RR4.png, id=287, 963.6pt x 542.025pt>
 File: images/RR4.png Graphic file (type png)
 <use images/RR4.png>
 Package pdftex.def Info: images/RR4.png  used on input line 438.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR5.png, id=276, 963.6pt x 542.025pt>
+<images/RR5.png, id=288, 963.6pt x 542.025pt>
 File: images/RR5.png Graphic file (type png)
 <use images/RR5.png>
 Package pdftex.def Info: images/RR5.png  used on input line 438.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR6.png, id=277, 963.6pt x 542.025pt>
+<images/RR6.png, id=289, 963.6pt x 542.025pt>
 File: images/RR6.png Graphic file (type png)
 <use images/RR6.png>
 Package pdftex.def Info: images/RR6.png  used on input line 438.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR7.png, id=278, 963.6pt x 542.025pt>
+<images/RR7.png, id=290, 963.6pt x 542.025pt>
 File: images/RR7.png Graphic file (type png)
 <use images/RR7.png>
 Package pdftex.def Info: images/RR7.png  used on input line 440.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR8.png, id=279, 963.6pt x 542.025pt>
+<images/RR8.png, id=291, 963.6pt x 542.025pt>
 File: images/RR8.png Graphic file (type png)
 <use images/RR8.png>
 Package pdftex.def Info: images/RR8.png  used on input line 440.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR9.png, id=280, 963.6pt x 542.025pt>
+<images/RR9.png, id=292, 963.6pt x 542.025pt>
 File: images/RR9.png Graphic file (type png)
 <use images/RR9.png>
 Package pdftex.def Info: images/RR9.png  used on input line 440.
@@ -800,33 +800,33 @@ Package pdftex.def Info: images/RR9.png  used on input line 440.
 ng (PNG copy)> <./images/RR4.png (PNG copy)> <./images/RR5.png (PNG copy)> <./i
 mages/RR6.png (PNG copy)> <./images/RR7.png (PNG copy)> <./images/RR8.png (PNG 
 copy)> <./images/RR9.png (PNG copy)>]
-<images/CL-FJ-a.png, id=320, 1081.03876pt x 664.4825pt>
+<images/CL-FJ-a.png, id=332, 1081.03876pt x 664.4825pt>
 File: images/CL-FJ-a.png Graphic file (type png)
 <use images/CL-FJ-a.png>
 Package pdftex.def Info: images/CL-FJ-a.png  used on input line 526.
 (pdftex.def)             Requested size: 140.53996pt x 86.38574pt.
-<images/FJ_CL.png, id=321, 1059.96pt x 645.41125pt>
+<images/FJ_CL.png, id=333, 1059.96pt x 645.41125pt>
 File: images/FJ_CL.png Graphic file (type png)
 <use images/FJ_CL.png>
 Package pdftex.def Info: images/FJ_CL.png  used on input line 527.
 (pdftex.def)             Requested size: 137.79964pt x 83.9064pt.
-<images/FJ_R.png, id=322, 1254.6875pt x 654.445pt>
+<images/FJ_R.png, id=334, 1254.6875pt x 654.445pt>
 File: images/FJ_R.png Graphic file (type png)
 <use images/FJ_R.png>
 Package pdftex.def Info: images/FJ_R.png  used on input line 528.
 (pdftex.def)             Requested size: 163.1151pt x 85.08083pt.
  [10] [11 <./images/CL-FJ-a.png> <./images/FJ_CL.png> <./images/FJ_R.png>] [12]
-<images/RFSC1.png, id=434, 1266.7325pt x 745.78625pt>
+<images/RFSC1.png, id=446, 1266.7325pt x 745.78625pt>
 File: images/RFSC1.png Graphic file (type png)
 <use images/RFSC1.png>
 Package pdftex.def Info: images/RFSC1.png  used on input line 689.
 (pdftex.def)             Requested size: 253.34201pt x 149.1546pt.
-<images/RFSC2.png, id=435, 1225.57875pt x 672.5125pt>
+<images/RFSC2.png, id=447, 1225.57875pt x 672.5125pt>
 File: images/RFSC2.png Graphic file (type png)
 <use images/RFSC2.png>
 Package pdftex.def Info: images/RFSC2.png  used on input line 690.
 (pdftex.def)             Requested size: 245.1114pt x 134.5001pt.
-<images/RFSC3.png, id=436, 1263.72125pt x 703.62875pt>
+<images/RFSC3.png, id=448, 1263.72125pt x 703.62875pt>
 File: images/RFSC3.png Graphic file (type png)
 <use images/RFSC3.png>
 Package pdftex.def Info: images/RFSC3.png  used on input line 694.
@@ -845,29 +845,23 @@ Overfull \hbox (16.52594pt too wide) in paragraph at lines 790--792
 one
  []
 
-[16] [17] [18] [19] (./template_Article.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 990.
- [20]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 990.
+[16] [17] [18] [19] (./template_Article.bbl [20])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1026.
+ [21]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1026.
  (./template_Article.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 990.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 990.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1026.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1026.
 
-
-Package rerunfilecheck Warning: File `template_Article.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `template_Article.out':
-(rerunfilecheck)             Before: 83733987C12DE03A2B6CEE9BFD145D60;1684
-(rerunfilecheck)             After:  119995DE1833BEE5F93C503EF37DED49;1729.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 990.
+Package rerunfilecheck Info: File `template_Article.out' has not changed.
+(rerunfilecheck)             Checksum: B534AE5636DC0AF56E918A7B542A465E;1865.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1026.
  ) 
 Here is how much of TeX's memory you used:
- 9184 strings out of 494923
- 127690 string characters out of 6180743
- 382591 words of memory out of 5000000
- 11982 multiletter control sequences out of 15000+600000
+ 9190 strings out of 494923
+ 127778 string characters out of 6180743
+ 382598 words of memory out of 5000000
+ 11985 multiletter control sequences out of 15000+600000
  9543 words of font info for 34 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  28i,14n,42p,1903b,1957s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -893,10 +887,10 @@ st/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts
 ts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on template_Article.pdf (20 pages, 1317649 bytes).
+Output written on template_Article.pdf (21 pages, 1319815 bytes).
 PDF statistics:
- 815 PDF objects out of 1000 (max. 8388607)
- 734 compressed objects within 8 object streams
- 424 named destinations out of 1000 (max. 500000)
- 262 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 831 PDF objects out of 1000 (max. 8388607)
+ 749 compressed objects within 8 object streams
+ 427 named destinations out of 1000 (max. 500000)
+ 286 words of extra memory for PDF output out of 10000 (max. 10000000)
 
