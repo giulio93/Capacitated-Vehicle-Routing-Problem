@@ -35,56 +35,56 @@ if __name__ == "__main__":
       # else:
       #     sol.writeResult(solutionParallel,graphToSolve,start_time_par,"mysol_par") 
 
-      GAPassignementRR =-1
-      GAPassignementRand = -1
+      # GAPassignementRR =-1
+      # GAPassignementRand = -1
 
-      n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))  
+      # n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))  
 
-      while(GAPassignementRR == -1):  
-        start_time_clustering = time.time ()   
-        K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)           
-        GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
-        start_time_clustering = (time.time() - start_time_clustering)
-        if(GAPassignementRR != -1):
-            start_time_sol1 =  time.time()
-            solution = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_FJ")
-            if(sol.SearchaAndCompleteSequence(solution,graphToSolve)):
-              print("Solution Routing NN RR Invalid! ") 
-            else:
-              sol.writeResult(solution,graphToSolve,(start_time_sol1 - start_time_clustering),"mysol_FJ")
+      # while(GAPassignementRR == -1):  
+      #   start_time_clustering = time.time ()   
+      #   K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)           
+      #   GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
+      #   start_time_clustering = (time.time() - start_time_clustering)
+      #   if(GAPassignementRR != -1):
+      #       start_time_sol1 =  time.time()
+      #       solution = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_FJ")
+      #       if(sol.SearchaAndCompleteSequence(solution,graphToSolve)):
+      #         print("Solution Routing NN RR Invalid! ") 
+      #       else:
+      #         sol.writeResult(solution,graphToSolve,(start_time_sol1 - start_time_clustering),"mysol_FJ")
             
-            start_time_sol2 = time.time()
-            solution2 = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_DJ")         
-            if(sol.SearchaAndCompleteSequence(solution2,graphToSolve)):
-              print("Solution Routing in DIjkastra RR Invalid! ")
-            else:
-              sol.writeResult(solution2,graphToSolve,(start_time_sol2 - start_time_clustering ),"mysol_DJ")   
-        else:
-          n_vehicles = n_vehicles +1
+      #       start_time_sol2 = time.time()
+      #       solution2 = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_DJ")         
+      #       if(sol.SearchaAndCompleteSequence(solution2,graphToSolve)):
+      #         print("Solution Routing in DIjkastra RR Invalid! ")
+      #       else:
+      #         sol.writeResult(solution2,graphToSolve,(start_time_sol2 - start_time_clustering ),"mysol_DJ")   
+      #   else:
+      #     n_vehicles = n_vehicles +1
 
 
-      n_vehicles = 0
-      while(GAPassignementRand == -1):
-        start_time_clustering34 = time.time()   
-        K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
-        GAPassignementRand = sol.GAPsolver(graphToSolve,K_clusterRand)
-        start_time_clustering34 = (time.time() - start_time_clustering34)
-        if(GAPassignementRand != -1):
-            start_time_sol3 =time.time()
-            solution = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRand,K_clusterRand,"mysol_FJ_kRand")
-            if(sol.SearchaAndCompleteSequence(solution,graphToSolve)):
-              print("Solution Routing NN Random Invalid! ! ")
-            else :
-              sol.writeResult(solution,graphToSolve,(start_time_sol3 - start_time_clustering34),"mysol_FJ_kRand")
+      # n_vehicles = 0
+      # while(GAPassignementRand == -1):
+      #   start_time_clustering34 = time.time()   
+      #   K_clusterRand = [random.randint(1,graphToSolve.getDimension()-1) for i in range(n_vehicles)]
+      #   GAPassignementRand = sol.GAPsolver(graphToSolve,K_clusterRand)
+      #   start_time_clustering34 = (time.time() - start_time_clustering34)
+      #   if(GAPassignementRand != -1):
+      #       start_time_sol3 =time.time()
+      #       solution = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRand,K_clusterRand,"mysol_FJ_kRand")
+      #       if(sol.SearchaAndCompleteSequence(solution,graphToSolve)):
+      #         print("Solution Routing NN Random Invalid! ! ")
+      #       else :
+      #         sol.writeResult(solution,graphToSolve,(start_time_sol3 - start_time_clustering34),"mysol_FJ_kRand")
 
-            start_time_sol4 =time.time()
-            solution2 = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRand,K_clusterRand,"mysol_DJ_kRand")          
-            if(sol.SearchaAndCompleteSequence(solution2,graphToSolve)):
-              print("Solution Routing in DIjkastra Random Invalid! ") 
-            else:
-              sol.writeResult(solution2,graphToSolve,(start_time_sol4 - start_time_clustering34 ),"mysol_DJ_kRand")
-        else:
-          n_vehicles = n_vehicles +1
+      #       start_time_sol4 =time.time()
+      #       solution2 = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRand,K_clusterRand,"mysol_DJ_kRand")          
+      #       if(sol.SearchaAndCompleteSequence(solution2,graphToSolve)):
+      #         print("Solution Routing in DIjkastra Random Invalid! ") 
+      #       else:
+      #         sol.writeResult(solution2,graphToSolve,(start_time_sol4 - start_time_clustering34 ),"mysol_DJ_kRand")
+      #   else:
+      #     n_vehicles = n_vehicles +1
         
       # start_time =time.time ()
       # solution3 = sol.ClusterFirst_RouteSecond(graphToSolve,"Sol_CR")

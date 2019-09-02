@@ -47,12 +47,12 @@ def printResult(folderSol,folderRes):
         #resume.write("Solution in "+folderRes + "\n")
         for sol in mysol:
             with open(path+'/'+sol, "r+") as f:
+                time = 0
                 for line in f:
                     keywords = line
                     if(keywords.split(':')[0].strip()=="Routing Total Cost"):
                         stimated = float(keywords.split(':')[1].strip())
-                        for optimal in cvrp_sol:
-                            time = 0
+                        for optimal in cvrp_sol:                           
                             with open(path2+'/'+optimal, "r") as c:
                                 if(sol.split('.')[0] == "Sol_"+optimal.split('.')[0]):
                                 #if(sol.split('.')[0] == "Sol_"+optimal[4:]):
@@ -64,8 +64,8 @@ def printResult(folderSol,folderRes):
                                             print("Error of solution in "+sol + ": "+ str(float(error))+ "==> Stimated: " +str(stimated) + " ==> optimal: "+str(actual) + "==> Time: "+str(time))
                                             f.write("Error of solution in "+sol + ": "+ str(float(error)))
                                             resume.write("Error of solution in "+sol + ": "+ str(float(error))+ "\n")
-                                if(keywords.split(':')[0].strip()=="Time Horizon"):
-                                    time = float(keywords.split(':')[1].strip())
+                    if(keywords.split(':')[0].strip()=="Time Horizon"):
+                        time = float(keywords.split(':')[1].strip())
                                 
                                     
 
