@@ -837,7 +837,7 @@ def GeneticAlgorithm(graph):
 		K_clusterRand = [(*$random(1,Dimension-1) ] \ \forall v \in Nvehicles $*)]
 		GAPassignementRand = GAPsolver(graphToSolve,K_clusterRand)
 		if(GAPassignementRand != -1):
-			chromosome = NearestNeightbourn(graphToSolve,GAPassignementRand,K_clusterRand) 
+			chromosome = NearestNeighbourn(graphToSolve,GAPassignementRand,K_clusterRand) 
 			if(SearchaAndCompleteSequence(chromosome,graphToSolve)):
 				print("Invalid! ")
 			else:
@@ -962,14 +962,27 @@ Alla riga 6 si inizializza la lista \textit{allocCosts} con una complessità  pa
 \subsubsection{Nearest Neighbourn}
 Alla riga 6 si scorrono tutti i cluster con complessità \emph{O(k)}, come già visto  \emph{$ k \ll V $}. Al suo interno  alla riga 8 si scorre la lista \textit{clusterAssignement} di lunghezza \emph{V}, con complessità \emph{O(V)} in totale questi due cicli \texttt{for} hanno complessità \emph{$O(V) \cdot O(k)$}.
 L'istruzione \texttt{while} a riga 15 scorre \textit{cluster} per tutta la sua lunghezza che nel caso peggiore è \emph{V}, quindi \emph{O(V)}. Al suo interno alla riga 17 \textit{distPrevNode} contiene tutte le distanze dall'ultimo nodo aggiunto e il resto dei clienti esterni a \texttt{appoRoute} nel caso peggiore jha complessità \emph{O(V-1)}, alla riga 18 si ritorna l'indice minimo in \textit{distPrevNode} e di conseguenza si ritorna il corrispondente elemento in \textit{cluster}, con complessità \emph{O(V)}. Il controllo a riga 16 anch'esso ha complessità \emph{O(V)} nel caso peggiore. La complessità totale dell'algoritmo è 
-emph{$O(k \cdot V^3)$}. 
+\emph{$O(k \cdot V^3)$}. 
 \textbf{Ovviamente la complessità nono sarà mai così alta perchè altrimenti non saremo in CVRP ma in un cammino hamiltoniano, e ci sarebbe un solo vicolo con capcità uglae alla soamm di tute l e domande. DI conseguenza la lungehzza di un cluster e di un veicolo e di una route, sarannno sicuramente minori comprese appunto tra  \emph{$TotDem \leq O \leq V/FatBoy$} }
 
 \subsubsection{Nearest Neighbourn TrackPath}
 Le righe 6 e 9 hanno complessità \emph{$O(V) \cdot O(k)$}. Alla riga 13 l'inizilizzazione di tutte le \emph{route} dal deposito al cliente richiede complessità complessità \emph{$O(V)$)}, alla riga  20 il sort di \textit{priorityQ} richiede anche'essa complessità \emph{$O(V)$)}. Il \texttt{while} in 22 scorre \textit{priorityQ} in  \emph{$O(V)$)}.
-Da riga 27 a 30, si scorre \textit{cluster} e si controlla se il cliente è già presente nella \emph{shortRoute},  richiedendo   \emph{$O(V)$}, come già precisato \emph{shortRoute} contiene \emph{l < V} nodi quindi la complessità  è \emph{$O(V \cdot l)$}. In 33 \texttt{getNearestNeighbourn} richiede \emph{$O(V \setminus l)$}. Ala riga 47 si ordinano le le \emph{O(V)} \emph{route} e si estare la migliore in tempo costatante in riga 48. In totale l'algoritmo richiede
- 
+Da riga 27 a 30, si scorre \textit{cluster} e si controlla se il cliente è già presente nella \emph{shortRoute},  richiedendo   \emph{$O(V)$}, come già precisato \emph{shortRoute} contiene \emph{l < V} nodi quindi la complessità  è \emph{$O(V \cdot l)$}. In 33 \texttt{getNearestNeighbourn} richiede \emph{$O(V \setminus l)$}. Ala riga 47 si ordinano le le \emph{O(V)} \emph{route} e si estare la migliore in tempo costatante in riga 48. In totale l'algoritmo richiede \emph{$O(V \cdot l)$}.
 
+
+\subsection{Route First, Cluster Second}
+In riga 5 ogni elemento di \textit{dist} viene posto a $\infty$ richiedendo \emph{O(V)}, alla riga 8 si inizializza il grafo \textit{auxGraph} con una tupla per ogni vertice del \emph{V}, con complessità \emph{O(V)}. Alla riga 19 il \texttt{sort} della coda \textit{NodeQueue} richiede \emph{O(1)}, in quanto la coda detiene un solo elemento al momento.
+Il \texttt{while} scorre tutta la coda con complessità asintotica \emph{$O(V^2)$} riga 21. Il \texttt{for} a riga 26 scorre tutti i vertici e al suo interno il for a riga 31 scorre i vertici tra il padre e il figlio l acomplessità dei due cilic innestati è \emph{$O(V^2)$}. Il \textbf{while} che ricompone il percorso dalla destinazione all'albero ha complessità \emph{O(H)} con \emph{H} uguale ai vertici in \textit{auxGraph}.La complessità totale è \emph{$O(V^2 \cdot H)$}.
+
+\subsection{Algoritmo Genetico}
+A riga 12 il \texttt{for} si occupa di costruire la popolazione di cromosomi iniziale con \emph{O(Npopulation)}. Al suo interno \emph{$K_clusterRand$} crea i centroidi con complessità \emph{O(Nvehicles)} riga 13. A riga 14 si esegue \texttt{GAPsolver} che abbiamo già detto avere complessità 
+ \emph{$O(V \cdot k)$}, se questo va a buon fine  a riga 16  si esegue \texttt{NearestNeighbourn} che ha complessità \emph{DaRicalcolare}, in totale la costruzione della popolazione ha complessità \emph{Da Ricalcolare}. 
+ Una volta che la popolazione è inizializzata, si passa al \texttt{while} a riga 22 che scorre le era a cui sottopone la popolazione in \emph{O(Eras)}. Al suo interno alla riga 26 il \texttt{for} esegue per un nuemero di volte uguale alla metà della popolazione le azioni necessarie per evolvere i cromosomi.
+ Al suo interno alla riga 28, \texttt{Tournament} può avvenire con due modalità, \texttt{random}, sceglie due candidati a caso, ha complessità \emph{O(1)}; o con modalità \texttt{bestAndWorst} sceglie il migliore e il peggiore candidato, in questa modalità si richiede un ordinamento della popolazione, quindi richiede \emph{O(Npopulation)}. Alla riga 29 si passa all'istruzione \texttt{Crossover}, la quale scorre e incrocia i cromosomi candidati che contengono tutti i nodi visitati, in più ad ogni modifica ricalcola e il costo della soluzione per un totale di complessità pari a \emph{O($V^2$)}. In 32 \texttt{SearchAndCompleteSequence} cerca nella soluzione i clienti presenti e quelli non presenti con un costo \emph{O(V)}.A riga 42 il ciclo \texttt{for} scorre le \emph{route} all'interno della soluzione, chiamando di conseguenza \texttt{FlippingPath} eseguito in tempo costante \emph{O(1)} perchè scambia di posto due clienti random mutando il cromosoma. Richiedendo tempo \emph{O(R)} uguale al numero di \emph{route} nella soluzione.
+ In 54 si riordina \textit{popEra} con complessità \emph{O$(\frac{Npopulation}{2})$}, si scelgono i migliori cromosomi di \textit{popEra} 55 e si sostituiscono  in 56 con complessità \emph{O$(best)$}. La complessità di questo grande ciclio è \emph{O($V^2$)}.
+ Infine \textit{population} viene riordinato, la complessità rimane  \emph{O($V^2$)}.
+ 
+ \section{Risultati}
 \bibliographystyle{unsrt}
 \bibliography{biblio}
 
