@@ -52,6 +52,7 @@ def printResult(folderSol,folderRes):
                     if(keywords.split(':')[0].strip()=="Routing Total Cost"):
                         stimated = float(keywords.split(':')[1].strip())
                         for optimal in cvrp_sol:
+                            time = 0
                             with open(path2+'/'+optimal, "r") as c:
                                 if(sol.split('.')[0] == "Sol_"+optimal.split('.')[0]):
                                 #if(sol.split('.')[0] == "Sol_"+optimal[4:]):
@@ -60,9 +61,13 @@ def printResult(folderSol,folderRes):
                                         if(len(keys.split()) > 0 and (keys.split()[0].strip()=="Cost" or keys.split()[0].strip()=="cost")):
                                             actual = float(keys.split()[1].strip())
                                             error = (stimated - actual)/actual
-                                            print("Error of solution in "+sol + ": "+ str(float(error))+ "==> Stimated: " +str(stimated) + " ==> optimal: "+str(actual) )
+                                            print("Error of solution in "+sol + ": "+ str(float(error))+ "==> Stimated: " +str(stimated) + " ==> optimal: "+str(actual) + "==> Time: "+str(time))
                                             f.write("Error of solution in "+sol + ": "+ str(float(error)))
                                             resume.write("Error of solution in "+sol + ": "+ str(float(error))+ "\n")
+                                if(keywords.split(':')[0].strip()=="Time Horizon"):
+                                    time = float(keywords.split(':')[1].strip())
+                                
+                                    
 
 def ClarkeWright(graph,parallel = True):
     print("Clarke & Wright have been evoked!")
