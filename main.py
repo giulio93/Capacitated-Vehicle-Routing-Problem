@@ -19,14 +19,6 @@ if __name__ == "__main__":
     files = par.readInstanceList(path)
     for f in files:
       graphToSolve =  par.createGraph(path,f)
-      
-      start_time_seq =time.time()
-
-      solutionSequential = sol.ClarkeWright(graphToSolve,False)
-      if(sol.SearchaAndCompleteSequence(solutionSequential,graphToSolve)):
-          print("Solution Clarke and Wright Sequential Invalid ") 
-      else:
-          sol.writeResult(solutionSequential,graphToSolve,start_time_seq,"mysol") 
 
       start_time_par =time.time()
       solutionParallel = sol.ClarkeWright(graphToSolve,True)
@@ -34,6 +26,15 @@ if __name__ == "__main__":
           print("Solution Clarke and Wright Parallel Invalid ") 
       else:
           sol.writeResult(solutionParallel,graphToSolve,start_time_par,"mysol_par") 
+      
+      start_time_seq =time.time()
+      solutionSequential = sol.ClarkeWright(graphToSolve,False)
+      if(sol.SearchaAndCompleteSequence(solutionSequential,graphToSolve)):
+          print("Solution Clarke and Wright Sequential Invalid ") 
+      else:
+          sol.writeResult(solutionSequential,graphToSolve,start_time_seq,"mysol") 
+
+     
 
       GAPassignementRR =-1
       GAPassignementRand = -1

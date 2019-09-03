@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.6)  3 SEP 2019 09:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.6)  3 SEP 2019 11:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -865,17 +865,17 @@ one
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <9> on input line 998.
 
-Overfull \hbox (40.97272pt too wide) in paragraph at lines 996--1053
+Overfull \hbox (39.43106pt too wide) in paragraph at lines 996--1062
 [] 
  []
 
 
-Overfull \hbox (26.59085pt too wide) in paragraph at lines 1060--1112
+Overfull \hbox (26.59085pt too wide) in paragraph at lines 1071--1128
 [] 
  []
 
 
-Overfull \hbox (26.59085pt too wide) in paragraph at lines 1119--1171
+Overfull \hbox (26.59085pt too wide) in paragraph at lines 1135--1191
 [] 
  []
 
@@ -884,16 +884,16 @@ Overfull \hbox (26.59085pt too wide) in paragraph at lines 1119--1171
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 (./template_Article.bbl [22])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1239.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1261.
  [23]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1239.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1261.
  (./template_Article.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1239.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1239.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1261.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1261.
 
 Package rerunfilecheck Info: File `template_Article.out' has not changed.
 (rerunfilecheck)             Checksum: 92B30B429E2BF4CD59BE927289DB20A8;2443.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1239.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1261.
  ) 
 Here is how much of TeX's memory you used:
  9302 strings out of 494923
@@ -925,7 +925,7 @@ st/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts
 ts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on template_Article.pdf (23 pages, 1329944 bytes).
+Output written on template_Article.pdf (23 pages, 1333156 bytes).
 PDF statistics:
  866 PDF objects out of 1000 (max. 8388607)
  782 compressed objects within 8 object streams
