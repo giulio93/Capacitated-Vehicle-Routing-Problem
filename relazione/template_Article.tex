@@ -1278,6 +1278,8 @@ Questo algoritmo con l'implementazione corrente è da scartare, produce dei risu
 
 Questo algoritmo parte da soluzioni create con l'algoritmo \texttt{Fisher and Jaikumar-Random Centroid -Nearest Neighbourn Routing}, successivamente applica le azioni già presentate precedentemente. E ovvio che questa azioni richiedono più tempo computazionale, ma è interessante notare come soluzioni nate da questo metodo possono essere migliorate confrontando e mantenendo le migliori ad ogni evoluzione. \textit{fri-n26-k3} si ripropone con una buona soluzione anche se questa richiede molto più tempo rispetto ai metodi utilizzati precedentemente. Rispetto alle altre \textit{gr-n17-k3} molto vicino al valore della soluzione ottenuto con \emph{Clarke and Wright}. L'errore medio di questo metodo si posizione tra i più bassi rispetto ai metodi a due fasi, richiedendo un tempo però 8 volte maggiore.
 
+\section{A-VRP Benchmark Data}
+
 \section{Problemi riconosciuti e possibili miglioramenti}
 Il calcolo delle coordiante \texttt{GEO} da parte del file \texttt{parser.py} si sospetta non è corretto, ma non è stato possibile risalire con successo all'errore.
 In \texttt{Listing:1} il controllo a riga 8 può essere implementato con un vettore, e ogni qualvolta si aggiunge un nodo ad una \emph{route} si elimina dal medesimo vettore, evitando così di esplorare ogni volta la soluzione per testare se questa è completa.
