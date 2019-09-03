@@ -1,4 +1,5 @@
 \documentclass[]{article}
+\usepackage[table]{xcolor}
 \usepackage[utf8]{inputenc}
 \usepackage{natbib}
 \usepackage{graphicx}
@@ -10,7 +11,7 @@
 \usepackage{multicol}
 \usepackage{graphics}
 
-\usepackage{xcolor}
+
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -998,22 +999,24 @@ Presentiamo qui i risultati di ogni algoritmo presentato
 				\hline
 				Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
 				\hline\hline
-				fri-n26-k3 & 1481.0 & 1353.0 & 0.0946 & 0.3279  \\
-				bays-n29-k5 & 3126.0 & 2963.0 & 0.055 & 0.5646  \\
-				hk-n48-k4 & 16393.0 & 14749.0 & 0.1115 & 1.3568  \\
+				gr-n21-k3 & 4018.0 & 3704.0 & 0.0848 & 0.7445  \\
+				gr-n48-k3 & 6743.0 & 5985.0 & 0.1266 & 3.4551  \\
+				bayg-n29-k4 & 2730.0 & 2050.0 & 0.3317 & 0.3202  \\
 				dantzig-n42-k4 & 1204.0 & 1142.0 & 0.0543 & 0.562  \\
-				ulysses-n22-k4 & 159120.0 & 40153.0 & 2.9628 & 0.0322  \\
+				fri-n26-k3 & 1481.0 & 1353.0 & 0.0946 & 0.3279  \\
 				F-n135-k7 & 1219.3 & 1162.0 & 0.0493 & 117.4652  \\
-				gr-n17-k3 & 2685.0 & 2685.0 & 0.0 & 0.05  \\
+				hk-n48-k4 & 16393.0 & 14749.0 & 0.1115 & 1.3568  \\
+				ulysses-n22-k4 & 159120.0 & 40153.0 & 2.9628 & 0.0322  \\
+				att-n48-k4 & 43477.4 & 40002.0 & 0.0869 & 6.8209  \\
 				F-n72-k4 & 256.2 & 237.0 & 0.081 & 13.701  \\
-				gr-n24-k4 & 2178.0 & 2053.0 & 0.0609 & 0.1483  \\
+				gr-n17-k3 & 2685.0 & 2685.0 & 0.0 & 0.05  \\
 				F-n45-k4 & 739.0 & 724.0 & 0.0207 & 1.4352  \\
+				bays-n29-k5 & 3126.0 & 2963.0 & 0.055 & 0.5646  \\
+				gr-n24-k4 & 2178.0 & 2053.0 & 0.0609 & 0.1483  \\
 				ulysses-n16-k3 & 114954.0 & 30492.0 & 2.77 & 0.1169  \\
 				swiss-n42-k5 & 1732.0 & 1668.0 & 0.0384 & 1.6723  \\
-				gr-n48-k3 & 6743.0 & 5985.0 & 0.1266 & 3.4551  \\
-				att-n48-k4 & 43477.4 & 40002.0 & 0.0869 & 6.8209  \\
-				gr-n21-k3 & 4018.0 & 3704.0 & 0.0848 & 0.7445  \\
-				bayg-n29-k4 & 2730.0 & 2050.0 & 0.3317 & 0.3202  \\
+				\hline
+				Media & 22628.49 & 9445.12 & 0.43 & 9.3  \\
 				[1ex] 
 				\hline
 			\end{tabular}
@@ -1024,22 +1027,23 @@ Presentiamo qui i risultati di ogni algoritmo presentato
 				\hline
 				Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
 				\hline\hline
-				fri-n26-k3 & 1481.0 & 1353.0 & 0.0946 & 0.3856  \\
-				bays-n29-k5 & 3126.0 & 2963.0 & 0.055 & 0.654  \\
-				hk-n48-k4 & 16393.0 & 14749.0 & 0.1115 & 2.4392  \\
-				dantzig-n42-k4 & 1204.0 & 1142.0 & 0.0543 & 1.746  \\
-				ulysses-n22-k4 & 159142.0 & 40153.0 & 2.9634 & 0.4237  \\
-				F-n135-k7 & 1219.3 & 1162.0 & 0.0493 & 40.4586  \\
-				gr-n17-k3 & 2685.0 & 2685.0 & 0.0 & 0.2109  \\
-				F-n72-k4 & 256.2 & 237.0 & 0.081 & 6.0474  \\
-				gr-n24-k4 & 2178.0 & 2053.0 & 0.0609 & 0.4837  \\
-				F-n45-k4 & 739.0 & 724.0 & 0.0207 & 2.1336  \\
-				ulysses-n16-k3 & 114975.0 & 30492.0 & 2.7707 & 0.145  \\
-				swiss-n42-k5 & 1732.0 & 1668.0 & 0.0384 & 1.7504  \\
-				gr-n48-k3 & 6743.0 & 5985.0 & 0.1266 & 2.5187  \\
-				att-n48-k4 & 43477.4 & 40002.0 & 0.0869 & 2.275  \\
-				gr-n21-k3 & 4018.0 & 3704.0 & 0.0848 & 0.4082  \\
-				bayg-n29-k4 & 2730.0 & 2050.0 & 0.3317 & 0.783  \\		
+		gr-n21-k3 & 4018.0 & 3704.0 & 0.0848 & 0.7445  \\
+		gr-n48-k3 & 6743.0 & 5985.0 & 0.1266 & 3.4551  \\
+		bayg-n29-k4 & 2730.0 & 2050.0 & 0.3317 & 0.3202  \\
+		dantzig-n42-k4 & 1204.0 & 1142.0 & 0.0543 & 0.562  \\
+		fri-n26-k3 & 1481.0 & 1353.0 & 0.0946 & 0.3279  \\
+		F-n135-k7 & 1219.3 & 1162.0 & 0.0493 & 117.4652  \\
+		hk-n48-k4 & 16393.0 & 14749.0 & 0.1115 & 1.3568  \\
+		ulysses-n22-k4 & 159120.0 & 40153.0 & 2.9628 & 0.0322  \\
+		att-n48-k4 & 43477.4 & 40002.0 & 0.0869 & 6.8209  \\
+		F-n72-k4 & 256.2 & 237.0 & 0.081 & 13.701  \\
+		gr-n17-k3 & 2685.0 & 2685.0 & 0.0 & 0.05  \\
+		F-n45-k4 & 739.0 & 724.0 & 0.0207 & 1.4352  \\
+		bays-n29-k5 & 3126.0 & 2963.0 & 0.055 & 0.5646  \\
+		gr-n24-k4 & 2178.0 & 2053.0 & 0.0609 & 0.1483  \\
+		ulysses-n16-k3 & 114954.0 & 30492.0 & 2.77 & 0.1169  \\
+		swiss-n42-k5 & 1732.0 & 1668.0 & 0.0384 & 1.6723  \\
+		Media & 22628.49 & 9445.12 & 0.43 & 9.3  \\
 				[1ex] 
 				\hline
 			\end{tabular}
@@ -1047,7 +1051,7 @@ Presentiamo qui i risultati di ogni algoritmo presentato
 
 \end{tabular}
 
-Questa tabella confronta i risultati ottenuti applicando l'algoritmo di Clark and Wright, nella tabella a sinistra l'algoritmo sequenziale entre nella tabella a destra quello parallelo. La colonna \texttt{Soluzione} in entrambe le tabelle differisce di ($\sim 20Km$)
+Questa tabella confronta i risultati ottenuti applicando l'algoritmo di Clark and Wright, nella tabella a sinistra l'algoritmo sequenziale entre nella tabella a destra quello parallelo. La colonna \texttt{Soluzione} in entrambe le tabelle differisce di ($\sim 20Km$) nelle soluzioni \textit{ulysses-n22-k4} e \textit{ulysses-n16-k3}
 
 \subsection{Fisher and Jaikumar -Radius Radar Frontier}
 
