@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.6)  2 SEP 2019 18:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.6)  3 SEP 2019 08:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -719,7 +719,7 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 108.
-<images/ITA28.png, id=135, 601.24625pt x 865.2325pt>
+<images/ITA28.png, id=131, 601.24625pt x 865.2325pt>
 File: images/ITA28.png Graphic file (type png)
 <use images/ITA28.png>
 Package pdftex.def Info: images/ITA28.png  used on input line 117.
@@ -734,7 +734,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 143.
 [3]
-<images/saving.png, id=192, 512.91624pt x 245.91875pt>
+<images/saving.png, id=188, 512.91624pt x 245.91875pt>
 File: images/saving.png Graphic file (type png)
 <use images/saving.png>
 Package pdftex.def Info: images/saving.png  used on input line 258.
@@ -751,47 +751,47 @@ Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 299.
  [6] [7]
 [8]
-<images/RR1.png, id=313, 963.6pt x 542.025pt>
+<images/RR1.png, id=309, 963.6pt x 542.025pt>
 File: images/RR1.png Graphic file (type png)
 <use images/RR1.png>
 Package pdftex.def Info: images/RR1.png  used on input line 436.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR2.png, id=314, 963.6pt x 542.025pt>
+<images/RR2.png, id=310, 963.6pt x 542.025pt>
 File: images/RR2.png Graphic file (type png)
 <use images/RR2.png>
 Package pdftex.def Info: images/RR2.png  used on input line 437.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR3.png, id=315, 963.6pt x 542.025pt>
+<images/RR3.png, id=311, 963.6pt x 542.025pt>
 File: images/RR3.png Graphic file (type png)
 <use images/RR3.png>
 Package pdftex.def Info: images/RR3.png  used on input line 438.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR4.png, id=316, 963.6pt x 542.025pt>
+<images/RR4.png, id=312, 963.6pt x 542.025pt>
 File: images/RR4.png Graphic file (type png)
 <use images/RR4.png>
 Package pdftex.def Info: images/RR4.png  used on input line 441.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR5.png, id=317, 963.6pt x 542.025pt>
+<images/RR5.png, id=313, 963.6pt x 542.025pt>
 File: images/RR5.png Graphic file (type png)
 <use images/RR5.png>
 Package pdftex.def Info: images/RR5.png  used on input line 441.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR6.png, id=318, 963.6pt x 542.025pt>
+<images/RR6.png, id=314, 963.6pt x 542.025pt>
 File: images/RR6.png Graphic file (type png)
 <use images/RR6.png>
 Package pdftex.def Info: images/RR6.png  used on input line 441.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR7.png, id=319, 963.6pt x 542.025pt>
+<images/RR7.png, id=315, 963.6pt x 542.025pt>
 File: images/RR7.png Graphic file (type png)
 <use images/RR7.png>
 Package pdftex.def Info: images/RR7.png  used on input line 443.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR8.png, id=320, 963.6pt x 542.025pt>
+<images/RR8.png, id=316, 963.6pt x 542.025pt>
 File: images/RR8.png Graphic file (type png)
 <use images/RR8.png>
 Package pdftex.def Info: images/RR8.png  used on input line 443.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-<images/RR9.png, id=321, 963.6pt x 542.025pt>
+<images/RR9.png, id=317, 963.6pt x 542.025pt>
 File: images/RR9.png Graphic file (type png)
 <use images/RR9.png>
 Package pdftex.def Info: images/RR9.png  used on input line 443.
@@ -800,33 +800,33 @@ Package pdftex.def Info: images/RR9.png  used on input line 443.
 ng (PNG copy)> <./images/RR4.png (PNG copy)> <./images/RR5.png (PNG copy)> <./i
 mages/RR6.png (PNG copy)> <./images/RR7.png (PNG copy)> <./images/RR8.png (PNG 
 copy)> <./images/RR9.png (PNG copy)>]
-<images/CL-FJ-a.png, id=360, 1081.03876pt x 664.4825pt>
+<images/CL-FJ-a.png, id=356, 1081.03876pt x 664.4825pt>
 File: images/CL-FJ-a.png Graphic file (type png)
 <use images/CL-FJ-a.png>
 Package pdftex.def Info: images/CL-FJ-a.png  used on input line 529.
 (pdftex.def)             Requested size: 140.53996pt x 86.38574pt.
-<images/FJ_CL.png, id=361, 1059.96pt x 645.41125pt>
+<images/FJ_CL.png, id=357, 1059.96pt x 645.41125pt>
 File: images/FJ_CL.png Graphic file (type png)
 <use images/FJ_CL.png>
 Package pdftex.def Info: images/FJ_CL.png  used on input line 530.
 (pdftex.def)             Requested size: 137.79964pt x 83.9064pt.
-<images/FJ_R.png, id=362, 1254.6875pt x 654.445pt>
+<images/FJ_R.png, id=358, 1254.6875pt x 654.445pt>
 File: images/FJ_R.png Graphic file (type png)
 <use images/FJ_R.png>
 Package pdftex.def Info: images/FJ_R.png  used on input line 531.
 (pdftex.def)             Requested size: 163.1151pt x 85.08083pt.
  [10] [11 <./images/CL-FJ-a.png> <./images/FJ_CL.png> <./images/FJ_R.png>] [12]
-<images/RFSC1.png, id=474, 1266.7325pt x 745.78625pt>
+<images/RFSC1.png, id=470, 1266.7325pt x 745.78625pt>
 File: images/RFSC1.png Graphic file (type png)
 <use images/RFSC1.png>
 Package pdftex.def Info: images/RFSC1.png  used on input line 692.
 (pdftex.def)             Requested size: 253.34201pt x 149.1546pt.
-<images/RFSC2.png, id=475, 1225.57875pt x 672.5125pt>
+<images/RFSC2.png, id=471, 1225.57875pt x 672.5125pt>
 File: images/RFSC2.png Graphic file (type png)
 <use images/RFSC2.png>
 Package pdftex.def Info: images/RFSC2.png  used on input line 693.
 (pdftex.def)             Requested size: 245.1114pt x 134.5001pt.
-<images/RFSC3.png, id=476, 1263.72125pt x 703.62875pt>
+<images/RFSC3.png, id=472, 1263.72125pt x 703.62875pt>
 File: images/RFSC3.png Graphic file (type png)
 <use images/RFSC3.png>
 Package pdftex.def Info: images/RFSC3.png  used on input line 697.
@@ -847,19 +847,19 @@ one
 
 [16] [17] [18] [19] [20]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 1001.
+(Font)              <9> on input line 997.
 
-Overfull \hbox (32.34798pt too wide) in paragraph at lines 999--1053
+Overfull \hbox (32.34798pt too wide) in paragraph at lines 995--1049
 [] 
  []
 
 
-Overfull \hbox (22.59108pt too wide) in paragraph at lines 1060--1112
+Overfull \hbox (22.59108pt too wide) in paragraph at lines 1056--1108
 [] 
  []
 
 
-Overfull \hbox (22.59108pt too wide) in paragraph at lines 1119--1171
+Overfull \hbox (22.59108pt too wide) in paragraph at lines 1115--1167
 [] 
  []
 
@@ -868,61 +868,51 @@ Overfull \hbox (22.59108pt too wide) in paragraph at lines 1119--1171
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 (./template_Article.bbl [22])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1239.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1235.
  [23]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1239.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1235.
  (./template_Article.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1239.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1239.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1235.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1235.
 
-
-
-Package rerunfilecheck Warning: File `template_Article.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `template_Article.out':
-(rerunfilecheck)             Before: 722408F27FFCA103743EC03A082535B1;2542
-(rerunfilecheck)             After:  92B30B429E2BF4CD59BE927289DB20A8;2443.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1239.
+Package rerunfilecheck Info: File `template_Article.out' has not changed.
+(rerunfilecheck)             Checksum: 92B30B429E2BF4CD59BE927289DB20A8;2443.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1235.
  ) 
 Here is how much of TeX's memory you used:
- 9211 strings out of 494923
- 128084 string characters out of 6180743
+ 9209 strings out of 494923
+ 128044 string characters out of 6180743
  382604 words of memory out of 5000000
- 11995 multiletter control sequences out of 15000+600000
+ 11994 multiletter control sequences out of 15000+600000
  10156 words of font info for 36 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  28i,14n,42p,1903b,1957s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{subsubsection.5.3.2} has been referenced but does
- not exist, replaced by a fixed one
-
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
-i10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on template_Article.pdf (23 pages, 1328876 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on template_Article.pdf (23 pages, 1329401 bytes).
 PDF statistics:
- 870 PDF objects out of 1000 (max. 8388607)
- 786 compressed objects within 8 object streams
- 436 named destinations out of 1000 (max. 500000)
- 342 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 866 PDF objects out of 1000 (max. 8388607)
+ 782 compressed objects within 8 object streams
+ 435 named destinations out of 1000 (max. 500000)
+ 334 words of extra memory for PDF output out of 10000 (max. 10000000)
 
