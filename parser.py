@@ -10,7 +10,6 @@ def readInstanceList(path):
     files = os.listdir(path)
     return files
 
-
 def createGraph(folderRoot,fileCVRP):
 
     g = cvrpGraph()
@@ -79,7 +78,6 @@ def createGraph(folderRoot,fileCVRP):
             i += 1
     return g
 
-
 def initDemand(graph,data,index):
     
     dimension = graph.getDimension()
@@ -127,8 +125,6 @@ def parseEUC2 (graph, data, index):
 
     print("EUC2  Done")
        
-
-
 def parseGEO(graph,data, index):
 
     dimension = graph.getDimension()
@@ -165,8 +161,6 @@ def parseGEO(graph,data, index):
                 dij = int(RRR * acos(0.5 * ((0.1 + q1) * q2 - (1.0 - q1) * q3)) +1.0)
                 graph.addEdge(i, j, dij)
             else:  graph.addEdge(i, j, -1)
-
-
 
 def parseMatrix(graph, format, data,index):
 

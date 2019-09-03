@@ -9218,3 +9218,28 @@ Error of solution in Sol_bays-n29-k5.vrp.txt: 1.2473844076949039
 Error of solution in Sol_gr-n24-k4.vrp.txt: 0.9585971748660497
 Error of solution in Sol_ulysses-n16-k3.vrp.txt: 3.011314443132625
 Error of solution in Sol_swiss-n42-k5.vrp.txt: 0.9412470023980816
+============================== AUTO SAVE ./mysol =============================
+Error of solution in Sol_A-n55-k9.vrp.txt: 0.20306871204418747
+Error of solution in Sol_A-n36-k5.vrp.txt: 0.1239226852963457
+Error of solution in Sol_A-n61-k9.vrp.txt: 0.14986843475059855
+Error of solution in Sol_A-n39-k5.vrp.txt: 0.23391115244719557
+Error of solution in Sol_A-n37-k6.vrp.txt: 0.05182425921287565
+Error of solution in Sol_A-n33-k5.vrp.txt: 0.14594308909160392
+Error of solution in Sol_A-n65-k9.vrp.txt: 0.26014002217514276
+Error of solution in Sol_A-n45-k6.vrp.txt: 0.18784583928787824
+Error of solution in Sol_A-n54-k7.vrp.txt: 0.1046963760313762
+Error of solution in Sol_A-n34-k5.vrp.txt: 0.1453796111859286
+Error of solution in Sol_A-n53-k7.vrp.txt: 0.147838702134405
+Error of solution in Sol_A-n45-k7.vrp.txt: 0.09195243043144177
+Error of solution in Sol_A-n48-k7.vrp.txt: 0.21641661640987236
+Error of solution in Sol_A-n38-k5.vrp.txt: 0.14281990202519126
+============================== AUTO SAVE ./mysol_FJ =============================
+Error of solution in Sol_A-n45-k7.vrp.txt: 0.2654421505359665
+============================== AUTO SAVE ./mysol_DJ =============================
+============================== AUTO SAVE ./mysol_FJ_kRand =============================
+Error of solution in Sol_A-n45-k7.vrp.txt: 0.4756735932737255
+============================== AUTO SAVE ./mysol_Genetic =============================
+============================== AUTO SAVE ./mysol_DJ_kRand =============================
+Error of solution in Sol_A-n45-k7.vrp.txt: 0.4615447750637721
+============================== AUTO SAVE ./Sol_CR =============================
+Error of solution in Sol_A-n45-k7.vrp.txt: 1.3685443612315544

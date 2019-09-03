@@ -58,8 +58,8 @@ def printResult(folderSol,folderRes):
                         stimated = float(keywords.split(':')[1].strip())
                         for optimal in cvrp_sol:                           
                             with open(path2+'/'+optimal, "r") as c:
-                                if(sol.split('.')[0] == "Sol_"+optimal.split('.')[0]):
-                                #if(sol.split('.')[0] == "Sol_"+optimal[4:]):
+                                #if(sol.split('.')[0] == "Sol_"+optimal.split('.')[0]):
+                                if(sol.split('.')[0] == "Sol_"+optimal[4:]):
                                     for linec in c:
                                         keys = linec                                   
                                         if(len(keys.split()) > 0 and (keys.split()[0].strip()=="Cost" or keys.split()[0].strip()=="cost")):

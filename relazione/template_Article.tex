@@ -1,3 +1,4 @@
+% !TeX encoding = UTF-8
 \documentclass[]{article}
 \usepackage[table]{xcolor}
 \usepackage[utf8]{inputenc}
@@ -278,6 +279,14 @@ D_{a} = D_{a} +D_{b} =+ C_{i,0} +  C_{0,j} +  C_{i,j}
 \end{equation}
 
 \paragraph{Sequenziale e Parallelo } \hfill
+\textbf{The difference lies in the situation where a pair is encountered that
+	could form a new route. In the sequential method, a new route is
+	formed, but it is stored until all other pairs have been compared with
+	the original route, then the remaining pairs are iterated though again
+	but compared to the new route. This is repeated for any new route that
+	is formed. For the parallel method, when a new route is created, the
+	iteration continues through the list of pairs, but each one is checked
+	against all routes in the same cycle of iteration.}
 La distanza risparmiata è direttamente proporzionale alla vicinanza dei clienti e inversamente proporzionale alla vicinanza al deposito.
 Più grande è la distanza risparmiata più vicini si troveranno i clienti, e più distanti essi saranno dal deposito.
 Le coppie di clienti sono ordiate in ordine decrescente secondo il valore di \emph{savings} che è stato calcolato sulla coppia.
@@ -991,7 +1000,7 @@ A riga 12 il \texttt{for} si occupa di costruire la popolazione di cromosomi ini
 \section{Risultati}
  
 Presentiamo qui i risultati di ogni algoritmo presentato 
-\subsection{Clark and Wright}
+\subsection{Clarke and Wright}
 \subsubsection{Sequenziale vs Parallelo}
 \begin{tabular}{l l}
 \small
@@ -1060,11 +1069,13 @@ Presentiamo qui i risultati di ogni algoritmo presentato
 
 \end{tabular}
 
-Questa tabella confronta i risultati ottenuti applicando l'algoritmo di Clark and Wright, nella tabella a sinistra l'algoritmo sequenziale entre nella tabella a destra quello parallelo. La colonna \texttt{Soluzione} in entrambe le tabelle differisce di ($\sim 200Km$), l'errore medio di (0,06) e il tempo medio di (20,87ms).
-Vengono evidenziate in rosso le soluzioni trovate per le istanze \textit{ulysses-n22-k4} e \textit{ulysses-n16-k3} le soluzioni trovate da entrambi gli algoritmi hanno uno scarto di ($\sim 100.000 km$) presentando un errore di ($\sim 3$). Queste soluzioni sono state ricontrollate e lungo e si sospetta un bug all'interno della funzione che converte le coordinate \texttt{GEO}, non è stato però possibile rilevare il bug.
+Questa tabella confronta i risultati ottenuti applicando l'algoritmo di Clark and Wright, nella tabella a sinistra l'algoritmo sequenziale entre nella tabella a destra quello parallelo. La colonna \texttt{Soluzione} in entrambe le tabelle differisce di ($\sim 200Km$), l'errore medio di ($E_m=0,06$) e il tempo medio di (20,87ms).
+Vengono evidenziate in rosso le soluzioni trovate per le istanze \textit{ulysses-n22-k4} e \textit{ulysses-n16-k3} le soluzioni trovate da entrambi gli algoritmi hanno uno scarto di ($\sim 100.000 km$) presentando un errore di ($ E =\sim 3$). Queste soluzioni sono state ricontrollate e lungo e si sospetta un bug all'interno della funzione che converte le coordinate \texttt{GEO}, non è stato però possibile rilevare il bug.
 La seconda differenza importante che sottolinea la differenza tra i due metodi è evidenziata dalle istanza  \textit{F-n135-k7} e \textit{F-n72-k4} nella tabella sequenziale di sinistra, dove i tempi di esecuzione risultano essere $\sim 10$ volte più grandi rispetto ala tabella di destra che riguarda l'algoritmo parallelo.
-Notare che un tempo di esecuzione più lungo non porta necessariamente ad una soluzione peggiore, come ad esempio im \textit{bays-n29-k5} il tempo di esecuzione è 5 volte maggiore nel sequenziale rispetto al parallelo, ma la soluzione trovata in termini di k di percorrenza è la medesima.
-\subsection{Fisher and Jaikumar -Radius Radar Frontier}
+Inoltre per quanto riguarda  \textit{F-n72-k4} la soluzione trovata in termini di km percorsi è la stessa.
+Notare che un tempo di esecuzione più lungo non porta necessariamente ad una soluzione peggiore, come ad esempio im \textit{bays-n29-k5} il tempo di esecuzione è 5 volte maggiore nel sequenziale rispetto al parallelo, ma la soluzione trovata in termini di k di percorrenza è la medesima. Come già sottolineato l'algoritmo sequenziale crea una \emph{route} alla volta, mentre l'algoritmo parallelo crea più \emph{route} contemporaneamente, richiedendo meno tempo di esecuzione, ma più risorse computazionali in termini di memoria.
+Nella tabella di destra si può apprezzare l'istanza \emph{gr-n17-k3} trovare l'ottimo.L'errore medio migliore ottenuto con l'algoritmo parallelo ($E_m= 0.43$), il tempo di esecuzione dell'algoritmo sequenziale è 9 volte rispetto a quello parallelo, questo è dovuto in parte al controllo a riga 8 in \textit{Listing:2}, dove le la soluzione viene investigata, ricercando i nodi non presenti.
+\subsection{Fisher and Jaikumar - Radius Radar Frontier}
 
 \subsubsection{Nearest Neighbourn Routing vs Nearest Neighbourn Track Path }
 
@@ -1074,24 +1085,24 @@ Notare che un tempo di esecuzione più lungo non porta necessariamente ad una so
 			\hline
 			Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
 			\hline\hline
-		fri-n26-k3 & 1487.0 & 1353.0 & 0.099 & 0.0136  \\
-		bays-n29-k5 & 3768.0 & 2963.0 & 0.2717 & 0.023  \\
-		hk-n48-k4 & 19593.0 & 14749.0 & 0.3284 & 0.0335  \\
-		dantzig-n42-k4 & 1503.0 & 1142.0 & 0.3161 & 0.025  \\
-		ulysses-n22-k4 & 160871.0 & 40153.0 & 3.0065 & 0.0123  \\
-		F-n135-k7 & 1784.7 & 1162.0 & 0.5359 & 0.1037  \\
-		gr-n17-k3 & 3127.0 & 2685.0 & 0.1646 & 0.0088  \\
-		F-n72-k4 & 364.6 & 237.0 & 0.5382 & 0.0611  \\
-		gr-n24-k4 & 2667.0 & 2053.0 & 0.2991 & 0.0186  \\
-		F-n45-k4 & 903.3 & 724.0 & 0.2476 & 0.0362  \\
-		ulysses-n16-k3 & 116512.0 & 30492.0 & 2.8211 & 0.0089  \\
-		swiss-n42-k5 & 2444.0 & 1668.0 & 0.4652 & 0.0312  \\
-		gr-n48-k3 & 8836.0 & 5985.0 & 0.4764 & 0.0229  \\
-		att-n48-k4 & 56257.5 & 40002.0 & 0.4064 & 0.0507  \\
-		gr-n21-k3 & 5254.0 & 3704.0 & 0.4185 & 0.0131  \\
-		bayg-n29-k4 & 3435.0 & 2050.0 & 0.6756 & 0.0151  \\
-		\hline
-		Media & 24300.44 & 9445.12 & 0.69 & 0.03  \\		
+			fri-n26-k3 & 1487.0 & 1353.0 & 0.099 & 0.0136  \\
+			bays-n29-k5 & 3768.0 & 2963.0 & 0.2717 & 0.023  \\
+			hk-n48-k4 & 19593.0 & 14749.0 & 0.3284 & 0.0335  \\
+			dantzig-n42-k4 & 1503.0 & 1142.0 & 0.3161 & 0.025  \\
+			ulysses-n22-k4 & 160871.0 & 40153.0 & 3.0065 & 0.0123  \\
+			F-n135-k7 & 1784.7 & 1162.0 & 0.5359 & 0.1037  \\
+			gr-n17-k3 & 3127.0 & 2685.0 & 0.1646 & \cellcolor{yellow} 0.0088  \\
+			F-n72-k4 & 364.6 & 237.0 & 0.5382 & 0.0611  \\
+			gr-n24-k4 & 2667.0 & 2053.0 & 0.2991 & 0.0186  \\
+			F-n45-k4 & 903.3 & 724.0 & 0.2476 & 0.0362  \\	
+			ulysses-n16-k3 & 116512.0 & 30492.0 & 2.8211 & 0.0089  \\
+			swiss-n42-k5 & 2444.0 & 1668.0 & 0.4652 & 0.0312  \\
+			gr-n48-k3 & 8836.0 & 5985.0 & 0.4764 & 0.0229  \\
+			att-n48-k4 & 56257.5 & 40002.0 & 0.4064 & 0.0507  \\
+			gr-n21-k3 & 5254.0 & 3704.0 & 0.4185 & 0.0131  \\
+			bayg-n29-k4 & 3435.0 & 2050.0 & 0.6756 & 0.0151  \\
+			\hline
+			Media & 24300.44 & 9445.12 & 0.69 & 0.03  \\		
 			[1ex] 
 			\hline
 		\end{tabular}
@@ -1101,13 +1112,15 @@ Notare che un tempo di esecuzione più lungo non porta necessariamente ad una so
 		\hline
 		Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
 		\hline\hline
+		\rowcolor{green}
 		fri-n26-k3 & 1405.0 & 1353.0 & 0.0384 & 0.0423  \\
+		\rowcolor{white}
 		bays-n29-k5 & 3715.0 & 2963.0 & 0.2538 & 0.0402  \\
 		hk-n48-k4 & 19000.0 & 14749.0 & 0.2882 & 0.1211  \\
 		dantzig-n42-k4 & 1492.0 & 1142.0 & 0.3065 & 0.0806  \\
 		ulysses-n22-k4 & 160699.0 & 40153.0 & 3.0022 & 0.0241  \\
 		F-n135-k7 & 1769.1 & 1162.0 & 0.5224 & 0.818  \\
-		gr-n17-k3 & 3127.0 & 2685.0 & 0.1646 & 0.0189  \\
+		gr-n17-k3 & 3127.0 & 2685.0 & 0.1646 & \cellcolor{yellow} 0.0189  \\
 		F-n72-k4 & 338.8 & 237.0 & 0.4297 & 0.3485  \\
 		gr-n24-k4 & 2599.0 & 2053.0 & 0.266 & 0.0339  \\
 		F-n45-k4 & 893.1 & 724.0 & 0.2336 & 0.1501  \\
@@ -1126,7 +1139,7 @@ Notare che un tempo di esecuzione più lungo non porta necessariamente ad una so
 	
 \end{tabular}
 
-
+I due algoritmi a confronto differiscono di ($\sim 330 Km$) , la differenza tra gli errori è ($ E_m\sim 0.05$) e di tempo di esecuzione ($ \sim 0.10$). Questa differenza è data dal fatto che \texttt{Nearest Neighbourn} prende il primo vicino utile, mentre \texttt{Nearest Neighbourn Track Path} tiene conto anche dei clienti precedenti visitati. Si sottolinea nella tabella di destra che riguarda le istanze risolte da \texttt{Nearest Neighbourn Track Path}, l'istanza \textit{fri-n26-k3} che trova una soluzione migliore in termini di km percorsi e tempo di esecuzione, non solo del suo concorrente ma anche degli algoritmi visti in precedenza \textit{Clarke and Wright}.Sarebbe interessante poter visualizzare la distribuzione dei clienti attorno al deposito, in modo da capire il motivo del buon risultato ottenuto, in quanto sembra soddisfare velocemente i vincoli imposti dall'algoritmo \texttt{Radius Radar Frontier}.
 
 \subsection{Fisher and Jaikumar - Random Centroid}
 
@@ -1165,7 +1178,9 @@ Notare che un tempo di esecuzione più lungo non porta necessariamente ad una so
 		\hline
 		Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
 		\hline\hline
+		\rowcolor{green}
 		fri-n26-k3 & 1405.0 & 1353.0 & 0.0384 & 0.038  \\
+		\rowcolor{white}
 		bays-n29-k5 & 3404.0 & 2963.0 & 0.1488 & 0.0272  \\
 		hk-n48-k4 & 20546.0 & 14749.0 & 0.393 & 0.1055  \\
 		dantzig-n42-k4 & 1253.0 & 1142.0 & 0.0972 & 0.0683  \\
@@ -1189,6 +1204,7 @@ Notare che un tempo di esecuzione più lungo non porta necessariamente ad una so
 	
 \end{tabular}
 
+I due algoritmi a confronto differiscono di ($\sim 300 Km$) , la differenza tra gli errori è ($ E_m\sim 0.06$) e di tempo di esecuzione ($ \sim 0.10$). Anche qui la differenza in termini di errore non è vasta al contrario delle differenza riguardo al tempo di esecuzione. Anche qui si sottolinea l'istanza \textit{fri-n26-k3} che viene trovata, con un tempo di esecuzione migliore dell'approccio precedente  \texttt{Nearest Neighbourn Track Path}. Si ipotizza quindi che la disposizione dei clienti all'interno dell'istanza contrario delle differenza riguardo al tempo di esecuzione. Anche qui si sottolinea l'istanza \textit{fri-n26-k3} sia tale da garantire una equi-distanza dei clienti tale da rendere efficace sia l'algoritmo che ricerca l'equi-distanza tra clienti e deposito, sia l'algoritmo che sceglie secondo un principio random i clienti centroidi. Essendo questi già ben disposti la vera differenza lo fa l'algoritmo di routing \textit{ Nearest Neighbourn Track Path}
 
 
 
@@ -1224,6 +1240,10 @@ Notare che un tempo di esecuzione più lungo non porta necessariamente ad una so
 	\end{center}
 \end{table}
 
+Questo algoritmo con l'implementazione corrente è da scartare, produce dei risultati pessimi sia in termini di errore che di tempo di esecuzione. Inoltre la sua implementazione è molto laboriosa, a causa del grafo ausiliario.
+
+
+
 \subsection{Algoritmo Genetico}
 
 \begin{table}[h!]
@@ -1232,28 +1252,43 @@ Notare che un tempo di esecuzione più lungo non porta necessariamente ad una so
 			\hline
 			Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
 			\hline\hline
-			fri-n26-k3 & 1805.0 & 1353.0 & 0.3341 & 0.0201  \\
-			bays-n29-k5 & 6659.0 & 2963.0 & 1.2474 & 0.0139  \\
-			hk-n48-k4 & 49978.0 & 14749.0 & 2.3886 & 0.1101  \\
-			dantzig-n42-k4 & 1388.0 & 1142.0 & 0.2154 & 0.0555  \\
-			ulysses-n22-k4 & 179670.0 & 40153.0 & 3.4746 & 0.0065  \\
-			F-n135-k7 & 2417.3 & 1162.0 & 1.0803 & 0.7319  \\
-			gr-n17-k3 & 5275.0 & 2685.0 & 0.9646 & 0.0055  \\
-			F-n72-k4 & 561.8 & 237.0 & 1.3703 & 0.3878  \\
-			gr-n24-k4 & 4021.0 & 2053.0 & 0.9586 & 0.0099  \\
-			F-n45-k4 & 1384.2 & 724.0 & 0.9119 & 0.0682  \\
-			ulysses-n16-k3 & 122313.0 & 30492.0 & 3.0113 & 0.0033  \\
-			swiss-n42-k5 & 3238.0 & 1668.0 & 0.9412 & 0.0453  \\
-			gr-n48-k3 & 21626.0 & 5985.0 & 2.6134 & 0.1095  \\
-			att-n48-k4 & 172814.2 & 40002.0 & 3.3201 & 0.161  \\
-			gr-n21-k3 & 7634.0 & 3704.0 & 1.061 & 0.0098  \\
-			bayg-n29-k4 & 5287.0 & 2050.0 & 1.579 & 0.0251  \\		
+			fri-n26-k3 & 1405.0 & 1353.0 &  \cellcolor{green} 0.0384 & 6.8199  \\
+			bays-n29-k5 & 3610.0 & 2963.0 & 0.2184 & 7.7884  \\
+			hk-n48-k4 & 24708.0 & 14749.0 & 0.6752 & 7.5774  \\
+			dantzig-n42-k4 & 1343.0 & 1142.0 & 0.176 & 9.2944  \\
+			ulysses-n22-k4 & 161949.0 & 40153.0 & 3.0333 & 5.0182  \\
+			F-n135-k7 & 1924.5 & 1162.0 & 0.6562 & 21.7039  \\
+			gr-n17-k3 & 2821.0 & 2685.0 & \cellcolor{green} 0.0507 & 3.7808  \\	
+			F-n72-k4 & 298.9 & 237.0 & 0.2613 & 14.1043  \\
+			gr-n24-k4 & 2350.0 & 2053.0 & 0.1447 & 6.99  \\
+			F-n45-k4 & 855.2 & 724.0 & 0.1812 & 8.6542  \\
+			ulysses-n16-k3 & 115731.0 & 30492.0 & 2.7955 & 3.6922  \\
+			swiss-n42-k5 & 2237.0 & 1668.0 & 0.3411 & 10.937  \\
+			gr-n48-k3 & 7892.0 & 5985.0 & 0.3186 & 8.6419  \\
+			att-n48-k4 & 54533.2 & 40002.0 & 0.3633 & 6.0367  \\
+			gr-n21-k3 & 4192.0 & 3704.0 & 0.1317 & 5.8824  \\
+			bayg-n29-k4 & 2811.0 & 2050.0 & 0.3712 & 7.0718  \\
+			\hline
+			Media & 24291.3 & 9445.12 & 0.61 & 8.37  \\
 			[1ex] 
 			\hline
 		\end{tabular}
 	\end{center}
 \end{table}
 
+Questo algoritmo parte da soluzioni create con l'algoritmo \texttt{Fisher and Jaikumar-Random Centroid -Nearest Neighbourn Routing}, successivamente applica le azioni già presentate precedentemente. E ovvio che questa azioni richiedono più tempo computazionale, ma è interessante notare come soluzioni nate da questo metodo possono essere migliorate confrontando e mantenendo le migliori ad ogni evoluzione. \textit{fri-n26-k3} si ripropone con una buona soluzione anche se questa richiede molto più tempo rispetto ai metodi utilizzati precedentemente. Rispetto alle altre \textit{gr-n17-k3} molto vicino al valore della soluzione ottenuto con \emph{Clarke and Wright}. L'errore medio di questo metodo si posizione tra i più bassi rispetto ai metodi a due fasi, richiedendo un tempo però 8 volte maggiore.
+
+\section{Problemi riconosciuti e possibili miglioramenti}
+Il calcolo delle coordiante \texttt{GEO} da parte del file \texttt{parser.py} si sospetta non è corretto, ma non è stato possibile risalire con successo all'errore.
+In \texttt{Listing:1} il controllo a riga 8 può essere implementato con un vettore, e ogni qualvolta si aggiunge un nodo ad una \emph{route} si elimina dal medesimo vettore, evitando così di esplorare ogni volta la soluzione per testare se questa è completa.
+In \texttt{Listing:2}, l'algoritmo funziona per merge di \emph{route}, quando il merge è stato deciso si dovrebbe inserire i nodi nella coda più lunga in modo da ridurre il numero di accessi alla coda.
+Per quanto riguarda la sezione \texttt{Radius Radar Frontier} in In \texttt{Listing:3} alla luce della soluzione \textit{fri-n26-k3}, non è possibile scartare completamente l'algoritmo \texttt{Nearest Neighbourn Track Path}, di conseguenza si potrebbe investigare meglio tale algoritmo settando meglio i parametri responsabili del rilassamento dei vincoli, tarandoli a seconda della soluzione in questione, e a seconda dell'ordine di grandezza che l'istanza esprime. Usando un algoritmo di machine learning dove data la matrice delle distanze dei clienti si occupi di scegliere i parametri.
+Nel \texttt{GAPsolver} in \texttt{Listing:4}, potrebbe essere interessante assegnare ai cluster prima i clienti che risultano essere più grossi in termini di domanda, in modo da sapere prima se una soluzione è possibile o si necessità un numero maggiori di veicoli.
+In \texttt{NearestNeighbourn Routing} il vettore delle distance \textit{distPrevNode} può essere popolato solamente con le distanze dei clienti ancora non presenti in \textit{appoRoute}, in modo da non fare il controllo poi a riga 19, e diminuire il numero di accessi al vettore.
+In \textit{Listing 6} il metodo \texttt{ Nearest Neighbourn TrackPath Routing} da riga 27 a riga 30 utilizza la variabile \textit{appoCluster} per assicurarsi che tutto il \textit{cluster} sia stato collegato. Utilizzando un  vettore inizializzato con i clienti da collegare e rimuovendo il cliente ongi volta che viene connesso, ridurrebbe il tempo di esecuzione.
+Nell'algoritmo Genetico \texttt{Listing 8} le soluzioni vengono estese in stringhe e di conseguenza tolti i depositi , questo modifica un po la soluzione iniziale, portando poi di fatto ad una disposizione diversa dei depositi.   Inoltre il \texttt{Crossover} si potrebbero implementare diversi tipi di crossover e farli accadere con una certa probabilità. Infine \texttt{Mutation} è definito da un semplice algoritmo di ricerca locale, mentre bisognerebbe provare altri tipi di mutazione che interessino più parti della soluzione.
+Tutte le migliorie e i problemi evidenziati non sono stati ulteriormente indagati, a causa di una mancanza di tempo in quanto il presente elaborato si limita a presentare uno studio dello stato dell'arte applicato ad un particolare sottoinsieme di istanze.
+ 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
 
