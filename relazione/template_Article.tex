@@ -9,6 +9,9 @@
 \usepackage{xcolor}
 \usepackage{multicol}
 
+\usepackage{graphics}
+
+
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -981,12 +984,195 @@ A riga 12 il \texttt{for} si occupa di costruire la popolazione di cromosomi ini
  Al suo interno alla riga 28, \texttt{Tournament} può avvenire con due modalità, \texttt{random}, sceglie due candidati a caso, ha complessità \emph{O(1)}; o con modalità \texttt{bestAndWorst} sceglie il migliore e il peggiore candidato, in questa modalità si richiede un ordinamento della popolazione, quindi richiede \emph{O(Npopulation)}. Alla riga 29 si passa all'istruzione \texttt{Crossover}, la quale scorre e incrocia i cromosomi candidati che contengono tutti i nodi visitati, in più ad ogni modifica ricalcola e il costo della soluzione per un totale di complessità pari a \emph{O($V^2$)}. In 32 \texttt{SearchAndCompleteSequence} cerca nella soluzione i clienti presenti e quelli non presenti con un costo \emph{O(V)}.A riga 42 il ciclo \texttt{for} scorre le \emph{route} all'interno della soluzione, chiamando di conseguenza \texttt{FlippingPath} eseguito in tempo costante \emph{O(1)} perchè scambia di posto due clienti random mutando il cromosoma. Richiedendo tempo \emph{O(R)} uguale al numero di \emph{route} nella soluzione.
  In 54 si riordina \textit{popEra} con complessità \emph{O$(\frac{Npopulation}{2})$}, si scelgono i migliori cromosomi di \textit{popEra} 55 e si sostituiscono  in 56 con complessità \emph{O$(best)$}. La complessità di questo grande ciclio è \emph{O($V^2$)}.
  Infine \textit{population} viene riordinato, la complessità rimane  \emph{O($V^2$)}.
+
+\newpage
  
- \section{Risultati}
+\section{Risultati}
  
 Presentiamo qui i risultati di ogni algoritmo presentato 
 \subsection{Clark and Wright}
-\subsubsection{Sequenziale}
+\subsubsection{Sequenziale vs Parallelo}
+
+
+
+
+\begin{tabular}{l l}
+\small
+			\begin{tabular}{||l | l l l l||} 
+				\hline
+				Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
+				\hline\hline
+				fri-n26-k3 & 1481.0 & 1353.0 & 0.0946 & 0.3279  \\
+				bays-n29-k5 & 3126.0 & 2963.0 & 0.055 & 0.5646  \\
+				hk-n48-k4 & 16393.0 & 14749.0 & 0.1115 & 1.3568  \\
+				dantzig-n42-k4 & 1204.0 & 1142.0 & 0.0543 & 0.562  \\
+				ulysses-n22-k4 & 159120.0 & 40153.0 & 2.9628 & 0.0322  \\
+				F-n135-k7 & 1219.3 & 1162.0 & 0.0493 & 117.4652  \\
+				gr-n17-k3 & 2685.0 & 2685.0 & 0.0 & 0.05  \\
+				F-n72-k4 & 256.2 & 237.0 & 0.081 & 13.701  \\
+				gr-n24-k4 & 2178.0 & 2053.0 & 0.0609 & 0.1483  \\
+				F-n45-k4 & 739.0 & 724.0 & 0.0207 & 1.4352  \\
+				ulysses-n16-k3 & 114954.0 & 30492.0 & 2.77 & 0.1169  \\
+				swiss-n42-k5 & 1732.0 & 1668.0 & 0.0384 & 1.6723  \\
+				gr-n48-k3 & 6743.0 & 5985.0 & 0.1266 & 3.4551  \\
+				att-n48-k4 & 43477.4 & 40002.0 & 0.0869 & 6.8209  \\
+				gr-n21-k3 & 4018.0 & 3704.0 & 0.0848 & 0.7445  \\
+				bayg-n29-k4 & 2730.0 & 2050.0 & 0.3317 & 0.3202  \\
+				[1ex] 
+				\hline
+			\end{tabular}
+
+\small
+
+			\begin{tabular}{||l | l l l l||} 
+				\hline
+				Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
+				\hline\hline
+				fri-n26-k3 & 1481.0 & 1353.0 & 0.0946 & 0.3856  \\
+				bays-n29-k5 & 3126.0 & 2963.0 & 0.055 & 0.654  \\
+				hk-n48-k4 & 16393.0 & 14749.0 & 0.1115 & 2.4392  \\
+				dantzig-n42-k4 & 1204.0 & 1142.0 & 0.0543 & 1.746  \\
+				ulysses-n22-k4 & 159142.0 & 40153.0 & 2.9634 & 0.4237  \\
+				F-n135-k7 & 1219.3 & 1162.0 & 0.0493 & 40.4586  \\
+				gr-n17-k3 & 2685.0 & 2685.0 & 0.0 & 0.2109  \\
+				F-n72-k4 & 256.2 & 237.0 & 0.081 & 6.0474  \\
+				gr-n24-k4 & 2178.0 & 2053.0 & 0.0609 & 0.4837  \\
+				F-n45-k4 & 739.0 & 724.0 & 0.0207 & 2.1336  \\
+				ulysses-n16-k3 & 114975.0 & 30492.0 & 2.7707 & 0.145  \\
+				swiss-n42-k5 & 1732.0 & 1668.0 & 0.0384 & 1.7504  \\
+				gr-n48-k3 & 6743.0 & 5985.0 & 0.1266 & 2.5187  \\
+				att-n48-k4 & 43477.4 & 40002.0 & 0.0869 & 2.275  \\
+				gr-n21-k3 & 4018.0 & 3704.0 & 0.0848 & 0.4082  \\
+				bayg-n29-k4 & 2730.0 & 2050.0 & 0.3317 & 0.783  \\		
+				[1ex] 
+				\hline
+			\end{tabular}
+
+
+\end{tabular}
+
+
+
+\subsection{Fisher and Jaikumar -Radius Radar Frontier}
+
+\subsubsection{Nearest Neighbourn Routing vs Nearest Neighbourn Track Path }
+
+\begin{tabular}{l l}
+	\small	
+		\begin{tabular}{||l | l l l l||} 
+			\hline
+			Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
+			\hline\hline
+			fri-n26-k3 & 1487.0 & 1353.0 & 0.099 & 0.0044  \\
+			bays-n29-k5 & 3768.0 & 2963.0 & 0.2717 & 0.0084  \\
+			hk-n48-k4 & 19593.0 & 14749.0 & 0.3284 & 0.0132  \\
+			dantzig-n42-k4 & 1503.0 & 1142.0 & 0.3161 & 0.0094  \\
+			ulysses-n22-k4 & 160871.0 & 40153.0 & 3.0065 & 0.0036  \\
+			F-n135-k7 & 1784.7 & 1162.0 & 0.5359 & 0.0419  \\
+			gr-n17-k3 & 3127.0 & 2685.0 & 0.1646 & 0.0027  \\
+			F-n72-k4 & 364.6 & 237.0 & 0.5382 & 0.0218  \\
+			gr-n24-k4 & 2667.0 & 2053.0 & 0.2991 & 0.0059  \\
+			F-n45-k4 & 903.3 & 724.0 & 0.2476 & 0.0122  \\
+			ulysses-n16-k3 & 116512.0 & 30492.0 & 2.8211 & 0.0025  \\
+			swiss-n42-k5 & 2444.0 & 1668.0 & 0.4652 & 0.0101  \\
+			gr-n48-k3 & 8836.0 & 5985.0 & 0.4764 & 0.0079  \\
+			att-n48-k4 & 56257.5 & 40002.0 & 0.4064 & 0.0211  \\
+			gr-n21-k3 & 5254.0 & 3704.0 & 0.4185 & 0.0033  \\
+			bayg-n29-k4 & 3435.0 & 2050.0 & 0.6756 & 0.0054  \\			
+			[1ex] 
+			\hline
+		\end{tabular}
+
+\small		
+	\begin{tabular}{||l | l l l l||} 
+		\hline
+		Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
+		\hline\hline
+		fri-n26-k3 & 1405.0 & 1353.0 & 0.0384 & 0.0165  \\
+		bays-n29-k5 & 3715.0 & 2963.0 & 0.2538 & 0.0154  \\
+		hk-n48-k4 & 19000.0 & 14749.0 & 0.2882 & 0.0475  \\
+		dantzig-n42-k4 & 1492.0 & 1142.0 & 0.3065 & 0.0326  \\
+		ulysses-n22-k4 & 160699.0 & 40153.0 & 3.0022 & 0.0075  \\
+		F-n135-k7 & 1769.1 & 1162.0 & 0.5224 & 0.3314  \\
+		gr-n17-k3 & 3127.0 & 2685.0 & 0.1646 & 0.0065  \\
+		F-n72-k4 & 338.8 & 237.0 & 0.4297 & 0.1378  \\
+		gr-n24-k4 & 2599.0 & 2053.0 & 0.266 & 0.0124  \\
+		F-n45-k4 & 893.1 & 724.0 & 0.2336 & 0.0579  \\
+		ulysses-n16-k3 & 116342.0 & 30492.0 & 2.8155 & 0.0057  \\
+		swiss-n42-k5 & 2327.0 & 1668.0 & 0.3951 & 0.0284  \\
+		gr-n48-k3 & 8474.0 & 5985.0 & 0.4159 & 0.0554  \\
+		att-n48-k4 & 53118.4 & 40002.0 & 0.3279 & 0.0584  \\
+		gr-n21-k3 & 5249.0 & 3704.0 & 0.4171 & 0.0098  \\
+		bayg-n29-k4 & 2871.0 & 2050.0 & 0.4005 & 0.0159  \\		
+		[1ex] 
+		\hline
+	\end{tabular}
+	
+\end{tabular}
+
+
+
+\subsection{Fisher and Jaikumar - Random Centroid}
+
+\subsubsection{Nearest Neighbourn Routing vs Nearest Neighbourn Track Path }
+
+\begin{tabular}{l l}
+	\small	
+	\begin{tabular}{||l | l l l l||} 
+		\hline
+		Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
+		\hline\hline
+		fri-n26-k3 & 1546.0 & 1353.0 & 0.1426 & 0.0028  \\
+		bays-n29-k5 & 4648.0 & 2963.0 & 0.5687 & 0.0035  \\
+		hk-n48-k4 & 20126.0 & 14749.0 & 0.3646 & 0.005  \\
+		dantzig-n42-k4 & 1337.0 & 1142.0 & 0.1708 & 0.0045  \\
+		ulysses-n22-k4 & 160359.0 & 40153.0 & 2.9937 & 0.0027  \\
+		F-n135-k7 & 2412.3 & 1162.0 & 1.076 & 0.0209  \\
+		gr-n17-k3 & 3281.0 & 2685.0 & 0.222 & 0.0018  \\
+		F-n72-k4 & 384.9 & 237.0 & 0.6242 & 0.0082  \\
+		gr-n24-k4 & 2515.0 & 2053.0 & 0.225 & 0.0027  \\
+		F-n45-k4 & 990.1 & 724.0 & 0.3675 & 0.0045  \\
+		ulysses-n16-k3 & 116311.0 & 30492.0 & 2.8145 & 0.0017  \\
+		swiss-n42-k5 & 2665.0 & 1668.0 & 0.5977 & 0.0052  \\
+		gr-n48-k3 & 8689.0 & 5985.0 & 0.4518 & 0.0048  \\
+		att-n48-k4 & 62654.3 & 40002.0 & 0.5663 & 0.0051  \\
+		gr-n21-k3 & 4895.0 & 3704.0 & 0.3215 & 0.0022  \\
+		bayg-n29-k4 & 3709.0 & 2050.0 & 0.8093 & 0.0032  \\				
+		[1ex] 
+		\hline
+	\end{tabular}
+	
+	\small		
+	\begin{tabular}{||l | l l l l||} 
+		\hline
+		Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
+		\hline\hline
+		fri-n26-k3 & 1405.0 & 1353.0 & 0.0384 & 0.0165  \\
+		bays-n29-k5 & 3715.0 & 2963.0 & 0.2538 & 0.0154  \\
+		hk-n48-k4 & 19000.0 & 14749.0 & 0.2882 & 0.0475  \\
+		dantzig-n42-k4 & 1492.0 & 1142.0 & 0.3065 & 0.0326  \\
+		ulysses-n22-k4 & 160699.0 & 40153.0 & 3.0022 & 0.0075  \\
+		F-n135-k7 & 1769.1 & 1162.0 & 0.5224 & 0.3314  \\
+		gr-n17-k3 & 3127.0 & 2685.0 & 0.1646 & 0.0065  \\
+		F-n72-k4 & 338.8 & 237.0 & 0.4297 & 0.1378  \\
+		gr-n24-k4 & 2599.0 & 2053.0 & 0.266 & 0.0124  \\
+		F-n45-k4 & 893.1 & 724.0 & 0.2336 & 0.0579  \\
+		ulysses-n16-k3 & 116342.0 & 30492.0 & 2.8155 & 0.0057  \\
+		swiss-n42-k5 & 2327.0 & 1668.0 & 0.3951 & 0.0284  \\
+		gr-n48-k3 & 8474.0 & 5985.0 & 0.4159 & 0.0554  \\
+		att-n48-k4 & 53118.4 & 40002.0 & 0.3279 & 0.0584  \\
+		gr-n21-k3 & 5249.0 & 3704.0 & 0.4171 & 0.0098  \\
+		bayg-n29-k4 & 2871.0 & 2050.0 & 0.4005 & 0.0159  \\		
+		[1ex] 
+		\hline
+	\end{tabular}
+	
+\end{tabular}
+
+
+
+
+\subsection{Route First, Cluster Second}
 
 \begin{table}[h!]
 	\begin{center}	
@@ -994,28 +1180,29 @@ Presentiamo qui i risultati di ogni algoritmo presentato
 			\hline
 			Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
 			\hline\hline
-			gr-n21-k3 & 4018.0 & 3704.0 & 0.0848 & 0.7445  \\
-			gr-n48-k3 & 6743.0 & 5985.0 & 0.1266 & 3.4551  \\
-			bayg-n29-k4 & 2730.0 & 2050.0 & 0.3317 & 0.3202  \\
-			dantzig-n42-k4 & 1204.0 & 1142.0 & 0.0543 & 0.562  \\
-			fri-n26-k3 & 1481.0 & 1353.0 & 0.0946 & 0.3279  \\
-			F-n135-k7 & 1219.3 & 1162.0 & 0.0493 & 117.4652  \\
-			hk-n48-k4 & 16393.0 & 14749.0 & 0.1115 & 1.3568  \\
-			ulysses-n22-k4 & 159120.0 & 40153.0 & 2.9628 & 0.0322  \\
-			att-n48-k4 & 43477.4 & 40002.0 & 0.0869 & 6.8209  \\
-			F-n72-k4 & 256.2 & 237.0 & 0.081 & 13.701  \\
-			gr-n17-k3 & 2685.0 & 2685.0 & 0.0 & 0.05  \\
-			F-n45-k4 & 739.0 & 724.0 & 0.0207 & 1.4352  \\
-			bays-n29-k5 & 3126.0 & 2963.0 & 0.055 & 0.5646  \\
-			gr-n24-k4 & 2178.0 & 2053.0 & 0.0609 & 0.1483  \\
-			ulysses-n16-k3 & 114954.0 & 30492.0 & 2.77 & 0.1169  \\
-			swiss-n42-k5 & 1732.0 & 1668.0 & 0.0384 & 1.6723  \\ [1ex] 
+			fri-n26-k3 & 1805.0 & 1353.0 & 0.3341 & 0.0201  \\
+			bays-n29-k5 & 6659.0 & 2963.0 & 1.2474 & 0.0139  \\
+			hk-n48-k4 & 49978.0 & 14749.0 & 2.3886 & 0.1101  \\
+			dantzig-n42-k4 & 1388.0 & 1142.0 & 0.2154 & 0.0555  \\
+			ulysses-n22-k4 & 179670.0 & 40153.0 & 3.4746 & 0.0065  \\
+			F-n135-k7 & 2417.3 & 1162.0 & 1.0803 & 0.7319  \\
+			gr-n17-k3 & 5275.0 & 2685.0 & 0.9646 & 0.0055  \\
+			F-n72-k4 & 561.8 & 237.0 & 1.3703 & 0.3878  \\
+			gr-n24-k4 & 4021.0 & 2053.0 & 0.9586 & 0.0099  \\
+			F-n45-k4 & 1384.2 & 724.0 & 0.9119 & 0.0682  \\
+			ulysses-n16-k3 & 122313.0 & 30492.0 & 3.0113 & 0.0033  \\
+			swiss-n42-k5 & 3238.0 & 1668.0 & 0.9412 & 0.0453  \\
+			gr-n48-k3 & 21626.0 & 5985.0 & 2.6134 & 0.1095  \\
+			att-n48-k4 & 172814.2 & 40002.0 & 3.3201 & 0.161  \\
+			gr-n21-k3 & 7634.0 & 3704.0 & 1.061 & 0.0098  \\
+			bayg-n29-k4 & 5287.0 & 2050.0 & 1.579 & 0.0251  \\		
+			[1ex] 
 			\hline
 		\end{tabular}
 	\end{center}
 \end{table}
 
-\subsection{Parallelo}
+\subsection{Algoritmo Genetico}
 
 \begin{table}[h!]
 	\begin{center}	
@@ -1023,28 +1210,27 @@ Presentiamo qui i risultati di ogni algoritmo presentato
 			\hline
 			Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
 			\hline\hline
-			gr-n21-k3 & 4018.0 & 3704.0 & 0.0848 & 0.7445  \\
-			gr-n48-k3 & 6743.0 & 5985.0 & 0.1266 & 3.4551  \\
-			bayg-n29-k4 & 2730.0 & 2050.0 & 0.3317 & 0.3202  \\
-			dantzig-n42-k4 & 1204.0 & 1142.0 & 0.0543 & 0.562  \\
-			fri-n26-k3 & 1481.0 & 1353.0 & 0.0946 & 0.3279  \\
-			F-n135-k7 & 1219.3 & 1162.0 & 0.0493 & 117.4652  \\
-			hk-n48-k4 & 16393.0 & 14749.0 & 0.1115 & 1.3568  \\
-			ulysses-n22-k4 & 159120.0 & 40153.0 & 2.9628 & 0.0322  \\
-			att-n48-k4 & 43477.4 & 40002.0 & 0.0869 & 6.8209  \\
-			F-n72-k4 & 256.2 & 237.0 & 0.081 & 13.701  \\
-			gr-n17-k3 & 2685.0 & 2685.0 & 0.0 & 0.05  \\
-			F-n45-k4 & 739.0 & 724.0 & 0.0207 & 1.4352  \\
-			bays-n29-k5 & 3126.0 & 2963.0 & 0.055 & 0.5646  \\
-			gr-n24-k4 & 2178.0 & 2053.0 & 0.0609 & 0.1483  \\
-			ulysses-n16-k3 & 114954.0 & 30492.0 & 2.77 & 0.1169  \\
-			swiss-n42-k5 & 1732.0 & 1668.0 & 0.0384 & 1.6723  \\ [1ex] 
+			fri-n26-k3 & 1805.0 & 1353.0 & 0.3341 & 0.0201  \\
+			bays-n29-k5 & 6659.0 & 2963.0 & 1.2474 & 0.0139  \\
+			hk-n48-k4 & 49978.0 & 14749.0 & 2.3886 & 0.1101  \\
+			dantzig-n42-k4 & 1388.0 & 1142.0 & 0.2154 & 0.0555  \\
+			ulysses-n22-k4 & 179670.0 & 40153.0 & 3.4746 & 0.0065  \\
+			F-n135-k7 & 2417.3 & 1162.0 & 1.0803 & 0.7319  \\
+			gr-n17-k3 & 5275.0 & 2685.0 & 0.9646 & 0.0055  \\
+			F-n72-k4 & 561.8 & 237.0 & 1.3703 & 0.3878  \\
+			gr-n24-k4 & 4021.0 & 2053.0 & 0.9586 & 0.0099  \\
+			F-n45-k4 & 1384.2 & 724.0 & 0.9119 & 0.0682  \\
+			ulysses-n16-k3 & 122313.0 & 30492.0 & 3.0113 & 0.0033  \\
+			swiss-n42-k5 & 3238.0 & 1668.0 & 0.9412 & 0.0453  \\
+			gr-n48-k3 & 21626.0 & 5985.0 & 2.6134 & 0.1095  \\
+			att-n48-k4 & 172814.2 & 40002.0 & 3.3201 & 0.161  \\
+			gr-n21-k3 & 7634.0 & 3704.0 & 1.061 & 0.0098  \\
+			bayg-n29-k4 & 5287.0 & 2050.0 & 1.579 & 0.0251  \\		
+			[1ex] 
 			\hline
 		\end{tabular}
 	\end{center}
 \end{table}
-
-
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}

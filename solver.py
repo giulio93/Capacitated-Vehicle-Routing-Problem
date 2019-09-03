@@ -45,6 +45,7 @@ def printResult(folderSol,folderRes):
     with open('./CompareResult.txt','a+') as resume:
         resume.write("============================== AUTO SAVE " +folderRes + " =============================" + "\n")
         #resume.write("Solution in "+folderRes + "\n")
+        media = 0
         for sol in mysol:
             with open(path+'/'+sol, "r+") as f:
                 time = 0
@@ -63,11 +64,12 @@ def printResult(folderSol,folderRes):
                                             error = (stimated - actual)/actual
                                             #print("Error of solution in "+sol + ": "+ str(float(error))+ "==> Stimated: " +str(stimated) + " ==> optimal: "+str(actual) + "==> Time: "+str(time))
                                             print(sol[4:-8] + " & "+ str(round(stimated,1)) + " & "+str(round(actual,1)) + " & " + str(float(round(error,4)))+ " & "+str(round(time,4)) +" "+ r" \\")
-
+                                            media += (float(round(error,4)))
                                             f.write("Error of solution in "+sol + ": "+ str(float(error)))
                                             resume.write("Error of solution in "+sol + ": "+ str(float(error))+ "\n")
                     if(keywords.split(':')[0].strip()=="Time Horizon"):
                         time = float(keywords.split(':')[1].strip())
+        print("Media ==> "  + str(media /len(cvrp_sol)))
                                 
                                     
 

@@ -22,4 +22,10 @@
 \BOOKMARK [2][-]{subsection.4.5}{Algoritmo Genetico}{section.4}% 22
 \BOOKMARK [1][-]{section.5}{Risultati}{}% 23
 \BOOKMARK [2][-]{subsection.5.1}{Clark and Wright}{section.5}% 24
-\BOOKMARK [3][-]{subsubsection.5.1.1}{Sequential}{subsection.5.1}% 25
+\BOOKMARK [3][-]{subsubsection.5.1.1}{Sequenziale vs Parallelo}{subsection.5.1}% 25
+\BOOKMARK [2][-]{subsection.5.2}{Fisher and Jaikumar -Radius Radar Frontier}{section.5}% 26
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Nearest Neighbourn Routing vs Nearest Neighbourn Track Path }{subsection.5.2}% 27
+\BOOKMARK [2][-]{subsection.5.3}{Fisher and Jaikumar - Random Centroid}{section.5}% 28
+\BOOKMARK [3][-]{subsubsection.5.3.1}{Nearest Neighbourn Routing vs Nearest Neighbourn Track Path }{subsection.5.3}% 29
+\BOOKMARK [2][-]{subsection.5.4}{Route First, Cluster Second}{section.5}% 30
+\BOOKMARK [2][-]{subsection.5.5}{Algoritmo Genetico}{section.5}% 31
