@@ -79,15 +79,16 @@
 
 \begin{abstract}
 
-Questo elaborato presenta il progetto di Algoritmi Avanzati sottomesso al prof. Bresolin dell'Università di Padova.
-Il progetto richiede di implementare almeno 2 algoritmi che risolvono istanze di : Capacitated Vehicle Routing Problem.
-Nel seguente elaborato oltre ad implementare i 2 algoritmi richiesti , il primo come metodo costruttivo; Clarke and Wright e il secondo come metodo a 2 fasi:ClusterFirst - Route Second per il quale sono state implementate due tecniche di routing: Nearest-Neighbourn e Dijkastra.
-Sono stati implementati altri 2 algoritmi uno che cade sempre nella classe dei metodi a 2 fasi: RouteFirst - ClusterSecond, e un altro che cade nella categoria degli algoritmi metauristici detti anche algoritmi genetici.
+Questo elaborato presenta il progetto di Algoritmi Avanzati sottomesso al prof. \textit{Bresolin} dell'Università di Padova.
+Il progetto richiede di implementare almeno due algoritmi che risolvono istanze di : \textit{Capacitated Vehicle Routing Problem}.
+Nel seguente elaborato si implementano due algoritmi richiesti , il primo come metodo costruttivo;\textit{Clarke and Wright} e il secondo come metodo a 2 fasi:ClusterFirst - Route Second per il quale sono state implementate due tecniche di routing: Nearest-Neighbourn e Dijkastra.
+Inoltre sono  stati implementati altri due algoritmi uno che cade sempre nella classe dei metodi a 2 fasi: RouteFirst - ClusterSecond, e un altro che cade nella categoria degli algoritmi meta-euristici detti anche algoritmi genetici.
 Inoltre, è stato implementato un metodo di selezione dei centroidi che tiene conto sia della distanza dal deposito sia della distanza inter-cluster.
 Tutti gli algoritmi sono stati testati sulle 16 istanze fornite dalla libreria TSPLIB95.
-I risultati confermano che a fronte di una minore accuratezza di una soluzione rispetto all'ottimo ma una maggiore richiesta di risorse in termini di tempo, possono portare a soluzioni ben approssimate.
-In particolare scegliere i centrodi con il metodo RadiusRadar permette di guadagnare qualche decimo a fronte di un tempo inore.
-Le soluzioni posso essere migliorate attrverso gli algoritmi genetici che fungono da esploratori di uno spazion locale.
+I risultati mostrano che gli algoritmi costruttivi arrivano ad una soluzione vicina all'ottimo, ma richiedono un tempo di esecuzione maggiore rispetto agli algoritmi a due fasi che con un tempo minore portano a soluzione vicino all'ottimo.
+Utilizzando delle euristiche è possibile superare la performance dei metodi costruttivi,molto dipende anche dal tipo di istanza.
+Viene applicato pure un algoritmo genetico, che parte da una popolazione di cromosomi creata con un metodo a 2 fasi e applica dei metodi per evolvere la popolazione.
+I metodi costruttivi di \textit{ Clarke and Wright} sono confrontati con un altro studio \cite{studio}, utilizzando istanze  di benchmark chiamato \textit{Augeat et al.}  \emph{(A-VRP)}, le soluzioni estratte utilizzando i metodo di questo elaborato superano le performance dello studio.
 
 \end{abstract}
 
@@ -1002,6 +1003,7 @@ A riga 12 il \texttt{for} si occupa di costruire la popolazione di cromosomi ini
 Presentiamo qui i risultati di ogni algoritmo presentato 
 \subsection{Clarke and Wright}
 \subsubsection{Sequenziale vs Parallelo}
+
 \begin{tabular}{l l}
 \small
 			\begin{tabular}{||l | l l l l||} 
@@ -1252,7 +1254,7 @@ Questo algoritmo con l'implementazione corrente è da scartare, produce dei risu
 			\hline
 			Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
 			\hline\hline
-			fri-n26-k3 & 1405.0 & 1353.0 &  \cellcolor{green} 0.0384 & 6.8199  \\
+			fri-n26-k3 & 1405.0 & 1353.0 &  0.0384 & 6.8199  \\
 			bays-n29-k5 & 3610.0 & 2963.0 & 0.2184 & 7.7884  \\
 			hk-n48-k4 & 24708.0 & 14749.0 & 0.6752 & 7.5774  \\
 			dantzig-n42-k4 & 1343.0 & 1142.0 & 0.176 & 9.2944  \\
@@ -1279,6 +1281,100 @@ Questo algoritmo con l'implementazione corrente è da scartare, produce dei risu
 Questo algoritmo parte da soluzioni create con l'algoritmo \texttt{Fisher and Jaikumar-Random Centroid -Nearest Neighbourn Routing}, successivamente applica le azioni già presentate precedentemente. E ovvio che questa azioni richiedono più tempo computazionale, ma è interessante notare come soluzioni nate da questo metodo possono essere migliorate confrontando e mantenendo le migliori ad ogni evoluzione. \textit{fri-n26-k3} si ripropone con una buona soluzione anche se questa richiede molto più tempo rispetto ai metodi utilizzati precedentemente. Rispetto alle altre \textit{gr-n17-k3} molto vicino al valore della soluzione ottenuto con \emph{Clarke and Wright}. L'errore medio di questo metodo si posizione tra i più bassi rispetto ai metodi a due fasi, richiedendo un tempo però 8 volte maggiore.
 
 \section{A-VRP Benchmark Data}
+Investigando l'accuratezza degli algoritmi proposti in questa elaborato, è stato trovato uno studio \cite{studio} dove sono presentate istanze CVRP. Il benchmark chiamato \textit{Augeat et al.}  \emph{(A-VRP)}. Il numero di clienti varia da 32 a 80, la richiesta totale per ogni istanza varia dal 207 a 932, e il numero di veicoli da 5 a 10. La capacità individuale di ogni veicolo è 100 per ogni istanza.
+Anche in questo studio sono state implementati entrambe le versioni di \emph{Clarke and Wright} confrontiamo quindi i risultati.
+
+
+\begin{tabular}{l l}
+	\small
+	\begin{tabular}{||l | l l l l||} 
+		\hline
+		Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
+		\hline\hline
+	A-n37-k6 & \cellcolor{green} 998.2 & 949.0 & 0.0518 & 1.0961  \\
+	A-n55-k9 & 1290.9 & 1073.0 & 0.2031 & 7.8294  \\
+	A-n54-k7 & \cellcolor{green} 1289.2 & 1167.0 & 0.1047 & 6.1351  \\
+	A-n38-k5 & \cellcolor{green}  834.3 & 730.0 & 0.1428 & 1.552  \\
+	A-n53-k7 & \cellcolor{green} 1159.3 & 1010.0 & 0.1478 & 6.9661  \\
+	A-n65-k9 & \cellcolor{green} 1479.4 & 1174.0 & 0.2601 & 16.7991  \\
+	A-n61-k9 & \cellcolor{green} 1189.0 & 1034.0 & 0.1499 & 11.6233  \\
+	A-n36-k5 & \cellcolor{green} 898.0 & 799.0 & 0.1239 & 1.2079  \\
+	A-n39-k5 &  \cellcolor{green} 1014.3 & 822.0 & 0.2339 & 1.8748  \\
+	A-n48-k7 & 1305.2 & 1073.0 & 0.2164 & 3.5837  \\
+	A-n34-k5 & 891.1 & 778.0 & 0.1454 & 0.9818  \\
+	A-n45-k6 & 1121.3 & 944.0 & 0.1878 & 3.0143  \\
+	A-n45-k7 & \cellcolor{green} 1251.4 & 1146.0 & 0.092 & 3.228  \\
+	\hline
+	Media & 773.96 & 668.0 & 0.11 & 3.34  \\
+		[1ex]
+		\hline
+	\end{tabular}
+	
+	\small
+	
+	\begin{tabular}{||l | l l l l||} 
+		\hline
+		Istanza & Soluzione & Ottimo & Errore & Tempo \\ [0.5ex] 
+		\hline\hline
+		A-n37-k6 & \cellcolor{green} 976.6 & 949.0 & 0.0291 & 0.2943  \\
+		A-n55-k9 & \cellcolor{green} 1099.8 & 1073.0 & 0.025 & 1.0653  \\
+		A-n54-k7 & \cellcolor{green} 1201.2 & 1167.0 & 0.0293 & 0.9762  \\
+		A-n38-k5 & \cellcolor{green} 768.1 & 730.0 & 0.0522 & 0.2936  \\
+		A-n53-k7 & 1099.5 & 1010.0 & 0.0886 & 0.888  \\
+		A-n65-k9 & \cellcolor{green} 1239.4 & 1174.0 & 0.0557 & 1.8624  \\
+		A-n61-k9 & 1102.2 & 1034.0 & 0.066 & 1.4788  \\		
+		A-n36-k5 & \cellcolor{green}828.5 & 799.0 & 0.0369 & 0.2729  \\
+		A-n39-k5 & \cellcolor{green}902.0 & 822.0 & 0.0973 & 0.3439  \\
+		A-n48-k7 & 1112.8 & 1073.0 & 0.0371 & 0.6698  \\
+		A-n34-k5 & 810.4 & 778.0 & 0.0417 & 0.2189  \\
+		A-n45-k6 & 1006.5 & 944.0 & 0.0662 & 0.532  \\
+		A-n45-k7 & 1200.0 & 1146.0 & 0.0471 & 0.5171  \\
+		\hline
+		Media & 909.48 & 865.0 & 0.05 & 0.56  \\
+		[1ex] 
+		\hline
+	\end{tabular}
+
+
+\end{tabular}
+
+
+\space
+
+
+\begin{tabular}{c}
+
+	\begin{tabular}{||l | l l ||}
+		
+		\hline
+		Istanza & Soluzione Sequenziale & Soluzione Parallela \\ [0.5ex] 
+		\hline\hline
+		A-n37-k6 & 1061 & 977 \\
+		A-n55-k9 & 1277 & 1109 \\
+		A-n54-k7 & 1379 & 1209 \\
+		A-n38-k5 & 847 & 770  \\
+		A-n53-k7 & 1167 & 1198  \\
+		A-n65-k9 & 1519 & 1266  \\
+		A-n61-k9 & 1302 & 1058 \\		
+		A-n36-k5 & 994 & 835  \\
+		A-n39-k5 & 1031 & 907 \\
+		\rowcolor{green}
+		A-n48-k7 & 	1234 & 1110  \\
+		\rowcolor{green}
+		A-n34-k5 & 886 & 809  \\
+		\rowcolor{green}
+		A-n45-k6 & 1120 & 997  \\
+		\rowcolor{white}
+		A-n45-k7 & 1334 & 1198  \\
+		[1ex] 
+		\hline
+		
+	\end{tabular}
+\end{tabular}
+Le due tabelle in alto mostrano le implementazioni di questo elaborato a sinistra la versione sequenziale e destra la versione parallela. In basso i risultati presentati dallo studio, qui sono state presentate solo alcune istanze, quelle più significative.
+Come si vede dalla tabella l'implementazione di questo elaborato sembra trovare soluzioni migliori, di qualche chilometro. Purtroppo nello studio non sono espressi i tempi di esecuzione quindi viene difficile fare un confronto in termini di tempo.
+Lo studio successivamente prosegue con delle ottimizzazioni delle soluzioni trovate attraverso altre tecniche di ricerca locale che per motivi di tempo non è stato possibile implementare.
+
 
 \section{Problemi riconosciuti e possibili miglioramenti}
 Il calcolo delle coordiante \texttt{GEO} da parte del file \texttt{parser.py} si sospetta non è corretto, ma non è stato possibile risalire con successo all'errore.

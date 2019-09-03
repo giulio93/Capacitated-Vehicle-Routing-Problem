@@ -223,9 +223,9 @@ if __name__ == "__main__":
   
            
     print("==============================CLARKE AND WRIGHT==================================")   
-    sol.printResult('./A-VRP//A-opt','./mysol')
+    sol.printResult('./A-VRP/A-opt','./mysol')
     print("==============================CLARKE AND WRIGHT Parallel==================================")   
-    sol.printResult('./A-VRP//A-opt','./mysol_par')
+    sol.printResult('./A-VRP/A-opt','./mysol_par')
     print("============A-VRP/==================FISHER AND JAIKUMAR ==================================")       
     sol.printResult('./A-VRP/A-opt','./mysol_FJ')
     print("============A-VRP/==================MODIFIED DIJKASTRA ==================================") 

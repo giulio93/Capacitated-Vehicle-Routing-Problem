@@ -19,45 +19,46 @@ Warning--empty year in sweep
 Warning--empty year in FJ
 Warning--empty year in GA
 Warning--empty year in OCR
-You've used 11 entries,
+Warning--empty year in studio
+You've used 12 entries,
             1791 wiz_defined-function locations,
-            496 strings with 4959 characters,
-and the built_in function-call counts, 1528 in all, are:
-= -- 115
-> -- 64
+            500 strings with 5206 characters,
+and the built_in function-call counts, 1676 in all, are:
+= -- 126
+> -- 72
 < -- 0
-+ -- 27
-- -- 16
-* -- 59
-:= -- 275
-add.period$ -- 32
-call.type$ -- 11
-change.case$ -- 11
++ -- 30
+- -- 18
+* -- 66
+:= -- 301
+add.period$ -- 35
+call.type$ -- 12
+change.case$ -- 12
 chr.to.int$ -- 0
-cite$ -- 19
-duplicate$ -- 85
-empty$ -- 159
-format.name$ -- 16
-if$ -- 321
+cite$ -- 21
+duplicate$ -- 93
+empty$ -- 173
+format.name$ -- 18
+if$ -- 352
 int.to.chr$ -- 0
-int.to.str$ -- 11
-missing$ -- 10
-newline$ -- 57
-num.names$ -- 11
-pop$ -- 45
+int.to.str$ -- 12
+missing$ -- 11
+newline$ -- 62
+num.names$ -- 12
+pop$ -- 49
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 38
+skip$ -- 42
 stack$ -- 0
 substring$ -- 0
-swap$ -- 11
+swap$ -- 12
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 8
-while$ -- 11
-width$ -- 13
-write$ -- 102
+warning$ -- 9
+while$ -- 12
+width$ -- 14
+write$ -- 111
 (There were 2 error messages)
