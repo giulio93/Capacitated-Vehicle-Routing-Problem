@@ -46,7 +46,7 @@ if __name__ == "__main__":
       GAPassignementRR =-1
       GAPassignementRand = -1
 
-      n_vehicles = 0
+      n_vehicles = int( math.ceil(graphToSolve.getTotalDemand() /  graphToSolve.getCapacity() ))  
 
       while(GAPassignementRR == -1):  
         start_time_clustering = time.time ()   
