@@ -15,8 +15,14 @@ import time
 
 if __name__ == "__main__":
 
-    #path = './cvrp'
-    path = './A-VRP/instances'
+    #Change this variable to select benchmark "cvrp" or "avrp"
+    benchmark  = "cvrp"
+
+    if(benchmark == "cvrp"):
+      path = './cvrp'
+    else:
+      path = './A-VRP/instances'
+
     files = par.readInstanceList(path)
     # for f in files:
     #   graphToSolve =  par.createGraph(path,f)
@@ -203,41 +209,40 @@ if __name__ == "__main__":
   
           
 
-        
-    # print("==============================CLARKE AND WRIGHT SEQUENTIAL==================================")   
-    # sol.printResult('./cvrp-sol','./mysol')
-    # print("==============================CLARKE AND WRIGHT PARALLEL==================================")   
-    # sol.printResult('./cvrp-sol','./mysol_par')
-    # print("==============================FISHER AND JAIKUMAR ==================================")       
-    # sol.printResult('./cvrp-sol','./mysol_FJ')
-    # print("==============================MODIFIED DIJKASTRA ==================================") 
-    # sol.printResult('./cvrp-sol','./mysol_DJ')
-    # print("======================FISHER AND JAIKUMAR ON RANDOM K ==================================") 
-    # sol.printResult('./cvrp-sol','./mysol_FJ_kRand')
-    # print("======================MODIFIED DIJKASTRA  ON RANDOM K ==================================") 
-    # sol.printResult('./cvrp-sol','./mysol_DJ_kRand')
-    # print("============================== GENETIC ON DIJ-KSEL   ==================================")  
-    # sol.printResult('./cvrp-sol','./mysol_Genetic')
-    # print("======================DIJKASTRA CLUSTER FIRST ROUTE SECOND==================================") 
-    # sol.printResult('./cvrp-sol','./Sol_CR')
-  
-           
-    print("==============================CLARKE AND WRIGHT==================================")   
-    sol.printResult('./A-VRP/A-opt','./mysol')
-    print("==============================CLARKE AND WRIGHT Parallel==================================")   
-    sol.printResult('./A-VRP/A-opt','./mysol_par')
-    print("============A-VRP/==================FISHER AND JAIKUMAR ==================================")       
-    sol.printResult('./A-VRP/A-opt','./mysol_FJ')
-    print("============A-VRP/==================MODIFIED DIJKASTRA ==================================") 
-    sol.printResult('./A-VRP/A-opt','./mysol_DJ')
-    print("============A-VRP/==========FISHER AND JAIKUMAR ON RANDOM K ==================================") 
-    sol.printResult('./A-VRP/A-opt','./mysol_FJ_kRand')
-    print("============A-VRP/================== GENETIC ON FJ SOL WITH RANDOM k  ==================================")  
-    sol.printResult('./A-VRP/A-opt','./mysol_Genetic')
-    print("============A-VRP/==========DIJKASTRA RANDOM K ==================================") 
-    sol.printResult('./A-VRP/A-opt','./mysol_DJ_kRand')
-    print("============A-VRP/==========DIJKASTRA CLUSTER FIRST ROUTE SECOND==================================") 
-    sol.printResult('./A-VRP/A-opt','./Sol_CR')
+    if benchmark == "cvrp": 
+      print("==============================CLARKE AND WRIGHT SEQUENTIAL==================================")   
+      sol.printResult('./cvrp-sol','./mysol',benchmark)
+      print("==============================CLARKE AND WRIGHT PARALLEL==================================")   
+      sol.printResult('./cvrp-sol','./mysol_par',benchmark)
+      print("==============================FISHER AND JAIKUMAR ==================================")       
+      sol.printResult('./cvrp-sol','./mysol_FJ',benchmark)
+      print("==============================MODIFIED DIJKASTRA ==================================") 
+      sol.printResult('./cvrp-sol','./mysol_DJ',benchmark)
+      print("======================FISHER AND JAIKUMAR ON RANDOM K ==================================") 
+      sol.printResult('./cvrp-sol','./mysol_FJ_kRand',benchmark)
+      print("======================MODIFIED DIJKASTRA  ON RANDOM K ==================================") 
+      sol.printResult('./cvrp-sol','./mysol_DJ_kRand',benchmark)
+      print("============================== GENETIC ON DIJ-KSEL   ==================================")  
+      sol.printResult('./cvrp-sol','./mysol_Genetic',benchmark)
+      print("======================DIJKASTRA CLUSTER FIRST ROUTE SECOND==================================") 
+      sol.printResult('./cvrp-sol','./Sol_CR',benchmark)
+    else:         
+      print("==============================CLARKE AND WRIGHT==================================")   
+      sol.printResult('./A-VRP/A-opt','./mysol',benchmark)
+      print("==============================CLARKE AND WRIGHT Parallel==================================")   
+      sol.printResult('./A-VRP/A-opt','./mysol_par',benchmark)
+      print("============A-VRP/==================FISHER AND JAIKUMAR ==================================")       
+      sol.printResult('./A-VRP/A-opt','./mysol_FJ',benchmark)
+      print("============A-VRP/==================MODIFIED DIJKASTRA ==================================") 
+      sol.printResult('./A-VRP/A-opt','./mysol_DJ',benchmark)
+      print("============A-VRP/==========FISHER AND JAIKUMAR ON RANDOM K ==================================") 
+      sol.printResult('./A-VRP/A-opt','./mysol_FJ_kRand',benchmark)
+      print("============A-VRP/================== GENETIC ON FJ SOL WITH RANDOM k  ==================================")  
+      sol.printResult('./A-VRP/A-opt','./mysol_Genetic',benchmark)
+      print("============A-VRP/==========DIJKASTRA RANDOM K ==================================") 
+      sol.printResult('./A-VRP/A-opt','./mysol_DJ_kRand',benchmark)
+      print("============A-VRP/==========DIJKASTRA CLUSTER FIRST ROUTE SECOND==================================") 
+      sol.printResult('./A-VRP/A-opt','./Sol_CR',benchmark)
 
 
 

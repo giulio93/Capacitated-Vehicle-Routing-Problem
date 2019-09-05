@@ -80,32 +80,32 @@
 \begin{abstract}
 
 Questo elaborato presenta il progetto di Algoritmi Avanzati sottomesso al prof. \textit{Bresolin} dell'Università di Padova.
-Il progetto richiede di implementare almeno due algoritmi che risolvono istanze di : \textit{Capacitated Vehicle Routing Problem}.
-Nel seguente elaborato si implementano due algoritmi richiesti , il primo come metodo costruttivo;\textit{Clarke and Wright} e il secondo come metodo a 2 fasi:ClusterFirst - Route Second per il quale sono state implementate due tecniche di routing: Nearest-Neighbourn e Dijkastra.
-Inoltre sono  stati implementati altri due algoritmi uno che cade sempre nella classe dei metodi a 2 fasi: RouteFirst - ClusterSecond, e un altro che cade nella categoria degli algoritmi meta-euristici detti anche algoritmi genetici.
+Il progetto richiede di implementare almeno due algoritmi che risolvono istanze di:\textit{Capacitated Vehicle Routing Problem}.
+Nel seguente elaborato si implementano due algoritmi richiesti, il primo come metodo costruttivo;\textit{Clarke and Wright} e il secondo come metodo a 2 fasi: \textit{Cluster First - Route Second} per il quale sono state implementate due tecniche di routing: \textit{Nearest-Neighbourn} e \textit{Nearest-Neighbourn Track Path}.
+Inoltre sono  stati implementati altri due algoritmi uno che cade sempre nella classe dei metodi a 2 fasi: \textit{Route First - Cluster Second}, e un altro che cade nella categoria degli algoritmi meta-euristici detti anche \textit{Algoritmi Genetici}.
 Inoltre, è stato implementato un metodo di selezione dei centroidi che tiene conto sia della distanza dal deposito sia della distanza inter-cluster.
 Tutti gli algoritmi sono stati testati sulle 16 istanze fornite dalla libreria TSPLIB95.
-I risultati mostrano che gli algoritmi costruttivi arrivano ad una soluzione vicina all'ottimo, ma richiedono un tempo di esecuzione maggiore rispetto agli algoritmi a due fasi che con un tempo minore portano a soluzione vicino all'ottimo.
-Utilizzando delle euristiche è possibile superare la performance dei metodi costruttivi,molto dipende anche dal tipo di istanza.
-Viene applicato pure un algoritmo genetico, che parte da una popolazione di cromosomi creata con un metodo a 2 fasi e applica dei metodi per evolvere la popolazione.
-I metodi costruttivi di \textit{ Clarke and Wright} sono confrontati con un altro studio \cite{studio}, utilizzando istanze  di benchmark chiamato \textit{Augeat et al.}  \emph{(A-VRP)}, le soluzioni estratte utilizzando i metodo di questo elaborato superano le performance dello studio.
+I risultati mostrano che gli algoritmi costruttivi ottengono ad una soluzione vicina all'ottimo, ma richiedono un tempo di esecuzione maggiore rispetto agli algoritmi a due fasi che con un tempo minore portano a soluzione più approssimata.
+Utilizzando delle euristiche è possibile superare la performance dei metodi costruttivi ma molto dipende anche dal tipo di istanza.
+Viene applicato anche un algoritmo genetico, che parte da una popolazione di cromosomi creata con un metodo a 2 fasi e applica degli algoritmi per evolvere la popolazione.
+I metodi costruttivi di \textit{ Clarke and Wright} sono confrontati con un altro studio \cite{studio}, utilizzando istanze di un benchmark chiamato \textit{Augeat et al.}  \emph{(A-VRP)}, le soluzioni estratte utilizzando il metodo di questo elaborato superano le performance dello studio.
 
 \end{abstract}
 
 \section{Introduzione}
-Con la nascita dei nuovi servizi per il cliente, che danno assistenza e portao i prodotti direttamente sulla soglia di casa (es:Amazon Prime), la gestione della logistica predilige gran parte degli investimenti.
-Questo fatto diventa ancor più importante se diamo un occhiata ai dati forniti dall' Associazione Nazionale Filiera Industria Automobilistica (ANFIA) nel 2017 \ref{fig:ITA28} , dove viene sottolineato che i camion movimentano l'80$\%$ delle merci su terra \cite{ANFIA2017}. 
-Gli investimenti non riguardano solo le strutture o gli strumenti fisici, ma soprattutto i software per la gestione e l'ottimizzazione  della distribuzione dei beni.
+Con la nascita dei nuovi servizi per il cliente, che danno assistenza e portano i prodotti direttamente sulla soglia di casa (es:Amazon Prime), la gestione della logistica predilige gran parte degli investimenti.
+Questo fatto diventa ancor più importante se ispezioniamo dati forniti dall' Associazione Nazionale Filiera Industria Automobilistica (ANFIA) nel 2017 \ref{fig:ITA28} , dove viene sottolineato che i camion movimentano l'80$\%$ delle merci su terra \cite{ANFIA2017}. 
+Gli investimenti non riguardano solo le strutture o la gestione dell'organico, ma soprattutto i software per la gestione e l'ottimizzazione  della distribuzione dei beni.
 Grazie all'informatizzazione dei processi da parte del nuovo programma di industrializzazione chiamato "industria 4.0", si può godere di banche dati ricche ed aggiornate, attraverso le quali, possono essere implementate tecniche di ricerca operativa e ottimizzazione.
 
 Il Vehicle Routing Problem \textbf{(VRP)}  è un classe reale di problemi di soddisfacimento di vincoli, in inglese detto anche Constraint Satisfaction Problem \textbf{(COP)}.
-Alla fine degli anni cinquanta Dantzig and Ramser hanno formalizzato il problema \cite{dispatching} che riguarda la distribuzione di benzina da un deposito princiapale ad un grande numero di stazioni di servizio.
+Alla fine degli anni cinquanta \textit{Dantzig and Ramser} hanno formalizzato il problema \cite{dispatching} che riguarda la distribuzione di benzina da un deposito princiapale ad un grande numero di stazioni di servizio.
 Da quel momento l'interesse nei problemi VRP è evoluto da un piccolo gruppo di matematici ad un grande gruppo di ricercatori da differenti discipline ancora oggi coinvolti.
 
 
 VRP consiste nell'ottimizzare l'uso di un insieme di veicoli per prelevare della merce da uno o più depositi e consegnarle presso dei clienti che richiedono una certa quantità di merce.
 Le stazioni , i depositi sono distribuiti in uno spazio rappresentato da delle distanze. I mezzi si spostano percorrendo tali distanze, che possono essere rappresentate in maniera diversa.
-La maggioranza the problemi reali sono sepsso più complessi del classico VRP. Quindi in pratica VRP è aumentato con dei vincoli, come ad esempio la capacità del veicolo: dove ogni veicolo è caratterizzato da una capacità limitata di carico delle merci, passando quindi da VRP a \textbf{Capacitated - VRP}.
+La maggioranza the problemi reali sono più complessi del classico VRP. A questo quindi sono stati aggiunti dei vincoli, come ad esempio la capacità del veicolo: dove ogni veicolo è caratterizzato da una capacità limitata di carico delle merci, passando quindi da VRP a \textbf{Capacitated - VRP}.
 Gli obiettivi sono molteplici:
 \begin{itemize}
 	\item Minimizzare dei costi di trasporto (istanze percorse, consumo di carburante)
@@ -122,7 +122,7 @@ Gli obiettivi sono molteplici:
 	\label{fig:ITA28}
 \end{figure}
 
-VRP è un problema di ottimizzazione combinatoria NP hard,che può essere risolto esattamente trovando l'ottimo solo per piccole istanze del problema. In ogni caso gli approcci euristici che non garantiscono l'ottimalità, forniscono ottimi risultati in pratica.
+VRP è un problema di ottimizzazione combinatoria NP hard,che può essere risolto esattamente trovando l'ottimo solo per piccole istanze del problema. In ogni caso gli approcci euristici che non garantiscono l'ottimalità ma forniscono ottimi risultati in pratica.
 Negli ultimi 30 anni sono stati applicati anche dei metodi meta-euristici che hanno mostrato una nuova direzione alla ricerca sulla famiglia di problemi VRP.
 In questo elaborato vengono prese in esame le istanze fornite dalla libreria TSPLIB95\cite{TSPLIB95}.
 
@@ -139,8 +139,8 @@ Sono stati implementati i seguenti metodi per risolvere le istanze CVRP:
 
 \newpage
 \subsection{Rappresentazione del problema} \label{RappProb-sec}
-CVRP è la versione più comune dei problemi VRP. Ciò che caratterizza queta tipologia di problemi è il fatto che l servizio è di semplice ocnsgna senza raccolta.
-Inoltre le richieste dei clienti sononote a pripri e deterministiche e devono essere soddisfatte da un solo veicolo; tuti i veicoli sono identici e basati su un singolo deposito centrale. Gli unici vincoli imposti riguardano le capacità di veicoli. L'obbiettivo è minmizzare il costo totale di servizio che può essere una funzione del numero dei route, della lunghezza complessiva o del tempo di percorrenza.
+CVRP è la versione più comune dei problemi VRP. Ciò che caratterizza questa tipologia di problemi è il servizio di semplice consegna senza raccolta.
+Inoltre le richieste dei clienti sono note a propri,deterministiche e devono essere soddisfatte da un solo veicolo; tuti i veicoli sono identici e basati su un singolo deposito centrale. Gli unici vincoli imposti riguardano le capacità di veicoli. L'obbiettivo è minimizzare il costo totale di servizio che può essere una funzione del numero dei route, della lunghezza complessiva o del tempo di percorrenza.
 Consideraimo ora la rappresentazione su grafo di questo problema.
 \begin{itemize}
 \item Sia \emph{G = (V,A)} un grafo completo dove \emph{V = \{0,...,n\}} è l'insieme dei vertici e \emph{A} quello degli archi.
@@ -150,7 +150,7 @@ Consideraimo ora la rappresentazione su grafo di questo problema.
 \item Dato un insieme \emph{ S $\subseteq$ V}, \emph{d(S)} denota la richiesta complessiva dei clienti in \emph{S: d(S) = $\sum_{s \in S} d_{s} $}.
 \item  Indicando con \emph{r} una \emph{route}, \emph{d(r)} denota la richiesta complessiva dei vertici da esso visitati.
 \item Un insieme \emph{K} di veicoli è disponibile presso il deposito. Tali veicoli sono tutti identici di capacità \emph{C}; una semplice condizione di ammissibilità del problema richiede \emph{$ d_{i} \leq C $ $ \forall i \in V \setminus \{0\} $}.
-\item Ogni veicolopuò percorrere al più un \emph{route}.
+\item Ogni veicolo può percorrere al più una \emph{route}.
 \item Si assume che \emph{$K \geq K_{min}$} dove \emph{$K_{min}$} è il minimo numero di veicoli necessari per servire tutti i clienti.
 \item In questa implementazione utilizziamo il numero minimo di veicoli necessari per servire tutti i vertici in \emph{S}, pari al  \emph{lower bound}  \emph{$ K_{min} =d(S)/C $}
 \end{itemize}
@@ -196,21 +196,25 @@ al quale sono applicati i seguenti vincoli:
 \sum_{i \in V} M_{i,0}^k = 1 \ \forall k \in K
 \end{equation}
 
+\begin{equation} \label{GAP4}
+M_{i,k} \in \{0,1\}
+\end{equation}
+
 
 
 
 La funzione obbiettivo \ref{objF}, minimizzare il costo dei km totali percorsi da ogni singolo veicolo.
 Il vincolo \ref{v1} impone che ogni cliente deve essere servito da un solo veicolo.
 Il vincolo \ref{v2} assicura che il limite sulla capacità dei veicoli venga rispettato.
-I vincoli \ref{v3}, \ref{v4} , \ref{v5} sono vincoli che impongono ad ogni veicolo di partire dal deposito il nodo 0, e collegarsi ad un nodo h, unico per ogni route,e di ritornare al deposito, indicato nella nostra implementazione sempre dal nodo 0. Questi vincoli definiscono la struttura della route.
-\textbf{Questa sezione va rivista }
+I vincoli \ref{v3}, \ref{v4} , \ref{v5} sono vincoli che impongono ad ogni veicolo di partire dal deposito il nodo 0, e collegarsi ad un nodo h, unico per ogni route,e di ritornare al deposito, indicato nella nostra implementazione sempre dal nodo 0. Questi vincoli definiscono la struttura della \emph{route}.
+
 
 \section{Related Works}
 Quasi tutti i metodi implementati sono euristici perchè nessuno degli algoritmi può garantire di trovare una soluzione ottima per grandi istanze, in un limite di tempo computazionale ragionevole.
 Un approccio euristico non esplora l'intero spazio di ricerca, piuttosto cerca di trovare una soluzione basandosi sulle informazioni che ha sul problema.
-Le euristiche che risolvono istanze CVRP sono identificati come metodi costruttivi (\textbf{costructive}) e di raggruppamento \textbf{()clustering)}.
+Le euristiche che risolvono istanze CVRP sono identificati come metodi costruttivi (\textbf{costructive}) e di raggruppamento (\textbf{clustering}).
 I metodi costruttivi costruiscono una soluzione gradualmente,aggiornando continuamente l'informazione che riguarda il costo, ma potrebbe non contenere nessuna fase di miglioramento o di ottimizzazione della soluzione.
-Gli algoritmi costruttivi più famosi sono: Clarke and Wright's savings algorithm \cite{CK1}, \cite{CK2} , \cite{CK3} , Matching based algorithm e Multi-route improvement heuristic \cite{CK3}.
+Gli algoritmi costruttivi più famosi sono: \textit{Clarke and Wright's} savings algorithm \cite{CK1}, \cite{CK2} , \cite{CK3} , Matching based algorithm e Multi-route improvement heuristic \cite{CK3}.
 I metodi di clustering, risolvono il problema in due fasi , ed è per questo che vengono chiamati metodi a 2 fasi.  l'approccio route-first cluster second è caratterizzato dalle due fasi seguenti:
 \begin{itemize}
 \item \textbf{Fase 1 - Clustering:} Un algoritmo di clustering viene utilizzato per raggruppare i clienti in cluster da dare in pasto alla seconda fase
@@ -218,11 +222,11 @@ I metodi di clustering, risolvono il problema in due fasi , ed è per questo che
 \end{itemize}
 Alcuni famosi algoritmi a due fasi sono: Petal algortihm \cite{petal}, Sweep algorithm \cite{sweep} e Fisher and Jaikumar \cite{FJ}.
 Questo studio investiga e compara le performance dei metodi costruttivi e di raggruppamento per risolvere istanze di CVRP.
-In particolare, nell'algoritmo di Fisher and Jaikumar, è stato implementato un algoritmo per la selezione dei centroidi chiamato Radar-Radius.Questo  massimizza la distanza tra centroidi (inter-centroid distance) e la distanza tra i centroidi e il deposito in modo da garantire la migliore copertura, a seconda della distribuzione del deposito e dei clienti.
-Questo algoritmo è stato implementato scegliendo un deposito per ogni istanza in TSPLIB95,solitamente il deposito con id identificativo 1.
-Sono stati usati due metodi diversi per realizzare il routing tra i clienti di uno stesso cluster: Nearest Neighbourn e Dijkastra.
-I raggruppamenti formati dai metodi di clustering sono successivamente ottimizzate da metodi metaeuristici, in questa implementazione viene presentato un Algoritmo Genetico  \textbf{(GA)} \cite{GA}, il quale è un famoso approccio utilizzato per risolvere istanze Travelling Salesman Problem (TSP).
-\textbf{Bensi i metodi costruttivi generano già delle soluzioni molto vicino all'ottimo, l'algoritmo Genetico è applicato anche al Savings algorithm per avere una misura di performance.}
+In particolare,in questo elaborato, nell'algoritmo di \textit{Fisher and Jaikumar}, è stato implementato un algoritmo per la selezione dei centroidi chiamato \textit{Radar Radius Frontier} .Questo  massimizza la distanza tra centroidi (inter-centroid distance) e la distanza tra i centroidi e il deposito in modo da garantire la migliore copertura, a seconda della distribuzione del deposito e dei clienti.
+Questo algoritmo è stato implementato scegliendo un deposito per ogni istanza in TSPLIB95,solitamente il deposito con id identificativo 0.
+Sono stati usati due metodi diversi per realizzare il routing tra i clienti di uno stesso cluster: Nearest Neighbourn e Nearest Neighbourn Track Path .
+I raggruppamenti formati dai metodi di clustering sono successivamente ottimizzate da metodi metaeuristici, in questa implementazione viene presentato un Algoritmo Genetico  \textbf{(GA)} \cite{GA}, il quale è un famoso approccio utilizzato per risolvere istanze Travelling Salesman Problem \textbf{(TSP)}.
+
 
 
 
@@ -232,23 +236,14 @@ Lo sviluppo di algoritmi euristici è mirato a fornire una soluzione di buona
 qualità ad un problema difficile con un limitato tempo di calcolo. Nella
 maggior parte dei casi infatti, non si ha il tempo neccessario per applicare
 metodi esatti.
-In questo senso ci vengono in aiuto gli algoritmi euristici, che im-
-piegano tempi di calcolo relativamente ristretti per fornire soluzioni di
-buona qualità. Laport e Semet hanno fornito una classificazione di que-
-sti metodi, distinguendo tra euristici classici e metaeuristici; la differen-
-za principale sta nel livello di profondità che questi metodi raggiungono
+In questo senso ci vengono in aiuto gli algoritmi euristici, che impiegano tempi di calcolo relativamente ristretti per fornire soluzioni di
+buona qualità. \textit{Laport e Semet} hanno fornito una classificazione di questi metodi, distinguendo tra euristici classici e metaeuristici; la differenza principale sta nel livello di profondità che questi metodi raggiungono
 nell’esplorazione dello spazio delle soluzioni. Mentre gli euristici classici
 ottengono buone soluzioni con limitati tempi di calcolo, i metaeuristici
-approfondiscono la ricerca della soluzione ottima nelle zone più promet-
-tenti dello spazio delle soluzioni, implementando sofisticate regole di ri-
-cerca e di ricombinazione dei risultati parziali ottenuti. Questi metodi,
-seppur impiegando un tempo di risoluzione maggiore, ottengono soluzio-
-ni migliori rispetto ai metodi classici. Rinviamo la trattazione di questi
-ultimi al capitolo successivo, focalizzando ora l’attenzione sugli euristici
-classici.
+approfondiscono la ricerca della soluzione ottima nelle zone più promettenti dello spazio delle soluzioni, implementando sofisticate regole di ricerca e di ricombinazione dei risultati parziali ottenuti. Questi metodi, seppur impiegando un tempo di risoluzione maggiore, ottengono soluzioni migliori rispetto ai metodi classici.
 \subsection{Metodi Euristici Costruttivi}
 Un metodo in questa categoria costruisce le strade per i veicoli mentre cerca di minimizzare la distanza percorsa.
-L'algoritmo di Savings di Clarke and Wright \cite{CK1}, trova una soluzione utilizzando un'euristica, quindi il risultato non è sempre la soluzione ottima, ma dovrebbe risultare mol+to vicina all'ottimo con un risparmio di tempo computazionale elevato rispetto ad un algoritmo brute force.
+L'algoritmo di Savings di Clarke and Wright \cite{CK1}, trova una soluzione utilizzando un'euristica, quindi il risultato non è sempre la soluzione ottima, ma dovrebbe risultare molto vicina all'ottimo con un risparmio di tempo computazionale elevato rispetto ad un algoritmo brute force.
 
 
 \subsubsection{Algoritmo di Savings di Clarke and Wright}
@@ -280,14 +275,6 @@ D_{a} = D_{a} +D_{b} =+ C_{i,0} +  C_{0,j} +  C_{i,j}
 \end{equation}
 
 \paragraph{Sequenziale e Parallelo } \hfill
-\textbf{The difference lies in the situation where a pair is encountered that
-	could form a new route. In the sequential method, a new route is
-	formed, but it is stored until all other pairs have been compared with
-	the original route, then the remaining pairs are iterated though again
-	but compared to the new route. This is repeated for any new route that
-	is formed. For the parallel method, when a new route is created, the
-	iteration continues through the list of pairs, but each one is checked
-	against all routes in the same cycle of iteration.}
 La distanza risparmiata è direttamente proporzionale alla vicinanza dei clienti e inversamente proporzionale alla vicinanza al deposito.
 Più grande è la distanza risparmiata più vicini si troveranno i clienti, e più distanti essi saranno dal deposito.
 Le coppie di clienti sono ordiate in ordine decrescente secondo il valore di \emph{savings} che è stato calcolato sulla coppia.
@@ -304,8 +291,8 @@ Se la coppia viene inserita in una route, tutte le \emph{routes} generate fino a
 Nel codice Listing2 Dalla riga 2 alla riga 6 le istruzioni sono identiche al codice Listing 1 già presentato. Dalla riga 7 invece si differenzia, in quanto per ogni cliente viene creata una strada: deposito $\rightarrow$ cliente $\rightarrow$ deposito. In 0 il ciclo \emph{for} si occupa di scorrere la lista. Al suo intenro a riga 10 si estrae la tupla che forma la coppia di clienti che appartengono al risparmio. 11,12 e 13 inizializzano a \emph{null} tre di appoggio contenitori \emph{route}. Una volta estratti i clienti, si scorrono tutte le \emph{routes} come in 14, il controllo in 15 si controlla se una \emph{route} passa per \emph{i}, quando questa viene trovata, viene allocata sia in \emph{routeA} in 16, la stessa cosa viene fatta per \emph{j} in 18, 19 con  \emph{routeB}. Il senso di questa doppio allocazione viene si spiega nella righe successive: in 22 si verifica se  \emph{routeA} e \emph{routeA} hanno valori diversi, siccome tutti i clienti hanno una strada assegnata, \emph{routeA} e \emph{routeB} saranno sicuramente diverse da \emph{null} di conseguenza si controlla in 21 se \emph{i} e \emph{j} provengono da strade diverse. In caso positivo si controlla se i componenti della \emph{routeA} e i componenti della \emph{routeB}  rispettano i vincoli di capacità, come descritto in riga 22.Se anche questo controllo viene passato con successo, allora si passa al metodo fondamentale di questo algoritmo, \emph{il Merge}	riga 23.
 Questo metodo si preoccupa di capire se i due clienti presenti nelle due diverse \emph{route}, stanno in testa o in coda alla \emph{route}, di conseguenza unisce le due strade importando i clienti nella \emph{routeA} o nella \emph{routeB} a seconda dell'ordine dato da \emph{save}. In 24 si rimuove da \emph{routes} la \emph{route} che è stata copiata e in 26 si ritorna la soluzione.
 \end{itemize}
-\textbf{
-La differenza sostanziale tra i due metodi è la seguente: il metodo sequenziale tende a generare una \emph{route} unica molto grande, e le \emph{route} seguenti invece sono più piccole. Mentre il metodo parallelo tende a formare più strade larghe e quindi riduce il numero finale di \emph{routes}} 
+
+La differenza sostanziale tra i due metodi è la seguente: il metodo sequenziale tende a generare una \emph{route} unica molto grande, e le \emph{route} seguenti invece sono più piccole. Mentre il metodo parallelo tende a formare più \emph{route} grandi e quindi riduce il numero finale di \emph{routes}.
 
 \begin{lstlisting}[language=Python, caption=Implementazione sequenziale di Clarke and Wright  ,escapeinside={(*}{*)}]
 def Clarke&Wright_Sequenziale(graph):
@@ -508,7 +495,7 @@ L'algoritmo descritto in Listing 3, presenta quanto già descritto formalmente s
 Si inizia con la riga 11 dove il while termina solo quando avrà trovato un numero di centroidi uguale al numero di veicoli. In 13 si effettua un importante controllo: alcune istanze presenti nel dataset fornito in questo elaborato hanno una richiesta uguale per tutti i clienti spesso apri a 1. Di conseguenza se la richiesta è uguale per tutti i clienti, il vincolo sulla capacità può essere evitato, immettendo tutti i clienti come a riga 18. In caso contrario si aggiungono solo quelli che soddisfano il vincolo \ref{RR3} rilassato da scaleDown, righe 14,15,16. In 20 si scorrono tutta la lista di candidati, in 21 accetta solo i candidati con una distanza maggiore o uguale alla distanza massima tra i componenti di \textit{ScannerRadius}. Se troviamo un candidato che rispetta entrambi i controlli,in caso seeds sia vuoto possiamo aggiungerlo direttamente 22 - 26, azzeriamo il suo valore in \textit{ScannerRadius} e aggiorniamo \textit{MaxCoverDistance} con la distanza massima tra il candidato selezionato e il cliente più distante. Altrimenti scorriamo la lista di seeds, se il candidato è distante almeno \textit{MaxCoverDistance} diviso il numero di veicoli e il candidato non è già presente in seeds, lo aggiungiamo a seeds e aggiorniamo di conseguenza \textit{MaxCoverDistance}  righe 28 - -34.In caso contrario aumentiamo il fattore scaleDown e azzeriamo il candidato in \textit{ScannerRadius}. Le righe 40,41,42, vengono eseguire nel caso le richieste dei clienti siano diverse, rilassa il vincolo \ref{RR2} aumentando il bacino di candidati. 
 
 
-\paragraph{Fase 2.2 e 2.3  General Assignement Problem} \hfill
+\paragraph{Fase 2.2 e 2.3  General Assignement Problem} \hfill \\
 Una volta individuati i centroidi si passa alla Fase 2.2. L'algoritmo deve assegnare ongni cliente ad ogni centroide. Per fare questo l'algoritmo risolve un problema di asseganemtno generale.Si richiede di trovare un assegnamento dei clienti ai cluster tale da non superare la capacità del veicolo assegnato al cluster. Il numero di chilometri totali percorsi dalla soluzione va minimizzato. Più formalmente:
 \[x_{i,k} = \left\{
 \begin{array}{lr}
@@ -579,8 +566,10 @@ def GAPsolver(graph,Kclusters):
 															
 \end{lstlisting}
 
-Listing 4 presenta lo pseudocodice implementato del GAP solver implementato. Alla riga 1 la firma del metodo riceve il graph e i centroidi selezionati con le tecniche descritte nella sezione precedente.Dalla riga 2 alla riga 4 si recuperano le informazioni sul grafo, in 5 si estrae il numero di cluster. \textit{allocCosts} è la lista che conterrà i costi di allocazione di ogni cliente per ogni cluster, alla riga 5 viene inizializzata a 0 e ha dimensione uguale a \textit{Dimension}* \textit{Ncluster}. In 7 viene inizializzata a vuoto la lista \textit{clusterAssignement} che conterrà i nodi assegnati ad ogni cluster. In 8 si inizializzano a 0,il totale di domande soddisfatte per ogni cluster. In 10 vengono calcolati i costi di inserimento di ogni nodo per ogni cluster: \textit{calculateIns(i,k)} calcola i costi come è stato già descritto nella sezione \textbf{\ref{FJ-Sec}}. In 12 si inizializza il puntatore \emph{i} che servirà per puntare alla domanda del nodo corrispondente in \textit{Demands}. 13 e 14 si occupano di scorrere ogni riga di \textit{allocCosts} e al suo interno ogni cluster di \textit{Kcluster}. Il controllo a riga 15, assicura che il cluster con costo di inserimento minimo per il nodo, non superi la capacità prestabilita. Se il controllo viene superato con successo alla riga 16 si aggiorna la domanda totale soddisfatta dal cluster, in 17 si assegan al nodo il cluster e in 18 si incrementa di uno il puntatore. Siccome il nodo è stato assegnato con 19 si passa alla prossima riga di \textit{allocCosts}. Altrimenti, se il controllo a riga 15 fallisce, la riga 21 pone ad infinito il valore minimo calcolato per quel nodo, in modo che nel ciclo seguente si prenda in considerazione il secondo valore minimo calcolato tra quel nodo e un altro cluster, questo viene ripetuto per k in Kclusters.
+Listing 4 presenta lo pseudocodice implementato del GAP solver implementato. Alla riga 1 la firma del metodo riceve il graph e i centroidi selezionati con le tecniche descritte nella sezione precedente.Dalla riga 2 alla riga 4 si recuperano le informazioni sul grafo, in 5 si estrae il numero di cluster. \textit{allocCosts} è la lista che conterrà i costi di allocazione di ogni cliente per ogni cluster, alla riga 5 viene inizializzata a 0 e ha dimensione uguale a \textit{Dimension}* \textit{Ncluster}. In 7 viene inizializzata a vuoto la lista \textit{clusterAssignement} che conterrà i nodi assegnati ad ogni cluster. In 8 si inizializzano a 0,il totale di domande soddisfatte per ogni cluster. In 10 vengono calcolati i costi di inserimento di ogni nodo per ogni cluster: \textit{calculateIns(i,k)} calcola i costi come è stato già descritto nella sezione \textbf{\ref{FJ-Sec}}. In 12 si inizializza il puntatore \emph{i} che servirà per puntare alla domanda del nodo corrispondente in \textit{Demands}. 13 e 14 si occupano di scorrere ogni riga di \textit{allocCosts} e al suo interno ogni cluster di \textit{Kcluster}. Il controllo a riga 15, assicura che il cluster con costo di inserimento minimo per il nodo, non superi la capacità prestabilita. Se il controllo viene superato con successo alla riga 16 si aggiorna la domanda totale soddisfatta dal cluster, in 17 si assegna al nodo il cluster e in 18 si incrementa di uno il puntatore. Siccome il nodo è stato assegnato con 19 si passa alla prossima riga di \textit{allocCosts}. Altrimenti, se il controllo a riga 15 fallisce, la riga 21 pone ad infinito il valore minimo calcolato per quel nodo, in modo che nel ciclo seguente si prenda in considerazione il secondo valore minimo calcolato tra quel nodo e un altro cluster, questo viene ripetuto per k in Kclusters.
 Se alla fine dei due cicli, la lunghezza della lista \textit{clusterAssignement} non è pari al numero di nodi escluso il deposito, vuol dire che l'allocazione clienti-clusters non è andata a buon fine. Quindi la soluzione è invalida, sarà necessario aumentare il numero di veicoli e quindi si ritorna -1 . Altrimenti se tutto va bene, si ritorna l'assegnamento attraverso la lista \textit{clusterAssignement}. 
+
+\newpage
 
 \paragraph{Fase 2 - Routing } \hfill
 
@@ -631,6 +620,7 @@ def Routing_NearestNeighbourn(graph,clusterAssignement,Kclusters):
 
 \end{lstlisting}
 Listing 5 presenta lo pseudocodice: la firma del metodo in linea 1 richiede il grafo, l'assegnamento creato dal GAP solver, i \textit{Kcluster} selezionati dalla procedura precedente. La riga 2,3 estraggono le informazioni dal grafo, la 4 inizializza la soluzione da ritornare \textit{routes} a vuoto. Da 6 a 10 si creano i singoli cluster, scorrendo la lista \textit{clusterAssignement} e individuando a quale cluster sono stati assegnati i clienti. Per ogni cluster è creata una lista \textit{cluster}. Dentro al ciclo che scorre i cluster in 6, si inizializza la \emph{appoRoute},con capacità e deposito 12,13. Questa \emph{route} collegherà i clienti della lista  \textit{cluster} che abbiamo appena popolato. All'interno del while a riga 15, si estrae l'ultimo nodo inserito in \emph{appoRoute} e si calcolano tutte le distanze dei clienti che popolano la lista \textit{cluster} 16, 17. Si trova il più vicino al nodo estratto \textit{prevNode} 18. Se il nodo non è ancora presente nella  lista di clienti di \emph{appoRoute}, lo aggiungo e lo rimuvo dalla lista \textit{cluster} 20,21. Una volta raggiunti tutti i clienti chiudo la strada aggiungendo il deposito alal fine della lista di clienti,e aggiungo \textit{appoRoute} a \textit{routes}. Dopo aver esaurito i componenti di \textit{Kcluster}, ritorno la soluzione \textit{routes}.
+\newpage
 \item \textbf{Nearest Neighbourn TrackPath}: Partendo dal deposito si crea una \emph{route} per ogni cliente appartenente al cluster, si espandono quindi i percorsi che hanno un costo minore. I percorsi vengono espansi aggiungendo il nodo più vicino. Infine si ritorna la \emph{route} meno costosa per ogni cluster.
 
 \begin{lstlisting}[language=Python, caption=Nearest Neighbourn TrackPath Routing ,escapeinside={(*}{*)}]
@@ -688,8 +678,8 @@ def Routing_NN_TrackPath(graph,clusterAssignement,Kclusters):
 \end{lstlisting}
 In Listing 6 la firma del metodo è uguale a Listing 5. La  riga 2 estrae la \textit{Demand} dal grafo.
 3 inizializza la priority queue \textit{priorityQ} che conterrà le strade da esplorare, ordinate in base al costo. In riga 4 si inizializza \textit{finalRoutes},la lista di \emph{routes} che sarà ritornata come soluzione. Le righe da 6 a 11 inizializzano il contenitore \textit{cluster} come già abbiamo visto nella procedura precedente. In 8 si inizializza \textit{routes} una variabile di appoggio per rendere disponibile le \emph{route} esplorate anche al di fuori del ciclo. Da 13 a 18 per ogni cliente nel cluster viene creata una \emph{route} deposito $\rightarrow$ cliente, con relativo costo, e aggiunta alla lista \textit{priorityQ}.
-Al di fuori del ciclo alla riga 20 la lista viene ordinata in ordine decrescente. Si prosegue con la riga 22 dove il ciclo while controlla lo stasto della coda \textit{priorityQ}. In 23 si estrae il primo nodo della coda, che equivale alla strada più breve trovata fino a questo punto. Alla riga 22 si estrae l'ultimo nodo servito da \textit{shortRoute}. Da 26 a 30 si utilizza la lista \textit{appoCluster} per collezionare i nodi non ancora collegati a \textit{shortRoute}. In 31 si controlla la lunghezza di  \textit{shortRoute}, se contiene elementi allora si cerca il cliente più vicino a \textit{prevNode} all'interno della lista \textit{appoCluster} in riga 33. Una volta trovato il cliente, lo si aggiunge a \textit{shortRoute}, aggiornando il costo e la domanda: da riga 34 a 36. Si aggiunge la nuova \emph{route} a \textit{priorityQ}, e si ordina in ordine decrescente in 37 e 38.
-Quando la lista \textit{appoCluster} non contiene più elementi si chiude la \emph{route}, aggiungendo come destinazione finale il deposito e aggiornando opportunamente i costi e la domanda: da riga 41 a 44.Infine la strada viene aggiunta a \textit{routes} 45. Quando tutte le strade sono state esploarate e collegate a tutti i nodi del cluster si sceglie la meno costosa, ordinando \textit{routes} in ordine decrescente in 47. Si  estrae la \emph{route} meno costosa in 48, e si aggiunge alla soluzione finale \textit{finalRoutes} in 49. Questa procedura viene svolta per ogni \textit{Kcluster}. Infine si ritorna la soluzione  \textit{finalRoutes}
+Al di fuori del ciclo alla riga 20 la lista viene ordinata in ordine decrescente. Si prosegue con la riga 22 dove il ciclo while controlla lo stato della coda \textit{priorityQ}. In 23 si estrae il primo nodo della coda, che equivale alla strada più breve trovata fino a questo punto. Alla riga 22 si estrae l'ultimo nodo servito da \textit{shortRoute}. Da 26 a 30 si utilizza la lista \textit{appoCluster} per collezionare i nodi non ancora collegati a \textit{shortRoute}. In 31 si controlla la lunghezza di  \textit{shortRoute}, se contiene elementi allora si cerca il cliente più vicino a \textit{prevNode} all'interno della lista \textit{appoCluster} in riga 33. Una volta trovato il cliente, lo si aggiunge a \textit{shortRoute}, aggiornando il costo e la domanda: da riga 34 a 36. Si aggiunge la nuova \emph{route} a \textit{priorityQ}, e si ordina in ordine decrescente in 37 e 38.
+Quando la lista \textit{appoCluster} non contiene più elementi si chiude la \emph{route}, aggiungendo come destinazione finale il deposito e aggiornando opportunamente i costi e la domanda: da riga 41 a 44.Infine la strada viene aggiunta a \textit{routes} 45. Quando tutte le strade sono state esplorate e collegate a tutti i nodi del cluster si sceglie la meno costosa, ordinando \textit{routes} in ordine decrescente in 47. Si  estrae la \emph{route} meno costosa in 48, e si aggiunge alla soluzione finale \textit{finalRoutes} in 49. Questa procedura viene svolta per ogni \textit{Kcluster}. Infine si ritorna la soluzione  \textit{finalRoutes}
 
 
 \end{itemize}
@@ -708,7 +698,7 @@ La rappresentazione attraverso grafo ausiliario e la conseguente applicazione de
 		\includegraphics[scale = 0.20]{images/RFSC3.png}\\	
 	\end{centering}
 
-	\caption{Il grafo viene rappresentato escludendo il deposito,i clienti sono distirbuiti in ordine \textbf{topologico}, di conseguenza una volta arrivati al'ultimo nodo sarà sufficente procedere dall'ultimo nodo fino al primo per ricostruire la soluzione. In sostanza ogni arco del grafo rappresenta una \emph{route} l'algoritmo di Dijkastra esplora gli archi che portano al nodo finale minimizzando il costo totale del percorso,in questo caso i kilometri percorsi per ogni \emph{route}. }
+	\caption{Il grafo viene rappresentato escludendo il deposito,i clienti sono distirbuiti in ordine \textbf{topologico}, di conseguenza una volta arrivati al'ultimo nodo sarà sufficiente procedere dall'ultimo nodo fino al primo per ricostruire la soluzione. In sostanza ogni arco del grafo rappresenta una \emph{route} l'algoritmo di Dijkastra esplora gli archi che portano al nodo finale minimizzando il costo totale del percorso,in questo caso i chilometri percorsi per ogni \emph{route}. }
 	\label{Table:3}
 \end{table}
 
@@ -771,21 +761,15 @@ def ClusterFirst_RouteSecond(graph):
 Listing 7 mostra alla riga 1 al firma del metodo, la quale richiede come input solo il grafo. In questo metodo non è possibile scegliere a priori il nuemro di veicoli, in quanto dipende da come viene gestito l'algoritmo di routing. Dalla riga 2 alla riga 4 si estraggono le informazioni dal grafo come abbiamo già visto precedentemente.Ala riga 5 si inizializza la lista di \textit{dist}, ovvero la lista che contiene i nodi e per ogni nodo assegna il corrispettivo numero totale di chilometri per raggiungere il nodo. In riga 6 si inizializza \textit{nodeQueue} la coda che contiene per ogni elemento, il nodo, la distanza percorsa per raggiungerlo e la \emph{route} utilizzata per raggiungere il nodo. In 7 si inizializza \textit{finalRoutes} la lista di \emph{route} che conterrà la nostra soluzione. A riga 8 viene inizializzato il grafo ausiliario \textit{auxGraph} che contiene per ogni elemento: il nodo e la strada utilizzata per raggiungerlo.
 A riga 10 \texttt{dist[0]} viene assegnato a  \emph{0}, questo valore non verrà mai utlizzato durante tutta l'esecuzione dell'algoritmo, serve solamente per mantenere una coerenza con gli indici dei vertici \emph{V}. Di conseguenza dalla riga 11 alla 15 di crea la strada corrispondente al nodo sorgente, con costo uguale a 0. In 17 si inizializza \textit{nodeQueue} con il nodo sorgente, la distanza pari a alla lunghezza di  \emph{route}  e la \emph{route} corrispondente.
 In 18 si inizializza la variabile \textit{node} in 19 si ordina in ordine decrescente \textit{nodeQueue}. Alla riga 21 il \texttt{while} si occupa di scorre tutta la lista \textit{nodeQueue}, fino al suo esaurimento. In 22 si estrae il nodo dalla coda \textit{nodeQueue} con costo minore, in 23 viene inserito l'indice identificativo del nodo , mentre in 24 viene riposto il suo costo. Il \texttt{for} a riga 26 crea tutti i figli del nodo, rispettando l'ordine topologico garantito dal controllo a riga 27. Per ogni figlio si crea una \emph{route} che parte dal deposito, inizializzando il costo a \emph{0}, righe da 28 a 30. Alla riga 31 il ciclo \texttt{for} scorre tutti i nodi tra il nodo estratto  \textit{node} e il figlio \emph{j+1}, 32 controlla se \emph{i} non è presente nella \textit{newRoute} e non supera il vincolo di capacità, le righe 33 e 34 lo aggiungono aggiornando il costo di \textit{newRoute} di conseguenza.
-Altrimenti in si esce dal ciclo con 36, in 38 e 39 si chiude la strada. In 40 si verifica l'aggiornamento del costo dei figli esplorati confrontando il costo per arrivare la nodo figlio \textit{j} con il costo di \textit{newRoute} sommato al costo del percorso già effettuato per arrivare al nodo padre \textit{cost}. Se \textit{dist[j]} risulta maggiore, si aggiorna con il nuovo costo in 41. In 42 si aggiorna \textit{nodeQueue} con \textit{j+1} il nodo dove l'arco entra, costo dell'arco nella lista \textit{dist[j]} per arrivare al nodo  e \textit{newRoute} il collegamento tra \textit{node} e \textit{j+1}. Una volta terminato di esplorare tutti gli elementi presenti nella coda \textit{nodeQueue}, si procede estreendo l'ultimo elemento del grafo in ordine topologico e fino a quando non si arriva al nodo sorgente si risale il grafo ausiliario, percorrendo e salvando gli archi in \textit{finalRoutes}, componendo così la soluzione finale. In 53 si ritorna \textit{finalRoutes}.
+Altrimenti in si esce dal ciclo con 36, in 38 e 39 si chiude la strada. In 40 si verifica l'aggiornamento del costo dei figli esplorati confrontando il costo per arrivare la nodo figlio \textit{j} con il costo di \textit{newRoute} sommato al costo del percorso già effettuato per arrivare al nodo padre \textit{cost}. Se \textit{dist[j]} risulta maggiore, si aggiorna con il nuovo costo in 41. In 42 si aggiorna \textit{nodeQueue} con \textit{j+1} il nodo dove l'arco entra, costo dell'arco nella lista \textit{dist[j]} per arrivare al nodo  e \textit{newRoute} il collegamento tra \textit{node} e \textit{j+1}. Una volta terminato di esplorare tutti gli elementi presenti nella coda \textit{nodeQueue}, si procede estraendo l'ultimo elemento del grafo in ordine topologico e fino a quando non si arriva al nodo sorgente si risale il grafo ausiliario, percorrendo e salvando gli archi in \textit{finalRoutes}, componendo così la soluzione finale. In 53 si ritorna \textit{finalRoutes}.
 
 \subsection{Metodi metaeuristici}
-Le caratteristiche principali degli algoritmi metaeuristici sono l’esplora-
-zione approfondita delle regioni, considerate più promettenti, dello spa-
-zio delle soluzioni e l’impiego di sofisticate regole di ricerca del neighbo-
-rhood, particolari strutture dati e metodi di ricombinazione delle solu-
-zioni. Una caratteristica che spesso distingue questi algoritmi da quelli
+Le caratteristiche principali degli algoritmi metaeuristici sono l’esplorazione approfondita delle regioni, considerate più promettenti, dello spazio delle soluzioni e l’impiego di sofisticate regole di ricerca del neighborhood, particolari strutture dati e metodi di ricombinazione delle soluzioni. Una caratteristica che spesso distingue questi algoritmi da quelli
 euristici è che il procedimento di ricerca può passare attraverso soluzioni
 non ammissibili e/o fasi non migliorative.
 Il tempo necessario a questi algoritmi per giungere ad una soluzione
-ottima è sensibilmente maggiore rispetto alle performance degli euristi-
-ci classici, ma i risultati ottenuti sono solitamente di qualità superiore.
-Inoltre, l’esecuzione di questi algoritmi è subordinata alla corretta valu-
-tazione e impostazione di un predeterminato numero di parametri, pro-
+ottima è sensibilmente maggiore rispetto alle performance degli euristici classici, ma i risultati ottenuti sono solitamente di qualità superiore.
+Inoltre, l’esecuzione di questi algoritmi è subordinata alla corretta valutazione e impostazione di un predeterminato numero di parametri, pro-
 pri dell’algoritmo stesso, al fine di adattare il metodo di risoluzione al
 problema e ottenere la soluzione migliore possibile.
 
@@ -937,23 +921,23 @@ Se scambiamo i ruoli di \emph{$p_1$} e \emph{$p_2$} otteniamo il  secondo figlio
 Solo il cromosoma figlio con il minor numero di chilometri trascorsi viene aggiunto a \textit{popEra} 
 
 
-Tornando al nostro pseudocodice, alla linea 30 si controlla se la soluzione ritornata da \texttt{Crossover} è migliore di almeno uno dei due candidati, in caso contrario si va direttamente alla prossima era 31, in caso contrario si controlla se la soluzione è valida  con il metodo \texttt{earchAndComleteSequence} a riga 32. Se la soluzione è valida viene aggiunta alla \textit{popEra} e la lista di conseguenza riordinata.
+Tornando al nostro pseudocodice, alla linea 30 si controlla se la soluzione ritornata da \texttt{Crossover} è migliore di almeno uno dei due candidati, in caso contrario si va direttamente alla prossima era 31, in caso contrario si controlla se la soluzione è valida  con il metodo \texttt{SearchAndComleteSequence} a riga 32. Se la soluzione è valida viene aggiunta alla \textit{popEra} e la lista di conseguenza riordinata.
 
 \item \textbf{Mutazione}
 Il controllo a riga 38, estrae un numero a random e se questo è minore alla percentuale segnalata da \textit{mutationRate}, la soluzione peggiore all'interno della popolazione, controllando che popEra non sia vuota: righe 39 a 41. Il ciclo a riga 42 scorre tutte le \emph{route} della soluzione , al suo interno vengono scelti due clienti random, quindi viene chiamato il metodo \texttt{FlippingPath}: 43,44,45.
 Il metodo dato in input, \emph{route} , il grafo e i due clienti, li scambia di posto all'interno della stessa \emph{route} riconnettendo i clienti con i rispettivi nuovi vicini. Da 47 a 52 si effettuano i controlli necessari per assicurarsi che la nuova soluzione sia valida e che questa sia migliore rispetto alla soluzione di partenza.
 
 \item \textbf{Rinnovo Generazionale}
-In 54 \textit{popEra} viene riordinato , in \textit{best} vengono riposte solo metà dei migliori cromosomi. In 55 si sostituiscono i cromosomi migliori all'interno di \textit{population}, da 58 e 60 si reintroduce la soluzione memorizzata con elitismo nel caso sia andata persa. 62 e 63 estraggono la miglire soluzione e in 64 viene ritornata.
+In 54 \textit{popEra} viene riordinato , in \textit{best} vengono riposte solo metà dei migliori cromosomi. In 55 si sostituiscono i cromosomi migliori all'interno di \textit{population}, da 58 e 60 si reintroduce la soluzione memorizzata con elitismo nel caso sia andata persa. 62 e 63 estraggono la migliore soluzione e in 64 viene ritornata.
 
 \end{enumerate}
 
 \section{Analisi di Complessità}
 Segue l'analisi di complessità degli algoritmi presentati.
-\subsection{Clarke and Wright Sequenziale}: 
+\subsection{Clarke and Wright Sequenziale} 
 Il calcolo della lista \textit{savings} in riga 4 richiede tempo pari a \emph{$O(V^2)$}. A questo punto la lista viene \textit{savings} ordinata e richiede una complessità pari a \emph{$O(n^2)$} dove \emph{n} sono gli elementi appartenenti alla lista, tutti i vertici a parte il deposito. Nel \texttt{while} ricerca sel la soluzione è completa: scorre gli elementi presenti in ogni \emph{route} contandoli e ritorna \texttt{false} se la soluzione non è completa, scorrendo così nel caso peggiore  \emph{$O(V)$}. Alla riga 14 il while scorre la lista  \textit{savings}, e ogni un nodo viene aggiunto alla \emph{route} si toglie un elemento e si ricomincia dall'inizio della lista \textit{savings}, con una complessità pari a  \emph{$O(\frac{n!}{\mid R \mid })$} dove \emph{R} è il numero di \emph{route} che compongono la soluzione. I controlli a riga 19 e 24 richiedono \emph{$O(c)$} con c appartenente ai clienti della \emph(route). La complessità finale è  \emph{$ O(V^2 + \frac{n!}{\mid R \mid })$}.
 
-\subsection{Clarke and Wright Parallelo}:
+\subsection{Clarke and Wright Parallelo}
 Anche qui il calcolo della lista \textit{savings} in riga 4 richiede tempo pari a \emph{$O(V^2)$} e la lista  ordinata richiede una complessità pari a \emph{$O(n^2)$} dove \emph{n} sono gli elementi appartenenti alla lista, tutti i vertici a parte il deposito. Alla riga 7 si crea una \emph{route} per ogni cliente, questo richiede \emph{$O(V)$}. Il ciclo \texttt{for} a riga 9 scorre la lista \textit{savings} e in questa versione la lista viene scorsa tutta una sola volta, quindi con complessità \emph{$O(n)$}. Alla riga 14 si scorrono tutte le \emph{route} trovate e si cerca quale serve \emph{i} e quale serve \emph{j}. L'algoritmo inizia ci sono \emph{$\mid V \mid$} \emph{route}, nel caso peggiore una strada contiene tutti i clienti, la complessità da riga 14 a riga 19 è \emph{$O(V^2)$}. Se i due clienti \emph{i} e \emph{j} sono in due strade diverse e queste possono essere sottomesse al metodo \texttt{Merge}, vuol dire che \textit{RouteA} e \textit{RouteB} contengono \emph{l} nodi con \emph{$l < V$}. Il metodo unisce le due \emph{route} rispettando l'ordine di visita dei rispettivi clienti, quindi unisce le \emph{route} aggiungendo in coda o in testa i clienti in \textit{RouteA} o \textit{RouteB}, questo richiede complessità \emph{$O(l)$}. La rimozione a riga 24 richiede tempo costante \emph{O(1)}. La complessità totale dell'algoritmo parallelo è quindi \emph{$O(V^2)$}.	
 
 \subsection{Fisher and Jaikumar}
@@ -964,12 +948,12 @@ Anche qui il calcolo della lista \textit{savings} in riga 4 richiede tempo pari 
 \item \textbf{Metodo Random}: Si estraggono a random \emph{k} clienti, complessità totale \emph{O(k)}
 
 \item  \textbf{Radius Radar Frontier}: 
-Alla riga 6si inizializza \textit{depotDistance} con tutte le distanze a \emph{0} per ogni vertice, richiede complessità \emph{O(V)}. Il \texttt{while} a riga 11, continua ad eseguire il suo nucleo fino a quando il numero di centroidi scelti è uguale al numero di veicoli richiesti, un buon lower bound di veicoli richiesti è \emph{$TotDem = (\sum_{d \in Demands} d)  \ / Capacity$}, questo perchè atrimenti la soluzione è invalida. Quindi complessità compresa tra \emph{$O(TotDem) \leq O \leq O(V)$}. Il controllo in 13 somma le domande di ogni clienti per capire se sono diverse tra loro, richiede complessità \emph{O(V)}, anche la riga 16 e la riga 18. In riga 20 il \texttt{for} scorre tutti i candidati che al come descritto dall'istruzione 18 nel caso peggiore sono tutti i clienti, quindi complessità pari a  \emph{O(V)}. Il controllo 21 si accede costante con complessità \emph{O(1)} costante alla lista \textit{depotDistance} mentre la ricerca del massimo in  \textit{scannerRadius} richiede \emph{O(V)}. L'istruzione a riga 25 ritorna la massima distanza dal nodo \emph{c}, anche questa con complessità \emph{O(V)}. In riga 28 si scorrono i centrodi già trovati e quindi la complessità sarà compresa tra \emph{$O(TotDem) \leq O \leq O(V)$}, i 29 per controllare che \emph{c} non sia già all'interno della lista di centroidi la complessità è sempre \emph{$O(TotDem) \leq O \leq O(V)$}. Il controllo a riga 40 ha la stessa complessità di quello a riga13. La complessità totale è \emph{$O(V)$}
+Alla riga 6 si inizializza \textit{depotDistance} con tutte le distanze a \emph{0} per ogni vertice, richiede complessità \emph{O(V)}. Il \texttt{while} a riga 11, continua ad eseguire il suo nucleo fino a quando il numero di centroidi scelti è uguale al numero di veicoli richiesti, un buon lower bound di veicoli richiesti è \emph{$TotDem = (\sum_{d \in Demands} d)  \ / Capacity$}, questo perchè atrimenti la soluzione è invalida. Quindi complessità compresa tra \emph{$O(TotDem) \leq O \leq O(V)$}. Il controllo in 13 somma le domande di ogni clienti per capire se sono diverse tra loro, richiede complessità \emph{O(V)}, anche la riga 16 e la riga 18. In riga 20 il \texttt{for} scorre tutti i candidati che al come descritto dall'istruzione 18 nel caso peggiore sono tutti i clienti, quindi complessità pari a  \emph{O(V)}. Il controllo 21 si accede costante con complessità \emph{O(1)} costante alla lista \textit{depotDistance} mentre la ricerca del massimo in  \textit{scannerRadius} richiede \emph{O(V)}. L'istruzione a riga 25 ritorna la massima distanza dal nodo \emph{c}, anche questa con complessità \emph{O(V)}. In riga 28 si scorrono i centrodi già trovati e quindi la complessità sarà compresa tra \emph{$O(TotDem) \leq O \leq O(V)$}, i 29 per controllare che \emph{c} non sia già all'interno della lista di centroidi la complessità è sempre \emph{$O(TotDem) \leq O \leq O(V)$}. Il controllo a riga 40 ha la stessa complessità di quello a riga13. La complessità totale è \emph{$O(V)$}
 \end{itemize}
 
 \subsubsection{General Assignement Problem solver}
 Alla riga 6 si inizializza la lista \textit{allocCosts} con una complessità  pari a \emph{$O(V) \cdot O(k)$} con \emph{k} pari al numero di cluster e \emph{$ k \ll V $}. Alla riga 8 le domande dei cluster vengono inizializzate con complessità \emph{O(k)}. Alla riga 10 si calcolano i costi di allocazioni di ogni singolo clienti per ogni singolo cluster, la complessità è di nuovo  pari a \emph{$O(V) \cdot O(k)$}. Riga 13 il ciclo \texttt{for} scorre per tutta la sua lunghezza \textit{alloCosts} che nel caso peggiore è lungo \emph{$O(V)$} il secondo \emph{for} a riga 14 si occupa di scorrere i cluster la complessità di questi due cicli è di nuovo \emph{$O(V) \cdot O(k)$}. Il resto delle operazione richiede tempo costante \emph{O(1)}. La complessità totale è quindi \emph{$O(V \cdot k)$}.
-\textbf{Ordine di allocamento di allocCost, infierisce sulla validità della soluzione, tutto dipende da quanti grassi clienti abbiamo}
+
 
 \subsubsection{Routing}
  
@@ -977,21 +961,21 @@ Alla riga 6 si inizializza la lista \textit{allocCosts} con una complessità  pa
 Alla riga 6 si scorrono tutti i cluster con complessità \emph{O(k)}, come già visto  \emph{$ k \ll V $}. Al suo interno  alla riga 8 si scorre la lista \textit{clusterAssignement} di lunghezza \emph{V}, con complessità \emph{O(V)} in totale questi due cicli \texttt{for} hanno complessità \emph{$O(V) \cdot O(k)$}.
 L'istruzione \texttt{while} a riga 15 scorre \textit{cluster} per tutta la sua lunghezza che nel caso peggiore è \emph{V}, quindi \emph{O(V)}. Al suo interno alla riga 17 \textit{distPrevNode} contiene tutte le distanze dall'ultimo nodo aggiunto e il resto dei clienti esterni a \texttt{appoRoute} nel caso peggiore jha complessità \emph{O(V-1)}, alla riga 18 si ritorna l'indice minimo in \textit{distPrevNode} e di conseguenza si ritorna il corrispondente elemento in \textit{cluster}, con complessità \emph{O(V)}. Il controllo a riga 16 anch'esso ha complessità \emph{O(V)} nel caso peggiore. La complessità totale dell'algoritmo è 
 \emph{$O(k \cdot V^3)$}. 
-\textbf{Ovviamente la complessità nono sarà mai così alta perchè altrimenti non saremo in CVRP ma in un cammino hamiltoniano, e ci sarebbe un solo vicolo con capcità uglae alla soamm di tute l e domande. DI conseguenza la lungehzza di un cluster e di un veicolo e di una route, sarannno sicuramente minori comprese appunto tra  \emph{$TotDem \leq O \leq V/FatBoy$} }
+La complessità nono sarà mai così alta perchè altrimenti non tutti i clienti sarebbero serviti da un solo veicolo, e ci sarebbe un solo veicolo con capacità uguale alla somma di tute l e domande. Di conseguenza la lunghezza di un cluster, saranno sicuramente minori comprese appunto tra  \emph{$TotDem \leq O \leq V/FatBoys$ } dove \textit{FatBoys} sono il numero di clienti dove $demand \geq Capaity/2$
 
 \subsubsection{Nearest Neighbourn TrackPath}
-Le righe 6 e 9 hanno complessità \emph{$O(V) \cdot O(k)$}. Alla riga 13 l'inizilizzazione di tutte le \emph{route} dal deposito al cliente richiede complessità complessità \emph{$O(V)$)}, alla riga  20 il sort di \textit{priorityQ} richiede anche'essa complessità \emph{$O(V)$)}. Il \texttt{while} in 22 scorre \textit{priorityQ} in  \emph{$O(V)$)}.
-Da riga 27 a 30, si scorre \textit{cluster} e si controlla se il cliente è già presente nella \emph{shortRoute},  richiedendo   \emph{$O(V)$}, come già precisato \emph{shortRoute} contiene \emph{l < V} nodi quindi la complessità  è \emph{$O(V \cdot l)$}. In 33 \texttt{getNearestNeighbourn} richiede \emph{$O(V \setminus l)$}. Ala riga 47 si ordinano le le \emph{O(V)} \emph{route} e si estare la migliore in tempo costatante in riga 48. In totale l'algoritmo richiede \emph{$O(V \cdot l)$}.
+Le righe 6 e 9 hanno complessità \emph{$O(V) \cdot O(k)$}. Alla riga 13 l'inizializzazione di tutte le \emph{route} dal deposito al cliente richiede complessità complessità \emph{$O(V)$}, alla riga  20 il sort di \textit{priorityQ} richiede anche'essa complessità \emph{$O(V)$}. Il \texttt{while} in 22 scorre \textit{priorityQ} in  \emph{$O(V)$}.
+Da riga 27 a 30, si scorre \textit{cluster} e si controlla se il cliente è già presente nella \emph{shortRoute},  richiedendo   \emph{$O(V)$}, come già precisato \emph{shortRoute} contiene \emph{$ k \leq l \leq V$} nodi quindi la complessità  è \emph{$O(V \cdot l)$}. In 33 \texttt{getNearestNeighbourn} richiede \emph{$O(V \setminus l)$}. Ala riga 47 si ordinano le le \emph{O(V)} \emph{route} e si estrae la migliore in tempo costatante in riga 48. In totale l'algoritmo richiede \emph{$O(V \cdot l)$}.
 
 
 \subsection{Route First, Cluster Second}
 In riga 5 ogni elemento di \textit{dist} viene posto a $\infty$ richiedendo \emph{O(V)}, alla riga 8 si inizializza il grafo \textit{auxGraph} con una tupla per ogni vertice del \emph{V}, con complessità \emph{O(V)}. Alla riga 19 il \texttt{sort} della coda \textit{NodeQueue} richiede \emph{O(1)}, in quanto la coda detiene un solo elemento al momento.
-Il \texttt{while} scorre tutta la coda con complessità asintotica \emph{$O(V^2)$} riga 21. Il \texttt{for} a riga 26 scorre tutti i vertici e al suo interno il for a riga 31 scorre i vertici tra il padre e il figlio l acomplessità dei due cilic innestati è \emph{$O(V^2)$}. Il \textbf{while} che ricompone il percorso dalla destinazione all'albero ha complessità \emph{O(H)} con \emph{H} uguale ai vertici in \textit{auxGraph}.La complessità totale è \emph{$O(V^2 \cdot H)$}.
+Il \texttt{while} scorre tutta la coda con complessità asintotica \emph{$O(V^2)$} riga 21. Il \texttt{for} a riga 26 scorre tutti i vertici e al suo interno il for a riga 31 scorre i vertici tra il padre e il figlio la complessità dei due cicli innestati è \emph{$O(V^2)$}. Il \textbf{while} che ricompone il percorso dalla destinazione all'albero ha complessità \emph{O(H)} con \emph{H} uguale ai vertici in \textit{auxGraph}.La complessità totale è \emph{$O(V^2 \cdot H)$}.
 
 \subsection{Algoritmo Genetico}
 A riga 12 il \texttt{for} si occupa di costruire la popolazione di cromosomi iniziale con \emph{O(Npopulation)}. Al suo interno \emph{$K_clusterRand$} crea i centroidi con complessità \emph{O(Nvehicles)} riga 13. A riga 14 si esegue \texttt{GAPsolver} che abbiamo già detto avere complessità 
  \emph{$O(V \cdot k)$}, se questo va a buon fine  a riga 16  si esegue \texttt{NearestNeighbourn} che ha complessità \emph{DaRicalcolare}, in totale la costruzione della popolazione ha complessità \emph{Da Ricalcolare}. 
- Una volta che la popolazione è inizializzata, si passa al \texttt{while} a riga 22 che scorre le era a cui sottopone la popolazione in \emph{O(Eras)}. Al suo interno alla riga 26 il \texttt{for} esegue per un nuemero di volte uguale alla metà della popolazione le azioni necessarie per evolvere i cromosomi.
+ Una volta che la popolazione è inizializzata, si passa al \texttt{while} a riga 22 che scorre le era a cui sottopone la popolazione in \emph{O(Eras)}. Al suo interno alla riga 26 il \texttt{for} esegue per un numero di volte uguale alla metà della popolazione le azioni necessarie per evolvere i cromosomi.
  Al suo interno alla riga 28, \texttt{Tournament} può avvenire con due modalità, \texttt{random}, sceglie due candidati a caso, ha complessità \emph{O(1)}; o con modalità \texttt{bestAndWorst} sceglie il migliore e il peggiore candidato, in questa modalità si richiede un ordinamento della popolazione, quindi richiede \emph{O(Npopulation)}. Alla riga 29 si passa all'istruzione \texttt{Crossover}, la quale scorre e incrocia i cromosomi candidati che contengono tutti i nodi visitati, in più ad ogni modifica ricalcola e il costo della soluzione per un totale di complessità pari a \emph{O($V^2$)}. In 32 \texttt{SearchAndCompleteSequence} cerca nella soluzione i clienti presenti e quelli non presenti con un costo \emph{O(V)}.A riga 42 il ciclo \texttt{for} scorre le \emph{route} all'interno della soluzione, chiamando di conseguenza \texttt{FlippingPath} eseguito in tempo costante \emph{O(1)} perchè scambia di posto due clienti random mutando il cromosoma. Richiedendo tempo \emph{O(R)} uguale al numero di \emph{route} nella soluzione.
  In 54 si riordina \textit{popEra} con complessità \emph{O$(\frac{Npopulation}{2})$}, si scelgono i migliori cromosomi di \textit{popEra} 55 e si sostituiscono  in 56 con complessità \emph{O$(best)$}. La complessità di questo grande ciclio è \emph{O($V^2$)}.
  Infine \textit{population} viene riordinato, la complessità rimane  \emph{O($V^2$)}.

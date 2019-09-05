@@ -7,6 +7,7 @@ import math
 import time
 
 
+
 def writeResult(routes,graph,started_time,saveFolder):
     totSolCost = 0
     routedNodesControl = 1
@@ -34,7 +35,7 @@ def writeResult(routes,graph,started_time,saveFolder):
     print("Routing Total Cost: "+ str(totSolCost)+"\n")
     print ("time: " + str (time.time () - started_time))   
 
-def printResult(folderSol,folderRes):
+def printResult(folderSol,folderRes,benchmark):
 
     #path='./mysol_DJ_kRand'
     path = folderRes
@@ -58,8 +59,13 @@ def printResult(folderSol,folderRes):
                         stimated = float(keywords.split(':')[1].strip())
                         for optimal in cvrp_sol:                           
                             with open(path2+'/'+optimal, "r") as c:
-                                #if(sol.split('.')[0] == "Sol_"+optimal.split('.')[0]):
-                                if(sol.split('.')[0] == "Sol_"+optimal[4:]):
+
+                                if benchmark == "cvrp":
+                                    controller = "Sol_"+optimal.split('.')[0]
+                                else:
+                                    controller =  "Sol_"+optimal[4:]
+
+                                if(sol.split('.')[0] == controller ):
                                     for linec in c:
                                         keys = linec                                   
                                         if(len(keys.split()) > 0 and (keys.split()[0].strip()=="Cost" or keys.split()[0].strip()=="cost")):

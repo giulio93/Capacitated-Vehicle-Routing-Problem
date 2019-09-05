@@ -11,4 +11,4 @@ Total Routed Nodes 53
 Using no. Tracks: 7
 Time Horizon: 22.019721508026123
 Routing Total Cost: 1159.317089155749
-Error of solution in Sol_A-n53-k7.vrp.txt: 0.147838702134405Error of solution in Sol_A-n53-k7.vrp.txt: 0.147838702134405Error of solution in Sol_A-n53-k7.vrp.txt: 0.147838702134405Error of solution in Sol_A-n53-k7.vrp.txt: 0.147838702134405
+Error of solution in Sol_A-n53-k7.vrp.txt: 0.147838702134405Error of solution in Sol_A-n53-k7.vrp.txt: 0.147838702134405Error of solution in Sol_A-n53-k7.vrp.txt: 0.147838702134405Error of solution in Sol_A-n53-k7.vrp.txt: 0.147838702134405Error of solution in Sol_A-n53-k7.vrp.txt: 0.147838702134405
