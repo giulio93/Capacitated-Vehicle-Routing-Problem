@@ -255,7 +255,7 @@ def Parallel_CW(routes,savings,graph:cvrpGraph):
 
     return routes
 
-def FisherJaikumar_Kselector(graph,n_vehicles):
+def FisherJaikumar_Kselector(graph,n_vehicles,benchmark):
 
     dimension = graph.getDimension()
     capacity = graph.getCapacity()
@@ -309,7 +309,8 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
                         maxCoverDistance = graph.getArgMaxNodeDistance(c)
                         break
                 else:
-                    scaledown = scaledown + 0.2
+                    if benchmark == "cvrp":
+                        scaledown = scaledown + 0.2
                     if (sum(demand) == dimension-1):
                         if(c in seeds):
                             continue
@@ -321,7 +322,8 @@ def FisherJaikumar_Kselector(graph,n_vehicles):
         if ( sum(demand) != dimension-1 and touch == False):
             print("Decrease Radious")
             scannerRadius[np.argmax(scannerRadius)] = 0
-            #scaledown = scaledown + 0.5
+            if benchmark == "avrp":
+                scaledown = scaledown + 0.5
 
       
         print(np.max(scannerRadius))

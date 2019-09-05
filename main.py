@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
       while(GAPassignementRR == -1):  
         start_time_clustering = time.time ()   
-        K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles)           
+        K_clusterRR = sol.FisherJaikumar_Kselector(graphToSolve,n_vehicles,benchmark)           
         GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
         start_time_clustering = (time.time() - start_time_clustering)
         if(GAPassignementRR != -1):
