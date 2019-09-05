@@ -1370,6 +1370,27 @@ In \texttt{NearestNeighbourn Routing} il vettore delle distance \textit{distPrev
 In \textit{Listing 6} il metodo \texttt{ Nearest Neighbourn TrackPath Routing} da riga 27 a riga 30 utilizza la variabile \textit{appoCluster} per assicurarsi che tutto il \textit{cluster} sia stato collegato. Utilizzando un  vettore inizializzato con i clienti da collegare e rimuovendo il cliente ongi volta che viene connesso, ridurrebbe il tempo di esecuzione.
 Nell'algoritmo Genetico \texttt{Listing 8} le soluzioni vengono estese in stringhe e di conseguenza tolti i depositi , questo modifica un po la soluzione iniziale, portando poi di fatto ad una disposizione diversa dei depositi.   Inoltre il \texttt{Crossover} si potrebbero implementare diversi tipi di crossover e farli accadere con una certa probabilità. Infine \texttt{Mutation} è definito da un semplice algoritmo di ricerca locale, mentre bisognerebbe provare altri tipi di mutazione che interessino più parti della soluzione.
 Tutte le migliorie e i problemi evidenziati non sono stati ulteriormente indagati, a causa di una mancanza di tempo in quanto il presente elaborato si limita a presentare uno studio dello stato dell'arte applicato ad un particolare sottoinsieme di istanze.
+
+\section{Struttura del Codice}
+Il programma richiede \textbf{python3}.
+Il codice si struttura nei seguenti file principali:
+\begin{itemize}
+\item  \texttt{main.py} Il metodo principale da dover far partire il programma, da riga di comanda una volta posizionati all'interno della cartella digitare \texttt{python3 main.py}. Al suo interno la stringa \texttt{benchmark}  seleziona l'insieme di istanze sulle quali applicare gli algoritmi elencati. I possibili valori sono \texttt{cvrp} le istanze fornite dal Prof. Bresolin e \texttt{avrp} le istanze dello studio \cite{studio}.
+
+\item  \texttt{parser.py} All'interno si trovano tutti i metodi responsabili per la traduzione in grafo delel istanze TSPLIB95 e A-VRP.
+
+\item \texttt{cvrpGraph} La classe che contiene il grafo utilizzato per rappresentare le istanze e i metodi per estrarre le informazioni.
+
+\item \texttt{route.py} La classe che descrive una \emph{route} con i metodi per modificare e aggiungere i clienti. 
+
+\item \texttt{solver.py} La classe principale che contiene tutti i metodi elencati, utilizzati per risolvere le istanze.
+
+
+\item \texttt{CompareResult.txt} Un file che contiene la cronologia di tutte le istanze risolte dal programma.
+
+\end{itemize}
+
+Le cartelle presenti contengono le soluzioni delle istanze per ogni tipo di algoritmo applicato, la cartella \emph{relazione} contiene questo stesso elaborato. Nella cartela è presente anche lo studio \cite{studio}.
  
 \bibliographystyle{unsrt}
 \bibliography{biblio}

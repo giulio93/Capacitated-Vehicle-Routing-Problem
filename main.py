@@ -25,15 +25,20 @@ if __name__ == "__main__":
 
     files = par.readInstanceList(path)
     for f in files:
+      ######################################## PARSER ###################################################
       graphToSolve =  par.createGraph(path,f)
 
+      ######################################## CLARKE ABD WRIGHT SEQUENTIAL ###################################################
+      
       start_time_par =time.time()
       solutionParallel = sol.ClarkeWright(graphToSolve,True)
       if(sol.SearchaAndCompleteSequence(solutionParallel,graphToSolve)):
           print("Solution Clarke and Wright Parallel Invalid ") 
       else:
           sol.writeResult(solutionParallel,graphToSolve,start_time_par,"mysol_par") 
-      
+
+      ######################################## CLARKE ABD WRIGHT PARALLEL ###################################################
+
       start_time_seq =time.time()
       solutionSequential = sol.ClarkeWright(graphToSolve,False)
       if(sol.SearchaAndCompleteSequence(solutionSequential,graphToSolve)):
@@ -42,6 +47,7 @@ if __name__ == "__main__":
           sol.writeResult(solutionSequential,graphToSolve,start_time_seq,"mysol") 
 
      
+      ######################################## CLUSTERING METHOD - RADAR RADIUS FRONTIER ###################################################
 
       GAPassignementRR =-1
       GAPassignementRand = -1
@@ -54,6 +60,9 @@ if __name__ == "__main__":
         GAPassignementRR = sol.GAPsolver(graphToSolve,K_clusterRR)
         start_time_clustering = (time.time() - start_time_clustering)
         if(GAPassignementRR != -1):
+
+      ######################################## CLUSTERING METHOD - NEAREST NEIGHBOURN  ###################################################
+
             start_time_sol1 =  time.time()
             solution = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_FJ")
             if(sol.SearchaAndCompleteSequence(solution,graphToSolve)):
@@ -61,6 +70,8 @@ if __name__ == "__main__":
             else:
               sol.writeResult(solution,graphToSolve,(start_time_sol1 - start_time_clustering),"mysol_FJ")
             
+       ######################################## CLUSTERING METHOD - TRACK PATH  ###################################################
+
             start_time_sol2 = time.time()
             solution2 = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRR,K_clusterRR,"mysol_DJ")         
             if(sol.SearchaAndCompleteSequence(solution2,graphToSolve)):
@@ -71,6 +82,8 @@ if __name__ == "__main__":
           n_vehicles = n_vehicles +1
 
 
+      ######################################## CLUSTERING METHOD - RANDOM CENTROID SELECTION  ###################################################
+
       n_vehicles = 0
       while(GAPassignementRand == -1):
         start_time_clustering34 = time.time()   
@@ -78,12 +91,17 @@ if __name__ == "__main__":
         GAPassignementRand = sol.GAPsolver(graphToSolve,K_clusterRand)
         start_time_clustering34 = (time.time() - start_time_clustering34)
         if(GAPassignementRand != -1):
+
+      ######################################## CLUSTERING METHOD - NEAREST NEIGHBOURN  ###################################################
+
             start_time_sol3 =time.time()
             solution = sol.FisherJaikumar_Routing(graphToSolve,GAPassignementRand,K_clusterRand,"mysol_FJ_kRand")
             if(sol.SearchaAndCompleteSequence(solution,graphToSolve)):
               print("Solution Routing NN Random Invalid! ! ")
             else :
               sol.writeResult(solution,graphToSolve,(start_time_sol3 - start_time_clustering34),"mysol_FJ_kRand")
+       
+      ######################################## CLUSTERING METHOD - TRACK PATH  ###################################################
 
             start_time_sol4 =time.time()
             solution2 = sol.FisherJaikumar_Routing_Dijkastra(graphToSolve,GAPassignementRand,K_clusterRand,"mysol_DJ_kRand")          
@@ -93,7 +111,9 @@ if __name__ == "__main__":
               sol.writeResult(solution2,graphToSolve,(start_time_sol4 - start_time_clustering34 ),"mysol_DJ_kRand")
         else:
           n_vehicles = n_vehicles +1
-        
+
+      ######################################## ROUTE FIRST - CLUSTER SECOND  ###################################################
+  
       start_time =time.time ()
       solution3 = sol.ClusterFirst_RouteSecond(graphToSolve,"Sol_CR")
       if(sol.SearchaAndCompleteSequence(solution3,graphToSolve)):
@@ -101,6 +121,7 @@ if __name__ == "__main__":
       else:
         sol.writeResult(solution3,graphToSolve,start_time,"Sol_CR")   
 
+      ######################################## GENETIC ALGORITHM  ###################################################
 
       start_time = time.time ()
       #Parameters setting: percentage of Elitism, threshold of improving fitting, number of cromosome

@@ -27,10 +27,7 @@ class Route:
                     else:
                         self.customers.insert(len(self.customers),index)
                         return 1
-        
-
-        
-    
+          
     def checkCustomer(self, index):
         if index not in self.customers:
             #print("Customer: " + str(index) +" not present")
@@ -45,8 +42,7 @@ class Route:
 
             else: 
                 return i #Yeah, it's the starting point or the end point
-    
-    
+      
     def getCustomers(self):
         return self.customers
 
@@ -65,7 +61,6 @@ class Route:
     def getCapacity(self):
         return self.capacity 
      
-    
     def printRoute(self,name):
         textRoute = "Route_"+str(name)+": "
         print("Route:", end =" ")
